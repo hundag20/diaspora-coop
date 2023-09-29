@@ -1,8 +1,7 @@
 import * as React from "react";
 import cooplogo from "../assets/img/cooplogo.png";
 import "../styles/headers.scss";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import MainButton from "./Buttons/mainButton";
 export interface IHeaderProps {}
 
 export function Header(props: IHeaderProps) {
@@ -63,25 +62,25 @@ export function Header(props: IHeaderProps) {
     },
   ];
 
-  const social = [
+  const socials = [
     {
-      icon: { prefix: "fab", iconName: "facebook" },
+      icon: "fas fa-facebook",
       link: "www.facebook.com",
     },
     {
-      icon: { prefix: "fab", iconName: "instagram" },
+      icon: "fas fa-instagram",
       link: "www.instagram.com",
     },
     {
-      icon: { prefix: "fab", iconName: "twitter" },
+      icon: "fas fa-twitter",
       link: "www.twitter.com",
     },
     {
-      icon: { prefix: "fab", iconName: "linkedin" },
+      icon: "fas fa-linkedin",
       link: "www.linkedin.com",
     },
     {
-      icon: { prefix: "fab", iconName: "telegram" },
+      icon: "fas fa-telegram",
       link: "www.telegram.com",
     },
   ];
@@ -90,13 +89,14 @@ export function Header(props: IHeaderProps) {
     <div>
       <div className="tophead">
         <div className="socials">
-          {/* {social.map((social, index) => (
+          {socials.map((social, index) => (
             <div className="socail">
-              <FontAwesomeIcon icon={social.icon} />
+              <i className={social.icon}></i>
             </div>
-          ))} */}
+          ))}
         </div>
-        <button>Internet Banking</button>
+        {/* <button>Internet Banking</button> */}
+        <MainButton text="Internet Banking" link="/" />
       </div>
       <div className="container">
         <div className="left">

@@ -1,5 +1,19 @@
 @import "../styles/variable.scss";
 
+.tophead {
+  display: flex;
+  justify-content: right;
+  gap: 1rem;
+  padding: 1rem $resPadding;
+  padding-bottom: 5px;
+  .socials {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
 .container {
   display: flex;
   justify-content: space-between;
