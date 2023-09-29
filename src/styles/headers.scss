@@ -1,0 +1,21 @@
+@import "../styles/variable.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem $resPadding;
+
+  .left {
+    img {
+      width: 100px;
+    }
+  }
+
+  .right ul {
+    display: flex;
+    justify-content: right;
+    gap: 2rem;
+    align-items: center;
+  }
+}
