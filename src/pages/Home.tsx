@@ -5,8 +5,10 @@ export interface IHomeProps {
 
 export function Home(props: IHomeProps) {
     return (
-        <div>
+        <p style={{ display: 'flex', padding: '10rem' }}>
             Body here
-        </div>
+            Body here
+            Body here
+        </p>
     );
 }
