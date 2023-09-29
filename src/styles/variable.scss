@@ -75,4 +75,12 @@ $mobilePadding: 1.5rem;
       @content;
     }
   }
+
+  @if $point ==mdl {
+
+    // 1080px
+    @media (min-width: 1114px) {
+      @content;
+    }
+  }
 }

@@ -12,12 +12,6 @@
             margin-left: auto;
             padding: 64px 24px 56px 24px;
 
-
-            @include breakpoint(md) {
-                flex-direction: row;
-                padding: 104px 64px 80px;
-            }
-
             .column {
                 a svg {
                     font-size: 19px;
@@ -112,23 +106,30 @@
             }
 
 
-            .column.col1 {
-                width: 28.66%;
-                padding: 0px 64px 0px 0px;
+            @include breakpoint(mdl) {
 
+                flex-direction: row;
+                padding: 104px 64px 80px;
+
+                .column.col1 {
+                    width: 28.66%;
+                    padding: 0px 64px 0px 0px;
+
+                }
+
+                .column.col2 {
+                    width: 20.801%;
+                }
+
+                .column.col3 {
+                    width: 24.635%;
+                }
+
+                .column.col4 {
+                    width: 25.904%;
+                }
             }
 
-            .column.col2 {
-                width: 20.801%;
-            }
-
-            .column.col3 {
-                width: 24.635%;
-            }
-
-            .column.col4 {
-                width: 25.904%;
-            }
         }
 
     }
