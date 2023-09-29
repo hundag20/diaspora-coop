@@ -1,0 +1,42 @@
+@import './variable.scss';
+
+.footer-top {
+    background-color: $primary;
+    display: flex;
+    flex-direction: column;
+    padding: 0 $resPadding;
+
+    @include breakpoint(md) {
+        flex-direction: row;
+        padding: 104px 0px 80px 0px;
+    }
+
+    .column {
+        .title {
+            font-family: "Poppins", sans-serif;
+            font-size: 18.24px;
+            line-height: 18.24px;
+            color: #ffffff;
+            text-align: start;
+            letter-spacing: normal;
+            text-wrap: nowrap
+        }
+    }
+
+
+    .column.col1 {
+        width: 28.66%;
+    }
+
+    .column.col2 {
+        width: 20.801%;
+    }
+
+    .column.col3 {
+        width: 24.635%;
+    }
+
+    .column.col4 {
+        width: 25.904%;
+    }
+}
