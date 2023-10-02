@@ -1,35 +1,49 @@
 @import "../styles/variable.scss";
 
-.tophead {
-  display: flex;
-  justify-content: right;
-  gap: 1rem;
-  padding: 1rem $resPadding;
-  padding-bottom: 5px;
-  .socials {
+.headerComp {
+  .tophead {
     display: flex;
     justify-content: right;
-    align-items: center;
-    gap: 0.5rem;
-  }
-}
-
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem $resPadding;
-
-  .left {
-    img {
-      width: 100px;
+    gap: 1rem;
+    padding: 0.5rem $resPadding;
+    padding-bottom: 5px;
+    .socials {
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      gap: 0.5rem;
     }
   }
 
-  .right ul {
+  .container {
     display: flex;
-    justify-content: right;
-    gap: 2rem;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 $resPadding;
+
+    .left {
+      img {
+        width: 100px;
+      }
+    }
+
+    .right {
+      ul {
+        display: flex;
+        justify-content: right;
+        // gap: 2rem;
+        align-items: center;
+
+        li {
+          font-size: 15px;
+          line-height: 27px;
+          font-family: Arial, sans-serif;
+          letter-spacing: -0.3px;
+          padding: 0px 25px;
+          font-weight: 700;
+          text-transform: capitalize;
+        }
+      }
+    }
   }
 }

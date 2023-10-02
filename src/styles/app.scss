@@ -1,3 +1,5 @@
+@import "./variable.scss";
+
 body {
   margin: 0;
   // font-family: sans-serif;
@@ -31,4 +33,14 @@ ul {
 a {
   color: black;
   text-decoration: none;
+}
+
+.colouredspan {
+  color: $primary;
+  font-family: $playfair;
+  transition: 0.4s color;
+}
+
+.colouredspan:hover {
+  color: black;
 }
