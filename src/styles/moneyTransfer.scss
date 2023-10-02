@@ -1,0 +1,62 @@
+.cards-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .cards-grid {
+        align-items: center;
+
+        .grid-item {
+            width: 33.3%;
+
+            .agent-card {
+                box-shadow: 0 0 0 0;
+                overflow: initial;
+
+
+                .card-content {
+                    background-color: rgba(255, 255, 255, 0.9);
+                    box-shadow: -1.21px 6.894px 15px 0px rgba(0, 0, 0, 0.07);
+                    border-radius: 4px;
+                    padding: 55px 0px 55px 0px;
+
+                    .card-desc {
+                        padding: 0;
+
+                        p {
+                            border-width: 3px;
+                            border-style: solid;
+                            border-color: #00adef;
+                            border-top-width: 0 !important;
+                            border-right-width: 0 !important;
+                            border-bottom-width: 0 !important;
+
+
+                            padding-left: 40px;
+                            padding-right: 40px;
+
+                            font-family: "Open Sans", sans-serif;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 29.7143px;
+                            color: rgb(75, 79, 88);
+                        }
+
+                        margin: 0px 0px 20px 0px
+                    }
+
+                    .card-actions {
+                        padding-block: 14px;
+                        padding-inline: 60px;
+
+                        a {
+                            color: #00b0f2;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
