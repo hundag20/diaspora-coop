@@ -21,6 +21,7 @@ export function Header(props: IHeaderProps) {
   const menuItems = [
     {
       label: "Home",
+      route: "/",
     },
     {
       label: "About",
@@ -48,9 +49,11 @@ export function Header(props: IHeaderProps) {
     },
     {
       label: "Get A Loan",
+      route: "get-a-loan",
     },
     {
       label: "Money Transfer",
+      route: "money-transfer-service",
     },
     {
       label: "Coopbank Alhuda Diaspora",
