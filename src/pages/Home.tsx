@@ -2,6 +2,8 @@ import * as React from "react";
 import "../styles/home.scss";
 import ReadMoreButton from "../components/Buttons/readMoreButton";
 import ApplyNowButton from "../components/Buttons/applyNowButton";
+import Slideshow from "../components/slideShow/slideShow";
+import BasicButton from "../components/Buttons/basicButton";
 export interface IHomeProps {}
 
 export function Home(props: IHomeProps) {
@@ -30,19 +32,19 @@ export function Home(props: IHomeProps) {
 
   const resources = [
     {
-      icons: "elementkit-infobox-icon fas fa-home",
+      icons: "elementkit-infobox-icon icon icon-Money",
       title: "Foreign Exchange Rate",
       description:
         "Foreign Exchange Rate is defined as the price of the domestic currency with respect to another currency. The purpose of foreign exchange is to compare one currency with another for showing their relative values.",
     },
     {
-      icons: "elementkit-infobox-icon fas fa-home",
+      icons: "elementkit-infobox-icon icon icon-license",
       title: "Trade Registration and Licensing",
       description:
         "Obtaining a business license in Ethiopia. The Ministry of Trade and Industry is the main institution responsible for registering a business in Ethiopia.",
     },
     {
-      icons: "elementkit-infobox-icon fas fa-home",
+      icons: "elementkit-infobox-icon icon icon-bank1",
       title: "National Bank Directives",
       description:
         "The National Bank of Ethiopia was established in 1963 by proclamation 206 of 1963 and began operation in January 1964. Prior to this proclamation, the Bank used to carry out dual activities, i.e. commercial banking and central banking.",
@@ -68,7 +70,6 @@ export function Home(props: IHomeProps) {
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
     },
   ];
-
   const diaspora = [
     {
       title: "Diaspora Accounts",
@@ -98,11 +99,68 @@ export function Home(props: IHomeProps) {
       img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
     },
   ];
+
+  const howItWorks = [
+    {
+      icon: "elementkit-infobox-icon fas fa-edit icon-edit1",
+      title: "Create Your Account",
+      description:
+        "Don’t have a Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!",
+    },
+    {
+      icon: "elementkit-infobox-icon fas fa-book fa-finance-book",
+      title: "Your account Approved & Ready",
+      description:
+        "You will receive an e-mail with your account details, and you can begin depositing into it",
+    },
+    {
+      icon: "elementkit-infobox-icon fas fa-loan",
+      title: "Request For Loan",
+      description:
+        "You can use a different diaspora loan once you have a diaspora account",
+    },
+    {
+      icon: "elementkit-infobox-icon fas fa-Document-Search",
+      title: "CoopBank Review Your Request",
+      description:
+        "In less than 24 hours, Coopbank will review your document and provide you with a response",
+    },
+  ];
   return (
     <div>
-      <p style={{ display: "flex", padding: "10rem" }}>
-        Body here Body here Body here
-      </p>
+      <div className="heroComp">
+        <div className="container">
+          <div className="content">
+            <div className="top">
+              <h3>Diaspora</h3>
+              <h2>Banking</h2>
+            </div>
+            <p className="discription">
+              CoopBank of Oromia is one of the leading private banks in Ethiopia
+              with very distinctive banking history. Diaspora Banking is one of
+              the banking segments of CoopBank which has been given due
+              emphasis. CoopBank Diaspora Account has been operational since
+              August 2012.
+            </p>
+            <div className="hero_button_joins">
+              <button className="open_account">
+                <i aria-hidden="true" className="far fa-address-card"></i>{" "}
+                <span>Open An Account</span>
+              </button>
+              <button className="loans">
+                <i aria-hidden="true" className="icon icon-save-money"></i>
+                <span>Request A Loan</span>
+              </button>
+            </div>
+          </div>
+          <div className="image">
+            <img
+              src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"
+              alt="Coop bank"
+            />
+          </div>
+        </div>
+      </div>
       <div className="statsComp">
         <div className="container">
           <div className="stats">
@@ -194,6 +252,41 @@ export function Home(props: IHomeProps) {
         </div>
       </div>
 
+      <div className="worksComp">
+        <div className="container">
+          <div className="header">
+            <h3>
+              How It <span className="colouredspan">Work?</span>{" "}
+            </h3>
+            <p>
+              Follow our step-by-step guide to creating an account and
+              requesting a loan
+            </p>
+          </div>
+          <div className="content">
+            <div className="left">
+              {howItWorks.map((work) => (
+                <div className="works">
+                  <div className="icon">
+                    <i aria-hidden="true" className={work.icon}></i>
+                  </div>
+                  <div className="texts">
+                    <h3>{work.title}</h3>
+                    <p>{work.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="right">
+              <img
+                src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2023/05/099A9988-2-1.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="whatweofferComp">
         <div className="container">
           <div className="header">
@@ -217,9 +310,45 @@ export function Home(props: IHomeProps) {
         </div>
       </div>
 
-      <p style={{ display: "flex", padding: "10rem" }}>
-        Body here Body here Body here
-      </p>
+      <div className="offlineForm">
+        <div className="container">
+          <div className="box">
+            <div className="left">
+              <h3>Offline Form</h3>
+              <p>
+                Please <span className="orangecolor">Download</span> Diaspora
+                Account Opening Offline Form and{" "}
+                <span className="orangecolor">Upload</span>
+              </p>
+              <ApplyNowButton link="#" text="Download Now" />
+            </div>
+            <div className="right">
+              <form action="#">
+                <div className="formcontrol">
+                  <p>
+                    Name <span className="requiredcolor">*</span>
+                  </p>
+                  <input type="text" placeholder="Name" />
+                </div>
+                <div className="formcontrol">
+                  <p>
+                    Email Address <span className="requiredcolor">*</span>
+                  </p>
+                  <input type="text" placeholder="E.g. abdi@gmail.com" />
+                </div>
+                <div className="action">
+                  <BasicButton text="Upload file" link="#" />
+                </div>
+                {/* <button type="submit">Upload file</button> */}
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="slideShowComp">
+        <Slideshow />
+      </div>
     </div>
   );
 }
