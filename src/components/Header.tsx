@@ -2,12 +2,13 @@ import * as React from "react";
 import cooplogo from "../assets/img/cooplogo.png";
 import "../styles/headers.scss";
 import MainButton from "./Buttons/mainButton";
-export interface IHeaderProps {}
+export interface IHeaderProps { }
 
 export function Header(props: IHeaderProps) {
   const menuItems = [
     {
       label: "Home",
+      route: '/'
     },
     {
       label: "About",
@@ -38,6 +39,7 @@ export function Header(props: IHeaderProps) {
     },
     {
       label: "Money Transfer",
+      route: 'money-transfer-service'
     },
     {
       label: "Coopbank Alhuda Diaspora",
@@ -106,18 +108,20 @@ export function Header(props: IHeaderProps) {
           <ul>
             {menuItems.map((menuItem, index) => (
               <li key={index}>
-                {menuItem.subMenu ? (
-                  <>
-                    {menuItem.label}
-                    {/* <ul>
+                <a href={menuItem?.route}>
+                  {menuItem.subMenu ? (
+                    <>
+                      {menuItem.label}
+                      {/* <ul>
                       {menuItem.subMenu.map((subItems, subIndex) => (
                         <li key={subIndex}>{subItems}</li>
                       ))}
                     </ul> */}
-                  </>
-                ) : (
-                  menuItem.label
-                )}
+                    </>
+                  ) : (
+                    menuItem.label
+                  )}
+                </a>
               </li>
             ))}
           </ul>
