@@ -171,7 +171,7 @@ const SwiftCode = () =>
 
 export function MoneyTransfer(props: IMoneyTransferProps) {
     return (<div>
-        <TopBanner containerClass="mt-hd-container" overlayClass="mt-hd-background-overlay" contentClass="mt-hd-content" footerClass="mt-hd-footer" contentHeader="Money Transfer" contentParagraph="We Partner With Over 13 World Best Money Transfer Agents" />
+        <TopBanner containerClass="mt hd-container" overlayClass="mt hd-background-overlay" contentClass="mt hd-content" footerClass="mt hd-footer" contentHeader="Money Transfer" contentParagraph="We Partner With Over 13 World Best Money Transfer Agents" />
         <div className="title">
             <h2><strong>International Remittance</strong></h2>
         </div>

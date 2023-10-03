@@ -1,4 +1,4 @@
-.mt-hd-container {
+.hd-container {
     background-image: url('../assets/img/famous-monuments-world_117023-91-1.jpg');
     // Other background properties can be set here
     background-position: center center;
@@ -11,7 +11,7 @@
     margin-bottom: 18px;
     padding: 112px 0px 0px 0px;
 
-    .mt-hd-background-overlay {
+    .hd-background-overlay {
         position: absolute;
         box-sizing: border-box;
         height: 100%;
@@ -23,7 +23,7 @@
         opacity: 0.9;
     }
 
-    .mt-hd-content {
+    .hd-content {
         position: relative;
         width: 100%;
         height: 100%;
@@ -57,7 +57,7 @@
         }
     }
 
-    .mt-hd-footer {
+    .hd-footer {
         transform: rotate(180deg);
         bottom: -1px;
         overflow: hidden;
@@ -79,6 +79,37 @@
             position: relative;
             left: 50%;
             transform: translateX(-50%);
+        }
+    }
+}
+
+.gl.hd-container {
+    background-image: none;
+    padding: 59px 0px 0px 0px;
+    padding-left: 8%;
+
+    .gl.hd-content {
+        align-items: flex-start;
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            word-wrap: break-word;
+            border: 0;
+            font-style: inherit;
+            outline: 0;
+            vertical-align: baseline;
+            clear: both;
+            box-sizing: border-box;
+            padding: 0;
+            line-height: 1.3;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            color: #FFFFFF;
+            font-size: 17px;
         }
     }
 }

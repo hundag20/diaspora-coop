@@ -36,6 +36,7 @@ export function Header(props: IHeaderProps) {
     },
     {
       label: "Get A Loan",
+      route: 'get-a-loan'
     },
     {
       label: "Money Transfer",
