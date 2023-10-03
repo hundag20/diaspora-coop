@@ -42,6 +42,59 @@
           padding: 0px 25px;
           font-weight: 700;
           text-transform: capitalize;
+          cursor: pointer;
+          transition: 0.3s color;
+
+          .main {
+            display: flex;
+            justify-content: left;
+            gap: 10px;
+            align-items: center;
+          }
+
+          .submenu {
+            background-color: rgb(247, 247, 247);
+            position: absolute;
+            width: 100%;
+            left: 0;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            .sub_container {
+              padding: 2rem $resPadding;
+              display: flex;
+              justify-content: center;
+              gap: 4rem;
+              align-items: start;
+
+              .submenu-item {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                width: 200px;
+
+                .icon {
+                  font-size: 80px;
+                  color: $primary;
+                }
+                .submenu-label {
+                  font-size: 18px;
+                  line-height: 30px;
+                }
+              }
+              .submenu-item:hover {
+                color: $third;
+              }
+            }
+          }
+        }
+
+        li:hover {
+          .main {
+            color: $primary;
+          }
         }
       }
     }

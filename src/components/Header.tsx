@@ -30,19 +30,19 @@ export function Header(props: IHeaderProps) {
       subMenu: [
         {
           name: "Current Account",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
         {
           name: "Fixed-Time Deposit",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
         {
           name: "Non-Repatriable Account",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
         {
           name: "ECOLFL Savings Account",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
       ],
     },
@@ -57,19 +57,19 @@ export function Header(props: IHeaderProps) {
       subMenu: [
         {
           name: "About CoopBank Alhuda",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
         {
           name: "Diaspora Wadia Saving Account",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
         {
           name: "Diaspora Mudarabah Savings Account",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
         {
           name: "Diaspora Mudarabah Fixed Term Deposit",
-          icon: "",
+          icon: "elementskit-funfact-icon fas fa-globe-americas",
         },
       ],
     },
@@ -126,29 +126,35 @@ export function Header(props: IHeaderProps) {
               >
                 {menuItem.subMenu ? (
                   <>
-                    {menuItem.label}
-                    {menuItem.subMenu && (
-                      <i aria-hidden="true" className="far fa-address-card"></i>
-                    )}
+                    <span className="main">
+                      {menuItem.label}
+                      {menuItem.subMenu && (
+                        <i className="fas fa-solid fa-angle-down"></i>
+                      )}
+                    </span>
                     {menuItem.subMenu && openSubMenu === index && (
                       <div className="submenu">
-                        {menuItem.subMenu.map((subItem, subIndex) => (
-                          <div key={subIndex} className="submenu-item">
-                            <i
-                              aria-hidden="true"
-                              className="icon icon-save-money"
-                            ></i>
-                            <span className="submenu-label">
-                              label
-                              {/* {subItem.label} */}
-                            </span>
-                          </div>
-                        ))}
+                        <div className="sub_container">
+                          {menuItem.subMenu.map((subItem, subIndex) => (
+                            <div key={subIndex} className="submenu-item">
+                              <div className="icon">
+                                <i
+                                  aria-hidden="true"
+                                  className={subItem.icon}
+                                ></i>
+                              </div>
+                              <span className="submenu-label">
+                                {/* label */}
+                                {subItem.name}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </>
                 ) : (
-                  menuItem.label
+                  <span className="main">{menuItem.label}</span>
                 )}
               </li>
             ))}

@@ -29,7 +29,6 @@ export function Home(props: IHomeProps) {
       value: "13 +",
     },
   ];
-
   const resources = [
     {
       icons: "elementkit-infobox-icon icon icon-Money",
@@ -147,6 +146,9 @@ export function Home(props: IHomeProps) {
                 <i aria-hidden="true" className="far fa-address-card"></i>{" "}
                 <span>Open An Account</span>
               </button>
+              <div className="or-container">
+                <span className="or-sign">or</span>
+              </div>
               <button className="loans">
                 <i aria-hidden="true" className="icon icon-save-money"></i>
                 <span>Request A Loan</span>
