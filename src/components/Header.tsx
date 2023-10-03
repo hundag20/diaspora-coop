@@ -86,7 +86,7 @@ export function Header(props: IHeaderProps) {
   ];
 
   return (
-    <div>
+    <div className="headerComp">
       <div className="tophead">
         <div className="socials">
           {socials.map((social, index) => (
