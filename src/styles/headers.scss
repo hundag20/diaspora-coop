@@ -4,14 +4,22 @@
   .tophead {
     display: flex;
     justify-content: right;
-    gap: 1rem;
+    gap: 2rem;
     padding: 0.5rem $resPadding;
     padding-bottom: 5px;
     .socials {
       display: flex;
       justify-content: right;
       align-items: center;
-      gap: 0.5rem;
+      gap: calc(0.5rem + 1vw);
+      color: $primary;
+      font-size: 5px;
+      cursor: pointer;
+      transition: 0.3s color;
+
+      .socail:hover {
+        color: rgb(18, 0, 155);
+      }
     }
   }
 
@@ -82,8 +90,10 @@
                   width: 200px;
 
                   .icon {
-                    font-size: 80px;
                     color: $primary;
+                    .muicon {
+                      font-size: 80px;
+                    }
                   }
                   .submenu-label {
                     font-size: 18px;

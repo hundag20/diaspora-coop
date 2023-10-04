@@ -4,6 +4,15 @@ import ReadMoreButton from "../components/Buttons/readMoreButton";
 import ApplyNowButton from "../components/Buttons/applyNowButton";
 import Slideshow from "../components/slideShow/slideShow";
 import BasicButton from "../components/Buttons/basicButton";
+import {
+  PlayLesson,
+  PersonSearch,
+  LocalAtm,
+  Description,
+  WorkspacePremium,
+  OtherHouses,
+  AccountBalanceWallet,
+} from "@mui/icons-material";
 export interface IHomeProps {}
 
 export function Home(props: IHomeProps) {
@@ -31,19 +40,19 @@ export function Home(props: IHomeProps) {
   ];
   const resources = [
     {
-      icons: "elementkit-infobox-icon icon icon-Money",
+      icons: <AccountBalanceWallet className="muicon" />,
       title: "Foreign Exchange Rate",
       description:
         "Foreign Exchange Rate is defined as the price of the domestic currency with respect to another currency. The purpose of foreign exchange is to compare one currency with another for showing their relative values.",
     },
     {
-      icons: "elementkit-infobox-icon icon icon-license",
+      icons: <WorkspacePremium className="muicon" />,
       title: "Trade Registration and Licensing",
       description:
         "Obtaining a business license in Ethiopia. The Ministry of Trade and Industry is the main institution responsible for registering a business in Ethiopia.",
     },
     {
-      icons: "elementkit-infobox-icon icon icon-bank1",
+      icons: <OtherHouses className="muicon" />,
       title: "National Bank Directives",
       description:
         "The National Bank of Ethiopia was established in 1963 by proclamation 206 of 1963 and began operation in January 1964. Prior to this proclamation, the Bank used to carry out dual activities, i.e. commercial banking and central banking.",
@@ -101,25 +110,25 @@ export function Home(props: IHomeProps) {
 
   const howItWorks = [
     {
-      icon: "elementkit-infobox-icon fas fa-edit icon-edit1",
+      icon: <Description className="muicon" />,
       title: "Create Your Account",
       description:
         "Don’t have a Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!",
     },
     {
-      icon: "elementkit-infobox-icon fas fa-book fa-finance-book",
+      icon: <PlayLesson className="muicon" />,
       title: "Your account Approved & Ready",
       description:
         "You will receive an e-mail with your account details, and you can begin depositing into it",
     },
     {
-      icon: "elementkit-infobox-icon fas fa-loan",
+      icon: <LocalAtm className="muicon" />,
       title: "Request For Loan",
       description:
         "You can use a different diaspora loan once you have a diaspora account",
     },
     {
-      icon: "elementkit-infobox-icon fas fa-Document-Search",
+      icon: <PersonSearch className="muicon" />,
       title: "CoopBank Review Your Request",
       description:
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
@@ -183,7 +192,7 @@ export function Home(props: IHomeProps) {
         <div className="container">
           <div className="header">
             <h3>
-              What We <span>offer</span>
+              What We <span className="colouredspan">offer</span>
             </h3>
             <p>We are always there for your Diaspora Banking Needs!</p>
           </div>
@@ -269,9 +278,7 @@ export function Home(props: IHomeProps) {
             <div className="left">
               {howItWorks.map((work) => (
                 <div className="works">
-                  <div className="icon">
-                    <i aria-hidden="true" className={work.icon}></i>
-                  </div>
+                  <div className="icon">{work.icon}</div>
                   <div className="texts">
                     <h3>{work.title}</h3>
                     <p>{work.description}</p>
@@ -300,9 +307,7 @@ export function Home(props: IHomeProps) {
           <div className="offers">
             {resources.map((offer) => (
               <div className="offer">
-                <div className="icon">
-                  <i aria-hidden="true" className={offer.icons}></i>
-                </div>
+                <div className="icon">{offer.icons}</div>
                 <h4>{offer.title}</h4>
                 <p>{offer.description}</p>
                 <ReadMoreButton link="#" text="Read More" />

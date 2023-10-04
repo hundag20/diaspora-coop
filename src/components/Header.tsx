@@ -3,13 +3,28 @@ import cooplogo from "../assets/img/cooplogo.png";
 import "../styles/headers.scss";
 import MainButton from "./Buttons/mainButton";
 import { useState } from "react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  LinkedIn,
+  Telegram,
+  Badge,
+  Paid,
+  RequestQuote,
+  QueryBuilder,
+  Person,
+  PriceChange,
+  Mosque,
+} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 export interface IHeaderProps {}
 
 const myNumber: number | null = null;
 
 export function Header(props: IHeaderProps) {
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
-
+  const navigate = useNavigate();
   interface MyHandleFunctionState {
     count: number;
     message: string;
@@ -31,19 +46,19 @@ export function Header(props: IHeaderProps) {
       subMenu: [
         {
           name: "Current Account",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <Paid className="muicon" />,
         },
         {
           name: "Fixed-Time Deposit",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <QueryBuilder className="muicon" />,
         },
         {
           name: "Non-Repatriable Account",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <RequestQuote className="muicon" />,
         },
         {
           name: "ECOLFL Savings Account",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <Badge className="muicon" />,
         },
       ],
     },
@@ -60,19 +75,19 @@ export function Header(props: IHeaderProps) {
       subMenu: [
         {
           name: "About CoopBank Alhuda",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <Mosque className="muicon" />,
         },
         {
           name: "Diaspora Wadia Saving Account",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <Badge className="muicon" />,
         },
         {
           name: "Diaspora Mudarabah Savings Account",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <PriceChange className="muicon" />,
         },
         {
           name: "Diaspora Mudarabah Fixed Term Deposit",
-          icon: "elementskit-funfact-icon fas fa-globe-americas",
+          icon: <Person className="muicon" />,
         },
       ],
     },
@@ -80,23 +95,23 @@ export function Header(props: IHeaderProps) {
 
   const socials = [
     {
-      icon: "fas fa-facebook",
+      icon: <Facebook />,
       link: "www.facebook.com",
     },
     {
-      icon: "fas fa-instagram",
+      icon: <Instagram />,
       link: "www.instagram.com",
     },
     {
-      icon: "fas fa-twitter",
+      icon: <Twitter />,
       link: "www.twitter.com",
     },
     {
-      icon: "fas fa-linkedin",
+      icon: <LinkedIn />,
       link: "www.linkedin.com",
     },
     {
-      icon: "fas fa-telegram",
+      icon: <Telegram />,
       link: "www.telegram.com",
     },
   ];
@@ -106,8 +121,11 @@ export function Header(props: IHeaderProps) {
       <div className="tophead">
         <div className="socials">
           {socials.map((social, index) => (
-            <div className="socail">
-              <i className={social.icon}></i>
+            <div
+              onClick={() => window.open(`${social.link}`, "_blank")}
+              className="socail"
+            >
+              {social.icon}
             </div>
           ))}
         </div>
@@ -140,12 +158,7 @@ export function Header(props: IHeaderProps) {
                         <div className="sub_container">
                           {menuItem.subMenu.map((subItem, subIndex) => (
                             <div key={subIndex} className="submenu-item">
-                              <div className="icon">
-                                <i
-                                  aria-hidden="true"
-                                  className={subItem.icon}
-                                ></i>
-                              </div>
+                              <div className="icon">{subItem.icon}</div>
                               <span className="submenu-label">
                                 {/* label */}
                                 {subItem.name}
