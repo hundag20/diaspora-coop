@@ -13,76 +13,25 @@ import {
   OtherHouses,
   AccountBalanceWallet,
 } from "@mui/icons-material";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react";
+import AnimatedCounter from "../components/AnimatedCounter";
+
 export interface IHomeProps {}
 
-export function Home(props: IHomeProps) {
-  const stats = [
-    {
-      icon: "elementskit-funfact-icon fas fa-users",
-      title: "Total Membership",
-      value: "5 k+",
-    },
-    {
-      icon: "elementskit-funfact-icon fas fa-money-bill-alt",
-      title: "Deposit Amount",
-      value: "10 M+",
-    },
-    {
-      icon: "elementskit-funfact-icon fas fa-globe-americas",
-      title: "Countries",
-      value: "120 +",
-    },
-    {
-      icon: "elementskit-funfact-icon fas fa-share-square",
-      title: "Remmitance Agency",
-      value: "13 +",
-    },
-  ];
-  const resources = [
-    {
-      icons: <AccountBalanceWallet className="muicon" />,
-      title: "Foreign Exchange Rate",
-      description:
-        "Foreign Exchange Rate is defined as the price of the domestic currency with respect to another currency. The purpose of foreign exchange is to compare one currency with another for showing their relative values.",
-    },
-    {
-      icons: <WorkspacePremium className="muicon" />,
-      title: "Trade Registration and Licensing",
-      description:
-        "Obtaining a business license in Ethiopia. The Ministry of Trade and Industry is the main institution responsible for registering a business in Ethiopia.",
-    },
-    {
-      icons: <OtherHouses className="muicon" />,
-      title: "National Bank Directives",
-      description:
-        "The National Bank of Ethiopia was established in 1963 by proclamation 206 of 1963 and began operation in January 1964. Prior to this proclamation, the Bank used to carry out dual activities, i.e. commercial banking and central banking.",
-    },
-  ];
-  const offers = [
-    {
-      icons: "elementkit-infobox-icon fas fa-home",
-      title: "Mortgage Loan",
-      description:
-        "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
-    },
-    {
-      icons: "elementkit-infobox-icon fas fa-building",
-      title: "Investment Loan",
-      description:
-        "Coopbank offers Investment credit facility to enhance the potential of Diasporas to develop larger, more productive businesses investment in meaningful programs in their home country that can create jobs and economic growth back home.",
-    },
-    {
-      icons: "elementkit-infobox-icon fasicon icon-tools",
-      title: "Working Capital Loan",
-      description:
-        "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
-    },
-  ];
-  const diaspora = [
+interface DiasporaItem {
+  title: string;
+  description: string;
+  bullets: string[];
+  img: string;
+}
+const Diasport: React.FC = () => {
+  const diaspora: DiasporaItem[] = [
     {
       title: "Diaspora Accounts",
       description:
-        "Diaspora Banking Accounts allow Diasporas who resides and works outside the country to maintain and perform domestic and international transfers through their CoopBank Diaspora Accounts.",
+        "Diaspora Banking Accounts allow Diasporas who reside and work outside the country to maintain and perform domestic and international transfers through their CoopBank Diaspora Accounts.",
       bullets: [
         "Diaspora Current Account",
         "Diaspora Fixed-Time Deposit Account",
@@ -108,6 +57,349 @@ export function Home(props: IHomeProps) {
     },
   ];
 
+  interface ItemsProps {
+    index: number;
+    item: DiasporaItem;
+  }
+
+  const Items: React.FC<ItemsProps> = ({ index, item }) => {
+    const isEven = index % 2 === 0;
+    const [ref, inView] = useInView({
+      triggerOnce: false, // Only trigger the animation once
+    });
+
+    // Define animation variants for the image and content
+    const imageAnimationVariants = {
+      hidden: {
+        x: isEven ? "100%" : "-100%",
+        opacity: 0,
+      },
+      visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+          duration: 0.8,
+          ease: "easeOut",
+        },
+      },
+    };
+
+    const contentAnimationVariants = {
+      hidden: {
+        x: isEven ? "-100%" : "100%",
+        opacity: 0,
+      },
+      visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+          duration: 0.8,
+          ease: "easeOut",
+        },
+      },
+    };
+
+    // Split the title into words
+    const titleWords = item.title.split(" ");
+
+    // Create a span element with a class for the last word
+    const lastWord = <span className="colouredspan">{titleWords.pop()}</span>;
+
+    // Join the remaining words in the title
+    const titleWithoutLastWord = titleWords.join(" ");
+
+    return (
+      <motion.div
+        className={`item ${isEven ? "even" : "odd"}`}
+        ref={ref}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+      >
+        <motion.div className="image" variants={imageAnimationVariants}>
+          <img src={item.img} alt={item.title} />
+        </motion.div>
+        <motion.div className="content" variants={contentAnimationVariants}>
+          <h2>
+            {titleWithoutLastWord} {lastWord}
+          </h2>
+          <p>{item.description}</p>
+          <ul>
+            {item.bullets.map((bullet, bulletIndex) => (
+              <li key={bulletIndex}>{bullet}</li>
+            ))}
+          </ul>
+          <ApplyNowButton text="Apply now" link="#" />
+        </motion.div>
+      </motion.div>
+    );
+  };
+
+  return (
+    <div className="diaspora">
+      <div className="container">
+        <div className="cards">
+          {diaspora.map((item, index) => (
+            <Items key={index} item={item} index={index} />
+          ))}
+          <div className="card"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface WhatWeOfferItem {
+  title: string;
+  description: string;
+  icons: string;
+}
+const WhatWeOffer: React.FC = () => {
+  const offers: WhatWeOfferItem[] = [
+    {
+      icons: "elementkit-infobox-icon fas fa-home",
+      title: "Mortgage Loan",
+      description:
+        "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
+    },
+    {
+      icons: "elementkit-infobox-icon fas fa-building",
+      title: "Investment Loan",
+      description:
+        "Coopbank offers Investment credit facility to enhance the potential of Diasporas to develop larger, more productive businesses investment in meaningful programs in their home country that can create jobs and economic growth back home.",
+    },
+    {
+      icons: "elementkit-infobox-icon fasicon icon-tools",
+      title: "Working Capital Loan",
+      description:
+        "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
+    },
+  ];
+
+  // Use the useInView hook to detect when the "offers" section is in view
+  const [ref, inView] = useInView({
+    triggerOnce: false, // Only trigger the animation once
+    threshold: 0.2, // Adjust as needed
+  });
+
+  // Define animation variants for the "offers" section
+  const offersAnimationVariants = {
+    hidden: {
+      opacity: 0,
+      y: 100, // Start off-screen
+    },
+    visible: {
+      opacity: 1,
+      y: 0, // Slide up to its original position
+      transition: {
+        duration: 0.8, // Adjust the animation duration as needed
+      },
+    },
+  };
+
+  return (
+    <div className="whatweofferComp">
+      <div className="container">
+        <div className="header">
+          <h3>
+            What We <span className="colouredspan">offer</span>
+          </h3>
+          <p>We are always there for your Diaspora Banking Needs!</p>
+        </div>
+        <motion.div
+          className="offers"
+          ref={ref} // Attach the ref to the "offers" section
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"} // Animate when in view
+          variants={offersAnimationVariants} // Apply animation variants
+        >
+          {offers.map((offer) => (
+            <div className="offer">
+              <div className="icon">
+                <i aria-hidden="true" className={offer.icons}></i>
+              </div>
+              <h4>{offer.title}</h4>
+              <p>{offer.description}</p>
+              <ReadMoreButton link="#" text="Read More" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+interface UsefullDiasporaResoursesItems {
+  title: string;
+  description: string;
+  icons: React.ReactNode;
+}
+const UsefullDiasporaResourses: React.FC = () => {
+  const resources: UsefullDiasporaResoursesItems[] = [
+    {
+      icons: <AccountBalanceWallet className="muicon" />,
+      title: "Foreign Exchange Rate",
+      description:
+        "Foreign Exchange Rate is defined as the price of the domestic currency with respect to another currency. The purpose of foreign exchange is to compare one currency with another for showing their relative values.",
+    },
+    {
+      icons: <WorkspacePremium className="muicon" />,
+      title: "Trade Registration and Licensing",
+      description:
+        "Obtaining a business license in Ethiopia. The Ministry of Trade and Industry is the main institution responsible for registering a business in Ethiopia.",
+    },
+    {
+      icons: <OtherHouses className="muicon" />,
+      title: "National Bank Directives",
+      description:
+        "The National Bank of Ethiopia was established in 1963 by proclamation 206 of 1963 and began operation in January 1964. Prior to this proclamation, the Bank used to carry out dual activities, i.e. commercial banking and central banking.",
+    },
+  ];
+
+  // Use the useInView hook to detect when the "offers" section is in view
+  const [ref, inView] = useInView({
+    triggerOnce: false, // Only trigger the animation once
+    threshold: 0.2, // Adjust as needed
+  });
+
+  // Define animation variants for the "offers" section
+  const offersAnimationVariants = {
+    hidden: {
+      opacity: 0,
+      y: 100, // Start off-screen
+    },
+    visible: {
+      opacity: 1,
+      y: 0, // Slide up to its original position
+      transition: {
+        duration: 0.8, // Adjust the animation duration as needed
+      },
+    },
+  };
+
+  return (
+    <div className="whatweofferComp">
+      <div className="container">
+        <div className="header">
+          <h3>
+            Some Useful <span className="colouredspan">Diaspora</span> Resources
+          </h3>
+        </div>
+        <motion.div
+          className="offers"
+          ref={ref} // Attach the ref to the "offers" section
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"} // Animate when in view
+          variants={offersAnimationVariants} // Apply animation variants
+        >
+          {resources.map((offer) => (
+            <div className="offer">
+              <div className="icon">{offer.icons}</div>
+              <h4>{offer.title}</h4>
+              <p>{offer.description}</p>
+              <ReadMoreButton link="#" text="Read More" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+interface StatItems {
+  icon: string;
+  title: string;
+  value: number;
+}
+const Stats: React.FC = () => {
+  const stats: StatItems[] = [
+    {
+      icon: "elementskit-funfact-icon fas fa-users",
+      title: "Total Membership",
+      value: 5000,
+    },
+    {
+      icon: "elementskit-funfact-icon fas fa-money-bill-alt",
+      title: "Deposit Amount",
+      value: 10000000,
+    },
+    {
+      icon: "elementskit-funfact-icon fas fa-globe-americas",
+      title: "Countries",
+      value: 120,
+    },
+    {
+      icon: "elementskit-funfact-icon fas fa-share-square",
+      title: "Remmitance Agency",
+      value: 13,
+    },
+  ];
+
+  // Use the useInView hook to detect when the "offers" section is in view
+  const [ref, inView] = useInView({
+    triggerOnce: false, // Only trigger the animation once
+    threshold: 0.05, // Adjust as needed
+  });
+
+  // Define animation variants for the "offers" section
+  const offersAnimationVariants = {
+    hidden: {
+      opacity: 0,
+      y: 100, // Start off-screen
+    },
+    visible: {
+      opacity: 1,
+      y: 0, // Slide up to its original position
+      transition: {
+        duration: 0.8, // Adjust the animation duration as needed
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      className="statsComp"
+      ref={ref} // Attach the ref to the "offers" section
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"} // Animate when in view
+      variants={offersAnimationVariants} // Apply animation variants
+    >
+      <div className="container">
+        <div className="stats">
+          {stats.map((stat, index) => (
+            <div className="stat">
+              <div className="icon">
+                <i aria-hidden="true" className={stat.icon}></i>
+              </div>
+              {/* <h3>{stat.value} +</h3> */}
+              {/* <AnimatedValue value={stat.value} /> */}
+              <h3>
+                <AnimatedCounter
+                  from={0} // You can set the initial value to 0 or any other value as needed
+                  to={
+                    stat.value >= 1000000
+                      ? Math.round(stat.value / 1000000)
+                      : stat.value >= 1000
+                      ? Math.round(stat.value / 1000)
+                      : stat.value
+                  } // Set the target value to animate to
+                  duration={2.5} // Set the animation duration
+                  fontFamily="Arial" // Set the font family
+                  fontSize={60} // Set the font size
+                  color="#ffffff" // Set the color
+                />
+                {stat.value >= 1000000 ? "M" : stat.value >= 1000 ? "K" : ""}
+              </h3>
+
+              <p className="title">{stat.title}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export function Home(props: IHomeProps) {
   const howItWorks = [
     {
       icon: <Description className="muicon" />,
@@ -172,85 +464,12 @@ export function Home(props: IHomeProps) {
           </div>
         </div>
       </div>
-      <div className="statsComp">
-        <div className="container">
-          <div className="stats">
-            {stats.map((stat) => (
-              <div className="stat">
-                <div className="icon">
-                  <i aria-hidden="true" className={stat.icon}></i>
-                </div>
-                <h3>{stat.value}</h3>
-                <p className="title">{stat.title}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
 
-      <div className="whatweofferComp">
-        <div className="container">
-          <div className="header">
-            <h3>
-              What We <span className="colouredspan">offer</span>
-            </h3>
-            <p>We are always there for your Diaspora Banking Needs!</p>
-          </div>
-          <div className="offers">
-            {offers.map((offer) => (
-              <div className="offer">
-                <div className="icon">
-                  <i aria-hidden="true" className={offer.icons}></i>
-                </div>
-                <h4>{offer.title}</h4>
-                <p>{offer.description}</p>
-                <ReadMoreButton link="#" text="Read More" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <Stats />
 
-      <div className="diaspora">
-        <div className="container">
-          <div className="cards">
-            {diaspora.map((item, index) => {
-              const isEven = index % 2 === 0;
+      <WhatWeOffer />
 
-              // Split the title into words
-              const titleWords = item.title.split(" ");
-
-              // Create a span element with a class for the last word
-              const lastWord = (
-                <span className="colouredspan">{titleWords.pop()}</span>
-              );
-
-              // Join the remaining words in the title
-              const titleWithoutLastWord = titleWords.join(" ");
-              return (
-                <div className={`item ${isEven ? "even" : "odd"}`}>
-                  <div className="image">
-                    <img src={item.img} alt={item.title} />
-                  </div>
-                  <div className="content">
-                    <h2>
-                      {titleWithoutLastWord} {lastWord}
-                    </h2>
-                    <p>{item.description}</p>
-                    <ul>
-                      {item.bullets.map((bullet, bulletIndex) => (
-                        <li key={bulletIndex}>{bullet}</li>
-                      ))}
-                    </ul>
-                    <ApplyNowButton text="Apply now" link="#" />
-                  </div>
-                </div>
-              );
-            })}
-            <div className="card"></div>
-          </div>
-        </div>
-      </div>
+      <Diasport />
 
       <div className="applyComp">
         <div className="container">
@@ -296,26 +515,7 @@ export function Home(props: IHomeProps) {
         </div>
       </div>
 
-      <div className="whatweofferComp">
-        <div className="container">
-          <div className="header">
-            <h3>
-              Some Useful <span className="colouredspan">Diaspora</span>{" "}
-              Resources
-            </h3>
-          </div>
-          <div className="offers">
-            {resources.map((offer) => (
-              <div className="offer">
-                <div className="icon">{offer.icons}</div>
-                <h4>{offer.title}</h4>
-                <p>{offer.description}</p>
-                <ReadMoreButton link="#" text="Read More" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <UsefullDiasporaResourses />
 
       <div className="offlineForm">
         <div className="container">
