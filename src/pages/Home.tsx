@@ -12,6 +12,9 @@ import {
   WorkspacePremium,
   OtherHouses,
   AccountBalanceWallet,
+  AccountBalance,
+  Handyman,
+  Business,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -151,24 +154,24 @@ const Diasport: React.FC = () => {
 interface WhatWeOfferItem {
   title: string;
   description: string;
-  icons: string;
+  icons: React.ReactNode;
 }
 const WhatWeOffer: React.FC = () => {
   const offers: WhatWeOfferItem[] = [
     {
-      icons: "elementkit-infobox-icon fas fa-home",
+      icons: <OtherHouses className="muicon" />,
       title: "Mortgage Loan",
       description:
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
     },
     {
-      icons: "elementkit-infobox-icon fas fa-building",
+      icons: <Business className="muicon" />,
       title: "Investment Loan",
       description:
         "Coopbank offers Investment credit facility to enhance the potential of Diasporas to develop larger, more productive businesses investment in meaningful programs in their home country that can create jobs and economic growth back home.",
     },
     {
-      icons: "elementkit-infobox-icon fasicon icon-tools",
+      icons: <Handyman className="muicon" />,
       title: "Working Capital Loan",
       description:
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
@@ -214,9 +217,7 @@ const WhatWeOffer: React.FC = () => {
         >
           {offers.map((offer) => (
             <div className="offer">
-              <div className="icon">
-                <i aria-hidden="true" className={offer.icons}></i>
-              </div>
+              <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
               <ReadMoreButton link="#" text="Read More" />
@@ -248,7 +249,7 @@ const UsefullDiasporaResourses: React.FC = () => {
         "Obtaining a business license in Ethiopia. The Ministry of Trade and Industry is the main institution responsible for registering a business in Ethiopia.",
     },
     {
-      icons: <OtherHouses className="muicon" />,
+      icons: <AccountBalance className="muicon" />,
       title: "National Bank Directives",
       description:
         "The National Bank of Ethiopia was established in 1963 by proclamation 206 of 1963 and began operation in January 1964. Prior to this proclamation, the Bank used to carry out dual activities, i.e. commercial banking and central banking.",
@@ -387,7 +388,7 @@ const Stats: React.FC = () => {
                   fontSize={60} // Set the font size
                   color="#ffffff" // Set the color
                 />
-                {stat.value >= 1000000 ? "M" : stat.value >= 1000 ? "K" : ""}
+                {stat.value >= 1000000 ? "M" : stat.value >= 1000 ? "K" : ""} +
               </h3>
 
               <p className="title">{stat.title}</p>

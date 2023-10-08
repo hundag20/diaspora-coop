@@ -17,6 +17,12 @@ const StyledButton = styled.button`
   &:hover {
     background-color: #0056b3;
   }
+
+  /* Media query for smaller screens */
+  @media (max-width: 450px) {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
 `;
 
 interface ButtonProps {

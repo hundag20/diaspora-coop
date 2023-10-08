@@ -44,11 +44,7 @@ function AnimatedCounter({
     }
   }, [count, inView, to, duration]);
 
-  return (
-    <motion.span ref={ref} style={{ fontFamily, fontSize, color }}>
-      {rounded}
-    </motion.span>
-  );
+  return <motion.span ref={ref}>{rounded}</motion.span>;
 }
 
 AnimatedCounter.defaultProps = {
