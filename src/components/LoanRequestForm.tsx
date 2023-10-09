@@ -1,10 +1,9 @@
-import { FormControl, Grid, InputLabel, MenuItem } from '@mui/material';
-import { Select } from '@mui/base';
-import '../styles/loanForm.scss';
+import { Grid } from '@mui/material';
+import '../styles/form.scss';
 import { useState } from 'react';
 export interface ILoanRequestlangmProps {}
 
-const countries = [
+export const countries = [
   'Afghanistan',
   'Albania',
   'Algeria',
@@ -260,7 +259,7 @@ const countries = [
   'Zambia',
   'Zimbabwe',
 ];
-const branches = [
+export const branches = [
   '22 Mazoria Branch',
   'Aba Jifar Branch',
   'Aba Mela Branch',
@@ -874,49 +873,49 @@ const branches = [
   'Yirgalem Branch',
 ];
 
-export function LoanRequestForm(props: ILoanRequestlangmProps) {
-  const FileUpload = (props: any) => {
-    const [fileUploadLabel, setFileUploadLabel] = useState('No file chosen');
+export const FileUpload = (props: any) => {
+  const [fileUploadLabel, setFileUploadLabel] = useState('No file chosen');
 
-    const fileUploadHandler = (e: any) => {
-      if (e.target.files.length > 0) {
-        const fileNames = Array.from(e.target.files).map(
-          (file: any) => file.name
-        );
-        setFileUploadLabel(fileNames.join(', '));
-      } else {
-        setFileUploadLabel('Choose a file');
-      }
-    };
-
-    return (
-      <div>
-        <input
-          type='file'
-          name={props.name}
-          multiple={true}
-          className='file-upload'
-          data-method='ajax'
-          accept='.jpg,.jpeg,.jpe,.gif,.png,.bmp,.tiff,.tif,.webp,.ico,.heic,.asf,.asx,.wmv,.wmx,.wm,.avi,.divx,.flv,.mov,.qt,.mpeg,.mpg,.mpe,.mp4,.m4v,.ogv,.webm,.mkv,.3gp,.3gpp,.3g2,.3gp2,.txt,.asc,.c,.cc,.h,.srt,.csv,.tsv,.ics,.rtx,.css,.htm,.html,.vtt,.dfxp,.mp3,.m4a,.m4b,.aac,.ra,.ram,.wav,.ogg,.oga,.flac,.mid,.midi,.wma,.wax,.mka,.rtf,.js,.pdf,.class,.tar,.zip,.gz,.gzip,.rar,.7z,.psd,.xcf,.doc,.pot,.pps,.ppt,.wri,.xla,.xls,.xlt,.xlw,.mdb,.mpp,.docx,.docm,.dotx,.dotm,.xlsx,.xlsm,.xlsb,.xltx,.xltm,.xlam,.pptx,.pptm,.ppsx,.ppsm,.potx,.potm,.ppam,.sldx,.sldm,.onetoc,.onetoc2,.onetmp,.onepkg,.oxps,.xps,.odt,.odp,.ods,.odg,.odc,.odb,.odf,.wp,.wpd,.key,.numbers,.pages,.json,.svg,.svgz,.xml'
-          data-size='50000000'
-          data-size-message='Maximum file size allowed is 50 MB. '
-          data-filetype='jpg|jpeg|jpe|gif|png|bmp|tiff|tif|webp|ico|heic|asf|asx|wmv|wmx|wm|avi|divx|flv|mov|qt|mpeg|mpg|mpe|mp4|m4v|ogv|webm|mkv|3gp|3gpp|3g2|3gp2|txt|asc|c|cc|h|srt|csv|tsv|ics|rtx|css|htm|html|vtt|dfxp|mp3|m4a|m4b|aac|ra|ram|wav|ogg|oga|flac|mid|midi|wma|wax|mka|rtf|js|pdf|class|tar|zip|gz|gzip|rar|7z|psd|xcf|doc|pot|pps|ppt|wri|xla|xls|xlt|xlw|mdb|mpp|docx|docm|dotx|dotm|xlsx|xlsm|xlsb|xltx|xltm|xlam|pptx|pptm|ppsx|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|oxps|xps|odt|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages|json|svg|svgz|xml'
-          data-filetype-message='file extension is not allowed.'
-          onChange={fileUploadHandler}
-          required
-        />
-        <div className='file-upload-label' aria-hidden='true'>
-          <i className='fas fa-cloud-upload-alt'></i>
-          <p>
-            Drag and Drop (or) <span>Choose Files</span>
-            <br />
-            {fileUploadLabel}
-          </p>
-        </div>
-      </div>
-    );
+  const fileUploadHandler = (e: any) => {
+    if (e.target.files.length > 0) {
+      const fileNames = Array.from(e.target.files).map(
+        (file: any) => file.name
+      );
+      setFileUploadLabel(fileNames.join(', '));
+    } else {
+      setFileUploadLabel('Choose a file');
+    }
   };
 
+  return (
+    <div>
+      <input
+        type='file'
+        name={props.name}
+        multiple={true}
+        className='file-upload'
+        data-method='ajax'
+        accept='.jpg,.jpeg,.jpe,.gif,.png,.bmp,.tiff,.tif,.webp,.ico,.heic,.asf,.asx,.wmv,.wmx,.wm,.avi,.divx,.flv,.mov,.qt,.mpeg,.mpg,.mpe,.mp4,.m4v,.ogv,.webm,.mkv,.3gp,.3gpp,.3g2,.3gp2,.txt,.asc,.c,.cc,.h,.srt,.csv,.tsv,.ics,.rtx,.css,.htm,.html,.vtt,.dfxp,.mp3,.m4a,.m4b,.aac,.ra,.ram,.wav,.ogg,.oga,.flac,.mid,.midi,.wma,.wax,.mka,.rtf,.js,.pdf,.class,.tar,.zip,.gz,.gzip,.rar,.7z,.psd,.xcf,.doc,.pot,.pps,.ppt,.wri,.xla,.xls,.xlt,.xlw,.mdb,.mpp,.docx,.docm,.dotx,.dotm,.xlsx,.xlsm,.xlsb,.xltx,.xltm,.xlam,.pptx,.pptm,.ppsx,.ppsm,.potx,.potm,.ppam,.sldx,.sldm,.onetoc,.onetoc2,.onetmp,.onepkg,.oxps,.xps,.odt,.odp,.ods,.odg,.odc,.odb,.odf,.wp,.wpd,.key,.numbers,.pages,.json,.svg,.svgz,.xml'
+        data-size='50000000'
+        data-size-message='Maximum file size allowed is 50 MB. '
+        data-filetype='jpg|jpeg|jpe|gif|png|bmp|tiff|tif|webp|ico|heic|asf|asx|wmv|wmx|wm|avi|divx|flv|mov|qt|mpeg|mpg|mpe|mp4|m4v|ogv|webm|mkv|3gp|3gpp|3g2|3gp2|txt|asc|c|cc|h|srt|csv|tsv|ics|rtx|css|htm|html|vtt|dfxp|mp3|m4a|m4b|aac|ra|ram|wav|ogg|oga|flac|mid|midi|wma|wax|mka|rtf|js|pdf|class|tar|zip|gz|gzip|rar|7z|psd|xcf|doc|pot|pps|ppt|wri|xla|xls|xlt|xlw|mdb|mpp|docx|docm|dotx|dotm|xlsx|xlsm|xlsb|xltx|xltm|xlam|pptx|pptm|ppsx|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|oxps|xps|odt|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages|json|svg|svgz|xml'
+        data-filetype-message='file extension is not allowed.'
+        onChange={fileUploadHandler}
+        required
+      />
+      <div className='file-upload-label' aria-hidden='true'>
+        <i className='fas fa-cloud-upload-alt'></i>
+        <p>
+          Drag and Drop (or) <span>Choose Files</span>
+          <br />
+          {fileUploadLabel}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export function LoanRequestForm(props: ILoanRequestlangmProps) {
   return (
     <form className='loan-form-container' id='Loan_Request'>
       <Grid container xs={11} lg={10} rowSpacing={4}>

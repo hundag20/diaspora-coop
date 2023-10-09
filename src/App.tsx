@@ -7,6 +7,7 @@ import './styles/app.scss';
 import { MoneyTransfer } from './pages/MoneyTransfer';
 import { GetALoan } from './pages/GetALoan';
 import { LoanCalculator } from './pages/LoanCalculator';
+import { CurrentAccount } from './pages/CurrentAccount';
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -56,6 +57,14 @@ const App = () => {
           element={
             <BodyRoute>
               <LoanCalculator />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path='/diaspora-current-account'
+          element={
+            <BodyRoute>
+              <CurrentAccount />
             </BodyRoute>
           }
         />

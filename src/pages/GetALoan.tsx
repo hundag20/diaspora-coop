@@ -52,7 +52,7 @@ const loanTypes = [
 
 const Title = () => (
   <Grid container xs={11}>
-    <Grid item>
+    <Grid item xs={12}>
       <div className='container-title'>
         <h2>
           We offer a variety of <span>loans</span>
