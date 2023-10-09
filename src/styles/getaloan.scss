@@ -174,5 +174,37 @@
 
             margin-bottom: 52px;
         }
+
+        .calc-button {
+            margin-top: 45px;
+
+            a {
+                cursor: pointer;
+                font-style: normal;
+                word-wrap: break-word;
+                box-sizing: border-box;
+                white-space: normal !important;
+                position: relative;
+                display: inline-block;
+                line-height: 1;
+                user-select: none;
+                vertical-align: middle;
+                text-align: center;
+                transition: all .4s ease;
+                outline: 0;
+                text-decoration: none;
+                padding: 21px 55px 21px 55px;
+                font-family: "Lato", Sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: #FFFFFF;
+                background-color: #00ADEF;
+                border-style: solid;
+                border-width: 1px 1px 1px 1px;
+                border-radius: 50px 50px 50px 50px;
+                box-shadow: 19px 19px 40px 0px rgba(0, 0, 0, 0.1);
+            }
+        }
     }
 }
