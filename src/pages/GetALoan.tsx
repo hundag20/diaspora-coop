@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import { TopBanner } from "../components/TopBanner";
 import '../styles/getaloan.scss'
+import { LoanRequestForm } from "../components/LoanRequestForm";
 
 export interface IGetALoanProps {
 }
@@ -41,45 +42,56 @@ const loanTypes = [{
     docLink: 'https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-INVESTMENT-LOAN-1.pdf',
 }]
 
+const Title = () =>
+    <div className="container-title">
+        <h2>
+            We offer a variety of <span>loans</span>
+        </h2>
+    </div>
+
+const LoanItems = () => <Grid container columnSpacing={4} rowSpacing={4} sm={11.5} md={10} className="loan-items">
+    {loanTypes.map(loanItem =>
+        <Grid item className="loan-item" xs={12} sm={6}>
+            <div className="loan-item-header">
+                <div className="icon">{loanItem.icon}</div>
+                <div className="loan-item-title">
+                    <h3>
+                        {loanItem.title}
+                    </h3>
+                </div>
+            </div>
+            <div className="loan-item-body">
+                <div className="desc">
+                    <p>
+                        {loanItem.desc}
+                        <span className="req-doc">
+                            <a href={loanItem.docLink}> Required Document</a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div className="loan-item-footer">
+                <i className="fas fa-arrow-circle-right"></i>
+                <a href="#Loan_Request">Are You Interested?</a>
+            </div>
+        </Grid>
+    )}
+</Grid>
+
+const LoanCalculatorButton = () => <div className="calc-button">
+    <a>LOAN CALCULATOR</a>
+</div>
+
 export function GetALoan(props: IGetALoanProps) {
     return (
         <div className="get-a-loan">
             <TopBanner containerClass="gl hd-container" overlayClass="gl hd-background-overlay" contentClass="gl hd-content" footerClass="gl hd-footer" contentHeader="Disapora Loan" contentParagraph="Always there for your Diaspora Banking Needs!" />
 
             <div className="container">
-                <div className="container-title">
-                    <h2>
-                        We offer variety of <span>loans</span>
-                    </h2>
-                </div>
-                <Grid container columnSpacing={2} rowSpacing={4} sm={11.5} md={10}>
-                    {loanTypes.map(loanItem =>
-                        <Grid item className="loan-item" xs={12} sm={6}>
-                            <div className="loan-item-header">
-                                <div className="icon">{loanItem.icon}</div>
-                                <div className="loan-item-title">
-                                    <h3>
-                                        {loanItem.title}
-                                    </h3>
-                                </div>
-                            </div>
-                            <div className="loan-item-body">
-                                <div className="desc">
-                                    <p>
-                                        {loanItem.desc}
-                                        <span className="req-doc">
-                                            <a href={loanItem.docLink}> Required Document</a>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="loan-item-footer">
-                                <i className="fas fa-arrow-circle-right"></i>
-                                <a href="#Loan_Request">Are You Interested?</a>
-                            </div>
-                        </Grid>
-                    )}
-                </Grid>
+                <Title />
+                <LoanItems />
+                <LoanCalculatorButton />
+                <LoanRequestForm />
             </div>
         </div>
     );
