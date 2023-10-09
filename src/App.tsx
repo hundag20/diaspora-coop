@@ -7,6 +7,7 @@ import "./styles/app.scss";
 import { MoneyTransfer } from "./pages/MoneyTransfer";
 import { GetALoan } from "./pages/GetALoan";
 import { LoanCalculator } from "./pages/LoanCalculator";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -19,6 +20,7 @@ const BodyRoute = ({ children }: BodyeRouteProps) => (
       <Header />
       {children}
       <Footer />
+      <ScrollToTopButton />
     </body>
   </div>
 );
