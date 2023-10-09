@@ -68,7 +68,7 @@ const Diasport: React.FC = () => {
   const Items: React.FC<ItemsProps> = ({ index, item }) => {
     const isEven = index % 2 === 0;
     const [ref, inView] = useInView({
-      triggerOnce: false, // Only trigger the animation once
+      triggerOnce: true, // Only trigger the animation once
     });
 
     // Define animation variants for the image and content
@@ -180,7 +180,7 @@ const WhatWeOffer: React.FC = () => {
 
   // Use the useInView hook to detect when the "offers" section is in view
   const [ref, inView] = useInView({
-    triggerOnce: false, // Only trigger the animation once
+    triggerOnce: true, // Only trigger the animation once
     threshold: 0.2, // Adjust as needed
   });
 
@@ -258,7 +258,7 @@ const UsefullDiasporaResourses: React.FC = () => {
 
   // Use the useInView hook to detect when the "offers" section is in view
   const [ref, inView] = useInView({
-    triggerOnce: false, // Only trigger the animation once
+    triggerOnce: true, // Only trigger the animation once
     threshold: 0.2, // Adjust as needed
   });
 
@@ -337,8 +337,8 @@ const Stats: React.FC = () => {
 
   // Use the useInView hook to detect when the "offers" section is in view
   const [ref, inView] = useInView({
-    triggerOnce: false, // Only trigger the animation once
-    threshold: 0.05, // Adjust as needed
+    triggerOnce: true, // Only trigger the animation once
+    threshold: 0, // Adjust as needed
   });
 
   // Define animation variants for the "offers" section
@@ -354,6 +354,13 @@ const Stats: React.FC = () => {
         duration: 0.8, // Adjust the animation duration as needed
       },
     },
+    exit: {
+      opacity: 0,
+      y: 100, // Animate it off-screen when exiting
+      transition: {
+        duration: 0.05,
+      },
+    },
   };
 
   return (
@@ -362,6 +369,7 @@ const Stats: React.FC = () => {
       ref={ref} // Attach the ref to the "offers" section
       initial="hidden"
       animate={inView ? "visible" : "hidden"} // Animate when in view
+      exit="exit" // Use the exit animation
       variants={offersAnimationVariants} // Apply animation variants
     >
       <div className="container">
