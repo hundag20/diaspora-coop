@@ -2,7 +2,7 @@ import * as React from "react";
 import cooplogo from "../assets/img/cooplogo.png";
 import "../styles/headers.scss";
 import MainButton from "./Buttons/mainButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Facebook,
   Instagram,
@@ -16,14 +16,43 @@ import {
   Person,
   PriceChange,
   Mosque,
+  Close,
 } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 export interface IHeaderProps {}
 
 const myNumber: number | null = null;
 
 export function Header(props: IHeaderProps) {
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
+  const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
+
+  const [openSubmenus, setOpenSubmenus] = useState<{ [key: number]: boolean }>(
+    {}
+  );
+
+  // Function to toggle the submenu for a specific menu item index
+  const toggleSubmenu = (index: number) => {
+    setOpenSubmenus((prevOpenSubmenus) => ({
+      ...prevOpenSubmenus,
+      [index]: !prevOpenSubmenus[index],
+    }));
+  };
+
+  const handleCloseMobileMenu = () => {
+    // setTimeout(() => {
+    setShowMobileMenu(false);
+    // }, 800);
+  };
+
+  const handleOpenMobileMenu = () => {
+    setShowMobileMenu(true);
+  };
+
   const navigate = useNavigate();
   interface MyHandleFunctionState {
     count: number;
@@ -31,6 +60,63 @@ export function Header(props: IHeaderProps) {
   }
   const handleSubMenuToggle = (index: number | null) => {
     setOpenSubMenu(openSubMenu === index ? null : index);
+  };
+
+  const [ref, inView] = useInView({
+    triggerOnce: true, // Only trigger the animation once
+    threshold: 0,
+  });
+
+  const openingOverlayAnimationVariants = {
+    hidden: {
+      x: "-100%",
+      opacity: 1,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      x: "-100%",
+      opacity: 0,
+    },
+  };
+  const openingAnimationVariants = {
+    hidden: {
+      x: "-100%",
+      opacity: 1,
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "easeInOut",
+      },
+    },
+    exit: {
+      x: "-100%",
+      opacity: 0,
+    },
+  };
+
+  const closingAnimationVariants = {
+    hidden: {
+      x: 0,
+      opacity: 1,
+    },
+    visible: {
+      x: "-100%",
+      opacity: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
   };
 
   const menuItems = [
@@ -117,7 +203,7 @@ export function Header(props: IHeaderProps) {
   ];
 
   return (
-    <div className="headerComp">
+    <motion.div className="headerComp" animate="visible">
       <div className="tophead">
         <div className="socials">
           {socials.map((social, index) => (
@@ -176,7 +262,93 @@ export function Header(props: IHeaderProps) {
             ))}
           </ul>
         </div>
+        <div className="mobileMenu" onClick={handleOpenMobileMenu}>
+          <MenuIcon className="hamburger" />
+        </div>
       </div>
-    </div>
+      {showMobileMenu && (
+        <motion.div
+          className="mobileMenuMenus"
+          key={showMobileMenu ? "open" : "close"} // Add a key to force re-render
+          variants={
+            showMobileMenu
+              ? openingOverlayAnimationVariants
+              : closingAnimationVariants
+          }
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          ref={ref}
+        >
+          <motion.div
+            className="contain"
+            key={showMobileMenu ? "open" : "close"} // Add a key to force re-render
+            variants={
+              showMobileMenu
+                ? openingAnimationVariants
+                : closingAnimationVariants
+            }
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            ref={ref}
+          >
+            <div className="header">
+              <div className="mobilelogo">
+                <img src={cooplogo} alt="" />
+              </div>
+              <div className="closeMenu" onClick={handleCloseMobileMenu}>
+                <Close className="closeIcon" />
+              </div>
+            </div>
+            <div className="mob_menus">
+              <ul>
+                {menuItems.map((menuItem, index) => (
+                  <li
+                    key={index}
+                    className={`menu-item ${
+                      menuItem.subMenu ? "has-submenu" : ""
+                    }`}
+                    onMouseEnter={() => handleSubMenuToggle(index)}
+                    onMouseLeave={() => handleSubMenuToggle(null)}
+                  >
+                    {menuItem.subMenu ? (
+                      <>
+                        <span
+                          className="main"
+                          onClick={() => toggleSubmenu(index)}
+                        >
+                          {menuItem.label}
+                          {menuItem.subMenu && (
+                            <div className="downMenu">
+                              <i className="fas fa-solid fa-angle-down"></i>
+                            </div>
+                          )}
+                        </span>
+                        {menuItem.subMenu && openSubmenus[index] && (
+                          <div className="mobileSubmenu">
+                            <div className="mobileSub_container">
+                              {menuItem.subMenu.map((subItem, subIndex) => (
+                                <div key={subIndex} className="submenu-item">
+                                  <span className="submenu-label">
+                                    {subItem.name}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <span className="main">{menuItem.label}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </motion.div>
   );
 }

@@ -1,0 +1,154 @@
+@import "../styles/variable.scss";
+
+.loanCalcComp {
+  .container {
+    padding: 2rem $resPadding;
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+      h3 {
+        font-family: $raieway;
+        font-size: 36px;
+        margin: 0;
+        text-align: center;
+      }
+
+      p {
+        color: #565656;
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+    // .mainContent,
+    // .calculator {
+    //   width: 100%;
+    // }
+
+    .mainContent {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 3rem;
+      width: 100%;
+
+      @include breakpoint(mdP) {
+        flex-direction: row;
+      }
+
+      .description {
+        width: 100%;
+        @include breakpoint(mdP) {
+          width: 500px;
+        }
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        font-family: $raieway;
+        .works {
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          gap: 2rem;
+
+          .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .muicon {
+              font-size: 25px;
+              // line-height: 45px;
+              margin: 5px;
+              padding: 15px;
+              border-radius: 50%;
+              width: 70px; /* Set the width and height to create a perfect circle */
+              height: 70px;
+              border: 2px solid $primary;
+              color: $primary;
+            }
+          }
+
+          .texts {
+            h3 {
+              font-size: 21px;
+              line-height: 25px;
+              margin: 1px 0;
+            }
+            p {
+              font-size: 15px;
+              line-height: 25px;
+              margin: 5px 0;
+            }
+          }
+        }
+      }
+      .calculator {
+        width: 100%;
+
+        @include breakpoint(mdP) {
+          width: 50%;
+        }
+        .box {
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+            rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+          padding: 1rem;
+          h3 {
+            text-align: center;
+          }
+          .bar {
+            width: 80%;
+            margin: 20px auto;
+            border: none;
+            height: 2px;
+            background-color: #dfdfdf !important;
+            background-image: none;
+          }
+          .inputBox {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            .form-field {
+              display: flex;
+              justify-content: left;
+              align-items: center;
+              gap: 1rem;
+              label {
+                font-size: 16px;
+                line-height: 24px;
+                color: #333333;
+                width: 330px;
+              }
+              input,
+              select {
+                display: block;
+                width: 100%;
+                padding: 4px 10px;
+                font-size: 16px;
+                line-height: 1.5;
+                color: #333;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                -webkit-transition: border-color 0.15s ease-in-out,
+                  -webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out,
+                  -webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out,
+                  box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out,
+                  box-shadow 0.15s ease-in-out,
+                  -webkit-box-shadow 0.15s ease-in-out;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
