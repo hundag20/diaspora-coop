@@ -1,0 +1,45 @@
+.open-account {
+  .container {
+    padding: 50px 0px 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .container-title {
+    h2 {
+      word-wrap: break-word;
+      text-align: center;
+      border: 0;
+      font-style: inherit;
+      outline: 0;
+      vertical-align: baseline;
+      clear: both;
+      box-sizing: border-box;
+      padding: 0;
+      line-height: 1.3;
+      font-weight: 700;
+      font-size: 3rem;
+      margin: 0;
+      color: #00adef;
+      font-family: 'Arial', Sans-serif;
+
+      span {
+        word-wrap: break-word;
+        text-align: center;
+        font-style: inherit;
+        line-height: 1.3;
+        font-size: 3rem;
+        color: #00adef;
+        font-family: 'Arial', Sans-serif;
+        font-weight: bolder;
+        box-sizing: border-box;
+      }
+    }
+
+    margin-bottom: 0px;
+  }
+  .product-desc {
+    display: flex;
+    flex-direction: column;
+  }
+}
