@@ -9,6 +9,9 @@ import { GetALoan } from './pages/GetALoan';
 import { LoanCalculator } from './pages/LoanCalculator';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import { CurrentAccount } from './pages/CurrentAccount';
+import { FixedTimeAccount } from './pages/FixedTimeAccount';
+import { NonDepreciableAccount } from './pages/NonDepreciableAccount';
+import { EcolfSavingAccount } from './pages/EcolfSavingAccount';
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -67,6 +70,30 @@ const App = () => {
           element={
             <BodyRoute>
               <CurrentAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path='/diaspora-fixed-time-deposit'
+          element={
+            <BodyRoute>
+              <FixedTimeAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path='/diaspora-non-depreciable-account'
+          element={
+            <BodyRoute>
+              <NonDepreciableAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path='/diaspora-ecolf-saving-account'
+          element={
+            <BodyRoute>
+              <EcolfSavingAccount />
             </BodyRoute>
           }
         />

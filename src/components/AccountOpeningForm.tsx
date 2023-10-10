@@ -7,7 +7,7 @@ export interface IAccountOpeningFormProps {}
 export function AccountOpeningForm(props: IAccountOpeningFormProps) {
   return (
     <form className='loan-form-container' id='Loan_Request'>
-      <Grid container xs={11} lg={10} rowSpacing={4}>
+      <Grid container xs={12} rowSpacing={4}>
         <Grid item xs={12} className='form-row'>
           <Grid container xs={12} columnSpacing={3} className='row1'>
             <Grid
@@ -606,35 +606,33 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
         <Grid item xs={12} className='form-row form-row-last'>
           <div className='form-field'>
             <div className='download-doc'>
-              <div className='box'>
-                <div className='image'>
-                  <img src='/images/document.svg'></img>
+              <div className='image'>
+                <img src='/images/document.svg'></img>
+              </div>
+              <div className='middle'>
+                <div>
+                  <h3>
+                    <a>Confirmation Form</a>
+                  </h3>
                 </div>
-                <div className='middle'>
+                <div className='small-icons'>
                   <div>
-                    <h3>
-                      <a>Confirmation Form</a>
-                    </h3>
+                    <i className='fas fa-copy'></i>
+                    <span> 1 file(s) </span>
                   </div>
-                  <div className='small-icons'>
-                    <div>
-                      <i className='fas fa-copy'></i>
-                      <span> 1 file(s) </span>
-                    </div>
-                    <div>
-                      <i className='far fa-hdd'></i>
-                      <span> 20 KB</span>
-                    </div>
+                  <div>
+                    <i className='far fa-hdd'></i>
+                    <span> 20 KB</span>
                   </div>
                 </div>
-                <div className='btn'>
-                  <a
-                    href='https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fdiaspora.coopbankoromia.com.et%2Fwp-content%2Fuploads%2F2023%2F06%2FDiaspora-Banking.docx&wdOrigin=BROWSELINK'
-                    target='_blank'
-                  >
-                    DOWNLOAD
-                  </a>
-                </div>
+              </div>
+              <div className='btn'>
+                <a
+                  href='https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fdiaspora.coopbankoromia.com.et%2Fwp-content%2Fuploads%2F2023%2F06%2FDiaspora-Banking.docx&wdOrigin=BROWSELINK'
+                  target='_blank'
+                >
+                  DOWNLOAD
+                </a>
               </div>
             </div>
           </div>

@@ -1,15 +1,15 @@
 import { AccountOpening } from '../components/AccountOpening';
 
-export interface ICurrentAccountProps {}
+export interface INonDepreciableAccountProps {}
 
-export function CurrentAccount(props: ICurrentAccountProps) {
+export function NonDepreciableAccount(props: INonDepreciableAccountProps) {
   return (
     <AccountOpening
       productType='conventional'
-      accountType='Disapora Current Account'
-      headerSubTitle='Always there for your diaspora banking needs!'
-      DescTitle='Diaspora Current Account'
-      DescText='This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.'
+      accountType='Disapora Non-Repatriable Account'
+      headerSubTitle='We Partner With Over 13 World Best Money Transfer Agents'
+      DescTitle='Diaspora Non-repatriable Account'
+      DescText='Diaspora Non-repatriable Account is an account that may take the form of saving deposit that can be used only for local payments. The transferred balance will be exchanged to local currency and deposited to the account.'
       features={[
         'It’s available in local and foreign currency (GBP, USD, and EURO)',
         'This account has a personalized Cheque Books',
