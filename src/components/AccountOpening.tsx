@@ -55,15 +55,15 @@ export function AccountOpening(props: IAccountOpeningProps) {
           </Grid>
           <Grid item xs={12} md={4.5}>
             <div className='product-info-side'>
-              <div className='diaspora-desc'>
+              <div className='info-item'>
                 <h2>{DiasporaAccountInfo.title}</h2>
                 <p>{DiasporaAccountInfo.desc}</p>
               </div>
-              <div className='product-desc'>
+              <div className='info-item'>
                 <h2>{props.DescTitle}</h2>
                 <p>{props.DescText}</p>
               </div>
-              <div className='product-features'>
+              <div className='info-item'>
                 <h2>Features</h2>
                 <ul className='ul'>
                   {props.features.map((feature: string | string[]) => (
@@ -86,7 +86,7 @@ export function AccountOpening(props: IAccountOpeningProps) {
                   ))}
                 </ul>
               </div>
-              <div className='product-benefits'>
+              <div className='info-item'>
                 <h2>Benefits</h2>
                 <ul className='ul'>
                   {props.benefits.map((benefit: string) => (
