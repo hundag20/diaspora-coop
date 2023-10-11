@@ -1,0 +1,229 @@
+@import "./variable.scss";
+
+.aboutCoopAlhuda {
+  .container {
+    padding: 2rem $resPadding;
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0; /* Position the scroll progress bar on the left side */
+      width: 4px;
+      background-color: #007bff;
+      z-index: 9999;
+    }
+
+    .alhudaAccounts {
+      .header {
+        overflow: hidden; /* Clear the float */
+
+        img {
+          float: left; /* Float the image to the left */
+          shape-outside: circle(
+            80%
+          ); /* Create a circular shape around the image */
+          // margin: 0 10px; /* Add some spacing around the image */
+          margin-right: 10px;
+          width: auto; /* Adjust the width of the image as needed */
+          height: 49px; /* Adjust the height of the image as needed */
+          background-color: #ffffff;
+          background-blend-mode: screen;
+        }
+
+        p {
+          font-size: 19px;
+          line-height: 1.5; /* Adjust line-height for better text alignment */
+          color: #4b4f58;
+        }
+      }
+
+      .accountHolderContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        // overflow-y: scroll; /* Make the container scrollable */
+        // max-height: 80vh;
+
+        .accountHolder {
+          .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            gap: 10px;
+            margin: 10px;
+            h3 {
+              color: $primary;
+              font-size: 16px;
+              line-height: 20px;
+              margin: 0;
+              font-weight: 500;
+            }
+            h3.type {
+              color: #7a7a7a;
+              font-family: "Lato", Sans-serif;
+            }
+          }
+          .box {
+            border: 1px solid $primary;
+            padding: 20px;
+            font-family: "Lato", sans-serif;
+            font-size: 15px;
+            line-height: 28px;
+            color: #666666;
+
+            h2 {
+              border: 0;
+              font-weight: 600;
+              outline: 0;
+              padding: 0;
+              vertical-align: baseline;
+              box-sizing: border-box;
+              overflow: hidden;
+              flex-shrink: 0;
+              width: 100% !important;
+              text-align: left;
+              background-color: #ffffff00 !important;
+              margin: 5px 0px 0px 0px !important;
+              color: $third;
+              font-size: 26px;
+              line-height: 48px;
+              font-family: "Open Sans", sans-serif;
+
+              flex-direction: initial;
+              flex-wrap: initial;
+              justify-content: initial;
+              align-items: initial;
+              align-content: initial;
+              gap: initial;
+              flex-basis: initial;
+              flex-grow: initial;
+              flex-shrink: initial;
+              order: initial;
+              align-self: initial;
+            }
+            .features {
+              h3 {
+                font-size: 15px;
+                line-height: 30px;
+                font-weight: 600;
+              }
+              ul {
+                li {
+                  font-size: 15px;
+                  line-height: 30px;
+                  font-weight: 400;
+                  color: #666666;
+                }
+              }
+            }
+          }
+        }
+      }
+      .IFBfinacingContainer {
+        margin-top: 3rem;
+        .topHead {
+          text-align: center;
+          border: 0;
+          font-style: inherit;
+          outline: 0;
+          vertical-align: baseline;
+          clear: both;
+          font-weight: 700;
+          font-size: 3rem;
+          font-family: "Poppins", sans-serif;
+          box-sizing: border-box;
+          padding: 0;
+          line-height: 1;
+          margin: 0;
+          color: #e58625;
+          margin: 2rem 0;
+        }
+        .financess {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 2rem;
+          .finances {
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 2rem;
+            margin-bottom: 20px;
+            .side {
+              width: 100%;
+              .photo {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                  width: 100%;
+                  object-fit: contain;
+                  height: 400px;
+                }
+              }
+              h3 {
+                border: 0;
+                font-style: inherit;
+                outline: 0;
+                vertical-align: baseline;
+                clear: both;
+                font-weight: 700;
+                font-size: 2rem;
+                font-family: "Poppins", sans-serif;
+                box-sizing: border-box;
+                padding: 0;
+                line-height: 1;
+                margin: 0;
+                color: #e58625;
+                margin: 1rem 0;
+              }
+              p {
+                border: 0;
+                font-size: 16px;
+                line-height: 29px;
+                color: #4b4f58;
+                margin: 0;
+                padding: 0;
+                vertical-align: baseline;
+                margin-bottom: 1em;
+                box-sizing: border-box;
+              }
+
+              .listHead {
+                line-height: 1.85714285714286;
+                font-family: "Open Sans", sans-serif;
+                color: #3a3a3a;
+                border: 0;
+                font-size: 18px;
+                line-height: 18px;
+                font-style: inherit;
+                font-weight: 700;
+                margin: 0;
+                outline: 0;
+                padding: 0;
+                vertical-align: baseline;
+                margin-bottom: 1em;
+                box-sizing: border-box;
+              }
+              ul {
+                display: flex;
+                flex-direction: column;
+                // gap: 5px;
+                list-style-type: disc;
+                li {
+                  font-size: 16px;
+                  line-height: 30px;
+                  color: #4b4f58;
+                }
+              }
+            }
+            &.even {
+              flex-direction: row;
+            }
+          }
+        }
+      }
+    }
+  }
+}

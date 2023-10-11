@@ -30,6 +30,7 @@
     padding: 0 $resPadding;
 
     .left {
+      cursor: pointer;
       img {
         width: 100px;
       }
@@ -109,6 +110,10 @@
                 }
               }
             }
+          }
+
+          .active {
+            color: $primary;
           }
 
           li:hover {

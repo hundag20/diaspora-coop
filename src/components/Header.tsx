@@ -19,7 +19,7 @@ import {
   Close,
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -30,10 +30,13 @@ const myNumber: number | null = null;
 export function Header(props: IHeaderProps) {
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-
+  // const navigate = useNavigation();
   const [openSubmenus, setOpenSubmenus] = useState<{ [key: number]: boolean }>(
     {}
   );
+
+  const location = useLocation();
+  const currentRoute = location.pathname;
 
   // Function to toggle the submenu for a specific menu item index
   const toggleSubmenu = (index: number) => {
@@ -126,6 +129,7 @@ export function Header(props: IHeaderProps) {
     },
     {
       label: "About",
+      route: "/",
     },
     {
       label: "Open Account",
@@ -133,28 +137,32 @@ export function Header(props: IHeaderProps) {
         {
           name: "Current Account",
           icon: <Paid className="muicon" />,
+          route: "/diaspora-current-account",
         },
         {
           name: "Fixed-Time Deposit",
           icon: <QueryBuilder className="muicon" />,
+          route: "/",
         },
         {
           name: "Non-Repatriable Account",
           icon: <RequestQuote className="muicon" />,
+          route: "/",
         },
         {
           name: "ECOLFL Savings Account",
           icon: <Badge className="muicon" />,
+          route: "/",
         },
       ],
     },
     {
       label: "Get A Loan",
-      route: "get-a-loan",
+      route: "/get-a-loan",
     },
     {
       label: "Money Transfer",
-      route: "money-transfer-service",
+      route: "/money-transfer-service",
     },
     {
       label: "Coopbank Alhuda Diaspora",
@@ -162,18 +170,22 @@ export function Header(props: IHeaderProps) {
         {
           name: "About CoopBank Alhuda",
           icon: <Mosque className="muicon" />,
+          route: "/about-coopbank-alhuda",
         },
         {
           name: "Diaspora Wadia Saving Account",
           icon: <Badge className="muicon" />,
+          route: "/",
         },
         {
           name: "Diaspora Mudarabah Savings Account",
           icon: <PriceChange className="muicon" />,
+          route: "/",
         },
         {
           name: "Diaspora Mudarabah Fixed Term Deposit",
           icon: <Person className="muicon" />,
+          route: "/",
         },
       ],
     },
@@ -219,7 +231,7 @@ export function Header(props: IHeaderProps) {
         <MainButton text="Internet Banking" link="/" />
       </div>
       <div className="container">
-        <div className="left">
+        <div className="left" onClick={() => navigate("/")}>
           <img src={cooplogo} alt="" />
         </div>
         <div className="right">
@@ -227,7 +239,9 @@ export function Header(props: IHeaderProps) {
             {menuItems.map((menuItem, index) => (
               <li
                 key={index}
-                className={`menu-item ${menuItem.subMenu ? "has-submenu" : ""}`}
+                className={`menu-item ${
+                  menuItem.subMenu ? "has-submenu" : ""
+                } ${menuItem.route === currentRoute ? "active" : ""}`}
                 onMouseEnter={() => handleSubMenuToggle(index)}
                 onMouseLeave={() => handleSubMenuToggle(null)}
               >
@@ -243,7 +257,13 @@ export function Header(props: IHeaderProps) {
                       <div className="submenu">
                         <div className="sub_container">
                           {menuItem.subMenu.map((subItem, subIndex) => (
-                            <div key={subIndex} className="submenu-item">
+                            <div
+                              key={subIndex}
+                              className="submenu-item"
+                              {...(subItem.route && {
+                                onClick: () => navigate(subItem.route),
+                              })}
+                            >
                               <div className="icon">{subItem.icon}</div>
                               <span className="submenu-label">
                                 {/* label */}
@@ -256,7 +276,14 @@ export function Header(props: IHeaderProps) {
                     )}
                   </>
                 ) : (
-                  <span className="main">{menuItem.label}</span>
+                  <span
+                    className="main"
+                    {...(menuItem.route && {
+                      onClick: () => navigate(menuItem.route),
+                    })}
+                  >
+                    {menuItem.label}
+                  </span>
                 )}
               </li>
             ))}
@@ -311,6 +338,9 @@ export function Header(props: IHeaderProps) {
                     }`}
                     onMouseEnter={() => handleSubMenuToggle(index)}
                     onMouseLeave={() => handleSubMenuToggle(null)}
+                    {...(menuItem.route && {
+                      onClick: () => navigate(menuItem.route),
+                    })}
                   >
                     {menuItem.subMenu ? (
                       <>
@@ -329,7 +359,13 @@ export function Header(props: IHeaderProps) {
                           <div className="mobileSubmenu">
                             <div className="mobileSub_container">
                               {menuItem.subMenu.map((subItem, subIndex) => (
-                                <div key={subIndex} className="submenu-item">
+                                <div
+                                  key={subIndex}
+                                  className="submenu-item"
+                                  {...(subItem.route && {
+                                    onClick: () => navigate(subItem.route),
+                                  })}
+                                >
                                   <span className="submenu-label">
                                     {subItem.name}
                                   </span>
