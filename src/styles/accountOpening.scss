@@ -39,6 +39,16 @@
 
     margin-bottom: 0px;
   }
+
+  .container-title.alhuda {
+    h2 {
+      color: #e58625;
+      span {
+        color: #e58625;
+      }
+    }
+  }
+
   .product-info-side {
     display: flex;
     flex-direction: column;
@@ -63,6 +73,9 @@
       color: #00adef;
       font-size: 23px;
       margin-bottom: 20px;
+    }
+    h2.alhuda {
+      color: #e58625;
     }
     p {
       font-family: 'Open Sans', sans-serif;
@@ -112,6 +125,12 @@
 
           font-size: 20px;
           color: #00adef;
+        }
+      }
+
+      .li.alhuda {
+        svg {
+          color: #e58625;
         }
       }
     }

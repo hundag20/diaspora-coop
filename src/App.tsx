@@ -8,10 +8,13 @@ import { MoneyTransfer } from './pages/MoneyTransfer';
 import { GetALoan } from './pages/GetALoan';
 import { LoanCalculator } from './pages/LoanCalculator';
 import ScrollToTopButton from './components/ScrollToTopButton';
-import { CurrentAccount } from './pages/CurrentAccount';
-import { FixedTimeAccount } from './pages/FixedTimeAccount';
-import { NonDepreciableAccount } from './pages/NonDepreciableAccount';
-import { EcolfSavingAccount } from './pages/EcolfSavingAccount';
+import { CurrentAccount } from './pages/conventionalAccount/CurrentAccount';
+import { FixedTimeAccount } from './pages/conventionalAccount/FixedTimeAccount';
+import { NonDepreciableAccount } from './pages/conventionalAccount/NonDepreciableAccount';
+import { EcolfSavingAccount } from './pages/conventionalAccount/EcolfSavingAccount';
+import { WadiyaSavingsAccount } from './pages/alhudaAccount/WadiyaSavingsAccount';
+import { MudarabahSavingsAccount } from './pages/alhudaAccount/MudarabahSavingsAccount';
+import { MudarabahFixedTermDepositAccount } from './pages/alhudaAccount/MudarabahFixedTermDepositAccount';
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -94,6 +97,30 @@ const App = () => {
           element={
             <BodyRoute>
               <EcolfSavingAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path='/diaspora-wadia-savings-account'
+          element={
+            <BodyRoute>
+              <WadiyaSavingsAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path='/diaspora-mudarabah-savings-account'
+          element={
+            <BodyRoute>
+              <MudarabahSavingsAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path='/diaspora-mudarabah-fixed-term-deposit'
+          element={
+            <BodyRoute>
+              <MudarabahFixedTermDepositAccount />
             </BodyRoute>
           }
         />

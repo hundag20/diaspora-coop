@@ -1,4 +1,4 @@
-import { AccountOpening } from '../components/AccountOpening';
+import { AccountOpening } from '../../components/AccountOpening';
 
 export interface IFixedTimeAccountProps {}
 

@@ -13,6 +13,7 @@ import {
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchangeOutlined';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUserOutlined';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalanceOutlined';
+import { SwiftCode } from '../components/SwiftCode';
 export interface IMoneyTransferProps {}
 
 const transferAgents = [
@@ -198,14 +199,6 @@ const Resources = () => (
   </div>
 );
 
-export const SwiftCode = () => (
-  <div className='swift-code'>
-    <h2>
-      Swift code <span>CBORETAA</span>
-    </h2>
-  </div>
-);
-
 export function MoneyTransfer(props: IMoneyTransferProps) {
   return (
     <div>
@@ -225,7 +218,7 @@ export function MoneyTransfer(props: IMoneyTransferProps) {
       <Divider />
       <Agents />
       <Resources />
-      <SwiftCode />
+      <SwiftCode productType='conventional' />
     </div>
   );
 }

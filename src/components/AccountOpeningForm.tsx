@@ -1,8 +1,11 @@
 import { Grid } from '@mui/material';
 import '../styles/form.scss';
 import { FileUpload, branches, countries } from './LoanRequestForm';
+import { TProductType } from './AccountOpening';
 
-export interface IAccountOpeningFormProps {}
+export interface IAccountOpeningFormProps {
+  productType: TProductType;
+}
 
 export function AccountOpeningForm(props: IAccountOpeningFormProps) {
   return (
@@ -626,7 +629,7 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
                   </div>
                 </div>
               </div>
-              <div className='btn'>
+              <div className={`btn ${props.productType}`}>
                 <a
                   href='https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fdiaspora.coopbankoromia.com.et%2Fwp-content%2Fuploads%2F2023%2F06%2FDiaspora-Banking.docx&wdOrigin=BROWSELINK'
                   target='_blank'
@@ -712,7 +715,10 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
 
         <Grid item xs={12} className='form-row form-row-last'>
           <div className='form-field'>
-            <button className='form-button form-button-submit' type='submit'>
+            <button
+              className={`form-button form-button-submit ${props.productType}`}
+              type='submit'
+            >
               Send Enquiry
             </button>
           </div>
