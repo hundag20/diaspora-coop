@@ -494,6 +494,9 @@
       background-color: #00adef;
       color: #ffffff;
     }
+    .form-button-submit.alhuda {
+      background-color: #e58625;
+    }
     .form-button-submit:hover {
       background-color: #008fca;
       color: #ffffff;
@@ -822,6 +825,12 @@
           background-color: #008fca;
           color: #ffffff;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Customize the box shadow as desired */
+        }
+      }
+      .btn.alhuda {
+        a {
+          background-color: #e58625;
+          border-color: #e58625;
         }
       }
     }

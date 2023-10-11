@@ -2,19 +2,20 @@ import { Grid } from '@mui/material';
 import { TopBanner } from './TopBanner';
 import { AccountOpeningForm } from './AccountOpeningForm';
 import '../styles/accountOpening.scss';
-import { SwiftCode } from '../pages/MoneyTransfer';
+import { SwiftCode } from './SwiftCode';
 
 const DiasporaAccountInfo = {
   title: 'DIASPORA ACCOUNT',
   desc: 'Diaspora Banking Account allows Diaspora who resides and works  outside the country to maintain and perform domestic and  international transfers through their Coopbank accounts.',
 };
 
+export type TProductType = 'conventional' | 'alhuda';
 export interface IAccountOpeningProps {
-  productType: 'conventional' | 'alhuda';
+  productType: TProductType;
   accountType:
-    | 'Mudarabah Fixed Term Deposit'
-    | 'Mudarabah Savings Account'
-    | 'Wadia Savings Account'
+    | 'Diaspora Mudarabah Fixed Term Deposit'
+    | 'Diaspora Mudarabah Savings Account'
+    | 'Diaspora Wadia Savings Account'
     | 'ECOLFL Savings Account'
     | 'Disapora Non-Repatriable Account'
     | 'Disapora Current Account'
@@ -26,22 +27,22 @@ export interface IAccountOpeningProps {
   benefits: string[];
 }
 
-const Title = () => (
-  <Grid container xs={11}>
-    <Grid item xs={12}>
-      <div className='container-title'>
-        <h2>Online Account Opening Form</h2>
-      </div>
-    </Grid>
-  </Grid>
-);
-
 export function AccountOpening(props: IAccountOpeningProps) {
+  const Title = () => (
+    <Grid container xs={11}>
+      <Grid item xs={12}>
+        <div className={`container-title ${props.productType}`}>
+          <h2 className={props.productType}>Online Account Opening Form</h2>
+        </div>
+      </Grid>
+    </Grid>
+  );
+
   return (
     <div className='open-account'>
       <TopBanner
         containerClass='gl hd-container'
-        overlayClass='gl hd-background-overlay'
+        overlayClass={`gl hd-background-overlay ${props.productType}`}
         contentClass='gl hd-content'
         footerClass='gl hd-footer'
         contentHeader={props.accountType}
@@ -51,23 +52,25 @@ export function AccountOpening(props: IAccountOpeningProps) {
         <Title />
         <Grid container xs={11} md={10}>
           <Grid item xs={12} md={7.5}>
-            <AccountOpeningForm />
+            <AccountOpeningForm productType={props.productType} />
           </Grid>
           <Grid item xs={12} md={4.5}>
             <div className='product-info-side'>
               <div className='info-item'>
-                <h2>{DiasporaAccountInfo.title}</h2>
+                <h2 className={props.productType}>
+                  {DiasporaAccountInfo.title}
+                </h2>
                 <p>{DiasporaAccountInfo.desc}</p>
               </div>
               <div className='info-item'>
-                <h2>{props.DescTitle}</h2>
+                <h2 className={props.productType}>{props.DescTitle}</h2>
                 <p>{props.DescText}</p>
               </div>
               <div className='info-item'>
-                <h2>Features</h2>
+                <h2 className={props.productType}>Features</h2>
                 <ul className='ul'>
                   {props.features.map((feature: string | string[]) => (
-                    <li className='li'>
+                    <li className={`li ${props.productType}`}>
                       <span>
                         {typeof feature === 'string' && (
                           <i className='fas fa-check'></i>
@@ -87,10 +90,10 @@ export function AccountOpening(props: IAccountOpeningProps) {
                 </ul>
               </div>
               <div className='info-item'>
-                <h2>Benefits</h2>
+                <h2 className={props.productType}>Benefits</h2>
                 <ul className='ul'>
                   {props.benefits.map((benefit: string) => (
-                    <li className='li'>
+                    <li className={`li ${props.productType}`}>
                       <span>
                         <i className='fas fa-check-circle'></i>
                       </span>
@@ -103,7 +106,7 @@ export function AccountOpening(props: IAccountOpeningProps) {
           </Grid>
         </Grid>
       </div>
-      <SwiftCode />
+      <SwiftCode productType={props.productType} />
     </div>
   );
 }

@@ -548,7 +548,7 @@ export function Home(props: IHomeProps) {
                 <span className="orangecolor">Upload</span>
               </p>
               <ApplyNowButton
-                link="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Diaspora-Account-Opening-Form-FINFINE-1.pdf"
+                link="/downloads/2022/09/Diaspora-Account-Opening-Form-FINFINE-1.pdf"
                 text="Download Now"
                 target="_blank"
               />

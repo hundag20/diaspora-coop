@@ -36,7 +36,7 @@ export function Header(props: IHeaderProps) {
   );
 
   const location = useLocation();
-  const currentRoute = location.pathname;
+  const currentRoute: string | null = location.pathname;
 
   // Function to toggle the submenu for a specific menu item index
   const toggleSubmenu = (index: number) => {
@@ -244,7 +244,7 @@ export function Header(props: IHeaderProps) {
                 key={index}
                 className={`menu-item ${
                   menuItem.subMenu ? "has-submenu" : ""
-                } ${menuItem.route === currentRoute ? "active" : ""}`}
+                } ${currentRoute === (menuItem.route || "") ? "active" : ""}`}
                 onMouseEnter={() => handleSubMenuToggle(index)}
                 onMouseLeave={() => handleSubMenuToggle(null)}
               >
