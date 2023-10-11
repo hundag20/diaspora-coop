@@ -1797,18 +1797,17 @@
       opacity: 0.85;
     }
     .stat-of-diaspora-banking-section-elementor-section--container {
-      line-height: 1.85714285714286;
-      font-family: "Open Sans", sans-serif;
-      font-weight: 400;
-      font-size: 1rem;
-      box-sizing: border-box;
-      display: flex;
-      flex-wrap: wrap;
-      flex-flow: column;
-      margin-right: auto;
-      margin-left: auto;
-      position: relative;
-      max-width: 1140px;
+     
+      // box-sizing: border-box;
+      // display: flex;
+      // flex-wrap: wrap;
+      // flex-flow: column;
+      // margin-right: auto;
+      // margin-left: auto;
+      // position: relative;
+      // flex-basis: 300px;
+      // flex-grow: 1;
+      // max-width: 100%;
       .stat-of-diaspora-banking-section-elementor-section--column {
         box-sizing: border-box;
         justify-content: center;
@@ -1817,7 +1816,9 @@
         min-height: 1px;
         display: flex;
         // z-index: auto;
-        width: 100%;
+        flex-basis: 300px;
+        flex-grow: 1;
+        max-width: 100%;
         .stat-of-diaspora-banking-section-elementor-section--widget-wrap {
           box-sizing: border-box;
           position: relative;

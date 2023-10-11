@@ -57,7 +57,7 @@ const About = () => {
   });
   const contentAnimationVariantsLeft = {
     hidden: {
-      x: "100%",
+      x: "10%",
       opacity: 0,
     },
     visible: {
@@ -72,7 +72,7 @@ const About = () => {
 
   const contentAnimationVariantsRight = {
     hidden: {
-      x: "-100%",
+      x: "-10%",
       opacity: 0,
     },
     visible: {
