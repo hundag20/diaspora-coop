@@ -15,7 +15,7 @@
       font-family: "Open Sans", sans-serif;
       font-weight: 400;
       font-size: 1rem;
-
+z-index: inherit;
       display: block;
       box-sizing: border-box;
 
@@ -24,12 +24,7 @@
       padding: 20px 0px 42px 0px;
 
       .about-container {
-        font-style: normal;
-
-        line-height: 1.85714285714286;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 400;
-        font-size: 1rem;
+      
 
         box-sizing: border-box;
         display: flex;
@@ -181,7 +176,7 @@
               }
             }
           }
-          @media (max-width: 767px) {
+          @media (max-width: 1024px) {
             .about-headings {
               line-height: 1.85714285714286;
               font-family: "Open Sans", sans-serif;
@@ -190,6 +185,8 @@
 
               box-sizing: border-box;
               position: relative;
+              flex-basis: 300px;
+              flex-grow: 1;
               width: 100%;
               flex-wrap: wrap;
               display: flex;
@@ -197,13 +194,13 @@
 
               align-content: center;
               align-items: center;
-              width: 100%;
             }
           }
         }
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
           .about-content {
-            width: 100%;
+            width: 85%;
+            max-width: var(width);
           }
         }
         .about-globe-container {
@@ -236,7 +233,7 @@
               font-family: "Open Sans", sans-serif;
               font-weight: 400;
               font-size: 1rem;
-              color: var(-global-color-3);
+            
 
               box-sizing: border-box;
               height: 100%;
@@ -253,12 +250,7 @@
                 hue-rotate(0deg);
             }
             .about-globe-image-outer-container {
-              font-style: normal;
-
-              line-height: 1.85714285714286;
-              font-family: "Open Sans", sans-serif;
-              font-weight: 400;
-              font-size: 1rem;
+       
 
               position: relative;
 
@@ -277,7 +269,7 @@
                 img {
                   text-align: center;
                   width: 850px;
-                  aspect-ratio: auto 850 / 550;
+               
                   box-sizing: border-box;
                   height: auto;
                   max-width: 100%;
@@ -293,54 +285,32 @@
             }
           }
         }
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
           .about-globe-container {
             width: 100%;
           }
         }
       }
-      @media (max-width: 767px) {
+      @media (max-width: 1024px) {
         .about-container {
+          display: flex;
           flex-direction: column;
         }
       }
     }
 
     .diaspora-banking-top-elementor-section {
-      font-style: normal;
-
-      line-height: 1.85714285714286;
-      font-family: "Open Sans", sans-serif;
-      font-weight: 400;
-      font-size: 1rem;
-
-      display: block;
+        display: block;
       box-sizing: border-box;
-
       padding: 20px 0px 42px 0px;
-
-      .diaspora-banking-top--container {
-        font-style: normal;
-
-        line-height: 1.85714285714286;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 400;
-        font-size: 1rem;
-
-        box-sizing: border-box;
+     .diaspora-banking-top--container {
+           box-sizing: border-box;
         display: flex;
         margin-right: auto;
         margin-left: auto;
         position: relative;
         max-width: 1140px;
         .diaspora-banking-top--column-1 {
-          font-style: normal;
-
-          line-height: 1.85714285714286;
-          font-family: "Open Sans", sans-serif;
-          font-weight: 400;
-          font-size: 1rem;
-
           box-sizing: border-box;
 
           position: relative;
@@ -349,14 +319,7 @@
 
           width: 50%;
           .diaspora-banking-top--widget-wrap-1 {
-            font-style: normal;
-
-            line-height: 1.85714285714286;
-            font-family: "Open Sans", sans-serif;
-            font-weight: 400;
-            font-size: 1rem;
-
-            box-sizing: border-box;
+              box-sizing: border-box;
             position: relative;
             width: 100%;
             flex-wrap: wrap;
@@ -395,10 +358,8 @@
                   padding: 0;
                   line-height: 1;
                   margin: 0;
-
                   text-transform: uppercase;
                   letter-spacing: 2px;
-
                   border: 0;
                   font-style: inherit;
                   outline: 0;
@@ -411,7 +372,6 @@
                   padding: 0;
                   line-height: 1;
                   margin: 0;
-
                   text-transform: uppercase;
                   letter-spacing: 2px;
                 }
@@ -427,12 +387,7 @@
               margin-bottom: 20px;
               text-align: left;
               .diaspora-banking-top--widget-container-2 {
-                font-style: normal;
-
-                line-height: 1.85714285714286;
-                font-family: "Open Sans", sans-serif;
-                font-weight: 400;
-                font-size: 1rem;
+              
 
                 text-align: left;
                 box-sizing: border-box;
@@ -482,31 +437,15 @@
               }
             }
             .diaspora-banking-top--element-4 {
-              font-style: normal;
-
-              line-height: 1.85714285714286;
-              font-family: "Open Sans", sans-serif;
-              font-weight: 400;
-              font-size: 1rem;
-
-              position: relative;
+               position: relative;
 
               width: 100%;
               .diaspora-banking-top--widget-container {
-                font-style: normal;
-
-                line-height: 1.85714285714286;
-                font-family: "Open Sans", sans-serif;
-                font-weight: 400;
-                font-size: 1rem;
-
-                box-sizing: border-box;
-
+                      box-sizing: border-box;
                 margin: 16px 0px 0px 0px;
                 p {
                   line-height: 1.85714285714286;
                   font-family: "Open Sans", sans-serif;
-
                   border: 0;
                   font-size: 100%;
                   font-style: inherit;
@@ -524,46 +463,23 @@
         }
 
         .diaspora-banking-top--column {
-          font-style: normal;
-
-          line-height: 1.85714285714286;
-          font-family: "Open Sans", sans-serif;
-          font-weight: 400;
-          font-size: 1rem;
-
-          box-sizing: border-box;
-
+           box-sizing: border-box;
           position: relative;
           min-height: 1px;
           display: flex;
 
           width: 50%;
           .diaspora-banking-top--widget-wrap-2 {
-            font-style: normal;
-
-            line-height: 1.85714285714286;
-            font-family: "Open Sans", sans-serif;
-            font-weight: 400;
-            font-size: 1rem;
-
-            box-sizing: border-box;
+         box-sizing: border-box;
             position: relative;
             width: 100%;
             flex-wrap: wrap;
             display: flex;
-
             padding: 0px 0px 8px 0px;
             align-content: center;
             align-items: center;
             .diaspora-banking-top--background-overlay {
-              font-style: normal;
-
-              line-height: 1.85714285714286;
-              font-family: "Open Sans", sans-serif;
-              font-weight: 400;
-              font-size: 1rem;
-
-              box-sizing: border-box;
+                 box-sizing: border-box;
               height: 100%;
               width: 100%;
               top: 0;
@@ -584,39 +500,18 @@
               font-family: "Open Sans", sans-serif;
               font-weight: 400;
               font-size: 1rem;
-
               box-sizing: border-box;
-
               position: relative;
-
-              animation-duration: 1.25s;
-
-              text-align: center;
-              animation-timing-function: ease-in-out;
-              animation-name: headShake;
-              width: 100%;
+             text-align: center;
+               width: 100%;
               .diaspora-banking-top--widget-container {
-                font-style: normal;
-
-                line-height: 1.85714285714286;
-                font-family: "Open Sans", sans-serif;
-                font-weight: 400;
-                font-size: 1rem;
-
+             
                 text-align: center;
                 box-sizing: border-box;
-
                 img {
-                  font-style: normal;
-
-                  line-height: 1.85714285714286;
-                  font-family: "Open Sans", sans-serif;
-                  font-weight: 400;
-                  font-size: 1rem;
-
-                  text-align: center;
+                      text-align: center;
                   width: 850px;
-                  aspect-ratio: auto 850 / 550;
+              
                   box-sizing: border-box;
                   height: auto;
                   max-width: 100%;
@@ -641,25 +536,15 @@
       font-family: "Open Sans", sans-serif;
       font-weight: 400;
       font-size: 1rem;
-
       display: block;
       box-sizing: border-box;
-
       position: relative;
-
       margin-top: -14px;
       margin-bottom: -14px;
       padding: 85px 0px 77px 0px;
       background-size: cover;
       .about-diaspora-stat-background-overlay {
-        font-style: normal;
-
-        line-height: 1.85714285714286;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 400;
-        font-size: 1rem;
-
-        box-sizing: border-box;
+          box-sizing: border-box;
         height: 100%;
         width: 100%;
         top: 0;
@@ -707,12 +592,7 @@
 
             width: 100%;
             .about-diaspora-stat-grid-widget-ekit-wid-con {
-              line-height: 1.85714285714286;
-              font-family: "Open Sans", sans-serif;
-              font-weight: 400;
-              font-size: 1rem;
-
-              box-sizing: border-box;
+                    box-sizing: border-box;
 
               .about-diaspora-grid-text-center {
                 font-style: normal;
@@ -927,41 +807,10 @@
       }
     }
     .state-separator-section-element {
-      font-style: normal;
-
-      line-height: 1.85714285714286;
-      font-family: "Open Sans", sans-serif;
-      font-weight: 400;
-      font-size: 1rem;
-
-      display: block;
-      box-sizing: border-box;
-
-      position: relative;
-
       .state-separator-section-element-container {
-        line-height: 1.85714285714286;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 400;
-        font-size: 1rem;
-
-        box-sizing: border-box;
-        display: flex;
-        margin-right: auto;
-        margin-left: auto;
-        position: relative;
-        max-width: 1140px;
         .state-separator-section-element-column {
           width: 100%;
           .state-separator-section-element-widget-wrap {
-            font-style: normal;
-
-            line-height: 1.85714285714286;
-            font-family: "Open Sans", sans-serif;
-            font-weight: 400;
-            font-size: 1rem;
-
-            box-sizing: border-box;
             position: relative;
             width: 100%;
             flex-wrap: wrap;
@@ -969,45 +818,10 @@
             display: flex;
             padding: 10px;
             .state-separator-section-element-element {
-              font-style: normal;
-
-              line-height: 1.85714285714286;
-              font-family: "Open Sans", sans-serif;
-              font-weight: 400;
-              font-size: 1rem;
-
-              position: relative;
-
-              width: 100%;
-
               .state-separator-section-element-widget-container {
-                font-style: normal;
-
-                line-height: 1.85714285714286;
-                font-family: "Open Sans", sans-serif;
-                font-weight: 400;
-                font-size: 1rem;
-
-                box-sizing: border-box;
-
                 .state-separator-section-element-spacer {
-                  font-style: normal;
-
-                  line-height: 1.85714285714286;
-                  font-family: "Open Sans", sans-serif;
-                  font-weight: 400;
-                  font-size: 1rem;
-
-                  box-sizing: border-box;
                   .state-separator-section-element-spacer-inner {
-                    font-style: normal;
-
-                    line-height: 1.85714285714286;
-                    font-family: "Open Sans", sans-serif;
-                    font-weight: 400;
-                    font-size: 1rem;
-
-                    box-sizing: border-box;
+                    height: 50px;
                   }
                 }
               }
@@ -1333,7 +1147,7 @@
                                 transition: all 0.3s ease;
                                 display: inline-block;
                                 color: #00adef;
-                                font-family: "Playfair Display";
+                                font-family: "Playfair Display", sans-serif;
                                 font-size: 35px;
                                 font-weight: 700;
                                 font-style: italic;
@@ -1710,11 +1524,7 @@
     align-content: center;
     align-items: center;
     .diaspora-banking-top--background-overlay {
-      font-style: normal;
-      line-height: 1.85714285714286;
-      font-family: "Open Sans", sans-serif;
-      font-weight: 400;
-      font-size: 1rem;
+
       box-sizing: border-box;
       height: 100%;
       width: 100%;
@@ -1733,8 +1543,7 @@
       box-sizing: border-box;
       position: relative;
       text-align: center;
-      animation-timing-function: ease-in-out;
-      animation-name: headShake;
+      
       width: 100%;
       .diaspora-banking-top--widget-container {
         font-style: normal;
@@ -1746,12 +1555,7 @@
         box-sizing: border-box;
 
         img {
-          line-height: 1.85714285714286;
-          font-family: "Open Sans", sans-serif;
-          font-weight: 400;
-          font-size: 1rem;
-
-          text-align: center;
+           text-align: center;
           width: 850px;
           aspect-ratio: auto 850 / 550;
           box-sizing: border-box;
@@ -1770,14 +1574,9 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .stat-of-diaspora-banking-section-elementor-section {
-    font-style: normal;
 
-    line-height: 1.85714285714286;
-    font-family: "Open Sans", sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
     display: block;
     box-sizing: border-box;
     position: relative;
@@ -1797,7 +1596,6 @@
       opacity: 0.85;
     }
     .stat-of-diaspora-banking-section-elementor-section--container {
-     
       // box-sizing: border-box;
       // display: flex;
       // flex-wrap: wrap;
@@ -1816,7 +1614,7 @@
         min-height: 1px;
         display: flex;
         // z-index: auto;
-        flex-basis: 300px;
+        flex-basis: 400px;
         flex-grow: 1;
         max-width: 100%;
         .stat-of-diaspora-banking-section-elementor-section--widget-wrap {
@@ -1831,13 +1629,9 @@
             position: relative;
             width: 100%;
             .stat-of-diaspora-banking-section-elementor-section--widget-container {
-           
               box-sizing: border-box;
               .ekit-wid-con {
-             
-               
                 .elementskit-funfact {
-                 
                   position: relative;
                   z-index: 2;
                   background-repeat: no-repeat;
@@ -1846,22 +1640,13 @@
                   justify-content: center;
                   display: flex;
                   .elementskit-funfact-inner {
-                    font-style: normal;
-                    line-height: 1.85714285714286;
-                    font-family: "Open Sans", sans-serif;
-                    font-weight: 400;
-                    font-size: 1rem;
+                
                     text-align: center !important;
                     box-sizing: border-box;
                     .funfact-icon {
-                      font-style: normal;
-                      line-height: 1.85714285714286;
-                      font-family: "Open Sans", sans-serif;
-                      font-weight: 400;
-                      font-size: 1rem;
+                  
                       text-align: center !important;
-                      box-sizing: border-box;
-
+                     box-sizing: border-box;
                       i {
                         line-height: 1.85714285714286;
                         font-family: "Open Sans", sans-serif;
@@ -1888,7 +1673,6 @@
                         color: #ffffff;
                       }
                     }
-
                     .funfact-content {
                       font-style: normal;
                       font-family: "Open Sans", sans-serif;
@@ -1920,7 +1704,6 @@
                       }
                       .funfact-title {
                         text-align: center !important;
-
                         border: 0;
                         font-style: inherit;
                         outline: 0;
@@ -1945,12 +1728,7 @@
       }
     }
     .diaspora-banking-top--widget-wrap-2 {
-      font-style: normal;
-      line-height: 1.85714285714286;
-      font-family: "Open Sans", sans-serif;
-      font-weight: 400;
-      font-size: 1rem;
-      box-sizing: border-box;
+           box-sizing: border-box;
       position: relative;
       width: 100%;
       flex-wrap: wrap;
@@ -1959,11 +1737,7 @@
       align-content: center;
       align-items: center;
       .diaspora-banking-top--background-overlay {
-        font-style: normal;
-        line-height: 1.85714285714286;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 400;
-        font-size: 1rem;
+      
         box-sizing: border-box;
         height: 100%;
         width: 100%;
@@ -1979,24 +1753,14 @@
           hue-rotate(0deg);
       }
       .diaspora-banking-top--element {
-        font-style: normal;
-        line-height: 1.85714285714286;
-        font-family: "Open Sans", sans-serif;
-        font-weight: 400;
-        font-size: 1rem;
+     
         box-sizing: border-box;
         position: relative;
         text-align: center;
-        animation-timing-function: ease-in-out;
-        animation-name: headShake;
+       
         width: 100%;
         .diaspora-banking-top--widget-container {
-          font-style: normal;
-
-          line-height: 1.85714285714286;
-          font-family: "Open Sans", sans-serif;
-          font-weight: 400;
-          font-size: 1rem;
+     
 
           text-align: center;
           box-sizing: border-box;
