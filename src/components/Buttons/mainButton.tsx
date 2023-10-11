@@ -32,7 +32,7 @@ interface ButtonProps {
 
 const MainButton: React.FC<ButtonProps> = ({ text, link }) => {
   return (
-    <a href={link}>
+    <a href={link} target="_blank">
       <StyledButton>
         {text}
         <i aria-hidden="true" className="fas fa-long-arrow-alt-right"></i>

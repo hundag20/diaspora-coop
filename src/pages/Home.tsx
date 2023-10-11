@@ -28,6 +28,7 @@ interface DiasporaItem {
   description: string;
   bullets: string[];
   img: string;
+  link: string;
 }
 const Diasport: React.FC = () => {
   const diaspora: DiasporaItem[] = [
@@ -42,6 +43,7 @@ const Diasport: React.FC = () => {
         "Ethiopian Citizen Or Origin Living In Foreign Land (ECOLFL) Savings Account",
       ],
       img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png",
+      link: "/diaspora-current-account",
     },
     {
       title: "Diaspora Loan",
@@ -57,6 +59,7 @@ const Diasport: React.FC = () => {
         "Working capital loans",
       ],
       img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
+      link: "/get-a-loan",
     },
   ];
 
@@ -131,7 +134,7 @@ const Diasport: React.FC = () => {
               <li key={bulletIndex}>{bullet}</li>
             ))}
           </ul>
-          <ApplyNowButton text="Apply now" link="#" />
+          <ApplyNowButton text="Apply now" link={item.link} target="_self" />
         </motion.div>
       </motion.div>
     );
@@ -220,7 +223,7 @@ const WhatWeOffer: React.FC = () => {
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-              <ReadMoreButton link="#" text="Read More" />
+              <ReadMoreButton link="/get-a-loan" text="Read More" />
             </div>
           ))}
         </motion.div>
@@ -233,6 +236,7 @@ interface UsefullDiasporaResoursesItems {
   title: string;
   description: string;
   icons: React.ReactNode;
+  link: string;
 }
 const UsefullDiasporaResourses: React.FC = () => {
   const resources: UsefullDiasporaResoursesItems[] = [
@@ -241,18 +245,21 @@ const UsefullDiasporaResourses: React.FC = () => {
       title: "Foreign Exchange Rate",
       description:
         "Foreign Exchange Rate is defined as the price of the domestic currency with respect to another currency. The purpose of foreign exchange is to compare one currency with another for showing their relative values.",
+      link: "https://coopbankoromia.com.et/daily-exchange-rates/",
     },
     {
       icons: <WorkspacePremium className="muicon" />,
       title: "Trade Registration and Licensing",
       description:
         "Obtaining a business license in Ethiopia. The Ministry of Trade and Industry is the main institution responsible for registering a business in Ethiopia.",
+      link: "https://etrade.gov.et/",
     },
     {
       icons: <AccountBalance className="muicon" />,
       title: "National Bank Directives",
       description:
         "The National Bank of Ethiopia was established in 1963 by proclamation 206 of 1963 and began operation in January 1964. Prior to this proclamation, the Bank used to carry out dual activities, i.e. commercial banking and central banking.",
+      link: "https://nbe.gov.et/directives/",
     },
   ];
 
@@ -297,7 +304,7 @@ const UsefullDiasporaResourses: React.FC = () => {
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-              <ReadMoreButton link="#" text="Read More" />
+              <ReadMoreButton link={offer.link} text="Read More" />
             </div>
           ))}
         </motion.div>
@@ -487,7 +494,11 @@ export function Home(props: IHomeProps) {
             Don't have Coopbank Diaspora account yet? Apply now and open your
             new account in under 3 minutes!
           </p>
-          <ApplyNowButton link="#" text="apply now" />
+          <ApplyNowButton
+            target="_self"
+            link="/diaspora-current-account"
+            text="apply now"
+          />
         </div>
       </div>
 
@@ -536,7 +547,11 @@ export function Home(props: IHomeProps) {
                 Account Opening Offline Form and{" "}
                 <span className="orangecolor">Upload</span>
               </p>
-              <ApplyNowButton link="#" text="Download Now" />
+              <ApplyNowButton
+                link="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Diaspora-Account-Opening-Form-FINFINE-1.pdf"
+                text="Download Now"
+                target="_blank"
+              />
             </div>
             <div className="right">
               <form action="#">
@@ -553,7 +568,7 @@ export function Home(props: IHomeProps) {
                   <input type="text" placeholder="E.g. abdi@gmail.com" />
                 </div>
                 <div className="action">
-                  <BasicButton text="Upload file" link="#" />
+                  <BasicButton text="Upload file" link="" />
                 </div>
                 {/* <button type="submit">Upload file</button> */}
               </form>
@@ -563,7 +578,11 @@ export function Home(props: IHomeProps) {
       </div>
 
       <div className="slideShowComp">
-        <Slideshow />
+        <div className="container">
+          <h3>International Remittance</h3>
+          <p>We partner with over 13+ world best money transfer agents</p>
+          <Slideshow />
+        </div>
       </div>
     </div>
   );

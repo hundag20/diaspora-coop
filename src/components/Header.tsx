@@ -129,7 +129,7 @@ export function Header(props: IHeaderProps) {
     },
     {
       label: "About",
-      route: "/",
+      route: "/about",
     },
     {
       label: "Open Account",
@@ -142,17 +142,17 @@ export function Header(props: IHeaderProps) {
         {
           name: "Fixed-Time Deposit",
           icon: <QueryBuilder className="muicon" />,
-          route: "/",
+          route: "/diaspora-fixed-time-deposit",
         },
         {
           name: "Non-Repatriable Account",
           icon: <RequestQuote className="muicon" />,
-          route: "/",
+          route: "/diaspora-non-depreciable-account",
         },
         {
           name: "ECOLFL Savings Account",
           icon: <Badge className="muicon" />,
-          route: "/",
+          route: "/diaspora-ecolf-saving-account",
         },
       ],
     },
@@ -228,7 +228,10 @@ export function Header(props: IHeaderProps) {
           ))}
         </div>
         {/* <button>Internet Banking</button> */}
-        <MainButton text="Internet Banking" link="/" />
+        <MainButton
+          text="Internet Banking"
+          link="https://myaccount.ebirr.com/#/login"
+        />
       </div>
       <div className="container">
         <div className="left" onClick={() => navigate("/")}>

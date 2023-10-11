@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -28,9 +29,9 @@ interface ButtonProps {
 
 const ReadMoreButton: React.FC<ButtonProps> = ({ text, link }) => {
   return (
-    <a href={link}>
+    <Link to={link} target="_blank">
       <StyledButton>{text}</StyledButton>
-    </a>
+    </Link>
   );
 };
 

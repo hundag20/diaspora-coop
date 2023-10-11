@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -29,13 +30,14 @@ const StyledButton = styled.button`
 interface ButtonProps {
   text: string;
   link: string;
+  target: string;
 }
 
-const ApplyNowButton: React.FC<ButtonProps> = ({ text, link }) => {
+const ApplyNowButton: React.FC<ButtonProps> = ({ text, link, target }) => {
   return (
-    <a href={link}>
+    <Link to={link} target={target}>
       <StyledButton>{text}</StyledButton>
-    </a>
+    </Link>
   );
 };
 

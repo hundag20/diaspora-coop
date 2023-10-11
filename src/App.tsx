@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { AboutCoopbankAlhuda } from "./pages/AboutCoopbankAlhuda";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Header } from "./components/Header";
@@ -9,7 +10,10 @@ import { GetALoan } from "./pages/GetALoan";
 import { LoanCalculator } from "./pages/LoanCalculator";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import { CurrentAccount } from "./pages/CurrentAccount";
-import { AboutCoopbankAlhuda } from "./pages/AboutCoopbankAlhuda";
+import { FixedTimeAccount } from "./pages/FixedTimeAccount";
+import { NonDepreciableAccount } from "./pages/NonDepreciableAccount";
+import { EcolfSavingAccount } from "./pages/EcolfSavingAccount";
+import About from "./pages/About";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -36,6 +40,14 @@ const App = () => {
           element={
             <BodyRoute>
               <Home />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <BodyRoute>
+              <About />
             </BodyRoute>
           }
         />
@@ -76,6 +88,30 @@ const App = () => {
           element={
             <BodyRoute>
               <AboutCoopbankAlhuda />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path="/diaspora-fixed-time-deposit"
+          element={
+            <BodyRoute>
+              <FixedTimeAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path="/diaspora-non-depreciable-account"
+          element={
+            <BodyRoute>
+              <NonDepreciableAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path="/diaspora-ecolf-saving-account"
+          element={
+            <BodyRoute>
+              <EcolfSavingAccount />
             </BodyRoute>
           }
         />

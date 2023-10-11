@@ -619,5 +619,24 @@
 }
 
 .slideShowComp {
-  padding: 1rem $resPadding;
+  .container {
+    padding: 1rem $resPadding;
+    h3 {
+      font-family: Poppins, sans-serif;
+      font-size: 48px;
+      line-height: 62.4px;
+      text-align: start;
+      letter-spacing: normal;
+      color: #3a3a3a;
+      margin: 0;
+    }
+    p {
+      font-family: "Open Sans", sans-serif;
+      font-size: 29px;
+      line-height: 53.8571px;
+      text-align: start;
+      letter-spacing: normal;
+      margin: 0;
+    }
+  }
 }

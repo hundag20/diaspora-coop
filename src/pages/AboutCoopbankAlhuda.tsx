@@ -112,11 +112,11 @@ const AlhudAccountProps: React.FC = () => {
 
   return (
     <div className="accountHolderContainer">
-      <motion.div
+      {/* <motion.div
         className="progress-bar"
         initial={{ height: "0%" }}
         animate={progressBarControls}
-      ></motion.div>
+      ></motion.div> */}
 
       <div>
         <AnimatePresence>
