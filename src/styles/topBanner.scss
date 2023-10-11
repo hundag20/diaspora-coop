@@ -116,3 +116,9 @@
     }
   }
 }
+/* Styles that apply when flex items wrap */
+@media (max-width: 768px) {
+  #banner-subheader {
+    padding-right: 10px;
+  }
+}

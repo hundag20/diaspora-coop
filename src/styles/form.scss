@@ -686,6 +686,7 @@
       margin-bottom: 0.5rem !important;
       padding: 1.25rem;
       margin-right: 1.5rem;
+      flex-wrap: wrap;
 
       .image {
         font-style: normal;
@@ -833,6 +834,15 @@
           border-color: #e58625;
         }
       }
+    }
+  }
+}
+/* Styles that apply when flex items wrap */
+@media (max-width: 768px) {
+  .download-doc {
+    gap: 10px;
+    .btn {
+      width: 100%;
     }
   }
 }
