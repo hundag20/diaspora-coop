@@ -797,6 +797,9 @@ z-index: inherit;
                         font-weight: 700;
                         font-style: italic;
                       }
+                    span:hover{
+                        color: #000;
+                      }
                     }
                   }
                 }
@@ -1151,6 +1154,10 @@ z-index: inherit;
                                 font-size: 35px;
                                 font-weight: 700;
                                 font-style: italic;
+                               
+                               
+                              } .accounts-sub-heading:hover{
+                                color: #000;
                               }
                             }
                           }
@@ -1308,6 +1315,9 @@ z-index: inherit;
                               font-weight: 700;
                               font-style: italic;
                               color: #00adef;
+                            }
+                            .accounts-sub-heading-loan:hover{
+                              color: #000;
                             }
                           }
                         }
