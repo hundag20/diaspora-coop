@@ -89,31 +89,33 @@ const About = () => {
 
 
 const about_header =  {
-headertop: "",
-headerTitle:'',
-headerSubTitile:'',
-headerdiscription:'',
+headertop: "CoopBank Diaspora",
+headerTitle:' Diaspora Banking',
+headerSubTitile:" We provide you with a distinctive array of products and services tailored to your banking needs both at home and abroad!",
+headerDiscription1:"  CoopBank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis. CoopBank Diaspora Account has been operational since August 2012.",
+headerDiscription2:"  CoopBank Diaspora Banking is a platform designed for Ethiopians who do not reside in the country to have a safe, easy and convenient access to a wide range of products and services carefully curated to simplify cross-border banking.",
 }
 
 const about_headerImg =  {
 
- imgUrl:''
+ imgUrl:'https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/08/pngwing.com-54.png'
   }
 
 const about_section = [
 {  titile: ' ',
+desc:'The Coopbank is now one of the most profitable banks in Ethiopia having a total asset value of more than ETB 121 billion. The bank has 630+ branch networks, 10 million account holders, and more than 11,500 employees.'
 },
 {
-  visionTitle: "",
+  visionTitle: " Vision",
   visionDesc: ""
 },
 {
-  missionTitle: '',
+  missionTitle: 'Mission',
   missionDesc: ' ',
 
 },
 {
-  core_valuesTitle:' ',
+  core_valuesTitle:'Core Values',
   core_valuesDesc:' ',
   core_valuesList:[""," "," "]
 }
