@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import AboutStatCounter from "../components/AboutStatCounter";
 
 const About = () => {
+
+
   const offersAnimationVariants = {
     hidden: {
       opacity: 0,
@@ -84,6 +86,49 @@ const About = () => {
       },
     },
   };
+
+
+const about_header =  {
+headertop: "",
+headerTitle:'',
+headerSubTitile:'',
+headerdiscription:'',
+}
+
+const about_headerImg =  {
+
+ imgUrl:''
+  }
+
+const about_section = [
+{  titile: ' ',
+},
+{
+  visionTitle: "",
+  visionDesc: ""
+},
+{
+  missionTitle: '',
+  missionDesc: ' ',
+
+},
+{
+  core_valuesTitle:' ',
+  core_valuesDesc:' ',
+  core_valuesList:[""," "," "]
+}
+
+]
+const about_diaspra_account_loan =[
+  {
+    diasporAccTitle:'',
+    diasporAccDesc:'',
+  },
+  {
+    diaspraLoanTitle:'',
+    diaspraLoanDesc:''
+  }
+]
 
   const statsInfo = [
     {
