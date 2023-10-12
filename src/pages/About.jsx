@@ -124,7 +124,8 @@ desc:'The Coopbank is now one of the most profitable banks in Ethiopia having a 
 const about_diaspra_account_loan =[
   {
     diasporAccTitle:'',
-    diasporAccDesc:'',
+    diasporAccDesc:' Diaspora Banking Account allows Diaspora who resides and works outside the country to maintain and perform domestic and international transfers through their Coopbank accounts.',
+    diasporaAccList:" "
   },
   {
     diaspraLoanTitle:'',
