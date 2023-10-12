@@ -129,7 +129,7 @@ const about_diaspra_account_loan =[
   },
   {
     diaspraLoanTitle:'',
-    diaspraLoanDesc:''
+    diaspraLoanDesc:'The bank provides business and investment loan along with expertise free consultancy services on different opportunities.'
   }
 ]
 
