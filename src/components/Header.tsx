@@ -38,6 +38,10 @@ export function Header(props: IHeaderProps) {
   const location = useLocation();
   const currentRoute: string | null = location.pathname;
 
+  useEffect(() => {
+    setOpenSubMenu(null);
+  }, [location.pathname]);
+
   // Function to toggle the submenu for a specific menu item index
   const toggleSubmenu = (index: number) => {
     setOpenSubmenus((prevOpenSubmenus) => ({
@@ -175,17 +179,17 @@ export function Header(props: IHeaderProps) {
         {
           name: "Diaspora Wadia Saving Account",
           icon: <Badge className="muicon" />,
-          route: "/",
+          route: "/diaspora-wadia-savings-account",
         },
         {
           name: "Diaspora Mudarabah Savings Account",
           icon: <PriceChange className="muicon" />,
-          route: "/",
+          route: "/diaspora-mudarabah-savings-account",
         },
         {
           name: "Diaspora Mudarabah Fixed Term Deposit",
           icon: <Person className="muicon" />,
-          route: "/",
+          route: "/diaspora-mudarabah-fixed-term-deposit",
         },
       ],
     },
@@ -213,6 +217,41 @@ export function Header(props: IHeaderProps) {
       link: "www.telegram.com",
     },
   ];
+
+  // Define animation variants for the "offers" section
+  const offersAnimationVariants = {
+    hidden: {
+      opacity: 0,
+      y: -20, // Start off-screen
+    },
+    visible: {
+      opacity: 1,
+      y: 0, // Slide up to its original position
+      transition: {
+        duration: 0.3, // Adjust the animation duration as needed
+      },
+    },
+  };
+
+  const hasActiveSubmenu = (index: number): boolean => {
+    const menuItem = menuItems[index];
+
+    if (menuItem.route && location.pathname === menuItem.route) {
+      return true; // The current menu item has a route matching the current location
+    }
+
+    if (menuItem.subMenu) {
+      return menuItem.subMenu.some(
+        (subItem) => location.pathname === subItem.route
+      );
+    }
+
+    return false; // No match found for this menu item
+  };
+
+  const isSubMenuOpen = (index: number): boolean => {
+    return index === openSubMenu;
+  };
 
   return (
     <motion.div className="headerComp" animate="visible">
@@ -242,9 +281,14 @@ export function Header(props: IHeaderProps) {
             {menuItems.map((menuItem, index) => (
               <li
                 key={index}
+                // className={`menu-item ${
+                //   menuItem.subMenu ? "has-submenu" : ""
+                // } ${currentRoute === (menuItem.route || "") ? "active" : ""}`}
                 className={`menu-item ${
                   menuItem.subMenu ? "has-submenu" : ""
-                } ${currentRoute === (menuItem.route || "") ? "active" : ""}`}
+                } ${hasActiveSubmenu(index) ? "active" : ""} ${
+                  isSubMenuOpen(index) ? "open" : ""
+                }`}
                 onMouseEnter={() => handleSubMenuToggle(index)}
                 onMouseLeave={() => handleSubMenuToggle(null)}
               >
@@ -257,7 +301,13 @@ export function Header(props: IHeaderProps) {
                       )}
                     </span>
                     {menuItem.subMenu && openSubMenu === index && (
-                      <div className="submenu">
+                      <motion.div
+                        className="submenu"
+                        ref={ref} // Attach the ref to the "offers" section
+                        initial="hidden"
+                        animate={inView ? "visible" : "hidden"} // Animate when in view
+                        variants={offersAnimationVariants}
+                      >
                         <div className="sub_container">
                           {menuItem.subMenu.map((subItem, subIndex) => (
                             <div
@@ -275,7 +325,7 @@ export function Header(props: IHeaderProps) {
                             </div>
                           ))}
                         </div>
-                      </div>
+                      </motion.div>
                     )}
                   </>
                 ) : (

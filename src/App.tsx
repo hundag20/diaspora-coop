@@ -17,6 +17,7 @@ import { WadiyaSavingsAccount } from "./pages/alhudaAccount/WadiyaSavingsAccount
 import { MudarabahSavingsAccount } from "./pages/alhudaAccount/MudarabahSavingsAccount";
 import { MudarabahFixedTermDepositAccount } from "./pages/alhudaAccount/MudarabahFixedTermDepositAccount";
 import { AboutCoopbankAlhuda } from "./pages/AboutCoopbankAlhuda";
+import ScrollToTop from "./components/scrollToTop";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -37,6 +38,7 @@ const BodyRoute = ({ children }: BodyeRouteProps) => (
 const App = () => {
   return (
     <div>
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"

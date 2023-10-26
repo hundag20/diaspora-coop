@@ -26,6 +26,50 @@ const photos = [
     src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/westernunion.jpg",
     alt: "",
   },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/worldremit.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/swift.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/transfast.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/ria.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/smallworld.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/E-remit.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/kaah.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/moneygram.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/Banana-Pay.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/dahabashiil.jpg",
+    alt: "",
+  },
+  {
+    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/xpress-money.jpg",
+    alt: "",
+  },
 ];
 
 export default function Slideshow() {

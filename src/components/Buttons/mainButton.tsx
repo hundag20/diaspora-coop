@@ -13,6 +13,10 @@ const StyledButton = styled.button`
   cursor: pointer;
   font-size: 14px;
   line-height: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 
   &:hover {
     background-color: #0056b3;

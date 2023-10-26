@@ -91,7 +91,7 @@ const DiasporaResources = () => (
             <div className="icon">{offer.icons}</div>
             <h4>{offer.title}</h4>
             <p>{offer.description}</p>
-            <ReadMoreButton link="#" text="Read More" />
+            <ReadMoreButton link="#" text="Read More" target="_blank" />
           </div>
         ))}
       </div>

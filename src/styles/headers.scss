@@ -107,6 +107,9 @@
                   }
                 }
                 .submenu-item:hover {
+                  .icon {
+                    color: $third;
+                  }
                   color: $third;
                 }
               }

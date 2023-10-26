@@ -16,10 +16,11 @@ import {
   Handyman,
   Business,
 } from "@mui/icons-material";
-import { motion } from "framer-motion";
+import { useAnimation, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import AnimatedCounter from "../components/AnimatedCounter";
+import { useNavigate } from "react-router-dom";
 
 export interface IHomeProps {}
 
@@ -223,10 +224,102 @@ const WhatWeOffer: React.FC = () => {
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-              <ReadMoreButton link="/get-a-loan" text="Read More" />
+              <ReadMoreButton
+                link="/get-a-loan"
+                text="Read More"
+                target="_self"
+              />
             </div>
           ))}
         </motion.div>
+      </div>
+    </div>
+  );
+};
+
+const OfflineForm: React.FC = () => {
+  // Use the useInView hook to detect when the "offers" section is in view
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      const sequence = async () => {
+        await controls.start({ scale: 1.1, transition: { duration: 0.1 } }); // Zoom in
+        await controls.start({ rotate: -5, transition: { duration: 0.1 } }); // Tilt left
+        await controls.start({ rotate: 5, transition: { duration: 0.1 } }); // Tilt right
+        await controls.start({ rotate: -5, transition: { duration: 0.1 } }); // Tilt left
+        await controls.start({ rotate: 5, transition: { duration: 0.1 } }); // Tilt right
+        await controls.start({ scale: 1, transition: { duration: 0.1 } }); // Zoom out
+        await controls.start({ rotate: 0, transition: { duration: 0.1 } }); // Back to center
+      };
+
+      sequence();
+    }
+  }, [controls, inView]);
+
+  const animationVariants = {
+    initial: {
+      scale: 1,
+      rotate: 0,
+    },
+    animationSequence: {
+      scale: 1.2,
+      rotate: -10,
+      transition: { duration: 0.3 },
+      yoyo: 1,
+      repeatType: "mirror",
+      repeat: 2,
+    },
+  };
+
+  return (
+    <div className="offlineForm">
+      <div className="container">
+        <div className="box">
+          <div className="left">
+            <h3>Offline Form</h3>
+            <p>
+              Please <span className="orangecolor">Download</span> Diaspora
+              Account Opening Offline Form and{" "}
+              <span className="orangecolor">Upload</span>
+            </p>
+
+            <motion.div
+              ref={ref}
+              initial={{ scale: 1, rotate: 0 }}
+              animate={controls}
+            >
+              <ApplyNowButton
+                link="/downloads/2022/09/Diaspora-Account-Opening-Form-FINFINE-1.pdf"
+                text="Download Now"
+                target="_blank"
+              />
+            </motion.div>
+          </div>
+          <div className="right">
+            <form action="#">
+              <div className="formcontrol">
+                <p>
+                  Name <span className="requiredcolor">*</span>
+                </p>
+                <input type="text" placeholder="Name" />
+              </div>
+              <div className="formcontrol">
+                <p>
+                  Email Address <span className="requiredcolor">*</span>
+                </p>
+                <input type="text" placeholder="E.g. abdi@gmail.com" />
+              </div>
+              <div className="action">
+                <p>Upload Form</p>
+                <BasicButton text="Choose file" link="" />
+                <BasicButton text="Upload file" link="" />
+              </div>
+              {/* <button type="submit">Upload file</button> */}
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -304,7 +397,11 @@ const UsefullDiasporaResourses: React.FC = () => {
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-              <ReadMoreButton link={offer.link} text="Read More" />
+              <ReadMoreButton
+                link={offer.link}
+                text="Read More"
+                target="_blank"
+              />
             </div>
           ))}
         </motion.div>
@@ -416,6 +513,7 @@ const Stats: React.FC = () => {
 };
 
 export function Home(props: IHomeProps) {
+  const navigate = useNavigate();
   const howItWorks = [
     {
       icon: <Description className="muicon" />,
@@ -459,14 +557,17 @@ export function Home(props: IHomeProps) {
               August 2012.
             </p>
             <div className="hero_button_joins">
-              <button className="open_account">
+              <button
+                className="open_account"
+                onClick={() => navigate("/diaspora-current-account")}
+              >
                 <i aria-hidden="true" className="far fa-address-card"></i>{" "}
                 <span>Open An Account</span>
               </button>
               <div className="or-container">
                 <span className="or-sign">or</span>
               </div>
-              <button className="loans">
+              <button className="loans" onClick={() => navigate("/get-a-loan")}>
                 <i aria-hidden="true" className="icon icon-save-money"></i>
                 <span>Request A Loan</span>
               </button>
@@ -537,45 +638,7 @@ export function Home(props: IHomeProps) {
 
       <UsefullDiasporaResourses />
 
-      <div className="offlineForm">
-        <div className="container">
-          <div className="box">
-            <div className="left">
-              <h3>Offline Form</h3>
-              <p>
-                Please <span className="orangecolor">Download</span> Diaspora
-                Account Opening Offline Form and{" "}
-                <span className="orangecolor">Upload</span>
-              </p>
-              <ApplyNowButton
-                link="/downloads/2022/09/Diaspora-Account-Opening-Form-FINFINE-1.pdf"
-                text="Download Now"
-                target="_blank"
-              />
-            </div>
-            <div className="right">
-              <form action="#">
-                <div className="formcontrol">
-                  <p>
-                    Name <span className="requiredcolor">*</span>
-                  </p>
-                  <input type="text" placeholder="Name" />
-                </div>
-                <div className="formcontrol">
-                  <p>
-                    Email Address <span className="requiredcolor">*</span>
-                  </p>
-                  <input type="text" placeholder="E.g. abdi@gmail.com" />
-                </div>
-                <div className="action">
-                  <BasicButton text="Upload file" link="" />
-                </div>
-                {/* <button type="submit">Upload file</button> */}
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+      <OfflineForm />
 
       <div className="slideShowComp">
         <div className="container">

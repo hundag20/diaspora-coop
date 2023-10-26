@@ -25,11 +25,12 @@ const StyledButton = styled.button`
 interface ButtonProps {
   text: string;
   link: string;
+  target: string;
 }
 
-const ReadMoreButton: React.FC<ButtonProps> = ({ text, link }) => {
+const ReadMoreButton: React.FC<ButtonProps> = ({ text, link, target }) => {
   return (
-    <Link to={link} target="_blank">
+    <Link to={link} target={target}>
       <StyledButton>{text}</StyledButton>
     </Link>
   );
