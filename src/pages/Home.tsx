@@ -21,6 +21,7 @@ import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import AnimatedCounter from "../components/AnimatedCounter";
 import { useNavigate } from "react-router-dom";
+import { Divider } from "../components/Divider";
 
 export interface IHomeProps {}
 
@@ -279,6 +280,7 @@ const OfflineForm: React.FC = () => {
         <div className="box">
           <div className="left">
             <h3>Offline Form</h3>
+            <Divider />
             <p>
               Please <span className="orangecolor">Download</span> Diaspora
               Account Opening Offline Form and{" "}
