@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import AboutStatCounter from "../components/AboutStatCounter";
 
 const About = () => {
+
+
   const offersAnimationVariants = {
     hidden: {
       opacity: 0,
@@ -57,7 +59,7 @@ const About = () => {
   });
   const contentAnimationVariantsLeft = {
     hidden: {
-      x: "100%",
+      x: "10%",
       opacity: 0,
     },
     visible: {
@@ -72,7 +74,7 @@ const About = () => {
 
   const contentAnimationVariantsRight = {
     hidden: {
-      x: "-100%",
+      x: "-10%",
       opacity: 0,
     },
     visible: {
@@ -84,6 +86,52 @@ const About = () => {
       },
     },
   };
+
+
+const about_header =  {
+headertop: "CoopBank Diaspora",
+headerTitle:' Diaspora Banking',
+headerSubTitile:" We provide you with a distinctive array of products and services tailored to your banking needs both at home and abroad!",
+headerDiscription1:"  CoopBank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis. CoopBank Diaspora Account has been operational since August 2012.",
+headerDiscription2:"  CoopBank Diaspora Banking is a platform designed for Ethiopians who do not reside in the country to have a safe, easy and convenient access to a wide range of products and services carefully curated to simplify cross-border banking.",
+}
+
+const about_headerImg =  {
+
+ imgUrl:'https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/08/pngwing.com-54.png'
+  }
+
+const about_section = [
+{  titile: ' ',
+desc:'The Coopbank is now one of the most profitable banks in Ethiopia having a total asset value of more than ETB 121 billion. The bank has 630+ branch networks, 10 million account holders, and more than 11,500 employees.'
+},
+{
+  visionTitle: " Vision",
+  visionDesc: ""
+},
+{
+  missionTitle: 'Mission',
+  missionDesc: ' ',
+
+},
+{
+  core_valuesTitle:'Core Values',
+  core_valuesDesc:' ',
+  core_valuesList:[""," "," "]
+}
+
+]
+const about_diaspra_account_loan =[
+  {
+    diasporAccTitle:'',
+    diasporAccDesc:' Diaspora Banking Account allows Diaspora who resides and works outside the country to maintain and perform domestic and international transfers through their Coopbank accounts.',
+    diasporaAccList:" "
+  },
+  {
+    diaspraLoanTitle:'',
+    diaspraLoanDesc:'The bank provides business and investment loan along with expertise free consultancy services on different opportunities.'
+  }
+]
 
   const statsInfo = [
     {
@@ -148,13 +196,14 @@ const About = () => {
           {" "}
           <div className="about-container">
             {" "}
+         
             <div className="about-content">
               <div className="about-headings">
                 <div className="heading-title">
-                  <h6> CoopBank Diaspora </h6>
+                  <h6> {about_header.headertop}</h6>
                 </div>
                 <div className="heading-sub">
-                  <h3> Diaspora Banking</h3>
+                  <h3> {about_header.headerTitle}</h3>
                 </div>
                 <div
                   className="diaspora-banking-top--element-3 elementor-element-a727a1b elementor-widget elementor-widget-heading"
@@ -164,9 +213,7 @@ const About = () => {
                 >
                   <div className="diaspora-banking-top--widget-container-3">
                     <p className="heading-title-3 elementor-size-default">
-                      We provide you with a distinctive array of products and
-                      services tailored to your banking needs both at home and
-                      abroad!
+                      {about_header.headerSubTitile}
                     </p>{" "}
                   </div>
                 </div>
@@ -174,15 +221,8 @@ const About = () => {
                   {" "}
                   <p>
                     {" "}
-                    CoopBank of Oromia is one of the leading private banks in
-                    Ethiopia with very distinctive banking history. Diaspora
-                    Banking is one of the banking segments of CoopBank which has
-                    been given due emphasis. CoopBank Diaspora Account has been
-                    operational since August 2012. <br />
-                    CoopBank Diaspora Banking is a platform designed for
-                    Ethiopians who do not reside in the country to have a safe,
-                    easy and convenient access to a wide range of products and
-                    services carefully curated to simplify cross-border banking.
+                   {about_header.headerDiscription1}. <br />
+                   {about_header.headerDiscription2}
                   </p>
                 </div>
               </div>
@@ -200,7 +240,7 @@ const About = () => {
                 <div className="about-globe-image-outer-container">
                   <div className="about-globe-image-container">
                     <img
-                      src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/08/pngwing.com-54.png"
+                      src={about_headerImg.imgUrl}
                       className="attachment-full size-full wp-image-2257"
                       alt=""
                       srcSet="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/08/pngwing.com-54.png 850w, https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/08/pngwing.com-54-300x194.png 300w, https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/08/pngwing.com-54-768x497.png 768w"
