@@ -514,9 +514,91 @@ const Stats: React.FC = () => {
   );
 };
 
-export function Home(props: IHomeProps) {
+const Hero: React.FC = () => {
+  // Use the useInView hook to detect when the "offers" section is in view
   const navigate = useNavigate();
-  const howItWorks = [
+  return (
+    <div className="heroComp">
+      <div className="container">
+        <div className="content">
+          <div className="top">
+            <h3>Diaspora</h3>
+            <h2>Banking</h2>
+          </div>
+          <p className="discription">
+            CoopBank of Oromia is one of the leading private banks in Ethiopia
+            with very distinctive banking history. Diaspora Banking is one of
+            the banking segments of CoopBank which has been given due emphasis.
+            CoopBank Diaspora Account has been operational since August 2012.
+          </p>
+          <div className="hero_button_joins">
+            <button
+              className="open_account"
+              onClick={() => navigate("/diaspora-current-account")}
+            >
+              <i aria-hidden="true" className="far fa-address-card"></i>{" "}
+              <span>Open An Account</span>
+            </button>
+            <div className="or-container">
+              <span className="or-sign">or</span>
+            </div>
+            <button className="loans" onClick={() => navigate("/get-a-loan")}>
+              <i aria-hidden="true" className="icon icon-save-money"></i>
+              <span>Request A Loan</span>
+            </button>
+          </div>
+        </div>
+        <div className="image">
+          <img
+            src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"
+            alt="Coop bank"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ApplyNow: React.FC = () => {
+  // Use the useInView hook to detect when the "offers" section is in view
+  return (
+    <div className="applyComp">
+      <div className="container">
+        <h3>Apply In 3 Minutes</h3>
+        <p>
+          Don't have Coopbank Diaspora account yet? Apply now and open your new
+          account in under 3 minutes!
+        </p>
+        <ApplyNowButton
+          target="_self"
+          link="/diaspora-current-account"
+          text="apply now"
+        />
+      </div>
+    </div>
+  );
+};
+
+const Remittance: React.FC = () => {
+  // Use the useInView hook to detect when the "offers" section is in view
+  return (
+    <div className="slideShowComp">
+      <div className="container">
+        <h3>International Remittance</h3>
+        <p>We partner with over 13+ world best money transfer agents</p>
+        <Slideshow />
+      </div>
+    </div>
+  );
+};
+
+interface HowItWorksItems {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+const HowItWorks: React.FC = () => {
+  const howItWorksObejct: HowItWorksItems[] = [
     {
       icon: <Description className="muicon" />,
       title: "Create Your Account",
@@ -542,47 +624,47 @@ export function Home(props: IHomeProps) {
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
     },
   ];
+  // Use the useInView hook to detect when the "offers" section is in view
   return (
-    <div>
-      <div className="heroComp">
-        <div className="container">
-          <div className="content">
-            <div className="top">
-              <h3>Diaspora</h3>
-              <h2>Banking</h2>
-            </div>
-            <p className="discription">
-              CoopBank of Oromia is one of the leading private banks in Ethiopia
-              with very distinctive banking history. Diaspora Banking is one of
-              the banking segments of CoopBank which has been given due
-              emphasis. CoopBank Diaspora Account has been operational since
-              August 2012.
-            </p>
-            <div className="hero_button_joins">
-              <button
-                className="open_account"
-                onClick={() => navigate("/diaspora-current-account")}
-              >
-                <i aria-hidden="true" className="far fa-address-card"></i>{" "}
-                <span>Open An Account</span>
-              </button>
-              <div className="or-container">
-                <span className="or-sign">or</span>
+    <div className="worksComp">
+      <div className="container">
+        <div className="header">
+          <h3>
+            How It <span className="colouredspan">Work?</span>{" "}
+          </h3>
+          <p>
+            Follow our step-by-step guide to creating an account and requesting
+            a loan
+          </p>
+        </div>
+        <div className="content">
+          <div className="left">
+            {howItWorksObejct.map((work) => (
+              <div className="works">
+                <div className="icon">{work.icon}</div>
+                <div className="texts">
+                  <h3>{work.title}</h3>
+                  <p>{work.description}</p>
+                </div>
               </div>
-              <button className="loans" onClick={() => navigate("/get-a-loan")}>
-                <i aria-hidden="true" className="icon icon-save-money"></i>
-                <span>Request A Loan</span>
-              </button>
-            </div>
+            ))}
           </div>
-          <div className="image">
+          <div className="right">
             <img
-              src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"
-              alt="Coop bank"
+              src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2023/05/099A9988-2-1.png"
+              alt=""
             />
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+export function Home(props: IHomeProps) {
+  return (
+    <div>
+      <Hero />
 
       <Stats />
 
@@ -590,65 +672,15 @@ export function Home(props: IHomeProps) {
 
       <Diasport />
 
-      <div className="applyComp">
-        <div className="container">
-          <h3>Apply In 3 Minutes</h3>
-          <p>
-            Don't have Coopbank Diaspora account yet? Apply now and open your
-            new account in under 3 minutes!
-          </p>
-          <ApplyNowButton
-            target="_self"
-            link="/diaspora-current-account"
-            text="apply now"
-          />
-        </div>
-      </div>
+      <ApplyNow />
 
-      <div className="worksComp">
-        <div className="container">
-          <div className="header">
-            <h3>
-              How It <span className="colouredspan">Work?</span>{" "}
-            </h3>
-            <p>
-              Follow our step-by-step guide to creating an account and
-              requesting a loan
-            </p>
-          </div>
-          <div className="content">
-            <div className="left">
-              {howItWorks.map((work) => (
-                <div className="works">
-                  <div className="icon">{work.icon}</div>
-                  <div className="texts">
-                    <h3>{work.title}</h3>
-                    <p>{work.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="right">
-              <img
-                src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2023/05/099A9988-2-1.png"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <HowItWorks />
 
       <UsefullDiasporaResourses />
 
       <OfflineForm />
 
-      <div className="slideShowComp">
-        <div className="container">
-          <h3>International Remittance</h3>
-          <p>We partner with over 13+ world best money transfer agents</p>
-          <Slideshow />
-        </div>
-      </div>
+      <Remittance />
     </div>
   );
 }
