@@ -23,6 +23,13 @@ import AnimatedCounter from "../components/AnimatedCounter";
 import { useNavigate } from "react-router-dom";
 import { Divider } from "../components/Divider";
 
+import { FaCheckCircle } from "react-icons/fa";
+import { BsCheck2Circle } from "react-icons/bs";
+import Carousel from "../components/slideShow/carousel";
+import Gallery from "../components/slideShow/grid";
+import KeenSlider from "../components/slideShow/keenSlider";
+import AnimatedShake from "../components/AnimatedShake";
+
 export interface IHomeProps {}
 
 interface DiasporaItem {
@@ -31,6 +38,7 @@ interface DiasporaItem {
   bullets: string[];
   img: string;
   link: string;
+  action: string;
 }
 const Diasport: React.FC = () => {
   const diaspora: DiasporaItem[] = [
@@ -46,6 +54,7 @@ const Diasport: React.FC = () => {
       ],
       img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png",
       link: "/diaspora-current-account",
+      action: "Open an Account",
     },
     {
       title: "Diaspora Loan",
@@ -62,6 +71,7 @@ const Diasport: React.FC = () => {
       ],
       img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
       link: "/get-a-loan",
+      action: "Apply Now",
     },
   ];
 
@@ -74,6 +84,7 @@ const Diasport: React.FC = () => {
     const isEven = index % 2 === 0;
     const [ref, inView] = useInView({
       triggerOnce: true, // Only trigger the animation once
+      threshold: 0.4, // Adjust as needed
     });
 
     // Define animation variants for the image and content
@@ -133,10 +144,12 @@ const Diasport: React.FC = () => {
           <p>{item.description}</p>
           <ul>
             {item.bullets.map((bullet, bulletIndex) => (
-              <li key={bulletIndex}>{bullet}</li>
+              <li key={bulletIndex}>
+                <BsCheck2Circle className="icon" /> {bullet}
+              </li>
             ))}
           </ul>
-          <ApplyNowButton text="Apply now" link={item.link} target="_self" />
+          <ApplyNowButton text={item.action} link={item.link} target="_self" />
         </motion.div>
       </motion.div>
     );
@@ -227,7 +240,7 @@ const WhatWeOffer: React.FC = () => {
               <p>{offer.description}</p>
               <ReadMoreButton
                 link="/get-a-loan"
-                text="Read More"
+                text="Get Started"
                 target="_self"
               />
             </div>
@@ -569,11 +582,13 @@ const ApplyNow: React.FC = () => {
           Don't have Coopbank Diaspora account yet? Apply now and open your new
           account in under 3 minutes!
         </p>
-        <ApplyNowButton
-          target="_self"
-          link="/diaspora-current-account"
-          text="apply now"
-        />
+        <AnimatedShake>
+          <ApplyNowButton
+            target="_self"
+            link="/diaspora-current-account"
+            text="apply now"
+          />
+        </AnimatedShake>
       </div>
     </div>
   );
@@ -586,7 +601,10 @@ const Remittance: React.FC = () => {
       <div className="container">
         <h3>International Remittance</h3>
         <p>We partner with over 13+ world best money transfer agents</p>
-        <Slideshow />
+        {/* <Slideshow /> */}
+        {/* <Carousel /> */}
+        {/* <Gallery /> */}
+        <KeenSlider />
       </div>
     </div>
   );
@@ -639,9 +657,12 @@ const HowItWorks: React.FC = () => {
         </div>
         <div className="content">
           <div className="left">
-            {howItWorksObejct.map((work) => (
+            {howItWorksObejct.map((work, index) => (
               <div className="works">
-                <div className="icon">{work.icon}</div>
+                {/* <div className="icon">{work.icon}</div> */}
+                <div className="iconNum">
+                  <div className="muicon">{index + 1} </div>{" "}
+                </div>
                 <div className="texts">
                   <h3>{work.title}</h3>
                   <p>{work.description}</p>
@@ -666,19 +687,19 @@ export function Home(props: IHomeProps) {
     <div>
       <Hero />
 
-      <Stats />
-
       <WhatWeOffer />
-
-      <Diasport />
-
-      <ApplyNow />
 
       <HowItWorks />
 
-      <UsefullDiasporaResourses />
+      <ApplyNow />
+
+      <Diasport />
+
+      <Stats />
 
       <OfflineForm />
+
+      <UsefullDiasporaResourses />
 
       <Remittance />
     </div>

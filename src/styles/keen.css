@@ -1,0 +1,27 @@
+[class^="number-slide"],
+[class*=" number-slide"] {
+  background: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #fff;
+  font-weight: 500;
+  height: 150px;
+  width: 100%;
+  max-height: 100vh;
+  cursor: pointer;
+}
+
+.keen-slider {
+  margin: 1rem 0;
+}
+
+.number-slide1 img {
+  object-fit: fill;
+  height: 100%;
+  width: auto;
+}
+.number-slide1 {
+  background: none;
+}
