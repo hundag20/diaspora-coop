@@ -31,18 +31,23 @@ interface DiasporaItem {
   description: string;
   bullets: string[];
   img: {
-    data: [{
-      attributes: {
-      url: string,
-      alternativeText:string,
-    }}]
-  }
+    data: ImageItem
+  },
   link: string;
   // pictures:pictures;
 } 
 
 
+interface ImageItem {
+  id: number,
+  attributes: AttributesItem
+}
 
+interface AttributesItem {
+  url: string,
+  name: string,
+  alternativeText: string
+}
 
 const Diasport: React.FC = () => {
   const diaspora: DiasporaItem[] = [
@@ -56,7 +61,7 @@ const Diasport: React.FC = () => {
         "Diaspora Non-Repatriable Account",
         "Ethiopian Citizen Or Origin Living In Foreign Land (ECOLFL) Savings Account",
       ],
-      img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png",
+      img: {"https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png"},
       link: "/diaspora-current-account",
     },
     {
@@ -72,7 +77,7 @@ const Diasport: React.FC = () => {
         "Investment financing",
         "Working capital loans",
       ],
-      img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
+      img: {"https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"},
       link: "/get-a-loan",
 
     },
@@ -137,7 +142,7 @@ const Diasport: React.FC = () => {
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div className="image" variants={imageAnimationVariants}>
-          <img src={item.img} alt={item.title} />
+          {/* <img src={item.img} alt={item.title} /> */}
         </motion.div>
         <motion.div className="content" variants={contentAnimationVariants}>
           <h2>
