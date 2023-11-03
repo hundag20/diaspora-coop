@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import AnimatedCounter from "../components/AnimatedCounter";
 import { useNavigate } from "react-router-dom";
 import { Divider } from "../components/Divider";
+import axios from "axios";
 
 export interface IHomeProps {}
 
@@ -29,9 +30,20 @@ interface DiasporaItem {
   title: string;
   description: string;
   bullets: string[];
-  img: string;
+  img: {
+    data: [{
+      attributes: {
+      url: string,
+      alternativeText:string,
+    }}]
+  }
   link: string;
-}
+  // pictures:pictures;
+} 
+
+
+
+
 const Diasport: React.FC = () => {
   const diaspora: DiasporaItem[] = [
     {
@@ -62,6 +74,7 @@ const Diasport: React.FC = () => {
       ],
       img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
       link: "/get-a-loan",
+
     },
   ];
 
@@ -379,6 +392,66 @@ const UsefullDiasporaResourses: React.FC = () => {
     },
   };
 
+  
+  interface Dispor {
+    id: number;
+    attributes: attributes;
+    DiasporaItem: DiasporaItem;
+  }
+
+
+
+
+
+  const [data, setData] = useState<Dispor[]>([]);
+  const [lists, setLists] = useState([]);
+
+  const apiKey = "88019abc8ffddaf7d611f000e5cc5b09a909eb660e7012d5712f96a64123001ac214c87f7bb43890fa74e86b616892dfdbb72e5cc7f91aa57db98d5aae8cdf1692c2063288526cd72f4bc2def06f80e70f9d8d54980ff211fdde3c52dc8cbf7c0ec8533daaa02cbafe0a24158fa2e5eea9c35a691a07d29c2de6ebd71f52d07e"
+  const headers = {
+    Authorization: `Bearer ${apiKey}`,
+  };
+
+
+
+
+  interface attributes {
+  
+    DiasporaItem: DiasporaItem;
+    url: string,
+    name:string,
+    alternativeText:String,
+  
+  
+  }
+  
+  interface img {
+    attributes: attributes;
+    data: string[]
+  }
+  
+
+
+
+  useEffect(() => {
+    const GetSetting = async () => {
+      try {
+        const response = await axios.get(
+         "http://localhost:1337/api/homes?populate[DiasporaItem][populate][img][populate]=true&populate[DiasporaItem][populate][img][fields][0]=url&populate[DiasporaItem][populate][img][fields][1]=name&populate[DiasporaItem][populate][img][fields][2]=alternativeText",
+          { headers }
+        );
+        const responseData = response.data.data;
+        setData(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    console.log("this is useEffect here");
+    GetSetting();
+  }, []);
+
+  console.log("this is data useefferct", data || "");
+ 
+  // console.log("this is data useefferct", data.attributes || "");
   return (
     <div className="whatweofferComp">
       <div className="container">
@@ -394,6 +467,25 @@ const UsefullDiasporaResourses: React.FC = () => {
           animate={inView ? "visible" : "hidden"} // Animate when in view
           variants={offersAnimationVariants} // Apply animation variants
         >
+          <h1>
+            {data &&
+              data.length > 0 &&
+              data.map((d, index) => (
+         <div>
+                 {/* <h1>{d.attributes?.DiasporaItem?.title} </h1> */}
+                 <h1>{d.attributes?.DiasporaItem?.img?.data?.attributes?.url} </h1>
+                 <h1> <ul>
+
+                     </ul>
+                  </h1>
+         </div>
+                
+              ))}
+            {data && data.length === 0 && "loading"}
+          </h1>
+
+          {/* <h1>{data.attributes.title}</h1> */}
+
           {resources.map((offer) => (
             <div className="offer">
               <div className="icon">{offer.icons}</div>
