@@ -186,7 +186,11 @@
         padding-left: 10px;
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 18px;
+
+        .active {
+          color: $primary;
+        }
 
         li {
           line-height: 1.85714285714286;
@@ -215,8 +219,41 @@
               padding: 0px 15px;
             }
           }
+          .mobileSubmenu {
+            .mobileSub_container {
+              padding: 10px 0;
+              padding-left: 1rem;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: left;
+              gap: 5px;
+
+              .submenu-item {
+                display: flex;
+                justify-content: left;
+                align-items: center;
+                gap: 1rem;
+                font-size: 15px;
+                width: 100%;
+
+                .submenu-icon {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: left;
+                  font-size: 14px;
+                  color: $primary;
+                }
+              }
+              .submenu-item:hover {
+                // background-color: #999999;
+                color: $primary;
+              }
+            }
+          }
         }
-        li:hover {
+        li:hover .main {
           color: $primary;
         }
       }

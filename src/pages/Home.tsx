@@ -23,8 +23,9 @@ import AnimatedCounter from "../components/AnimatedCounter";
 import { useNavigate } from "react-router-dom";
 import { Divider } from "../components/Divider";
 
-import { FaCheckCircle } from "react-icons/fa";
+// import { FaCheckCircle } from "react-icons/fa";
 import { BsCheck2Circle } from "react-icons/bs";
+
 import Carousel from "../components/slideShow/carousel";
 import Gallery from "../components/slideShow/grid";
 import KeenSlider from "../components/slideShow/keenSlider";

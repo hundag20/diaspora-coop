@@ -233,6 +233,28 @@ export function Header(props: IHeaderProps) {
     },
   };
 
+  // Define animation variants for the "offers" section
+  const mobileAnimationVariants = {
+    hidden: {
+      opacity: 0,
+      y: -20, // Start off-screen
+    },
+    visible: {
+      opacity: 1,
+      y: 0, // Slide up to its original position
+      transition: {
+        duration: 0.3, // Adjust the animation duration as needed
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -100, // Slide up and out of the screen
+      transition: {
+        duration: 0.3, // Adjust the animation duration as needed
+      },
+    },
+  };
+
   const hasActiveSubmenu = (index: number): boolean => {
     const menuItem = menuItems[index];
 
@@ -388,11 +410,17 @@ export function Header(props: IHeaderProps) {
                     key={index}
                     className={`menu-item ${
                       menuItem.subMenu ? "has-submenu" : ""
+                    }
+                    ${hasActiveSubmenu(index) ? "active" : ""} ${
+                      isSubMenuOpen(index) ? "open" : ""
                     }`}
                     onMouseEnter={() => handleSubMenuToggle(index)}
                     onMouseLeave={() => handleSubMenuToggle(null)}
                     {...(menuItem.route && {
-                      onClick: () => navigate(menuItem.route),
+                      onClick: () => {
+                        navigate(menuItem.route);
+                        setShowMobileMenu(false);
+                      },
                     })}
                   >
                     {menuItem.subMenu ? (
@@ -412,17 +440,24 @@ export function Header(props: IHeaderProps) {
                           <div className="mobileSubmenu">
                             <div className="mobileSub_container">
                               {menuItem.subMenu.map((subItem, subIndex) => (
-                                <div
+                                <motion.div
                                   key={subIndex}
                                   className="submenu-item"
-                                  {...(subItem.route && {
-                                    onClick: () => navigate(subItem.route),
-                                  })}
+                                  onClick={() => {
+                                    navigate(subItem.route);
+                                    setShowMobileMenu(false);
+                                  }}
+                                  ref={ref} // Attach the ref to the "offers" section
+                                  initial="hidden"
+                                  variants={mobileAnimationVariants}
                                 >
+                                  <span className="submenu-icon">
+                                    {subItem.icon}
+                                  </span>
                                   <span className="submenu-label">
                                     {subItem.name}
                                   </span>
-                                </div>
+                                </motion.div>
                               ))}
                             </div>
                           </div>
