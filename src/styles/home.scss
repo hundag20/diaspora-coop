@@ -1,5 +1,10 @@
 @import "./variable.scss";
 
+.halfpage {
+  display: flex;
+  width: 100%;
+}
+
 .heroComp {
   z-index: 1;
   .container {
@@ -186,6 +191,217 @@
   }
 }
 
+.heroSlideComp {
+  --slide-spacing: 0rem;
+  --slide-size: 100%;
+  --slide-height: 30rem;
+  .embla__viewport {
+    overflow: hidden;
+  }
+  .embla__container {
+    backface-visibility: hidden;
+    display: flex;
+    touch-action: pan-y;
+    flex-direction: row;
+    height: auto;
+    // transition-duration: 0.3s;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+  .embla__slide {
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    padding-left: var(--slide-spacing);
+    position: relative;
+  }
+  z-index: 1;
+  .container {
+    padding: 0rem $resPadding;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: end;
+    width: 100%;
+    max-width: 100%;
+
+    @include breakpoint(md) {
+      padding: 1rem $resPadding;
+      padding-bottom: 0;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      padding: 3rem 0;
+      max-width: 100%;
+
+      @include breakpoint(mdP) {
+        width: 60%;
+      }
+
+      .top {
+        h3 {
+          border: 0;
+          font-style: inherit;
+          outline: 0;
+          padding: 0;
+          vertical-align: baseline;
+          clear: both;
+          box-sizing: border-box;
+          line-height: 1.3;
+          // font-size: 3rem;
+          font-size: calc(2rem + 3vw);
+          font-family: "Poppins", sans-serif;
+          transition: all 0.3s ease;
+          margin: 0;
+          margin-bottom: -15px;
+          font-weight: 500;
+          color: #ee7b28;
+          @include breakpoint(md) {
+            margin-bottom: -20px;
+          }
+          @include breakpoint(mdP) {
+            margin-bottom: -35px;
+          }
+        }
+        h2 {
+          border: 0;
+          font-style: inherit;
+          outline: 0;
+          vertical-align: baseline;
+          clear: both;
+          box-sizing: border-box;
+          padding: 0;
+          line-height: 1.2;
+          font-weight: 700;
+          font-family: "Poppins", sans-serif;
+          margin: 0;
+          color: #00adef;
+          // font-size: 131px;
+          font-size: calc(50px + 5vw);
+        }
+      }
+      p {
+        border: 0;
+        font-style: inherit;
+        font-weight: inherit;
+        margin: 0;
+        outline: 0;
+        padding: 0;
+        vertical-align: baseline;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        color: $brownish;
+        font-family: "Lato", Sans-serif;
+        font-size: 15px;
+        line-height: 25px;
+      }
+      .hero_button_joins {
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 10px;
+
+        @include breakpoint(md) {
+          flex-direction: row;
+        }
+        button {
+          // padding: 1rem 2rem;
+          border: none;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 16px;
+          line-height: 30px;
+          font-weight: 700;
+          outline: 0;
+          position: relative;
+          -webkit-transition: all 0.4s ease;
+          transition: all 0.4s ease;
+          text-align: center;
+          overflow: hidden;
+          color: #fff;
+          // width: 100%;
+          background-color: #3b3b3b;
+          padding: 20px 50px;
+          z-index: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+        }
+        button:hover {
+          background-color: rgba(59, 59, 59, 0.8);
+        }
+
+        // @include breakpoint(md) {
+        .or-container {
+          // display: block;
+          position: relative;
+          text-align: center;
+          // margin-right: 10px; /* Adjust the margin as needed */
+        }
+        .or-sign {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          padding: 10px;
+          border-radius: 100%;
+          box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 6px;
+          background: rgb(250, 250, 248);
+          color: rgb(68, 68, 68);
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 14px;
+          z-index: 5;
+          font-size: 14px;
+          text-transform: capitalize;
+          line-height: 26px;
+        }
+
+        .open_account {
+          background-color: $primary;
+          color: white;
+        }
+        .open_account:hover {
+          background-color: rgba(0, 173, 239, 0.8);
+        }
+
+        .hide {
+          display: none;
+        }
+      }
+    }
+
+    .image {
+      display: none;
+    }
+    @include breakpoint(mdP) {
+      .image {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        height: 500px;
+
+        img {
+          height: 100%;
+          width: auto;
+          max-width: 100%;
+          transform: scaleX(-1);
+          // object-fit: cover;
+        }
+      }
+    }
+  }
+}
+
 .statsComp {
   background-color: $primary;
   width: 100%;
@@ -241,7 +457,7 @@
 
 .whatweofferComp {
   z-index: 10;
-  background-color: #dcf5ff;
+  // background-color: #dcf5ff;
   .container {
     padding: 4rem $resmallPadding;
     .header {
@@ -472,10 +688,24 @@
 }
 
 .applyComp {
-  background-color: $third;
+  width: 100%;
   .container {
-    padding: 51px 10px;
+    // background-image: url("../assets/img/disporacrop.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    // background-color: $third;
+    // opacity: 0.3;
+
+    background: url("../assets/img/disporacrop.jpg") rgba(238, 123, 40, 0.8);
+    background-size: cover;
+    background-blend-mode: overlay;
+    // background-blend-mode: multiply;
+
+    // padding: 51px 10px;
+    padding: 51px $halfPadding;
     padding-bottom: 61px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -484,7 +714,7 @@
     color: #fff;
 
     @include breakpoint(md) {
-      padding: 51px 0;
+      // padding: 51px 0;
       padding-bottom: 61px;
     }
 
@@ -504,7 +734,7 @@
       line-height: 33px;
       margin: 0;
       margin-bottom: 1.5rem;
-      width: 750px;
+      // width: 750px;
       text-align: center;
       white-space: break-spaces;
       max-width: 100%;
@@ -513,8 +743,11 @@
 }
 
 .worksComp {
+  width: 100%;
+
+  background-color: #dcf5ff;
   .container {
-    padding: 2rem $resPadding;
+    padding: 2rem $halfPadding;
 
     .header {
       display: flex;
@@ -557,7 +790,7 @@
       }
       @include breakpoint(mdP) {
         .right {
-          display: block;
+          // display: block;
           height: 100%;
           max-width: 40%;
           img {
@@ -572,7 +805,7 @@
         width: 500px;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: 1rem;
         .works {
           display: flex;
           justify-content: left;
@@ -625,8 +858,8 @@
               border-radius: 50%;
               // width: 100px; /* Set the width and height to create a perfect circle */
               // height: 100px;
-              width: calc(45px + 2vw); /* Responsive width */
-              height: calc(45px + 2vw); /* Responsive height */
+              width: calc(30px + 2vw); /* Responsive width */
+              height: calc(30px + 2vw); /* Responsive height */
               border: 2px solid $primary;
               color: $primary;
               transition: 0.2s color;
@@ -635,14 +868,14 @@
 
           .texts {
             h3 {
-              font-size: calc(15px + 0.4vw);
-              line-height: 25px;
+              font-size: calc(12px + 0.4vw);
+              line-height: 20px;
               margin: 5px 0;
               font-weight: 550;
             }
             p {
-              font-size: 15px;
-              line-height: 25px;
+              font-size: 12px;
+              line-height: 20px;
               color: #565656;
             }
           }

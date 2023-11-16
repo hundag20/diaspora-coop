@@ -19,7 +19,7 @@ $textColor: #13adb7;
 // $primary: #13adb7;
 // $textColor: #00adef;
 $second: rgb(37, 150, 190);
-$third: #ee7b28;
+$third: rgb(238, 123, 40);
 $lightBlue: #999999;
 $secondaryTextColor: #74a4f8;
 $brightBlue: #005eff;
@@ -48,6 +48,7 @@ $headerHeight: 50px;
 
 //laptop wrapper padding
 $fullPadding: 5rem;
+$halfPadding: calc(0.2rem + 4vw);
 $resPadding: calc(0.2rem + 7vw);
 $resmallPadding: calc(0.1rem + 5vw);
 $mobilePadding: 1.5rem;

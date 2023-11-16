@@ -30,6 +30,7 @@ import Carousel from "../components/slideShow/carousel";
 import Gallery from "../components/slideShow/grid";
 import KeenSlider from "../components/slideShow/keenSlider";
 import AnimatedShake from "../components/AnimatedShake";
+import HeroSlides from "../components/HeroSlides";
 
 export interface IHomeProps {}
 
@@ -642,6 +643,12 @@ const HowItWorks: React.FC = () => {
       description:
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
     },
+    {
+      icon: <PersonSearch className="muicon" />,
+      title: "You will get the loan",
+      description:
+        "In less than 24 hours, Coopbank will review your document and provide you with a response",
+    },
   ];
   // Use the useInView hook to detect when the "offers" section is in view
   return (
@@ -686,21 +693,22 @@ const HowItWorks: React.FC = () => {
 export function Home(props: IHomeProps) {
   return (
     <div>
-      <Hero />
+      {/* <Hero /> */}
+      <HeroSlides />
+
+      <div className="halfpage">
+        <HowItWorks />
+        <ApplyNow />
+      </div>
 
       <WhatWeOffer />
-
-      <HowItWorks />
-
-      <ApplyNow />
-
-      <Diasport />
-
-      <Stats />
+      {/* <Diasport /> */}
 
       <OfflineForm />
 
-      <UsefullDiasporaResourses />
+      <Stats />
+
+      {/* <UsefullDiasporaResourses /> */}
 
       <Remittance />
     </div>
