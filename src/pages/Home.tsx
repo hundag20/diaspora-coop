@@ -29,7 +29,7 @@ import Carousel from "../components/slideShow/carousel";
 import Gallery from "../components/slideShow/grid";
 import KeenSlider from "../components/slideShow/keenSlider";
 import AnimatedShake from "../components/AnimatedShake";
-import { MobileStepper, } from "@mui/material";
+import { MobileStepper } from "@mui/material";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
@@ -194,25 +194,25 @@ const WhatWeOffer: React.FC = () => {
     {
       icons: <OtherHouses className="muicon" />,
       title: "Mortgage Loan",
-      description:[
-  "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes."
-,
-" the interest rate is 100%", "another shit another shit "
-]    },
+      description: [
+        "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
+        " the interest rate is 100%",
+        "another shit another shit ",
+      ],
+    },
     {
       icons: <Business className="muicon" />,
       title: "Investment Loan",
-      description:[ 
+      description: [
         "Coopbank offers Investment credit facility to enhance the potential of Diasporas to develop larger, more productive businesses investment in meaningful programs in their home country that can create jobs and economic growth back home.",
-       ]    },
+      ],
+    },
     {
       icons: <Handyman className="muicon" />,
       title: "Working Capital Loan",
       description: [
-
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
-
-      ]
+      ],
     },
   ];
 
@@ -237,16 +237,20 @@ const WhatWeOffer: React.FC = () => {
     },
   };
   const theme = useTheme();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeSteps, setActiveSteps] = useState(() => offers.map(() => 0));
 
-  const maxStep = offers.length
+  const handleNext = (index: number) => {
+    const newActiveSteps = [...activeSteps];
+    newActiveSteps[index] = Math.min(newActiveSteps[index] + 1, offers[index].description.length - 1);
+    setActiveSteps(newActiveSteps);
+  };
 
-  const handleNext = () => {
-    setActiveStep((prev) => prev + 1)
-  }
-  const handleBefore = () => {
-    setActiveStep((prev) => prev - 1)
-  }
+  const handleBefore = (index: number) => {
+    const newActiveSteps = [...activeSteps];
+    newActiveSteps[index] = Math.max(newActiveSteps[index] - 1, 0);
+    setActiveSteps(newActiveSteps);
+  };
+
   return (
     <div className="whatweofferComp">
       <div className="container">
@@ -257,68 +261,55 @@ const WhatWeOffer: React.FC = () => {
           <p>We are always there for your Diaspora Banking Needs!</p>
         </div>
 
-
-<motion.div
+        <motion.div
           className="offers"
           ref={ref} // Attach the ref to the "offers" section
           initial="hidden"
           animate={inView ? "visible" : "hidden"} // Animate when in view
           variants={offersAnimationVariants} // Apply animation variants
         >
-          {offers.map((offer) => (
-            <div className="offer">
-              <div className="icon">{offer.icons}</div>
-              <h4>{offer.title}</h4>
-              <p>{offer.description[activeStep]}</p>
-
-              <MobileStepper
-         steps={maxStep}
-        position="static"
-        // variant="text"
-         activeStep={activeStep}
-
-        nextButton={
-          <Button
-            size="small"
-             onClick={handleNext}
-             disabled={activeStep === maxStep - 1}
-          >
-           
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft />
-            ) : (
-              <KeyboardArrowRight />
-            )}
-          </Button>
-        }
-        backButton={
-          <Button size="small" 
-           onClick={handleBefore} 
-           disabled={activeStep === 0}
-          >
-            {theme.direction === 'rtl' ? (
-              <KeyboardArrowRight />
-            ) : (
-              <KeyboardArrowLeft />
-            )}
-        
-          </Button>
-        }
-      />
-              
-          
-       
-             {/* <ReadMoreButton
-                link="/get-a-loan"
-                text="Get Started"
-                target="_self"
-              /> */}
-            </div>
-          ))}
+          {offers.map((offer, index) => (
+        <motion.div
+          className="offers"
+          ref={ref}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          variants={offersAnimationVariants}
+          key={index}
+        >
+          <div className="offer" key={index}>
+            <div className="icon">{offer.icons}</div>
+            <h4>{offer.title}</h4>
+            <p>{offer.description[activeSteps[index]]}</p>
+            <MobileStepper
+              steps={offer.description.length}
+              position="static"
+              activeStep={activeSteps[index]}
+              nextButton={
+                <Button
+                  size="small"
+                  onClick={() => handleNext(index)}
+                  disabled={activeSteps[index] === offer.description.length - 1}
+                >
+<KeyboardArrowRight />
+                </Button>
+              }
+              backButton={
+                <Button
+                  size="small"
+                  onClick={() => handleBefore(index)}
+                  disabled={activeSteps[index] === 0}
+                >
+                 <KeyboardArrowLeft />
+                </Button>
+              }
+            />
+          </div>
         </motion.div>
-</div>
+      ))}
+        </motion.div>
       </div>
- 
+    </div>
   );
 };
 

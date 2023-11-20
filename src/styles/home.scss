@@ -281,6 +281,7 @@
       align-items: start;
       gap: 1rem;
       margin-top: 2rem;
+     
 
       @include breakpoint(md) {
         margin-top: 0rem;
@@ -300,7 +301,8 @@
         align-items: center;
         text-align: center;
         background-color: white;
-
+        border-radius: 20px;
+        box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.4);
         @include breakpoint(md) {
           padding: 40px 15px;
           width: 400px;
