@@ -29,6 +29,21 @@ import Carousel from "../components/slideShow/carousel";
 import Gallery from "../components/slideShow/grid";
 import KeenSlider from "../components/slideShow/keenSlider";
 import AnimatedShake from "../components/AnimatedShake";
+import { MobileStepper, } from "@mui/material";
+import Button from "@mui/material/Button";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { useTheme } from "@mui/material/styles";
+
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 export interface IHomeProps {}
 
@@ -171,7 +186,7 @@ const Diasport: React.FC = () => {
 
 interface WhatWeOfferItem {
   title: string;
-  description: string;
+  description: string[];
   icons: React.ReactNode;
 }
 const WhatWeOffer: React.FC = () => {
@@ -179,20 +194,25 @@ const WhatWeOffer: React.FC = () => {
     {
       icons: <OtherHouses className="muicon" />,
       title: "Mortgage Loan",
-      description:
-        "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
-    },
+      description:[
+  "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes."
+,
+" the interest rate is 100%", "another shit another shit "
+]    },
     {
       icons: <Business className="muicon" />,
       title: "Investment Loan",
-      description:
+      description:[ 
         "Coopbank offers Investment credit facility to enhance the potential of Diasporas to develop larger, more productive businesses investment in meaningful programs in their home country that can create jobs and economic growth back home.",
-    },
+       ]    },
     {
       icons: <Handyman className="muicon" />,
       title: "Working Capital Loan",
-      description:
+      description: [
+
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
+
+      ]
     },
   ];
 
@@ -216,7 +236,17 @@ const WhatWeOffer: React.FC = () => {
       },
     },
   };
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = useState(0);
 
+  const maxStep = offers.length
+
+  const handleNext = () => {
+    setActiveStep((prev) => prev + 1)
+  }
+  const handleBefore = () => {
+    setActiveStep((prev) => prev - 1)
+  }
   return (
     <div className="whatweofferComp">
       <div className="container">
@@ -226,7 +256,9 @@ const WhatWeOffer: React.FC = () => {
           </h3>
           <p>We are always there for your Diaspora Banking Needs!</p>
         </div>
-        <motion.div
+
+
+<motion.div
           className="offers"
           ref={ref} // Attach the ref to the "offers" section
           initial="hidden"
@@ -237,17 +269,56 @@ const WhatWeOffer: React.FC = () => {
             <div className="offer">
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
-              <p>{offer.description}</p>
-              <ReadMoreButton
+              <p>{offer.description[activeStep]}</p>
+
+              <MobileStepper
+         steps={maxStep}
+        position="static"
+        // variant="text"
+         activeStep={activeStep}
+
+        nextButton={
+          <Button
+            size="small"
+             onClick={handleNext}
+             disabled={activeStep === maxStep - 1}
+          >
+           
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
+          </Button>
+        }
+        backButton={
+          <Button size="small" 
+           onClick={handleBefore} 
+           disabled={activeStep === 0}
+          >
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+        
+          </Button>
+        }
+      />
+              
+          
+       
+             {/* <ReadMoreButton
                 link="/get-a-loan"
                 text="Get Started"
                 target="_self"
-              />
+              /> */}
             </div>
           ))}
         </motion.div>
+</div>
       </div>
-    </div>
+ 
   );
 };
 
