@@ -240,11 +240,11 @@ const WhatWeOffer: React.FC = () => {
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-              <ReadMoreButton
+              {/* <ReadMoreButton
                 link="/get-a-loan"
                 text="Get Started"
                 target="_self"
-              />
+              /> */}
             </div>
           ))}
         </motion.div>
@@ -579,7 +579,7 @@ const ApplyNow: React.FC = () => {
   return (
     <div className="applyComp">
       <div className="container">
-        <h3>Apply In 3 Minutes</h3>
+        <h3>Open Account In 3 Minutes</h3>
         <p>
           Don't have Coopbank Diaspora account yet? Apply now and open your new
           account in under 3 minutes!
