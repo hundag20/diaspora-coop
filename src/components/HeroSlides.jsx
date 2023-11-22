@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import EmblaDots from "./EmblaDots";
 // import  from "embla-carousel-autoplay/components/Options";
 
 const data = [
@@ -56,9 +57,11 @@ const HeroSlides = () => {
       duration: 1600,
       easing: "ease-in",
     },
+    watchDrag: false,
   });
 
   const handleVisibilityChange = () => {
+    console.log("changing");
     if (document.hidden) {
       // Tab is hidden, pause autoplay
       resetTimeout();
@@ -92,14 +95,34 @@ const HeroSlides = () => {
 
   const handleNext = () => {
     console.log("index:", index);
-    if (embla) {
+    // if (embla) {
+    //   embla.scrollNext();
+    //   if (index + 1 === data.length) {
+    //     // If the current slide is the last slide
+    //     setIndex(0); // Transition to the first slide
+    //   } else {
+    //     setIndex(index + 1); // Transition to the next slide
+    //   }
+    // }
+    if (embla && embla.canScrollNext()) {
+      const currentIndex = embla.selectedScrollSnap();
+      const slideElements = Array.from(embla.slideNodes());
+
+      const nextIndex = slideElements.findIndex(
+        (slide) => slide === currentIndex
+      );
+
       embla.scrollNext();
-      if (index + 1 === data.length) {
-        // If the current slide is the last slide
-        setIndex(0); // Transition to the first slide
-      } else {
-        setIndex(index + 1); // Transition to the next slide
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
+
+      timeoutRef.current = setTimeout(handleNext, 4000);
+
+      const newIndex = nextIndex === -1 ? (index + 1) % data.length : nextIndex;
+
+      setIndex(newIndex);
     }
   };
 
@@ -179,6 +202,12 @@ const HeroSlides = () => {
             );
           })}
         </div>
+      </div>
+
+      <div
+        style={{ position: "absolute", left: 0, right: 0, marginTop: "-15px" }}
+      >
+        <EmblaDots embla={embla} slides={data} />
       </div>
     </div>
     // </div>

@@ -1,0 +1,38 @@
+/* EmblaDots.css */
+
+.embla-dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 0px;
+  /* position: absolute;
+  left: 0;
+  right: 0; */
+  /* z-index: 1;
+  bottom: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.dot {
+  /* width: 10px; */
+  /* height: 10px; */
+  /* margin: 0 5px; */
+  /* background-color: #ccc; */
+  /* border: none; */
+  /* border-radius: 50%; */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 2.4rem;
+  height: 0.4rem;
+  display: flex;
+  align-items: center;
+  /* margin-right: 0.75rem; */
+  /* margin-left: 0.75rem; */
+  /* display: none; */
+}
+
+.dot.is-selected {
+  background-color: #333; /* Selected dot color */
+}

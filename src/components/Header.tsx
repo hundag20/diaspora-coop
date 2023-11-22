@@ -27,6 +27,75 @@ export interface IHeaderProps {}
 
 const myNumber: number | null = null;
 
+const menuItems = [
+  {
+    label: "Home",
+    route: "/",
+  },
+  // {
+  //   label: "About",
+  //   route: "/about",
+  // },
+  {
+    label: "Open Account",
+    subMenu: [
+      {
+        name: "Current Account",
+        icon: <Paid className="muicon" />,
+        route: "/diaspora-current-account",
+      },
+      {
+        name: "Fixed-Time Deposit",
+        icon: <QueryBuilder className="muicon" />,
+        route: "/diaspora-fixed-time-deposit",
+      },
+      {
+        name: "Non-Repatriable Account",
+        icon: <RequestQuote className="muicon" />,
+        route: "/diaspora-non-depreciable-account",
+      },
+      {
+        name: "ECOLFL Savings Account",
+        icon: <Badge className="muicon" />,
+        route: "/diaspora-ecolf-saving-account",
+      },
+    ],
+  },
+  {
+    label: "Get A Loan",
+    route: "/get-a-loan",
+  },
+  {
+    label: "Money Transfer",
+    route: "/money-transfer-service",
+  },
+  {
+    label: "Coopbank Alhuda Diaspora",
+    subMenu: [
+      {
+        name: "About CoopBank Alhuda",
+        icon: <Mosque className="muicon" />,
+        route: "/about-coopbank-alhuda",
+      },
+      {
+        name: "Diaspora Wadia Saving Account",
+        icon: <Badge className="muicon" />,
+        route: "/diaspora-wadia-savings-account",
+      },
+      {
+        name: "Diaspora Mudarabah Savings Account",
+        icon: <PriceChange className="muicon" />,
+        route: "/diaspora-mudarabah-savings-account",
+      },
+      {
+        name: "Diaspora Mudarabah Fixed Term Deposit",
+        icon: <Person className="muicon" />,
+        route: "/diaspora-mudarabah-fixed-term-deposit",
+      },
+    ],
+  },
+];
+
 export function Header(props: IHeaderProps) {
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
@@ -125,75 +194,6 @@ export function Header(props: IHeaderProps) {
       },
     },
   };
-
-  const menuItems = [
-    {
-      label: "Home",
-      route: "/",
-    },
-    {
-      label: "About",
-      route: "/about",
-    },
-    {
-      label: "Open Account",
-      subMenu: [
-        {
-          name: "Current Account",
-          icon: <Paid className="muicon" />,
-          route: "/diaspora-current-account",
-        },
-        {
-          name: "Fixed-Time Deposit",
-          icon: <QueryBuilder className="muicon" />,
-          route: "/diaspora-fixed-time-deposit",
-        },
-        {
-          name: "Non-Repatriable Account",
-          icon: <RequestQuote className="muicon" />,
-          route: "/diaspora-non-depreciable-account",
-        },
-        {
-          name: "ECOLFL Savings Account",
-          icon: <Badge className="muicon" />,
-          route: "/diaspora-ecolf-saving-account",
-        },
-      ],
-    },
-    {
-      label: "Get A Loan",
-      route: "/get-a-loan",
-    },
-    {
-      label: "Money Transfer",
-      route: "/money-transfer-service",
-    },
-    {
-      label: "Coopbank Alhuda Diaspora",
-      subMenu: [
-        {
-          name: "About CoopBank Alhuda",
-          icon: <Mosque className="muicon" />,
-          route: "/about-coopbank-alhuda",
-        },
-        {
-          name: "Diaspora Wadia Saving Account",
-          icon: <Badge className="muicon" />,
-          route: "/diaspora-wadia-savings-account",
-        },
-        {
-          name: "Diaspora Mudarabah Savings Account",
-          icon: <PriceChange className="muicon" />,
-          route: "/diaspora-mudarabah-savings-account",
-        },
-        {
-          name: "Diaspora Mudarabah Fixed Term Deposit",
-          icon: <Person className="muicon" />,
-          route: "/diaspora-mudarabah-fixed-term-deposit",
-        },
-      ],
-    },
-  ];
 
   const socials = [
     {
