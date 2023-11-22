@@ -116,7 +116,7 @@ export function GetALoan(props: IGetALoanProps) {
         overlayClass="gl hd-background-overlay"
         contentClass="gl hd-content"
         footerClass="gl hd-footer"
-        contentHeader="Disapora Loan"
+        contentHeader="Disapora Accounts"
         contentParagraph="Always there for your Diaspora Banking Needs!"
       />
 
