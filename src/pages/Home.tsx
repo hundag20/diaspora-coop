@@ -219,7 +219,7 @@ const WhatWeOffer: React.FC = () => {
     },
   };
   function redirectToAnotherPage() {
-    window.location.href = '/account-types'; // Replace with the URL of the destination page
+    window.location.href = '/get-a-loan'; // Replace with the URL of the destination page
   }
   
   return (

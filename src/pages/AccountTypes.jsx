@@ -1,11 +1,12 @@
 import { Grid } from "@mui/material";
 import { TopBanner } from "../components/TopBanner";
-import "../styles/getaloan.scss";
+import "../styles/accountTypes.scss";
 import { LoanRequestForm } from "../components/LoanRequestForm";
 import { useNavigate } from "react-router-dom";
+import { left } from "@popperjs/core";
 
 export const AccountTypes = () => {
-  const loanTypes = [
+  const AccountTypes = [
     {
       icon: <i aria-hidden="true" className="fas fa-home"></i>,
       title: "Diaspora Mortgage Loan",
@@ -54,76 +55,92 @@ export const AccountTypes = () => {
     <Grid container xs={11}>
       <Grid item xs={12}>
         <div className="container-title">
-          <h2>
-            We offer a variety of <span>loans</span>
+        <h2>
+            We offer a variety of <span>Accounts </span>
           </h2>
         </div>
       </Grid>
     </Grid>
   );
   
-  const LoanItems = () => (
+  const Title_Normal_account = () => (
+    <Grid container xs={10}>
+      {/* <Grid item xs={12} justifyContent={left}>
+       
+      </Grid> */}
+       <div className="container-title-normal-account">
+        <h2>
+        Accounts With <span> Interests </span>
+          </h2>
+        </div>
+    </Grid>
+  );
+
+  const AccountItems = () => (
     <Grid
       container
       columnSpacing={4}
       rowSpacing={4}
       xs={11.5}
       md={10}
-      className="loan-items"
+      className="account-items"
     >
-      {loanTypes.map((loanItem) => (
-        <Grid item className="loan-item" xs={12} sm={6}>
-          <div className="loan-item-header">
-            <div className="icon">{loanItem.icon}</div>
-            <div className="loan-item-title">
-              <h3>{loanItem.title}</h3>
+      {AccountTypes.map((AccountItem) => (
+        <Grid item className="account-item" xs={12} sm={4}>
+          <div className="account-item-header">
+            <div className="icon">{AccountItem.icon}</div>
+            <div className="account-item-title">
+              <h3>{AccountItem.title}</h3>
             </div>
           </div>
-          <div className="loan-item-body">
+          <div className="account-item-body">
             <div className="desc">
               <p>
-                {loanItem.desc}
+                {AccountItem.desc}
                 <span className="req-doc">
-                  <a href={loanItem.docLink}> Required Document</a>
+                  <a href={AccountItem.docLink}> Required Document</a>
                 </span>
               </p>
             </div>
           </div>
-          <div className="loan-item-footer">
+          <div className="account-item-footer">
             <i className="fas fa-arrow-circle-right"></i>
-            <a href="#Loan_Request">Are You Interested?</a>
+            <a href="#account_Request">Are You Interested?</a>
           </div>
         </Grid>
       ))}
     </Grid>
   );
   
-  const LoanCalculatorButton = () => {
-    const navigate = useNavigate();
-    return (
-      <div className="calc-button" onClick={() => navigate("/loan-calculator")}>
-        <a>LOAN CALCULATOR</a>
-      </div>
-    );
-  };
+
+  // loan calculator
+  // const LoanCalculatorButton = () => {
+  //   const navigate = useNavigate();
+  //   return (
+  //     <div className="calc-button" onClick={() => navigate("/loan-calculator")}>
+  //       <a>LOAN CALCULATOR</a>
+  //     </div>
+  //   );
+  // };
   
   
     return (
-      <div className="get-a-loan">
+      <div className="account-types">
         <TopBanner
           containerClass="gl hd-container"
           overlayClass="gl hd-background-overlay"
           contentClass="gl hd-content"
           footerClass="gl hd-footer"
-          contentHeader="Disapora Loan"
+          contentHeader="Disapora Account"
           contentParagraph="Always there for your Diaspora Banking Needs!"
         />
   
         <div className="container">
           <Title />
-          <LoanItems />
-          <LoanCalculatorButton />
-          <LoanRequestForm />
+          <Title_Normal_account />
+          <AccountItems />
+          {/* <AccountCalculatorButton /> */}
+          {/* <AccountRequestForm /> */}
         </div>
       </div>
     );
