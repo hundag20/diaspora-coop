@@ -11,31 +11,31 @@ export const AccountTypes = () => {
     {
       icon: <i aria-hidden="true" className="fas fa-home"></i>,
       title: "Diaspora Current Account",
-      desc: "This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.Diaspora Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
+      desc: " This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-MORTGAGE-LOAN-1.pdf",
 
       features: [
-        "It’s available in local and foreign currency (GBP, USD, and EURO)",
-        "This account has a personalized Cheque Books",
-        "Debit Card can also be issued on request",
-        "You will be provided with E-mail alerts and statements",
-        "There is an option of Joint Signatory (e.g. with spouse, sibling or parent in Ethiopia)",
-        "Coopbank also provides some sort of financial advisory services",
-        "Facilitation of third-party payments",
+        "Local and foreign currency (GBP, USD, and EURO) options",
+        "Personalized Cheque Books",
+        "Debit Card on request",
+        "E-mail alerts and statements",
+        "Joint Signatory Option",
+        // "Financial advisory services",
+        "Third-party payments",
       ],
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
         "Free transactions across all CoopBank branches",
-        "Enables you to access all our E-channels",
-        "You can get access to credit facilities",
-        "There will be designated Personal Banker who support you in your banking with Coopbank.",
+        "Access to all our E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker for support",
       ],
     },
     {
       icon: <i aria-hidden="true" className="fas fa-car"></i>,
       title: "Diaspora Fixed-Time Account",
-      desc: "Diaspora Fixed Time Account It is an account which takes the form of a deposit certificate, issued in the name of the depositor. The maturity period may vary based on the agreement made between the depositor and the bank. The bank and the depositor will also reach an agreement on the rate of interest on this account. Interest income on non-resident foreign currency fixed deposit account shall be free from income tax.Diaspora Automobile Loan is a term loan granted to the Diaspora for the purpose of purchase Only new brand automobile for non-commercial purpose only.",
+      // desc: "Diaspora Fixed Time Account It is an account which takes the form of a deposit certificate, issued in the name of the depositor. The maturity period may vary based on the agreement made between the depositor and the bank. The bank and the depositor will also reach an agreement on the rate of interest on this account. Interest income on non-resident foreign currency fixed deposit account shall be free from income tax.Diaspora Automobile Loan is a term loan granted to the Diaspora for the purpose of purchase Only new brand automobile for non-commercial purpose only.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
     },
@@ -120,6 +120,8 @@ export const AccountTypes = () => {
     </Grid>
   );
 
+  const navigate = useNavigate();
+
   const AccountItems = () => (
     <Grid
       container
@@ -148,8 +150,9 @@ export const AccountTypes = () => {
               </p>
             </div>
           </div>
+          <hr />
           <div className="account-features">
-            <h3 className="account-features-title">Features of the Account:</h3>
+            <h3 className="account-features-title">Features:</h3>
             <ul className='outer-ul' >
               {AccountItem.features  && AccountItem.features.map((feature, index) => (
                <li className="account-list">
@@ -170,10 +173,35 @@ export const AccountTypes = () => {
              </li>
               ))}
             </ul>
+          </div>    
+          <hr />
+          <div className="account-features">
+            <h3 className="account-features-title">Benefits:</h3>
+            <ul className='outer-ul' >
+              {AccountItem.benefits  && AccountItem.benefits.map((feature, index) => (
+               <li className="account-list">
+               <span>
+                 {typeof feature === 'string' && (
+                   <i className='fas fa-check-circle'> </i>
+                 )}
+               </span>
+           
+               {typeof feature === 'string' ? (
+                 feature
+               ) : (
+                 <ul className='ul-inner'>
+                   {feature.map((el) => (
+                     <li>{el}</li>
+                   ))}
+                 </ul>
+               )}
+             </li>
+              ))}
+            </ul>
           </div>
-          <div className="account-item-footer">
+          <div className="account-item-footer" onClick={() => navigate("/diaspora-current-account")}>
             <i className="fas fa-arrow-circle-right"></i>
-            <a href="#account_Request">Are You Interested?</a>
+            <a href=" ">Open Account</a>
           </div>
         </Grid>
       ))}
