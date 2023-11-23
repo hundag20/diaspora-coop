@@ -457,7 +457,7 @@
 
 .whatweofferComp {
   z-index: 10;
-  // background-color: #dcf5ff;
+   background-color: #dcf5ff;
   .container {
     padding: 4rem $resmallPadding;
     .header {
@@ -516,7 +516,8 @@
         align-items: center;
         text-align: center;
         background-color: white;
-
+        border-radius: 20px;
+        box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
         @include breakpoint(md) {
           padding: 40px 15px;
           width: 400px;
@@ -567,6 +568,13 @@
             margin: 1rem;
           }
         }
+      }
+      .offer:hover{
+     cursor: pointer;
+
+        box-shadow:10px 10px 10px 10px rgba(0, 0, 0, 0.6);
+        transition: 0.3s ease;
+      
       }
     }
   }

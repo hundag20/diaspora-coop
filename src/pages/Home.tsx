@@ -218,7 +218,10 @@ const WhatWeOffer: React.FC = () => {
       },
     },
   };
-
+  function redirectToAnotherPage() {
+    window.location.href = '/get-a-loan'; // Replace with the URL of the destination page
+  }
+  
   return (
     <div className="whatweofferComp">
       <div className="container">
@@ -236,15 +239,15 @@ const WhatWeOffer: React.FC = () => {
           variants={offersAnimationVariants} // Apply animation variants
         >
           {offers.map((offer) => (
-            <div className="offer">
+            <div className="offer" onClick={redirectToAnotherPage}>
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
-              <ReadMoreButton
+              {/* <ReadMoreButton
                 link="/get-a-loan"
                 text="Get Started"
                 target="_self"
-              />
+              /> */}
             </div>
           ))}
         </motion.div>
@@ -579,7 +582,7 @@ const ApplyNow: React.FC = () => {
   return (
     <div className="applyComp">
       <div className="container">
-        <h3>Apply In 3 Minutes</h3>
+        <h3>Open Account In 3 Minutes</h3>
         <p>
           Don't have Coopbank Diaspora account yet? Apply now and open your new
           account in under 3 minutes!
