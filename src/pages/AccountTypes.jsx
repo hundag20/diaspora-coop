@@ -11,7 +11,7 @@ export const AccountTypes = () => {
     {
       icon: <i aria-hidden="true" className="fas fa-home"></i>,
       title: "Diaspora Current Account",
-      desc: " This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.",
+      desc: " Takes the form of current deposits where withdrawals may be made at any time upon demand. Interest shall not be paid to a non-resident foreign currency current account.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-MORTGAGE-LOAN-1.pdf",
 
@@ -134,23 +134,27 @@ export const AccountTypes = () => {
     >
       { AccountTypes_Interested.map((AccountItem) => (
         <Grid item className="account-item" xs={10} sm={5}>
+
           <div className="account-item-header">
             <div className="icon">{AccountItem.icon}</div>
             <div className="account-item-title">
               <h3>{AccountItem.title}</h3>
+          
             </div>
+          
           </div>
           <div className="account-item-body">
             <div className="desc">
               <p>
-                {AccountItem.desc}
+                {AccountItem.desc}  
                 <span className="req-doc">
                   {/* <a href={AccountItem.docLink}> Required Document</a> */}
                 </span>
               </p>
             </div>
-          </div>
-          <hr />
+            <hr />
+         </div>
+         
           <div className="account-features">
             <h3 className="account-features-title">Features:</h3>
             <ul className='outer-ul' >
@@ -172,10 +176,11 @@ export const AccountTypes = () => {
                )}
              </li>
               ))}
-            </ul>
-          </div>    
-          <hr />
+      </ul>
+         <hr />    </div>    
+       
           <div className="account-features">
+     
             <h3 className="account-features-title">Benefits:</h3>
             <ul className='outer-ul' >
               {AccountItem.benefits  && AccountItem.benefits.map((feature, index) => (
