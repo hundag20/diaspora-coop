@@ -1,4 +1,4 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 .loan-form-container {
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@
       line-height: 1;
       margin: 0;
       color: #060606;
-      font-family: 'Open Sans', Sans-serif;
+      font-family: "Open Sans", Sans-serif;
       font-size: 43px;
       font-weight: bold;
     }
@@ -106,7 +106,7 @@
 
         font-style: normal;
         line-height: 1.85714285714286;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Open Sans", sans-serif;
         font-weight: 400;
         font-size: 1rem;
         word-wrap: break-word;
@@ -124,7 +124,7 @@
 
         font-style: normal;
         line-height: 1.85714285714286;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Open Sans", sans-serif;
         font-weight: 400;
         font-size: 1rem;
         word-wrap: break-word;
@@ -148,7 +148,7 @@
         border-color: #777771;
 
         font-style: normal;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Open Sans", sans-serif;
         word-wrap: break-word;
         font-variant-ligatures: none;
         text-rendering: optimizeLegibility;
@@ -230,7 +230,7 @@
           font-size: x-large;
         }
         p {
-          font-family: 'Open Sans', sans-serif;
+          font-family: "Open Sans", sans-serif;
           word-wrap: break-word;
           font-variant-ligatures: none;
           text-rendering: optimizeLegibility;
@@ -252,7 +252,7 @@
           color: #666666;
 
           span {
-            font-family: 'Open Sans', sans-serif;
+            font-family: "Open Sans", sans-serif;
             word-wrap: break-word;
             font-variant-ligatures: none;
             text-rendering: optimizeLegibility;
@@ -277,7 +277,7 @@
         }
         font-style: normal;
         line-height: 1.85714285714286;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Open Sans", sans-serif;
         font-weight: 400;
         font-size: 1rem;
         word-wrap: break-word;
@@ -299,6 +299,16 @@
         border-color: #777771;
         background-color: #ededed;
         color: #777771;
+      }
+
+      .image-upload-container {
+        .imageHolder {
+        }
+        img {
+          height: 160px;
+          width: auto;
+          max-width: 100%;
+        }
       }
     }
 
@@ -340,7 +350,7 @@
         a {
           color: #00adef;
           line-height: 1.85714285714286;
-          font-family: 'Open Sans', sans-serif;
+          font-family: "Open Sans", sans-serif;
           word-wrap: break-word;
           font-variant-ligatures: none;
           text-rendering: optimizeLegibility;
@@ -667,7 +677,7 @@
       -webkit-text-size-adjust: 100%;
       font-style: normal;
       line-height: 1.85714285714286;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Open Sans", sans-serif;
       font-weight: 400;
       font-size: 1rem;
       font-variant-ligatures: none;
@@ -691,7 +701,7 @@
       .image {
         font-style: normal;
         line-height: 1.85714285714286;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Open Sans", sans-serif;
         font-weight: 400;
         font-size: 1rem;
         font-variant-ligatures: none;
@@ -704,7 +714,7 @@
         img {
           font-style: normal;
           line-height: 1.85714285714286;
-          font-family: 'Open Sans', sans-serif;
+          font-family: "Open Sans", sans-serif;
           font-weight: 400;
           font-size: 1rem;
           font-variant-ligatures: none;
@@ -740,7 +750,7 @@
           vertical-align: baseline;
           clear: both;
           box-sizing: border-box;
-          font-family: 'Poppins', sans-serif;
+          font-family: "Poppins", sans-serif;
           line-height: 24px;
           margin: 0;
           padding: 0;
@@ -764,7 +774,7 @@
             outline: none !important;
             font-weight: 700;
             font-size: 2rem;
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
             color: #4b4f58;
           }
         }
@@ -779,7 +789,7 @@
       .btn {
         font-style: normal;
         line-height: 1.85714285714286;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Open Sans", sans-serif;
         font-weight: 400;
         font-size: 1rem;
         font-variant-ligatures: none;
@@ -793,7 +803,7 @@
 
         a {
           font-style: normal;
-          font-family: 'Open Sans', sans-serif;
+          font-family: "Open Sans", sans-serif;
           font-variant-ligatures: none;
           text-rendering: optimizeLegibility;
           -webkit-font-smoothing: antialiased;
