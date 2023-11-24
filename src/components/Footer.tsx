@@ -77,7 +77,7 @@ export function Footer(props: IFooterProps) {
                   </span>
                 </a>
               </li>
-              <li className="elementor-icon-list-item">
+              {/* <li className="elementor-icon-list-item">
                 <a href="https://coopbankoromia.com.et/daily-exchange-rates/">
                   <span className="elementor-icon-list-icon">
                     <i aria-hidden="true" className="fas fa-caret-right"></i>
@@ -106,7 +106,7 @@ export function Footer(props: IFooterProps) {
                   National Bank Directives
                   </span>
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="column col3">

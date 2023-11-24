@@ -96,13 +96,13 @@ export const AccountTypes = () => {
         //   'Bank Account statement from foreign sources (optional)',
         //   'For businesses, authenticated certificate of ownership entitlement of the business and/or article and memorandum of association.',
         // ],
-        'All deposits to the account shall be made in foreign currency (Dollar, Euro or Pound Sterling). The applicant can credit the account without limitation in accordance with the following:',
-        [
-          'Foreign currency cash (evidenced by customs declaration for amounts equivalent to or greater than USD 3,000 and/or per NBE Directive No. FxD/55/2018, but this figure may change based on amendments to the Directive)',
-          'Direct credit to the account using SWIFT code of the Bank (CBORETAA) or via money transfer agents:',
-          'Transfer from Diaspora Fixed Time Deposit and/or Diaspora Current Account but not from Non-Repatriable Accounts.',
-          'Deposit of cheques originated by foreign',
-        ],
+        // 'All deposits to the account shall be made in foreign currency (Dollar, Euro or Pound Sterling). The applicant can credit the account without limitation in accordance with the following:',
+        // [
+        //   'Foreign currency cash (evidenced by customs declaration for amounts equivalent to or greater than USD 3,000 and/or per NBE Directive No. FxD/55/2018, but this figure may change based on amendments to the Directive)',
+        //   'Direct credit to the account using SWIFT code of the Bank (CBORETAA) or via money transfer agents:',
+        //   'Transfer from Diaspora Fixed Time Deposit and/or Diaspora Current Account but not from Non-Repatriable Accounts.',
+        //   'Deposit of cheques originated by foreign',
+        // ],
        " ECOLFL Savings Account is available in all bank branches.",
 "Couples can open a Joint ECOLFL Savings Account.",
 "Withdrawals are allowed only in local currency.",
@@ -182,15 +182,16 @@ export const AccountTypes = () => {
       container
       columnSpacing={4}
       rowSpacing={4}
-      xs={11.5}
-      md={10}
+      xs={12}
+   
+      md={4}
       sm={11}
       className="account-items"
     >
       {AccountTypes_Interested.map((AccountItem) => (
         <Grid item className="account-item" xs={10} sm={5}>
           <div className="account-item-header">
-            <div className="icon">{AccountItem.icon}</div>
+            {/* <div className="icon">{AccountItem.icon}</div> */}
             <div className="account-item-title">
               <h3>{AccountItem.title}</h3>
             </div>
