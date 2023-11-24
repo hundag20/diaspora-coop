@@ -37,7 +37,10 @@ const SignatureDialog = ({ open, onClose, onSave }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Sign Here</DialogTitle>
       <DialogContent sx={{ border: "1px solid grey", margin: "0 15px" }}>
-        <SignatureCanvas ref={signatureRef} />
+        <SignatureCanvas
+          ref={signatureRef}
+          sx={{ border: "1px solid grey", margin: "0 15px" }}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleReset}>Reset</Button>

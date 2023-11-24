@@ -3,6 +3,7 @@ import {
   Autocomplete,
   FormControl,
   Grid,
+  Input,
   InputAdornment,
   OutlinedInput,
   TextField,
@@ -48,8 +49,8 @@ interface FormItem {
   zipCode: string;
   country: string;
   occupation: string;
-  initialDeposit: number;
-  monthlyIncome: number;
+  initialDeposit: number | null;
+  monthlyIncome: number | null;
   sex: string;
   confirm: boolean;
   // add other properties as needed
@@ -72,12 +73,16 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     zipCode: "",
     country: "",
     occupation: "",
-    initialDeposit: 0,
-    monthlyIncome: 0,
+    initialDeposit: null,
+    monthlyIncome: null,
     confirm: false,
     sex: "",
     // ... add other form fields here
   });
+
+  // State to track form field errors
+  const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
+
   const [photo, setPhoto] = useState<File | null>(null);
   const [passport, setPassport] = useState<File | null>(null);
   const [residentCard, setResidentCard] = useState<File | null>(null);
@@ -98,14 +103,16 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   // Function to handle next step
   const handleNext = () => {
     // Validate the current step's form fields before moving to the next step
-    if (validateStep(activeStep)) {
+    setErrors({});
+    const stepIsValid = validateStep(activeStep);
+    if (stepIsValid) {
+      setCompletedSteps((prevCompletedSteps) => {
+        const newCompletedSteps = [...prevCompletedSteps];
+        newCompletedSteps[activeStep] = true;
+        return newCompletedSteps;
+      });
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
-    setCompletedSteps((prevCompletedSteps) => {
-      const newCompletedSteps = [...prevCompletedSteps];
-      newCompletedSteps[activeStep] = true;
-      return newCompletedSteps;
-    });
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   // Function to handle previous step
@@ -124,45 +131,99 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
   // Function to validate the form fields for the current step
   const validateStep = (step: number): boolean => {
-    console.log("data:", formData);
-    console.log(photo);
-    console.log(passport);
-    console.log(confirm);
-    console.log(residentCard);
-    console.log(signature);
+    // console.log("data:", formData);
+    // console.log(photo);
+    // console.log(passport);
+    // console.log(confirm);
+    // console.log(residentCard);
+    // console.log(signature);
 
     // Implement your validation logic here
+    let stepIsValid = true;
+    const stepErrors: { [key: string]: boolean } = {};
+
     switch (step) {
       case 0:
+        if (formData.fullName === "") {
+          stepErrors.fullName = true;
+          stepIsValid = false;
+        }
+        if (formData.surname === "") {
+          stepErrors.surname = true;
+          stepIsValid = false;
+        }
+        if (formData.phone === "") {
+          stepErrors.phone = true;
+          stepIsValid = false;
+        }
+        if (formData.email === "") {
+          stepErrors.email = true;
+          stepIsValid = false;
+        }
+        if (formData.confirm === false) {
+          stepErrors.confirm = true;
+          stepIsValid = false;
+        }
         // Validate personal information fields
-        return (
-          formData.fullName !== "" &&
-          formData.surname !== "" &&
-          formData.phone !== "" &&
-          formData.email !== "" &&
-          formData.confirm !== false
-        );
+        break;
       case 1:
         // Validate contact information fields
-        return (
-          formData.motherName !== "" &&
-          formData.streetAddress !== "" &&
-          formData.city !== "" &&
-          formData.state !== "" &&
-          formData.zipCode !== "" &&
-          formData.country !== ""
-        );
+        if (formData.motherName === "") {
+          stepErrors.motherName = true;
+          stepIsValid = false;
+        }
+        if (formData.streetAddress === "") {
+          stepErrors.streetAddress = true;
+          stepIsValid = false;
+        }
+        if (formData.sex === "") {
+          stepErrors.sex = true;
+          stepIsValid = false;
+        }
+        // if (formData.city === "") {
+        //   stepErrors.city = true;
+        //   stepIsValid = false;
+        // }
+        // if (formData.state === "") {
+        //   stepErrors.state = true;
+        //   stepIsValid = false;
+        // }
+        // if (formData.zipCode === "") {
+        //   stepErrors.zipCode = true;
+        //   stepIsValid = false;
+        // }
+        // if (formData.country === "") {
+        //   stepErrors.country = true;
+        //   stepIsValid = false;
+        // }
+        break;
       case 2:
+        if (formData.occupation === "") {
+          stepErrors.occupation = true;
+          stepIsValid = false;
+        }
+        if (
+          formData.initialDeposit === null ||
+          formData.initialDeposit <= 100
+        ) {
+          stepErrors.initialDeposit = true;
+          stepIsValid = false;
+        }
+        if (formData.monthlyIncome === null || formData.monthlyIncome <= 0) {
+          stepErrors.monthlyIncome = true;
+          stepIsValid = false;
+        }
         // Validate financial information fields
-        return (
-          formData.occupation !== "" &&
-          Number(formData.initialDeposit) > 0 &&
-          Number(formData.monthlyIncome) > 0
-        );
+        break;
       // Add validation logic for other steps similarly
       default:
-        return true;
+        break;
     }
+
+    // Update the errors state
+    setErrors((prevErrors) => ({ ...prevErrors, ...stepErrors }));
+
+    return stepIsValid;
   };
 
   return (
@@ -178,7 +239,26 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         {activeStep === steps.length ? (
           <React.Fragment>
             <Typography sx={{ mt: 2, mb: 1 }}>
-              All steps completed - you&apos;re finished
+              <div className="formComplete">
+                <div className="container">
+                  <div className="top">
+                    <h2>All steps completed</h2>
+                  </div>
+                  <div className="bottom">
+                    <p>
+                      Thank you for completing the bank account opening form!
+                      Your information has been successfully submitted. Our team
+                      will now review your application.
+                    </p>
+                    <p>
+                      You will receive an email confirmation shortly with
+                      details about the next steps in the process. If additional
+                      information is required, a representative from our bank
+                      will reach out to you.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Box sx={{ flex: "1 1 auto" }} />
@@ -205,13 +285,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           Full Name <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="text-1"
                           placeholder="Your Full Name"
                           id="form-field-text-1_651becd154b31"
                           className="form-input form-name--field"
                           value={formData.fullName}
+                          fullWidth
+                          error={errors.fullName}
                           onChange={(e) =>
                             handleInputChange("fullName", e.target.value)
                           }
@@ -234,13 +316,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           Surname <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="name-4"
                           placeholder="Your Surname"
                           id="form-field-name-4_651becd154b31"
                           className="form-input form-name--field"
                           aria-required="true"
+                          fullWidth
+                          error={errors.surname}
                           value={formData.surname}
                           onChange={(e) =>
                             handleInputChange("surname", e.target.value)
@@ -269,7 +353,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           Email Address <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="email"
                           name="email-1"
                           placeholder="E.g. abdi@yahoo.com"
@@ -277,6 +361,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           className="form-input form-email--field"
                           data-required="1"
                           aria-required="true"
+                          fullWidth
+                          error={errors.email}
                           value={formData.email}
                           onChange={(e) =>
                             handleInputChange("email", e.target.value)
@@ -300,7 +386,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           Phone <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="phone-1"
                           placeholder="E.g. +1 300 400 5000"
@@ -308,6 +394,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           className="form-input form-field--phone"
                           data-required="1"
                           aria-required="true"
+                          fullWidth
+                          error={errors.phone}
                           value={formData.phone}
                           onChange={(e) =>
                             handleInputChange("phone", e.target.value)
@@ -360,7 +448,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           terms and conditions
                         </a>
-                        .
+                        . And I confirm that I don't have a diaspora account
+                        with any other bank.
                       </p>
                     </div>
                   </div>
@@ -385,13 +474,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           Mother's Name <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="text-1"
                           placeholder="Your Mother's Full Name"
                           id="form-field-text-1_651becd154b31"
                           className="form-input form-name--field"
                           data-required="1"
+                          fullWidth
+                          error={errors.motherName}
                           value={formData.motherName}
                           onChange={(e) =>
                             handleInputChange("motherName", e.target.value)
@@ -463,13 +554,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           Street Address{" "}
                           <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="name-4"
                           placeholder="Eg. 123 MD New Way"
                           id="form-field-name-4_651becd154b31"
                           className="form-input form-name--field"
                           aria-required="true"
+                          fullWidth
+                          error={errors.streetAddress}
                           value={formData.streetAddress}
                           onChange={(e) =>
                             handleInputChange("streetAddress", e.target.value)
@@ -519,6 +612,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           </select> */}
                           <Autocomplete
                             // disablePortal
+
                             value={formData.country}
                             onChange={(e, newValue) =>
                               handleInputChange("country", newValue || "")
@@ -527,7 +621,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             options={countries}
                             getOptionLabel={(option) => option} // Specify how options are displayed
                             sx={{ width: "100%" }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                fullWidth
+                                error={errors.country}
+                              />
+                            )}
                           />
                           {/* <span>
                             <i className="fas fa-chevron-down"></i>
@@ -549,13 +649,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           State/Province
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="name-4"
                           placeholder="Eg. New South Wales"
                           id="form-field-name-4_651becd154b31"
                           className="form-input form-name--field"
                           aria-required="true"
+                          fullWidth
+                          error={errors.state}
                           value={formData.state}
                           onChange={(e) =>
                             handleInputChange("state", e.target.value)
@@ -582,13 +684,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           City
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="text-1"
                           placeholder="Eg. New York"
                           id="form-field-text-1_651becd154b31"
                           className="form-input form-name--field"
                           data-required="1"
+                          fullWidth
+                          error={errors.city}
                           value={formData.city}
                           onChange={(e) =>
                             handleInputChange("city", e.target.value)
@@ -610,13 +714,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           ZIP / Postal Code
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="text-1"
                           placeholder="Eg. 2000"
                           id="form-field-text-1_651becd154b31"
                           className="form-input form-name--field"
                           data-required="1"
+                          fullWidth
+                          error={errors.zipCode}
                           value={formData.zipCode}
                           onChange={(e) =>
                             handleInputChange("zipCode", e.target.value)
@@ -645,13 +751,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           Occupation <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="text"
                           name="name-4"
                           placeholder="Your Occupation"
                           id="form-field-name-4_651becd154b31"
                           className="form-input form-name--field"
                           aria-required="true"
+                          fullWidth
+                          error={errors.occupation}
                           value={formData.occupation}
                           onChange={(e) =>
                             handleInputChange("occupation", e.target.value)
@@ -680,15 +788,6 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           Initial Deposit{" "}
                           <span className="form-required">*</span>
                         </label>
-                        {/* <input
-                          type="number"
-                          name="text-1"
-                          placeholder="Eg. $100"
-                          id="form-field-text-1_651becd154b31"
-                          className="form-input form-name--field"
-                          data-required="1"
-                          required
-                        /> */}
                         <FormControl fullWidth>
                           <OutlinedInput
                             type="number"
@@ -703,6 +802,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                                 $
                               </InputAdornment>
                             }
+                            fullWidth
+                            error={errors.initialDeposit}
                             value={formData.initialDeposit}
                             onChange={(e) =>
                               handleInputChange(
@@ -736,13 +837,15 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           Monthly Income{" "}
                           <span className="form-required">*</span>
                         </label>
-                        <input
+                        <TextField
                           type="number"
                           name="name-4"
                           placeholder="Your Monthly Income"
                           id="form-field-name-4_651becd154b31"
                           className="form-input form-name--field"
                           aria-required="true"
+                          fullWidth
+                          error={errors.monthlyIncome}
                           value={formData.monthlyIncome}
                           onChange={(e) =>
                             handleInputChange("monthlyIncome", e.target.value)
@@ -750,6 +853,53 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           required
                         />
                       </div>
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid item xs={12} className="form-row">
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        id="name-4"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            id="forminator-form-2333__field--select-2_6523b367d1783-label"
+                            className="form-label"
+                          >
+                            Choose Your Nearest Branch{" "}
+                            <span className="forminator-required">*</span>
+                          </label>
+                          <div className="select">
+                            <select
+                              required
+                              id="forminator-form-2333__field--select-1_6523b367d1783"
+                              className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
+                              data-required="1"
+                              name="select-1"
+                              data-default-value=""
+                              data-placeholder="Choose Your Branch"
+                              data-search="false"
+                              aria-labelledby="forminator-form-2333__field--select-1_6523b367d1783-label"
+                              aria-describedby="forminator-form-2333__field--select-1_6523b367d1783-description forminator-form-2333__field--select-1_6523b367d1783-error"
+                              data-select2-id="select2-data-forminator-form-2333__field--select-1_6523b367d1783"
+                              aria-hidden="true"
+                              aria-invalid="true"
+                            >
+                              {branches.map((branch: string) => {
+                                return <option value={branch}>{branch}</option>;
+                              })}
+                            </select>
+                            <span>
+                              <i className="fas fa-chevron-down"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -778,7 +928,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           data-element="upload-2_651becd154b31"
                           aria-describedby="form-field-upload-2_651becd154b31-description"
                         >
-                          <ImageUpload
+                          <FileUpload
                             name="upload-2[]"
                             stateFunction={photo}
                             setStateFunction={setPhoto}
@@ -871,7 +1021,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           data-element="upload-2_651becd154b31"
                           aria-describedby="form-field-upload-2_651becd154b31-description"
                         >
-                          <SignatureUpload
+                          <FileUpload
                             name="upload-2[]"
                             stateFunction={signature}
                             setStateFunction={setSignature}
@@ -886,6 +1036,19 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                 <Grid item xs={12} className="form-row">
                   <Grid item xs={6} sm={12} className="form-col form-col-4 ">
                     <div className="form-field">
+                      <label
+                        lang="form-field-upload-2_651becd154b31"
+                        className="form-label"
+                      >
+                        Upload Confirmation file{" "}
+                        <span className="form-required">*</span>
+                      </label>
+                      <div className="deposit-notice">
+                        <span>
+                          Please download the confirmation form, sign it, and
+                          upload the signed document. Ensure a clear signature.
+                        </span>
+                      </div>
                       <div className="download-doc">
                         <div className="image">
                           <img src="/images/document.svg"></img>
@@ -921,13 +1084,6 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
                   <Grid item xs={5.5} sm={12} className="form-col form-col-4 ">
                     <div className="form-field">
-                      <label
-                        lang="form-field-upload-2_651becd154b31"
-                        className="form-label"
-                      >
-                        Upload Confirmation file{" "}
-                        <span className="form-required">*</span>
-                      </label>
                       <div
                         className="file-upload-container"
                         data-element="upload-2_651becd154b31"
