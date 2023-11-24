@@ -19,6 +19,7 @@ import { MudarabahFixedTermDepositAccount } from "./pages/alhudaAccount/Mudaraba
 import { AboutCoopbankAlhuda } from "./pages/AboutCoopbankAlhuda";
 import { AccountTypes } from "./pages/AccountTypes";
 import ScrollToTop from "./components/scrollToTop";
+import { ChooseAccount } from "./pages/ChooseAccount";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -82,7 +83,15 @@ const App = () => {
           }
         />
 
-<Route
+        <Route
+          path="/choose-account"
+          element={
+            <BodyRoute>
+              <ChooseAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
           path="/account-types"
           element={
             <BodyRoute>
@@ -90,7 +99,6 @@ const App = () => {
             </BodyRoute>
           }
         />
-
 
         <Route
           path="/diaspora-current-account"

@@ -1,0 +1,67 @@
+// PricingTable.scss
+@import "../styles/variable.scss";
+.pricing-table {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px 60px;
+  font-family: $Poppins;
+}
+
+.pricing-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 20px;
+  width: 100%;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    // text-align: center;
+    height: 50px;
+    margin-bottom: 2rem;
+  }
+
+  .card-description {
+    color: #666;
+    margin-bottom: 15px;
+    text-align: justify;
+    height: 250px;
+    margin-bottom: 2rem;
+  }
+
+  .card-section {
+    margin: 25px 0;
+
+    .section-title {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .section-list {
+      list-style-type: disc;
+      margin-left: 15px;
+      padding: 0;
+
+      li {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  .action {
+    width: 100%;
+
+    button {
+      width: 100%;
+      padding: 9px;
+      border: none;
+      background-color: $primary;
+      color: white;
+      text-transform: capitalize;
+      font-size: 18px;
+      border-radius: 6px;
+    }
+  }
+}
