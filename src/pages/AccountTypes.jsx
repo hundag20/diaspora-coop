@@ -35,25 +35,40 @@ export const AccountTypes = () => {
     {
       icon: <i aria-hidden="true" className="fas fa-car"></i>,
       title: "Diaspora Fixed-Time Account",
-    desc: "Diaspora Fixed Time Account It is an account which takes the form of a deposit certificate, issued in the name of the depositor. The maturity period may vary based on the agreement made between the depositor and the bank. The bank and the depositor will also reach an agreement on the rate of interest on this account. Interest income on non-resident foreign currency fixed deposit account shall be free from income tax.Diaspora Automobile Loan is a term loan granted to the Diaspora for the purpose of purchase Only new brand automobile for non-commercial purpose only.",
+      desc: "Offers deposit certificates with variable maturity periods and negotiated interest rates. Interest income for non-resident foreign currency deposits is tax-exempt.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
-      features:[
-        'It is an interest-bearing account with an agreed maturity date',
-        'The amount needed to open the account shall at least be USD 100 or its equivalent of the eligible currency',
-        'The minimum maturity period is three months that could be opened with an initial deposit of USD 5,000',
-        'Interest on such accounts shall be payable only if they are maintained at least for the minimum period.',
-      
+      features: [
+        "Interest-bearing account with a fixed maturity date.",
+        "Requires a minimum opening amount of USD 100 or equivalent currency.",
+        "Minimum maturity period is three months with an initial deposit of USD 5,000.",
+        "Interest payment applies only if the account is maintained for the minimum period.",
       ],
-    
-    benefits:[
-      'Interest income on such accounts is tax-free.'  ]},
+
+      benefits: ["Interest income is tax-free."],
+    },
     {
       icon: <i aria-hidden="true" className="fas fa-truck-moving"></i>,
       title: "Diaspora Non-repatriable Account",
-      desc: "Diaspora Vehicle Loan is a term loan granted to the Diaspora for the purpose of purchase Only new brand automobile for commercial purpose only.",
+      desc: "A savings deposit, is exclusively meant for local transactions. Transferred balances are converted into local currency and deposited into the account.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
+      features: [
+        "Available in local and foreign currencies: GBP, USD, and EURO.",
+        "Offers personalized cheque books.",
+        "Option for Debit Card issuance upon request.",
+        "Provides email alerts and statements.",
+        "Allows Joint Signatory (e.g., with spouse, sibling, or parent in Ethiopia).",
+        "Offers financial advisory services.",
+        "Facilitates third-party payments.",
+      ],
+      benefits: [
+        "Free withdrawals fee for foreign currency transactions",
+        "Free transactions across all CoopBank branches",
+        "Enables you to access all our E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker",
+      ],
     },
     // {
     //   icon: <i aria-hidden="true" className="fas fa-user-tie"></i>,
@@ -62,48 +77,46 @@ export const AccountTypes = () => {
     //   docLink:
     //     "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-PERSONAL-LOAN.pdf",
     // },
-   
+
     {
       icon: <i aria-hidden="true" className="fas fa-city"></i>,
       title:
         "Ethiopian Citizen or Origin Living in Foreign Land (ECOLFL) Savings Account",
-      desc: "Diaspora Working Capital Loan is a loan provided to eligible Ethiopian Diasporas to finance their business’s everyday operations. These loans are used to provide the working capital that covers a Diaspora’s business short-term operational needs.",
+      desc: "",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-WORKING-CAPITAL-LOAN-1.pdf",
-        features: [ 'Age of the applicant(s) should be 18 years and above.',
+      features: [
+          'Age of the applicant(s) should be 18 years and above.',
         'Submission of the following documents before account opening:',
-        [
-          'Renewed passport for non-resident Ethiopians or renewed passport and yellow card for foreigners of Ethiopian Origin',
-          'Residence and/or work permit',
-          'One latest passport size photograph',
-          'Power of attorney, copy of lD and one passport size photograph of the agent (if any)',
-          'Bank Account statement from foreign sources (optional)',
-          'For businesses, authenticated certificate of ownership entitlement of the business and/or article and memorandum of association.',
-        ],
+        // [
+        //   'Renewed passport for non-resident Ethiopians or renewed passport and yellow card for foreigners of Ethiopian Origin',
+        //   'Residence and/or work permit',
+        //   'One latest passport size photograph',
+        //   'Power of attorney, copy of lD and one passport size photograph of the agent (if any)',
+        //   'Bank Account statement from foreign sources (optional)',
+        //   'For businesses, authenticated certificate of ownership entitlement of the business and/or article and memorandum of association.',
+        // ],
         'All deposits to the account shall be made in foreign currency (Dollar, Euro or Pound Sterling). The applicant can credit the account without limitation in accordance with the following:',
         [
           'Foreign currency cash (evidenced by customs declaration for amounts equivalent to or greater than USD 3,000 and/or per NBE Directive No. FxD/55/2018, but this figure may change based on amendments to the Directive)',
           'Direct credit to the account using SWIFT code of the Bank (CBORETAA) or via money transfer agents:',
-          '  Transfer from Diaspora Fixed Time Deposit and/or Diaspora Current Account but not from Non-Repatriable Accounts.',
+          'Transfer from Diaspora Fixed Time Deposit and/or Diaspora Current Account but not from Non-Repatriable Accounts.',
           'Deposit of cheques originated by foreign',
         ],
-        'ECOLFL Savings Account can be opened in all branches of the bank.',
-        'Couples can open Joint ECOLFL Savings Account.',
-        'Full or partial withdrawals from ECOLFL Savings Account shall be allowed only in local currency at any point in time.',
-        'ECOLFL Savings Account shall be closed when the applicant requests so before application for However, this does not restrict the applicant from opening another ECOLFL Savings Account.',
-        'ECOLFL Savings Account shall bear the prevailing annual saving interest rate set by',
-        'Foreign currency credits to ECOLFL Savings shall be converted to Local currency using the Bank’s particular currency buying rate on the date of transaction.',
-        'If the account owner dies and the legal heir of the ECOLFL savings account requests to be eligible for Diaspora Mortgage Loan or Diaspora Car Loan or Personal Loan or Diaspora investment loan and/or Diaspora Working capital loan, the bank will assess the request as per its internal procedure.',
-        'An applicant working for an international organization whose salary is in FCY can open ECOLFL Savings Account without documentary requirements of resident and/or work permit. However, the applicant should submit employment contract and Ethiopian passport.',
-     
-    
-        ],
-        benefits:[
-          'Enables an applicant(s) to open in person or through his/her/their agent at a nearby branch of Cooperative Bank of Oromia.',
-          'This account will bear annual interest equivalent to the prevailing NBE set savings interest rate.',
-          'It enables couples to open Joint ECOLFL Savings Account.',
-        ]
-    },   
+       " ECOLFL Savings Account is available in all bank branches.",
+"Couples can open a Joint ECOLFL Savings Account.",
+"Withdrawals are allowed only in local currency.",
+"Closure upon request; new account allowed.",
+"Earns prevailing annual interest rate.",
+"Foreign currency credited converted using bank's rate.",
+"Legal heirs eligible for loans post owner's death.",
+"Applicants with foreign currency salaries from international organizations need only submit an employment contract and Ethiopian passport, exempt from resident/work permit requirements",  ],
+      benefits: [
+        "Enables an applicant(s) to open in person or through his/her/their agent at a nearby branch of Cooperative Bank of Oromia.",
+        "Annual Interest Rate",
+        "Joint ECOLFL Savings Account for couples.",
+      ],
+    },
     // {
     //   icon: <i aria-hidden="true" className="fas fa-chart-line"></i>,
     //   title: "Diaspora Investment Financing Loan",
@@ -174,77 +187,78 @@ export const AccountTypes = () => {
       sm={11}
       className="account-items"
     >
-      { AccountTypes_Interested.map((AccountItem) => (
+      {AccountTypes_Interested.map((AccountItem) => (
         <Grid item className="account-item" xs={10} sm={5}>
           <div className="account-item-header">
             <div className="icon">{AccountItem.icon}</div>
             <div className="account-item-title">
               <h3>{AccountItem.title}</h3>
-                  </div>
-                   </div>
+            </div>
+          </div>
           <div className="account-item-body">
             <div className="desc">
               <p>
-                {AccountItem.desc}  
+                {AccountItem.desc}
                 {/* <span className="req-doc">
                   <a href={AccountItem.docLink}> Required Document</a>
                 </span> */}
               </p>
             </div>
-            <hr />
-         </div>
-        
-          {/* <hr /> */}
+         <hr />   
+          </div>
           <div className="account-features">
             <h3 className="account-features-title">Features:</h3>
-            <ul className='outer-ul' >
-              {AccountItem.features  && AccountItem.features.map((feature, index) => (
-               <li className="account-list">
-               <span>
-               
-                   <i className='fas fa-check'> </i>
-                
-               </span>
-               {typeof feature === 'string' ? (
-                 feature
-               ) : (
-                 <ul className='ul-inner'>
-                   {feature.map((el) => (
-                     <li className="list-items">{el}</li>
-                   ))}
-                 </ul>
-               )}
-             </li>
-              ))}
-      </ul>
-         <hr />    </div>    
-       
+            <ul className="outer-ul">
+              {AccountItem.features &&
+                AccountItem.features.map((feature, index) => (
+                  <li className="account-list">
+                    <span>
+                      <i className="fas fa-check"> </i>
+                    </span>
+                    {typeof feature === "string" ? (
+                      feature
+                    ) : (
+                      <ul className="ul-inner">
+                        {feature.map((el) => (
+                          <li className="list-items">{el}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+            </ul>     <hr />
+          </div>
+
           <div className="account-features">
-     
-            <h3 className="account-features-title">Benefits:</h3>
-            <ul className='outer-ul' >
-              {AccountItem.benefits  && AccountItem.benefits.map((feature, index) => (
-               <li className="account-list">
-               <span>
-                 {typeof feature === 'string' && (
-                   <i className='fas fa-check-circle'> </i>
-                 )}
-               </span>
-           
-               {typeof feature === 'string' ? (
-                 feature
-               ) : (
-                 <ul className='ul-inner'>
-                   {feature.map((el) => (
-                     <li>{el}</li>
-                   ))}
-                 </ul>
-               )}
-             </li>
-              ))}
+         
+            <h3 className="account-features-title"> Benefits:</h3>
+            <ul className="outer-ul">
+              {AccountItem.benefits &&
+                AccountItem.benefits.map((feature, index) => (
+                  <li className="account-list">
+                    <span>
+                      {typeof feature === "string" && (
+                        <i className="fas fa-check-circle"> </i>
+                      )}
+                    </span>
+
+                    {typeof feature === "string" ? (
+                      feature
+                    ) : (
+                      <ul className="ul-inner">
+                        {feature.map((el) => (
+                          <li>{el}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
             </ul>
           </div>
-          <div className="account-item-footer" onClick={() => navigate("/diaspora-current-account")}>
+          <div
+            className="account-item-footer"
+            onClick={() => navigate("/diaspora-current-account")}
+          >
             <i className="fas fa-arrow-circle-right"></i>
             <a href=" ">Open Account</a>
           </div>

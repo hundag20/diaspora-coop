@@ -77,6 +77,36 @@ export function Footer(props: IFooterProps) {
                   </span>
                 </a>
               </li>
+              <li className="elementor-icon-list-item">
+                <a href="https://coopbankoromia.com.et/daily-exchange-rates/">
+                  <span className="elementor-icon-list-icon">
+                    <i aria-hidden="true" className="fas fa-caret-right"></i>
+                  </span>
+                  <span className="elementor-icon-list-text">
+                  Foreign Exchange Rate
+                  </span>
+                </a>
+              </li>
+              <li className="elementor-icon-list-item">
+                <a href="https://etrade.gov.et/">
+                  <span className="elementor-icon-list-icon">
+                    <i aria-hidden="true" className="fas fa-caret-right"></i>
+                  </span>
+                  <span className="elementor-icon-list-text">
+                  Trade Registration and Licensing
+                  </span>
+                </a>
+              </li>
+              <li className="elementor-icon-list-item">
+                <a href="https://nbe.gov.et/directives/">
+                  <span className="elementor-icon-list-icon">
+                    <i aria-hidden="true" className="fas fa-caret-right"></i>
+                  </span>
+                  <span className="elementor-icon-list-text">
+                  National Bank Directives
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
           <div className="column col3">
