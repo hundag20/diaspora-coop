@@ -76,7 +76,7 @@ const Diasport: React.FC = () => {
       action: "Apply Now",
     },
   ];
-
+  // const navigate = useNavigate();
   interface ItemsProps {
     index: number;
     item: DiasporaItem;
@@ -221,6 +221,7 @@ const WhatWeOffer: React.FC = () => {
   function redirectToAnotherPage() {
     window.location.href = '/get-a-loan'; // Replace with the URL of the destination page
   }
+  const navigate = useNavigate();
   
   return (
     <div className="whatweofferComp">
@@ -239,7 +240,7 @@ const WhatWeOffer: React.FC = () => {
           variants={offersAnimationVariants} // Apply animation variants
         >
           {offers.map((offer) => (
-            <div className="offer" onClick={redirectToAnotherPage}>
+            <div className="offer"  onClick={() => navigate("/get-a-loan")}>
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
