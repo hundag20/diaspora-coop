@@ -5,7 +5,7 @@ import { LoanRequestForm } from "../components/LoanRequestForm";
 import { useNavigate } from "react-router-dom";
 import { left } from "@popperjs/core";
 import alhudaLogo from "../assets/img/AlhudaLogo-removebg.png";
-
+import {useState, useEffect} from "react";
 export const AccountTypes = () => {
   const AccountTypes_Interested = [
     {
@@ -150,6 +150,12 @@ export const AccountTypes = () => {
     },
   ];
 
+  const [collapsed, setCollapsed] = useState(false);
+
+const handleCollapse = () =>{
+  setCollapsed(!collapsed);
+}
+
   const Title = () => (
     <Grid container xs={11}>
       <Grid item xs={12}>
@@ -206,27 +212,25 @@ export const AccountTypes = () => {
             </div>
          <hr />   
           </div>
-          <div className="account-features">
-            <h3 className="account-features-title">Features:</h3>
+          <div className="account-features" >
+         {collapsed ?
+            ( <div>  <h3 className="account-features-title">Features:</h3>
             <ul className="outer-ul">
               {AccountItem.features &&
                 AccountItem.features.map((feature, index) => (
-                  <li className="account-list">
-                    <span>
-                      <i className="fas fa-check"> </i>
-                    </span>
-                    {typeof feature === "string" ? (
-                      feature
-                    ) : (
-                      <ul className="ul-inner">
-                        {feature.map((el) => (
-                          <li className="list-items">{el}</li>
-                        ))}
-                      </ul>
-                    )}
+                <li className="account-list">
+                   <><span>
+                        <i className="fas fa-check"> </i>
+                      </span><ul className="ul-inner">
+                          {feature.map((el) => (
+                            <li className="list-items">{el}</li>
+                          ))}
+                        </ul></>
+                    
                   </li>
                 ))}
-            </ul>     <hr />
+            </ul>    
+             <hr /></div>) : ("")}
           </div>
 
           <div className="account-features">
