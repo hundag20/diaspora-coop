@@ -183,9 +183,8 @@ export const AccountTypes = () => {
       columnSpacing={4}
       rowSpacing={4}
       xs={12}
-   
-      md={4}
-      sm={11}
+      md={3}
+      sm={2}
       className="account-items"
     >
       {AccountTypes_Interested.map((AccountItem) => (
