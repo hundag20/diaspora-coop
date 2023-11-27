@@ -80,7 +80,18 @@
     }
 
     .account-items {
-
+    column-gap: 3rem;
+      display: flex;
+       flex-direction: column;
+      flex-flow: column;
+     // flex-wrap: wrap;
+     flex-grow: 0;
+      flex-basis: auto;
+      justify-items: center;
+       align-items: flex-start;
+      align-content: center;
+      width: 90%;
+      max-width: 100%;
       hr {
         color: #4a5669;
         font: inherit;
@@ -94,24 +105,25 @@
         margin-top: 20px;
       }
       // row-gap: 0rem;
-      column-gap: 3rem;
-      display: flex;
-      flex-direction: column;
-      flex-flow: column;
-      flex-basis: auto;
-      justify-items: center;
-    // align-items: center;
-      align-content: center;
-      width: 80%;
-      max-width: 100%;
+ 
 
       @include breakpoint(md) {
         margin-top: 0rem;
+        display:flex;
         flex-direction: row;
+      
         gap: 1rem;
       }
       @include breakpoint(mdP) {
+         display:flex;
+        flex-direction: row;
+    
+        flex-basis: 400px;
+       
+        flex-grow: 1;
         gap: 3rem;
+        position: static;
+     
       }
 
       .account-item {
@@ -128,7 +140,7 @@
         box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
         width: 80%;
         height: inherit;
-        // max-width: 25%;
+         max-width: 100%;
         @include breakpoint(md) {
           padding: 30px 15px;
           // width: 400px;
@@ -142,9 +154,13 @@
           flex-direction: column;
           align-self: flex-start;
          width: inherit;
-            .account-collapse:hover{
+            .account-collapse{
+         display: block;
+         position: static;
+            }:hover{
               // font-size: 5rem;
               cursor: pointer;
+             
             }
           .account-features-title {
             color: #54595f;
@@ -317,12 +333,15 @@
           }
         }
         .account-item-footer {
-          margin-top: 36px;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 5px;
-
+          flex-flow: row;
+          margin-top: 36px;
+          position: inherit;
+        //   align-items: flex-end;
+        // //  width:100%;
+        //   justify-content: end;
+          column-gap: 3px;
+       
           svg {
             font-size: 19px;
             fill: #384247;

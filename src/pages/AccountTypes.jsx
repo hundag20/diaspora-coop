@@ -69,7 +69,7 @@ export const AccountTypes = () => {
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
         "Free transactions across all CoopBank branches",
-        "Enables you to access all our E-channels",
+        "Access to all our E-channels",
         "Access to credit facilities",
         "Designated Personal Banker",
       ],
@@ -108,10 +108,10 @@ export const AccountTypes = () => {
         //   'Deposit of cheques originated by foreign',
         // ],
         " ECOLFL Savings Account is available in all bank branches.",
-        "Couples can open a Joint ECOLFL Savings Account.",
-        "Withdrawals are allowed only in local currency.",
+       
+        "Withdrawals allowed only in local currency.",
         "Closure upon request; new account allowed.",
-        "Earns prevailing annual interest rate.",
+ 
         "Foreign currency credited converted using bank's rate.",
         "Legal heirs eligible for loans post owner's death.",
         "Applicants with foreign currency salaries from international organizations need only submit an employment contract and Ethiopian passport, exempt from resident/work permit requirements",
@@ -204,12 +204,13 @@ export const AccountTypes = () => {
       container
       columnSpacing={4}
       rowSpacing={4}
-      xs={12}
-      md={3}
-      sm={2}
+      // xs={12}
+      // md={4}
+      // lg={4}
+      // sm={4}
       className='account-items'>
       {AccountTypes_Interested.map((AccountItem, index) => (
-        <Grid item className='account-item' xs={10} sm={5} key={index}>
+        <Grid item className='account-item' xs={10} sm={5} key={index} md={6}>
           <div className='account-item-header' key={index}>
             {/* <div className="icon">{AccountItem.icon}</div> */}
             <div className='account-item-title'>
@@ -227,79 +228,95 @@ export const AccountTypes = () => {
             </div>
             {/* <hr /> */}
           </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              columnGap: "1em",
 
-          <div className='account-features' key={index}>
-            {/* <FontAwesomeIcon
+            }}>
+            <div className='account-features' key={index}>
+              {/* <FontAwesomeIcon
               icon='fa-regular fa-chevron-up'
               size='2xl'
               style={{ color: "#00adef" }}
             /> */}
-            <div
-              className='account-collapse'
-              onClick={() => handleCollapse(index)}>
-              {collapsedStates[index] ? (
-                <ExpandMoreIcon
-                  style={{ color: "#00adef", fontSize: "5rem" }}
-                />
-              ) : (
-                <ExpandLessIcon
-                  style={{ color: "#00adef", fontSize: "5rem" }}
-                />
-              )}
-            </div>
-            {collapsedStates[index] === false && (
-              <div key={index}>
-                {" "}
-                <h3 className='account-features-title'>Features:</h3>
-                <ul className='outer-ul'>
-                  {AccountItem.features &&
-                    AccountItem.features.map((feature, index) => (
-                      <li className='account-list' key={index}>
-                        <>
+              <div
+                className='account-collapse'
+                onClick={() => handleCollapse(index)}>
+                {collapsedStates[index] ? (
+                  <ExpandMoreIcon
+                    style={{ color: "#00adef", fontSize: "5rem" }}
+                  />
+                ) : (
+                  <ExpandLessIcon
+                    style={{ color: "#00adef", fontSize: "5rem" }}
+                  />
+                )}
+              </div>
+              {
+              collapsedStates[index] === false && (
+                <div key={index}>
+                  {" "}
+                  <h3 className='account-features-title'>Features:</h3>
+                  <ul className='outer-ul'>
+                    {AccountItem.features &&
+                      AccountItem.features.map((feature, index) => (
+                        <li className='account-list' key={index}>
+                          <>
+                            <span>
+                              <i className='fas fa-check'> </i>
+                            </span>
+                            {typeof feature === "string" ? (
+                              feature
+                            ) : (
+                              <ul className='ul-inner'>
+                                {Array.isArray(feature) &&
+                                  feature.map((el, index) => (
+                                    <li key={index}>{el}</li>
+                                  ))}
+                              </ul>
+                            )}
+                          </>
+                        </li>
+                      ))}
+                  </ul>
+                  <hr />
+                  <h3 className='account-features-title'> Benefits:</h3>
+                  <ul className='outer-ul'>
+                    {AccountItem.benefits &&
+                      AccountItem.benefits.map((benefits, index) => (
+                        <li className='account-list'>
                           <span>
-                            <i className='fas fa-check'> </i>
+                            {typeof benefits === "string" && (
+                              <i className='fas fa-check-circle'> </i>
+                            )}
                           </span>
-                          {typeof feature === "string" ? (
-                            feature
+
+                          {typeof benefits === "string" ? (
+                            benefits
                           ) : (
                             <ul className='ul-inner'>
-                              {Array.isArray(feature) &&
-                                feature.map((el, index) => (
-                                  <li key={index}>{el}</li>
-                                ))}
+                              {Array.isArray(benefits) &&
+                                benefits.map((el) => <li>{el}</li>)}
                             </ul>
                           )}
-                        </>
-                      </li>
-                    ))}
-                </ul>
-                <hr />
-                <h3 className='account-features-title'> Benefits:</h3>
-                <ul className='outer-ul'>
-                  {AccountItem.benefits &&
-                    AccountItem.benefits.map((benefits, index) => (
-                      <li className='account-list'>
-                        <span>
-                          {typeof benefits === "string" && (
-                            <i className='fas fa-check-circle'> </i>
-                          )}
-                        </span>
-
-                        {typeof benefits === "string" ? (
-                          benefits
-                        ) : (
-                          <ul className='ul-inner'>
-                            {Array.isArray(benefits) &&
-                              benefits.map((el) => <li>{el}</li>)}
-                          </ul>
-                        )}
-                      </li>
-                    ))}
-                </ul>
-                <hr />
-              </div>
-            )}
-
+                        </li>
+                      ))}
+                  </ul>
+                  <hr />
+                </div>
+              )}
+            </div>
+            <div
+              className='account-item-footer'
+              onClick={() => {
+                navigate("/diaspora-current-account");
+                // resetCollapsed();
+              }}>
+              <i className='fas fa-arrow-circle-right'></i>
+              <a href=' '>Open Account</a>
+            </div>
             {/* <div className='account-features'>
               <h3 className='account-features-title'> Benefits:</h3>
               <ul className='outer-ul'>
@@ -325,15 +342,6 @@ export const AccountTypes = () => {
                   ))}
               </ul>
             </div> */}
-          </div>
-          <div
-            className='account-item-footer'
-            onClick={() => {
-              navigate("/diaspora-current-account");
-              // resetCollapsed();
-            }}>
-            <i className='fas fa-arrow-circle-right'></i>
-            <a href=' '>Open Account</a>
           </div>
         </Grid>
       ))}
