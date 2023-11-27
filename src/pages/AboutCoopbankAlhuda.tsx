@@ -30,7 +30,7 @@ const AlhudAccountProps: React.FC = () => {
       name: "WADIA",
       type: "SAVING ACCOUNT",
       description:
-        "Wadia is a trust agreement whereby the bank keeps funds of depositors who want to place their funds under safe custody without any benefit. It is a non-pro‑t sharing deposit account that the bank provides for the persons who fulfill the bank’s policies and requirements. Customers who fulfill the eligibility criteria can open this Diaspora Wadia Safe Keeping Accounts in line with the requirement in USD dollar, Pound Sterling and Euro currency.",
+        "Wadia is a trust agreement offered by banks where depositors can securely place funds without earning interest. It's a non-profit sharing deposit account available for eligible customers in USD, Pound Sterling, and Euro currencies.",
       features: [
         "The source of the fund is from abroad in FCY",
         "Customers living abroad can open the account",
@@ -50,7 +50,7 @@ const AlhudAccountProps: React.FC = () => {
       features: [
         "Operated by passbook or certificate of deposit",
         "Initial deposit to open the account shall be 100 USD or its equivalent in any of other acceptable currencies",
-        "Foreign currency is the only source of fund for the account",
+        "Only foreign currency as source of fund",
       ],
     },
     {
@@ -59,8 +59,8 @@ const AlhudAccountProps: React.FC = () => {
       description:
         "It is an account that depositors place their fund for pro‑t sharing within specified period of time. The bank accepts investment amount from customers who are looking for short, medium and long term investment opportunity for their funds.",
       features: [
-        "The minimum maturity period is three months",
-        "The bank shall issue certificate of deposit",
+        "Minimum maturity period is three months",
+        "Bank issues certificate of deposit",
         "The minimum deposit to open the account shall be 5,000 (USD, GBP or Euro) or equivalent in any of other acceptable currency",
       ],
     },
@@ -396,18 +396,8 @@ export function AboutCoopbankAlhuda(props: IAboutCoopbankAlhudaProps) {
             {/* <img src={coopLogo} alt="coop" /> */}
             <img src={alhudaLogo} alt="alhuda" />
             <p>
-              Cooperative Bank of Oromia is one of the fastest growing private
-              banks in Ethiopia. The bank has a separate segment and value
-              propositions for Sharia compliant customers through which several
-              services and products are provided. Diaspora banking service is
-              one of the highly offered products by the bank. Diaspora Banking
-              service is a platform that allows Ethiopians living and working
-              outside the country to maintain transactional accounts and perform
-              domestic and foreign transfers through their accounts with
-              Cooperative Bank of Oromia. In addition to this, Diasporas can get
-              Sharia complaint mortgage, Investment, Vehicles and automobile
-              ‑financing. Coopbank provides top of the range investment
-              opportunities for Diasporas.
+             Cooperative Bank of Oromia offers a dedicated segment for Sharia-compliant customers.
+              Our Diaspora Banking service allows Ethiopians abroad to manage accounts, conduct domestic and foreign transfers, and access Sharia-compliant mortgage, investment, and vehicle financing.
             </p>
           </div>
           <AlhudAccountProps />
