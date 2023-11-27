@@ -32,7 +32,7 @@ export const AccountTypes = () => {
         "Free withdrawals fee for foreign currency transactions",
         "Free transactions across all CoopBank branches",
         "Access to all our E-channels",
-        "Access to credit facilities",
+        "Credit facilities",
         "Designated Personal Banker for support",
       ],
     },
@@ -44,7 +44,7 @@ export const AccountTypes = () => {
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
       features: [
         "Interest-bearing account with a fixed maturity date.",
-        "Requires a minimum opening amount of USD 100 or equivalent currency.",
+        "A minimum opening amount of USD 100 or equivalent currency.",
         "Minimum maturity period is three months with an initial deposit of USD 5,000.",
         "Interest payment applies only if the account is maintained for the minimum period.",
       ],
@@ -59,11 +59,11 @@ export const AccountTypes = () => {
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
       features: [
         "Available in local and foreign currencies: GBP, USD, and EURO.",
-        "Offers personalized cheque books.",
-        "Option for Debit Card issuance upon request.",
-        "Provides email alerts and statements.",
-        "Allows Joint Signatory (e.g., with spouse, sibling, or parent in Ethiopia).",
-        "Offers financial advisory services.",
+        "Personalized cheque books.",
+        "Debit Card issuance upon request.",
+        "Email alerts and statements.",
+        "Joint Signatory (e.g., with spouse, sibling, or parent in Ethiopia).",
+        "Financial advisory services.",
         "Facilitates third-party payments.",
       ],
       benefits: [
@@ -108,11 +108,9 @@ export const AccountTypes = () => {
         //   'Deposit of cheques originated by foreign',
         // ],
         " ECOLFL Savings Account is available in all bank branches.",
-       
         "Withdrawals allowed only in local currency.",
         "Closure upon request; new account allowed.",
- 
-        "Foreign currency credited converted using bank's rate.",
+         "Foreign currency credited converted using bank's rate.",
         "Legal heirs eligible for loans post owner's death.",
         "Applicants with foreign currency salaries from international organizations need only submit an employment contract and Ethiopian passport, exempt from resident/work permit requirements",
       ],
