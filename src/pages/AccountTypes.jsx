@@ -155,16 +155,21 @@ export const AccountTypes = () => {
     },
   ];
  const [state, setState] = useState(false);
-  const [collapsed, setCollapsed] = useState(null);
+  // const [collapsed, setCollapsed] = useState(null);
 
-  const handleCollapse = (index) => {
-    setCollapsed(collapsed === index ? null : index);
-    setState(!state)
-  };
+ const [collapsedStates, setCollapsedStates] = useState(
+   Array(AccountTypes_Interested.length).fill(true)
+ );
 
-const resetCollapsed = () => {
-  setCollapsed(null);
-};
+ const handleCollapse = (index) => {
+   const updatedCollapsedStates = [...collapsedStates];
+   updatedCollapsedStates[index] = !updatedCollapsedStates[index];
+   setCollapsedStates(updatedCollapsedStates);
+ };
+
+// const resetCollapsed = () => {
+//   setCollapsed(null);
+// };
 
 
   const Title = () => (
@@ -204,8 +209,8 @@ const resetCollapsed = () => {
       sm={2}
       className='account-items'>
       {AccountTypes_Interested.map((AccountItem, index) => (
-        <Grid item className='account-item' xs={10} sm={5}>
-          <div className='account-item-header'>
+        <Grid item className='account-item' xs={10} sm={5} key={index}>
+          <div className='account-item-header' key={index}>
             {/* <div className="icon">{AccountItem.icon}</div> */}
             <div className='account-item-title'>
               <h3>{AccountItem.title}</h3>
@@ -223,7 +228,7 @@ const resetCollapsed = () => {
             {/* <hr /> */}
           </div>
 
-          <div>
+          <div className='account-features' key={index}>
             {/* <FontAwesomeIcon
               icon='fa-regular fa-chevron-up'
               size='2xl'
@@ -232,18 +237,18 @@ const resetCollapsed = () => {
             <div
               className='account-collapse'
               onClick={() => handleCollapse(index)}>
-              {state ? (
-                <ExpandLessIcon
+              {collapsedStates[index] ? (
+                <ExpandMoreIcon
                   style={{ color: "#00adef", fontSize: "5rem" }}
                 />
               ) : (
-                <ExpandMoreIcon
+                <ExpandLessIcon
                   style={{ color: "#00adef", fontSize: "5rem" }}
                 />
               )}
             </div>
-            {collapsed == index && (
-              <div className='account-features'>
+            {collapsedStates[index] === false && (
+              <div key={index}>
                 {" "}
                 <h3 className='account-features-title'>Features:</h3>
                 <ul className='outer-ul'>
@@ -323,10 +328,12 @@ const resetCollapsed = () => {
           </div>
           <div
             className='account-item-footer'
-            onClick={() =>{ navigate("/diaspora-current-account");  resetCollapsed();}}>
+            onClick={() => {
+              navigate("/diaspora-current-account");
+              // resetCollapsed();
+            }}>
             <i className='fas fa-arrow-circle-right'></i>
             <a href=' '>Open Account</a>
-          
           </div>
         </Grid>
       ))}
