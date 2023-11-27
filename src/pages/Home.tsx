@@ -219,10 +219,10 @@ const WhatWeOffer: React.FC = () => {
     },
   };
   function redirectToAnotherPage() {
-    window.location.href = '/get-a-loan'; // Replace with the URL of the destination page
+    window.location.href = "/get-a-loan"; // Replace with the URL of the destination page
   }
   const navigate = useNavigate();
-  
+
   return (
     <div className="whatweofferComp">
       <div className="container">
@@ -240,7 +240,7 @@ const WhatWeOffer: React.FC = () => {
           variants={offersAnimationVariants} // Apply animation variants
         >
           {offers.map((offer) => (
-            <div className="offer"  onClick={() => navigate("/get-a-loan")}>
+            <div className="offer" onClick={() => navigate("/get-a-loan")}>
               <div className="icon">{offer.icons}</div>
               <h4>{offer.title}</h4>
               <p>{offer.description}</p>
@@ -605,8 +605,13 @@ const Remittance: React.FC = () => {
   return (
     <div className="slideShowComp">
       <div className="container">
-        <h3>International Remittance</h3>
-        <p>We partner with over 13+ world best money transfer agents</p>
+        <h3>
+          International <span className="colouredspan">Remittance</span>{" "}
+        </h3>
+        <p>
+          We partner with over <span className="coloured">13+</span> world best
+          money transfer agents
+        </p>
         {/* <Slideshow /> */}
         {/* <Carousel /> */}
         {/* <Gallery /> */}

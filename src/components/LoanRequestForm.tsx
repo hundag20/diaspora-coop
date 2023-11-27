@@ -5,6 +5,11 @@ import personPlaceholder from "../assets/img/person.jpg";
 import SignatureDialog from "./SignatureDialog";
 export interface ILoanRequestlangmProps {}
 
+export const currency = [
+  { id: 1, name: "Dollar", avr: "USD", sign: "$" },
+  { id: 2, name: "Pound", avr: "GBP", sign: "£" },
+  { id: 3, name: "Euro", avr: "EUR", sign: "€" },
+];
 export const countries = [
   "Afghanistan",
   "Albania",
@@ -51,7 +56,6 @@ export const countries = [
   "Chile",
   "China, People",
   "Christmas Island",
-  " data-select2-id=",
   "Cocos Islands",
   "Colombia",
   "Comoros",
@@ -83,7 +87,6 @@ export const countries = [
   "Finland",
   "France",
   "France, Metropolitan",
-  " data-select2-id=",
   "French Guiana",
   "French Polynesia",
   "French South Territories",
@@ -152,7 +155,6 @@ export const countries = [
   "Mauritius",
   "Mayotte",
   "Me,ico",
-  " data-select2-id=",
   "Micronesia",
   "Moldova",
   "Monaco",
@@ -218,7 +220,6 @@ export const countries = [
   "Spain",
   "Sri Lanka",
   "Stateless Persons",
-  " data-select2-id=",
   "Sudan",
   "Sudan, South",
   "Suriname",
@@ -879,12 +880,14 @@ interface FileUploadProps {
   name: string;
   stateFunction: File | null;
   setStateFunction: React.Dispatch<React.SetStateAction<File | null>>;
+  error: boolean;
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
   name,
   stateFunction,
   setStateFunction,
+  error,
 }) => {
   const [fileUploadLabel, setFileUploadLabel] = useState("No file chosen");
 
@@ -916,7 +919,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         onChange={fileUploadHandler}
         required
       />
-      <div className="file-upload-label" aria-hidden="true">
+      <div
+        className={`${error && "error"} file-upload-label`}
+        aria-hidden="true"
+      >
         <i className="fas fa-cloud-upload-alt"></i>
         <p>
           Drag and Drop (or) <span>Choose Files</span>
@@ -1578,6 +1584,7 @@ export function LoanRequestForm(props: ILoanRequestlangmProps) {
                   aria-describedby="form-field-upload-2_651becd154b31-description"
                 >
                   <FileUpload
+                    error={false}
                     name="upload-2[]"
                     stateFunction={photo}
                     setStateFunction={setPhoto}
@@ -1606,6 +1613,7 @@ export function LoanRequestForm(props: ILoanRequestlangmProps) {
                   aria-describedby="form-field-upload-1_651becd154b31-description"
                 >
                   <FileUpload
+                    error={false}
                     name="upload-1[]"
                     stateFunction={photo}
                     setStateFunction={setPhoto}

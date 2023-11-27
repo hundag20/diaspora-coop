@@ -35,6 +35,12 @@ a {
   text-decoration: none;
 }
 
+.coloured {
+  color: $primary;
+  // font-family: $playfair;
+  transition: 0.4s color;
+  font-style: italic;
+}
 .colouredspan {
   color: $primary;
   font-family: $playfair;

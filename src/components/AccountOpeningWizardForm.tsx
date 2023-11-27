@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Autocomplete,
   FormControl,
@@ -14,6 +14,7 @@ import {
   ImageUpload,
   SignatureUpload,
   branches,
+  currency,
   countries,
 } from "./LoanRequestForm";
 import { TProductType } from "./AccountOpening";
@@ -24,6 +25,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { CheckCircle } from "@mui/icons-material";
 
 const steps = [
   "Personal Information",
@@ -53,12 +55,29 @@ interface FormItem {
   monthlyIncome: number | null;
   sex: string;
   confirm: boolean;
+  branch: string;
+  currency: number | null;
   // add other properties as needed
 }
 
 export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   // State to track the current step
   const [activeStep, setActiveStep] = useState(0);
+  const [isNarrowScreen, setIsNarrowScreen] = useState(
+    window.innerWidth <= 600
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsNarrowScreen(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // State to store form data
   const [formData, setFormData] = useState<FormItem>({
@@ -77,6 +96,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     monthlyIncome: null,
     confirm: false,
     sex: "",
+    branch: "",
+    currency: 1,
     // ... add other form fields here
   });
 
@@ -95,7 +116,6 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   );
 
   // Function to handle form data change
-
   const handleInputChange = (fieldName: string, value: string) => {
     setFormData({ ...formData, [fieldName]: value });
   };
@@ -125,6 +145,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     // Validate the last step before submission
     if (validateStep(activeStep)) {
       // Add your form submission logic here
+      console.log("data:", formData);
+      console.log(photo);
+      console.log(passport);
+      console.log(confirm);
+      console.log(residentCard);
+      console.log(signature);
       console.log("Form submitted!", formData);
     }
   };
@@ -164,42 +190,30 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           stepErrors.confirm = true;
           stepIsValid = false;
         }
-        // Validate personal information fields
-        break;
-      case 1:
-        // Validate contact information fields
         if (formData.motherName === "") {
           stepErrors.motherName = true;
-          stepIsValid = false;
-        }
-        if (formData.streetAddress === "") {
-          stepErrors.streetAddress = true;
           stepIsValid = false;
         }
         if (formData.sex === "") {
           stepErrors.sex = true;
           stepIsValid = false;
         }
-        // if (formData.city === "") {
-        //   stepErrors.city = true;
-        //   stepIsValid = false;
-        // }
-        // if (formData.state === "") {
-        //   stepErrors.state = true;
-        //   stepIsValid = false;
-        // }
-        // if (formData.zipCode === "") {
-        //   stepErrors.zipCode = true;
-        //   stepIsValid = false;
-        // }
-        // if (formData.country === "") {
-        //   stepErrors.country = true;
-        //   stepIsValid = false;
-        // }
+        // Validate personal information fields
+        break;
+      case 1:
+        // Validate contact information fields
+        if (formData.streetAddress === "") {
+          stepErrors.streetAddress = true;
+          stepIsValid = false;
+        }
         break;
       case 2:
         if (formData.occupation === "") {
           stepErrors.occupation = true;
+          stepIsValid = false;
+        }
+        if (formData.branch === "") {
+          stepErrors.branch = true;
           stepIsValid = false;
         }
         if (
@@ -215,6 +229,28 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         }
         // Validate financial information fields
         break;
+      case 3:
+        if (photo === null) {
+          stepErrors.photo = true;
+          stepIsValid = false;
+        }
+        if (passport === null) {
+          stepErrors.passport = true;
+          stepIsValid = false;
+        }
+        if (residentCard === null) {
+          stepErrors.residentCard = true;
+          stepIsValid = false;
+        }
+        if (signature === null) {
+          stepErrors.signature = true;
+          stepIsValid = false;
+        }
+        if (confirm === null) {
+          stepErrors.confirm = true;
+          stepIsValid = false;
+        }
+        break;
       // Add validation logic for other steps similarly
       default:
         break;
@@ -222,14 +258,17 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
     // Update the errors state
     setErrors((prevErrors) => ({ ...prevErrors, ...stepErrors }));
-
     return stepIsValid;
   };
 
   return (
     <form className="loan-form-container" id="Loan_Request">
       <Box sx={{ width: "100%" }}>
-        <Stepper activeStep={activeStep} style={{ marginBottom: 25 }}>
+        <Stepper
+          activeStep={activeStep}
+          style={{ marginBottom: 25 }}
+          orientation={isNarrowScreen ? "vertical" : "horizontal"}
+        >
           {steps.map((label, index) => (
             <Step key={label} completed={completedSteps[index]}>
               <StepLabel>{label}</StepLabel>
@@ -242,6 +281,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
               <div className="formComplete">
                 <div className="container">
                   <div className="top">
+                    <CheckCircle className="icon" />
                     <h2>All steps completed</h2>
                   </div>
                   <div className="bottom">
@@ -337,6 +377,88 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                 </Grid>
 
                 <Grid item xs={12} className="form-row">
+                  <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      id="text-1"
+                      className="form-col form-col-6 "
+                    >
+                      <div className="form-field">
+                        <label
+                          className="form-label"
+                          id="form-field-text-1_651becd154b31-label"
+                        >
+                          Mother's Name <span className="form-required">*</span>
+                        </label>
+                        <TextField
+                          type="text"
+                          name="text-1"
+                          placeholder="Your Mother's Full Name"
+                          id="form-field-text-1_651becd154b31"
+                          className="form-input form-name--field"
+                          data-required="1"
+                          fullWidth
+                          error={errors.motherName}
+                          value={formData.motherName}
+                          onChange={(e) =>
+                            handleInputChange("motherName", e.target.value)
+                          }
+                          required
+                        />
+                      </div>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      id="name-4"
+                      className="form-col form-col-6 "
+                    >
+                      <div className="form-field">
+                        <label
+                          className={
+                            errors.sex ? "error form-label" : "form-label"
+                          }
+                          id="form-field-name-4_651becd154b31-label"
+                        >
+                          Sex <span className="form-required">*</span>
+                        </label>
+                        <div className="sex">
+                          <div>
+                            <input
+                              type="radio"
+                              name="name-4"
+                              value="Male"
+                              checked={formData.sex === "Male"}
+                              onChange={(e) =>
+                                handleInputChange("sex", e.target.value)
+                              }
+                              required
+                            />
+                            <label>Male</label>
+                          </div>
+                          <div>
+                            <input
+                              type="radio"
+                              name="name-4"
+                              value="Female"
+                              checked={formData.sex === "Female"}
+                              onChange={(e) =>
+                                handleInputChange("sex", e.target.value)
+                              }
+                              required
+                            />
+                            <label>Female</label>
+                          </div>
+                        </div>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid item xs={12} className="form-row">
                   <Grid container xs={12} columnSpacing={3}>
                     <Grid
                       item
@@ -411,7 +533,10 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   <div className="form-field">
                     <label
                       lang="form-field-date-1-picker_651becd154b31"
-                      className="form-label"
+                      // className="form-label"
+                      className={
+                        errors.confirm ? "error form-label" : "form-label"
+                      }
                       id="form-field-date-1-picker_651becd154b31-label"
                     >
                       Agreement <span className="form-required">*</span>
@@ -420,6 +545,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                       <input
                         type="checkbox"
                         name="checkbox-1[]"
+                        className={errors.confirm ? "error" : ""}
                         // value="Yes"
                         // checked={formData.confirm}
                         onChange={(e) =>
@@ -458,86 +584,6 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
             )}
             {activeStep === 1 && (
               <Grid container xs={12} rowSpacing={4}>
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="text-1"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-text-1_651becd154b31-label"
-                        >
-                          Mother's Name <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="text"
-                          name="text-1"
-                          placeholder="Your Mother's Full Name"
-                          id="form-field-text-1_651becd154b31"
-                          className="form-input form-name--field"
-                          data-required="1"
-                          fullWidth
-                          error={errors.motherName}
-                          value={formData.motherName}
-                          onChange={(e) =>
-                            handleInputChange("motherName", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          Sex <span className="form-required">*</span>
-                        </label>
-                        <div className="sex">
-                          <div>
-                            <input
-                              type="radio"
-                              name="name-4"
-                              value="Male"
-                              checked={formData.sex === "Male"}
-                              onChange={(e) =>
-                                handleInputChange("sex", e.target.value)
-                              }
-                              required
-                            />
-                            <label>Male</label>
-                          </div>
-                          <div>
-                            <input
-                              type="radio"
-                              name="name-4"
-                              value="Female"
-                              checked={formData.sex === "Female"}
-                              onChange={(e) =>
-                                handleInputChange("sex", e.target.value)
-                              }
-                              required
-                            />
-                            <label>Female</label>
-                          </div>
-                        </div>
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
                 <Grid item xs={12} className="form-row">
                   <Grid container xs={12} columnSpacing={3} className="row1">
                     <Grid
@@ -592,27 +638,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         </label>
                         {/* <div className="select"> */}
                         <div className="">
-                          {/* <select
-                            name="address-1-country"
-                            id="forminator-form-2333__field--address-1-country_6523b367d1783"
-                            data-search="true"
-                            data-placeholder="Select country"
-                            data-default-value=""
-                            data-select2-id="select2-data-forminator-form-2333__field--address-1-country_6523b367d1783"
-                            aria-hidden="true"
-                            value={formData.country}
-                            onChange={(e) =>
-                              handleInputChange("country", e.target.value)
-                            }
-                          >
-                            <input type="text" name="count" id="count" />
-                            {countries.map((country: any) => {
-                              return <option value={country}>{country}</option>;
-                            })}
-                          </select> */}
                           <Autocomplete
                             // disablePortal
-
                             value={formData.country}
                             onChange={(e, newValue) =>
                               handleInputChange("country", newValue || "")
@@ -621,6 +648,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             options={countries}
                             getOptionLabel={(option) => option} // Specify how options are displayed
                             sx={{ width: "100%" }}
+                            data-select2-id=""
                             renderInput={(params) => (
                               <TextField
                                 {...params}
@@ -777,50 +805,123 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                       item
                       xs={12}
                       sm={6}
-                      id="text-1"
-                      className="form-col form-col-6 "
+                      columnSpacing={3}
+                      className="form-row"
                     >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-text-1_651becd154b31-label"
+                      <Grid
+                        container
+                        xs={12}
+                        columnSpacing={3}
+                        className="row1"
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          sm={3}
+                          id="text-1"
+                          // className="form-col form-col-6 "
                         >
-                          Initial Deposit{" "}
-                          <span className="form-required">*</span>
-                        </label>
-                        <FormControl fullWidth>
-                          <OutlinedInput
-                            type="number"
-                            name="text-1"
-                            placeholder="100"
-                            id="form-field-text-1_651becd154b31"
-                            className="form-input form-name--field"
-                            data-required="1"
-                            required
-                            startAdornment={
-                              <InputAdornment position="start">
-                                $
-                              </InputAdornment>
-                            }
-                            fullWidth
-                            error={errors.initialDeposit}
-                            value={formData.initialDeposit}
-                            onChange={(e) =>
-                              handleInputChange(
-                                "initialDeposit",
-                                e.target.value
-                              )
-                            }
-                          />
-                        </FormControl>
-                        <div className="deposit-notice">
-                          <span>
-                            Minimum of 100 dollars should be on your Diaspora
-                            Account in less than one month, otherwise your
-                            account automatically be inactive
-                          </span>
-                        </div>
-                      </div>
+                          <div className="form-field">
+                            <label
+                              className="form-label"
+                              id="form-field-text-1_651becd154b31-label"
+                            >
+                              Currency <span className="form-required">*</span>
+                            </label>
+                            <FormControl fullWidth>
+                              <div className="select">
+                                <select
+                                  required
+                                  id="forminator-form-2333__field--select-1_6523b367d1783"
+                                  className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
+                                  data-required="1"
+                                  name="select-1"
+                                  data-default-value=""
+                                  data-placeholder="Choose Your Branch"
+                                  data-search="false"
+                                  value={formData.currency ?? ""}
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      "currency",
+                                      e.target.value
+                                    )
+                                  }
+                                  aria-labelledby="forminator-form-2333__field--select-1_6523b367d1783-label"
+                                  aria-describedby="forminator-form-2333__field--select-1_6523b367d1783-description forminator-form-2333__field--select-1_6523b367d1783-error"
+                                  data-select2-id="select2-data-forminator-form-2333__field--select-1_6523b367d1783"
+                                  aria-hidden="true"
+                                  aria-invalid="true"
+                                >
+                                  {currency.map((currency) => {
+                                    return (
+                                      <option
+                                        value={currency.id}
+                                        key={currency.id}
+                                      >
+                                        {currency.avr}
+                                      </option>
+                                    );
+                                  })}
+                                </select>
+                                <span>
+                                  <i className="fas fa-chevron-down"></i>
+                                </span>
+                              </div>
+                            </FormControl>
+                          </div>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={12}
+                          sm={9}
+                          id="text-1"
+                          className="form-col form-col-6 "
+                        >
+                          <div className="form-field">
+                            <label
+                              className="form-label"
+                              id="form-field-text-1_651becd154b31-label"
+                            >
+                              Initial Deposit{" "}
+                              <span className="form-required">*</span>
+                            </label>
+                            <FormControl fullWidth>
+                              <OutlinedInput
+                                type="number"
+                                name="text-1"
+                                placeholder="100"
+                                id="form-field-text-1_651becd154b31"
+                                className="form-input form-name--field"
+                                data-required="1"
+                                required
+                                startAdornment={
+                                  <InputAdornment position="start">
+                                    {/* ${" "} */}
+                                    {formData.currency &&
+                                      currency[formData.currency - 1].sign}
+                                  </InputAdornment>
+                                }
+                                fullWidth
+                                error={errors.initialDeposit}
+                                value={formData.initialDeposit}
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    "initialDeposit",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            </FormControl>
+                            <div className="deposit-notice">
+                              <span>
+                                Minimum of 100 dollars should be on your
+                                Diaspora Account in less than one month,
+                                otherwise your account automatically be inactive
+                              </span>
+                            </div>
+                          </div>
+                        </Grid>
+                      </Grid>
                     </Grid>
                     <Grid
                       item
@@ -875,7 +976,28 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             <span className="forminator-required">*</span>
                           </label>
                           <div className="select">
-                            <select
+                            <Autocomplete
+                              disablePortal
+                              value={formData.branch}
+                              onChange={(e, newValue) =>
+                                handleInputChange("branch", newValue || "")
+                              }
+                              options={branches}
+                              getOptionLabel={(option) => option} // Specify how options are displayed
+                              sx={{ width: "100%", mt: 1 }}
+                              placeholder="Choose Your Branch"
+                              id="forminator-form-2333__field--select-1_6523b367d1783"
+                              className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
+                              data-select2-id=""
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  fullWidth
+                                  error={errors.branch}
+                                />
+                              )}
+                            />
+                            {/* <select
                               required
                               id="forminator-form-2333__field--select-1_6523b367d1783"
                               className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
@@ -893,10 +1015,10 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               {branches.map((branch: string) => {
                                 return <option value={branch}>{branch}</option>;
                               })}
-                            </select>
-                            <span>
+                            </select> */}
+                            {/* <span>
                               <i className="fas fa-chevron-down"></i>
-                            </span>
+                            </span> */}
                           </div>
                         </div>
                       </Grid>
@@ -929,6 +1051,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           aria-describedby="form-field-upload-2_651becd154b31-description"
                         >
                           <FileUpload
+                            error={errors.photo ? true : false}
                             name="upload-2[]"
                             stateFunction={photo}
                             setStateFunction={setPhoto}
@@ -959,6 +1082,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           aria-describedby="form-field-upload-2_651becd154b31-description"
                         >
                           <FileUpload
+                            error={errors.passport ? true : false}
                             name="upload-2[]"
                             stateFunction={passport}
                             setStateFunction={setPassport}
@@ -994,6 +1118,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         >
                           <FileUpload
                             name="upload-2[]"
+                            error={errors.residentCard ? true : false}
                             stateFunction={residentCard}
                             setStateFunction={setResidentCard}
                           />
@@ -1022,6 +1147,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           aria-describedby="form-field-upload-2_651becd154b31-description"
                         >
                           <FileUpload
+                            error={errors.signature ? true : false}
                             name="upload-2[]"
                             stateFunction={signature}
                             setStateFunction={setSignature}
@@ -1034,7 +1160,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                 </Grid>
 
                 <Grid item xs={12} className="form-row">
-                  <Grid item xs={6} sm={12} className="form-col form-col-4 ">
+                  <Grid item xs={12} sm={12} className="form-col form-col-4 ">
                     <div className="form-field">
                       <label
                         lang="form-field-upload-2_651becd154b31"
@@ -1082,7 +1208,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                     </div>
                   </Grid>
 
-                  <Grid item xs={5.5} sm={12} className="form-col form-col-4 ">
+                  <Grid item xs={12} sm={12} className="form-col form-col-4 ">
                     <div className="form-field">
                       <div
                         className="file-upload-container"
@@ -1090,6 +1216,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         aria-describedby="form-field-upload-2_651becd154b31-description"
                       >
                         <FileUpload
+                          error={errors.confirm ? true : false}
                           name="upload-2[]"
                           stateFunction={confirm}
                           setStateFunction={setConfirm}
@@ -1212,7 +1339,16 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   Skip
                 </Button>
               )} */}
-              <Button onClick={handleNext}>
+              <Button
+                onClick={() => {
+                  if (activeStep === steps.length - 1) {
+                    handleNext();
+                    handleSubmit();
+                  } else {
+                    handleNext();
+                  }
+                }}
+              >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>
             </Box>

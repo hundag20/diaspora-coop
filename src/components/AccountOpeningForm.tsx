@@ -431,6 +431,7 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
                   aria-describedby="form-field-upload-2_651becd154b31-description"
                 >
                   <FileUpload
+                    error={false}
                     name="upload-2[]"
                     stateFunction={photo}
                     setStateFunction={setPhoto}
@@ -460,6 +461,7 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
                   aria-describedby="form-field-upload-2_651becd154b31-description"
                 >
                   <FileUpload
+                    error={false}
                     name="upload-2[]"
                     stateFunction={photo}
                     setStateFunction={setPhoto}
@@ -493,6 +495,7 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
                   aria-describedby="form-field-upload-2_651becd154b31-description"
                 >
                   <FileUpload
+                    error={false}
                     name="upload-2[]"
                     stateFunction={photo}
                     setStateFunction={setPhoto}
@@ -521,6 +524,7 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
                   aria-describedby="form-field-upload-2_651becd154b31-description"
                 >
                   <FileUpload
+                    error={false}
                     name="upload-2[]"
                     stateFunction={photo}
                     setStateFunction={setPhoto}
@@ -673,6 +677,7 @@ export function AccountOpeningForm(props: IAccountOpeningFormProps) {
               aria-describedby="form-field-upload-2_651becd154b31-description"
             >
               <FileUpload
+                error={false}
                 name="upload-2[]"
                 stateFunction={photo}
                 setStateFunction={setPhoto}
