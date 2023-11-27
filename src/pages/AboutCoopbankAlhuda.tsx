@@ -276,6 +276,7 @@ const IFBfinancing: React.FC = () => {
     },
   ];
   return (
+  
     <div className="IFBfinacingContainer">
       <h3 className="topHead">IFB Diaspora Financing</h3>
       <div className="financess">
@@ -401,7 +402,7 @@ export function AboutCoopbankAlhuda(props: IAboutCoopbankAlhudaProps) {
             </p>
           </div>
           <AlhudAccountProps />
-          <IFBfinancing />
+          {/* <IFBfinancing /> */}
         </div>
       </div>
     </div>
