@@ -43,12 +43,11 @@ const AlhudAccountProps: React.FC = () => {
         "  Operated using a passbook",
       ],
       benefits:[
-        'Free withdrawals fee for foreign currency transactions',
-        'Free transactions across all CoopBank branches',
-        'Enables you to access all our E-channels',
-        'You can get access to credit facilities',
-        'There will be designated Personal Banker who support you in your banking with Coopbank.',
-      ]
+        "Free foreign currency withdrawal fees",
+    "Free transactions at all CoopBank branches",
+    "Access to all E-channels",
+    "Access to credit facilities",
+    "Designated Personal Banker support"]
     },
     {
       name: "Mudarabah",
@@ -61,29 +60,27 @@ const AlhudAccountProps: React.FC = () => {
         "Only foreign currency as source of fund",
       ],
       benefits:[
-        'Free withdrawals fee for foreign currency transactions',
-        'Free transactions across all CoopBank branches',
-        'Enables you to access all our E-channels',
-        'You can get access to credit facilities',
-        'There will be designated Personal Banker who support you in your banking with Coopbank.',
-      ]
+        "Free withdrawals for foreign currency transactions",
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker support"]
     },
     {
       name: "Mudarabah",
       type: "Fixed Time Deposit Account",
       description:
-        "This account allows depositors to share profits within a specified period by investing funds. The bank accepts investments for short, medium, and long-term opportunities.",
+        "Allows depositors to share profits within a specified period by investing funds. The bank accepts investments for short, medium, and long-term opportunities.",
       features: [
         "Minimum maturity period: 3 months",
         "Certificate of deposit issued by the bank",
         "Minimum deposit to open: 5,000 (USD, GBP, or Euro) or equivalent" ],
         benefits: [
-          'Free withdrawals fee for foreign currency transactions',
-          'Free transactions across all CoopBank branches',
-          'Enables you to access all our E-channels',
-          'You can get access to credit facilities',
-          'There will be designated Personal Banker who support you in your banking with Coopbank.',
-        ]
+          "Free foreign currency withdrawal fees",
+    "Free transactions at all CoopBank branches",
+    "Access to all E-channels",
+    "Access to credit facilities",
+    "Designated Personal Banker support"]
     },
   ];
 
@@ -171,21 +168,20 @@ const AlhudAccountProps: React.FC = () => {
                   </h2>
                   <p>{items.description}</p>
                   <div className="features">
-                    <h3>Features of the Account:</h3>
-                    <ul>
+                    <h3>Features:</h3>
+                    <ul style={{listStyleType:'disc'}}>
                       {items.features.map((feature) => (
-                        <li>{feature}</li>
+                        <li >{feature}</li>
                       ))}
                     </ul>
-                  </div>
-                  <div className="features">
-                    <h3>Features of the Account:</h3>
-                    <ul>
+                    <h3>Benefits: </h3>
+                    <ul style={{listStyleType:'disc'}}>
                       {items.benefits.map((benefit) => (
                         <li>{benefit}</li>
                       ))}
                     </ul>
                   </div>
+               
                 </div>
               </div>
             ))}
