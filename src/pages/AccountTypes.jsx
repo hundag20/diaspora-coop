@@ -195,7 +195,7 @@ export const AccountTypes = () => {
     </Grid>
   );
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const AccountItems = () => (
     <Grid
