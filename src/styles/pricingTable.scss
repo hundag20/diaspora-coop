@@ -5,6 +5,49 @@
   justify-content: space-around;
   margin: 40px 60px;
   font-family: $Poppins;
+  gap: 10px;
+}
+
+.mui-card.active {
+  box-shadow: rgba(0, 173, 239, 0.4) 0px 0px 0px 2px,
+    rgba(0, 173, 239, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.mui-card {
+  width: 100%;
+  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  .header {
+    // height: 85px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    // justify-content: start;
+    align-items: left;
+    text-align: left;
+  }
+  .action {
+    width: 100%;
+
+    button {
+      width: 100%;
+      padding: 9px 16px;
+      border: none;
+      background-color: $primary;
+      color: white;
+      text-transform: capitalize;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+  }
+}
+.mui-card:hover {
+  box-shadow: rgba(0, 173, 239, 0.4) 0px 0px 0px 2px,
+    rgba(0, 173, 239, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .pricing-card {

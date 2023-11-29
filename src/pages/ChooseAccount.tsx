@@ -1,6 +1,7 @@
 import * as React from "react";
 import "../styles/pricingTable.scss";
 import { TopBanner } from "../components/TopBanner";
+import AccountTypeCard from "../components/AccountTypeCard";
 
 export interface IChooseAccountProps {}
 
@@ -46,6 +47,7 @@ const PricingCard: React.FC<CardProps> = ({
 );
 
 export function ChooseAccount(props: IChooseAccountProps) {
+  const [selected, setSelected] = React.useState<number | null>(null);
   const cardsData: CardProps[] = [
     {
       title: "Diaspora Current Account",
@@ -54,33 +56,30 @@ export function ChooseAccount(props: IChooseAccountProps) {
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
         "Free transactions across all CoopBank branches",
-        "Enables you to access all our E-channels",
-        "You can get access to credit facilities",
-        "There will be designated Personal Banker who support you in your banking with Coopbank.",
+        "Access to all our E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker for support",
       ],
       features: [
-        "It’s available in local and foreign currency (GBP, USD, and EURO)",
-        "This account has a personalized Cheque Books",
-        "Debit Card can also be issued on request",
-        "You will be provided with E-mail alerts and",
+        "Local and foreign currency (GBP, USD, and EURO) options",
+        "Personalized Cheque Books",
+        "Debit Card on request",
+        "E-mail alerts and statements",
+        "Joint Signatory Option",
+        // "Financial advisory services",
+        "Third-party payments",
       ],
     },
     {
       title: "Fixed-Time Deposit",
       description:
         "Diaspora Fixed Time Account It is an account which takes the form of a deposit certificate, issued in the name of the depositor. The maturity period may vary based on the agreement made between the depositor and the bank. The bank and the depositor will also reach an agreement on the rate of interest on this account.",
-      benefits: [
-        "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
-        "Enables you to access all our E-channels",
-        "You can get access to credit facilities",
-        "There will be designated Personal Banker who support you in your banking with Coopbank.",
-      ],
+      benefits: ["Interest income is tax-free."],
       features: [
-        "It’s available in local and foreign currency (GBP, USD, and EURO)",
-        "This account has a personalized Cheque Books",
-        "Debit Card can also be issued on request",
-        "You will be provided with E-mail alerts and",
+        "Interest-bearing account with a fixed maturity date.",
+        "Requires a minimum opening amount of USD 100 or equivalent currency.",
+        "Minimum maturity period is three months with an initial deposit of USD 5,000.",
+        "Interest payment applies only if the account is maintained for the minimum period.",
       ],
     },
     {
@@ -91,14 +90,17 @@ export function ChooseAccount(props: IChooseAccountProps) {
         "Free withdrawals fee for foreign currency transactions",
         "Free transactions across all CoopBank branches",
         "Enables you to access all our E-channels",
-        "You can get access to credit facilities",
-        "There will be designated Personal Banker who support you in your banking with Coopbank.",
+        "Access to credit facilities",
+        "Designated Personal Banker",
       ],
       features: [
-        "It’s available in local and foreign currency (GBP, USD, and EURO)",
-        "This account has a personalized Cheque Books",
-        "Debit Card can also be issued on request",
-        "You will be provided with E-mail alerts and",
+        "Available in local and foreign currencies: GBP, USD, and EURO.",
+        "Offers personalized cheque books.",
+        "Option for Debit Card issuance upon request.",
+        "Provides email alerts and statements.",
+        "Allows Joint Signatory (e.g., with spouse, sibling, or parent in Ethiopia).",
+        "Offers financial advisory services.",
+        "Facilitates third-party payments.",
       ],
     },
     {
@@ -106,35 +108,51 @@ export function ChooseAccount(props: IChooseAccountProps) {
       description:
         "Ethiopian Citizen or Origin Living in Foreign Land (ECOLFL) Savings Account Is a Local Currency savings account opened by non-resident Ethiopians or non-resident foreign nationals of Ethiopian origin for the purpose of personal emergency expenses, purchase or construction of residential/ commercial houses, for business and investment in Ethiopia.",
       benefits: [
-        "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
-        "Enables you to access all our E-channels",
-        "You can get access to credit facilities",
-        "There will be designated Personal Banker who support you in your banking with Coopbank.",
+        "Enables an applicant(s) to open in person or through his/her/their agent at a nearby branch of Cooperative Bank of Oromia.",
+        "Annual Interest Rate",
+        "Joint ECOLFL Savings Account for couples.",
       ],
       features: [
-        "It’s available in local and foreign currency (GBP, USD, and EURO)",
-        "This account has a personalized Cheque Books",
-        "Debit Card can also be issued on request",
-        "You will be provided with E-mail alerts and",
+        " ECOLFL Savings Account is available in all bank branches.",
+        "Couples can open a Joint ECOLFL Savings Account.",
+        "Withdrawals are allowed only in local currency.",
+        "Closure upon request; new account allowed.",
+        "Earns prevailing annual interest rate.",
+        "Foreign currency credited converted using bank's rate.",
+        "Legal heirs eligible for loans post owner's death.",
+        "Applicants with foreign currency salaries from international organizations need only submit an employment contract and Ethiopian passport, exempt from resident/work permit requirements",
       ],
     },
   ];
 
+  const handleSelect = (id: number) => {
+    setSelected(id);
+  };
+
   return (
     <div>
-      <TopBanner
+      {/* <TopBanner
         containerClass="gl hd-container"
         overlayClass={`gl hd-background-overlay conventional`}
         contentClass="gl hd-content"
         footerClass="gl hd-footer"
         contentHeader="Chhose plan"
         contentParagraph="description"
-      />
+      /> */}
 
       <div className="pricing-table">
         {cardsData.map((card, index) => (
-          <PricingCard key={index} {...card} />
+          // <PricingCard key={index} {...card} />
+          <div onClick={() => handleSelect(index)}>
+            <AccountTypeCard
+              key={index}
+              title={card.title}
+              description={card.description}
+              benefits={card.benefits}
+              features={card.features}
+              active={index === selected ? true : false}
+            />
+          </div>
         ))}
       </div>
     </div>

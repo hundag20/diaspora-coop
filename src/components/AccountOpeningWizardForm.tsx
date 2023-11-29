@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Autocomplete,
   FormControl,
   Grid,
+  IconButton,
   Input,
   InputAdornment,
   OutlinedInput,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 import "../styles/form.scss";
 import {
   FileUpload,
@@ -26,14 +29,15 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CheckCircle } from "@mui/icons-material";
+import { ChooseAccount } from "../pages/ChooseAccount";
 
 const steps = [
   "Personal Information",
   "Contact Information",
   "Financial Information",
   "Document Uploads",
+  "Choose account",
 ];
-// "Additional Details",
 
 export interface IAccountOpeningFormProps {
   productType: TProductType;
@@ -57,6 +61,8 @@ interface FormItem {
   confirm: boolean;
   branch: string;
   currency: number | null;
+  stage: string;
+  error: string | boolean;
   // add other properties as needed
 }
 
@@ -98,6 +104,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     sex: "",
     branch: "",
     currency: 1,
+    stage: "",
+    error: false,
     // ... add other form fields here
   });
 
@@ -120,19 +128,59 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     setFormData({ ...formData, [fieldName]: value });
   };
 
+  // Function to handle form data change
+  const handleErrorChange = () => {
+    setFormData({ ...formData, error: false });
+  };
+
   // Function to handle next step
   const handleNext = () => {
     // Validate the current step's form fields before moving to the next step
     setErrors({});
+    handleErrorChange();
     const stepIsValid = validateStep(activeStep);
     if (stepIsValid) {
-      setCompletedSteps((prevCompletedSteps) => {
-        const newCompletedSteps = [...prevCompletedSteps];
-        newCompletedSteps[activeStep] = true;
-        return newCompletedSteps;
-      });
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      if (activeStep === 0 && formData.stage === "") {
+        handleInitialSave();
+      } else {
+        setCompletedSteps((prevCompletedSteps) => {
+          const newCompletedSteps = [...prevCompletedSteps];
+          newCompletedSteps[activeStep] = true;
+          return newCompletedSteps;
+        });
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      }
     }
+  };
+
+  const handleInitialSave = () => {
+    axios
+      .post("http://10.1.177.121:8881/api/v1/accounts", {
+        fullName: formData.fullName,
+        surname: formData.surname,
+        motherName: formData.motherName,
+        email: formData.email,
+        phone: formData.phone,
+        sex: formData.sex,
+      })
+      .then((res) => {
+        console.log(res);
+        setFormData({ ...formData, stage: "INITIAL", error: false });
+        setCompletedSteps((prevCompletedSteps) => {
+          const newCompletedSteps = [...prevCompletedSteps];
+          newCompletedSteps[activeStep] = true;
+          return newCompletedSteps;
+        });
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        setFormData({
+          ...formData,
+          error: err.response.data.message || "Newtwork Error",
+        });
+      });
   };
 
   // Function to handle previous step
@@ -142,16 +190,38 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
   // Function to handle form submission (you can implement your submission logic here)
   const handleSubmit = () => {
+    handleErrorChange();
     // Validate the last step before submission
     if (validateStep(activeStep)) {
       // Add your form submission logic here
-      console.log("data:", formData);
-      console.log(photo);
-      console.log(passport);
-      console.log(confirm);
-      console.log(residentCard);
-      console.log(signature);
       console.log("Form submitted!", formData);
+      axios
+        .put(`http://10.1.177.121:8881/api/v1/accounts/${formData.phone}`, {
+          fullName: formData.fullName,
+          surname: formData.surname,
+          motherName: formData.motherName,
+          email: formData.email,
+          sex: formData.sex,
+          streetAddress: formData.streetAddress,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode,
+          country: formData.country,
+          occupation: formData.occupation,
+          initialDeposit: formData.initialDeposit,
+          monthlyIncome: formData.monthlyIncome,
+          branch: formData.branch,
+          currency: formData.currency,
+          accountType: 0,
+        })
+        .then((res) => {
+          console.log(res);
+          setFormData({ ...formData, stage: "COMPLETE" });
+          handleNext();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -262,703 +332,332 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   };
 
   return (
-    <form className="loan-form-container" id="Loan_Request">
-      <Box sx={{ width: "100%" }}>
-        <Stepper
-          activeStep={activeStep}
-          style={{ marginBottom: 25 }}
-          orientation={isNarrowScreen ? "vertical" : "horizontal"}
-        >
-          {steps.map((label, index) => (
-            <Step key={label} completed={completedSteps[index]}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-        {activeStep === steps.length ? (
-          <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>
-              <div className="formComplete">
-                <div className="container">
-                  <div className="top">
-                    <CheckCircle className="icon" />
-                    <h2>All steps completed</h2>
-                  </div>
-                  <div className="bottom">
-                    <p>
-                      Thank you for completing the bank account opening form!
-                      Your information has been successfully submitted. Our team
-                      will now review your application.
-                    </p>
-                    <p>
-                      You will receive an email confirmation shortly with
-                      details about the next steps in the process. If additional
-                      information is required, a representative from our bank
-                      will reach out to you.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
-            </Box>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
-            {activeStep === 0 && (
-              <Grid container xs={12} rowSpacing={4}>
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="text-1"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-text-1_651becd154b31-label"
-                        >
-                          Full Name <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="text"
-                          name="text-1"
-                          placeholder="Your Full Name"
-                          id="form-field-text-1_651becd154b31"
-                          className="form-input form-name--field"
-                          value={formData.fullName}
-                          fullWidth
-                          error={errors.fullName}
-                          onChange={(e) =>
-                            handleInputChange("fullName", e.target.value)
-                          }
-                          data-required="1"
-                          required
-                        />
-                      </div>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          Surname <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="text"
-                          name="name-4"
-                          placeholder="Your Surname"
-                          id="form-field-name-4_651becd154b31"
-                          className="form-input form-name--field"
-                          aria-required="true"
-                          fullWidth
-                          error={errors.surname}
-                          value={formData.surname}
-                          onChange={(e) =>
-                            handleInputChange("surname", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="text-1"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-text-1_651becd154b31-label"
-                        >
-                          Mother's Name <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="text"
-                          name="text-1"
-                          placeholder="Your Mother's Full Name"
-                          id="form-field-text-1_651becd154b31"
-                          className="form-input form-name--field"
-                          data-required="1"
-                          fullWidth
-                          error={errors.motherName}
-                          value={formData.motherName}
-                          onChange={(e) =>
-                            handleInputChange("motherName", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className={
-                            errors.sex ? "error form-label" : "form-label"
-                          }
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          Sex <span className="form-required">*</span>
-                        </label>
-                        <div className="sex">
-                          <div>
-                            <input
-                              type="radio"
-                              name="name-4"
-                              value="Male"
-                              checked={formData.sex === "Male"}
-                              onChange={(e) =>
-                                handleInputChange("sex", e.target.value)
-                              }
-                              required
-                            />
-                            <label>Male</label>
-                          </div>
-                          <div>
-                            <input
-                              type="radio"
-                              name="name-4"
-                              value="Female"
-                              checked={formData.sex === "Female"}
-                              onChange={(e) =>
-                                handleInputChange("sex", e.target.value)
-                              }
-                              required
-                            />
-                            <label>Female</label>
-                          </div>
-                        </div>
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3}>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="email-1"
-                      className="form-col form-col-4 "
-                    >
-                      <div className="form-field">
-                        <label
-                          lang="form-field-email-1_651becd154b31"
-                          className="form-label"
-                          id="form-field-email-1_651becd154b31-label"
-                        >
-                          Email Address <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="email"
-                          name="email-1"
-                          placeholder="E.g. abdi@yahoo.com"
-                          id="form-field-email-1_651becd154b31"
-                          className="form-input form-email--field"
-                          data-required="1"
-                          aria-required="true"
-                          fullWidth
-                          error={errors.email}
-                          value={formData.email}
-                          onChange={(e) =>
-                            handleInputChange("email", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="phone-1"
-                      className="form-col form-col-4 "
-                    >
-                      <div className="form-field">
-                        <label
-                          lang="form-field-phone-1_651becd154b31"
-                          className="form-label"
-                          id="form-field-phone-1_651becd154b31-label"
-                        >
-                          Phone <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="text"
-                          name="phone-1"
-                          placeholder="E.g. +1 300 400 5000"
-                          id="form-field-phone-1_651becd154b31"
-                          className="form-input form-field--phone"
-                          data-required="1"
-                          aria-required="true"
-                          fullWidth
-                          error={errors.phone}
-                          value={formData.phone}
-                          onChange={(e) =>
-                            handleInputChange("phone", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <div className="form-field">
-                    <label
-                      lang="form-field-date-1-picker_651becd154b31"
-                      // className="form-label"
-                      className={
-                        errors.confirm ? "error form-label" : "form-label"
-                      }
-                      id="form-field-date-1-picker_651becd154b31-label"
-                    >
-                      Agreement <span className="form-required">*</span>
-                    </label>
-                    <div className="confirmation">
-                      <input
-                        type="checkbox"
-                        name="checkbox-1[]"
-                        className={errors.confirm ? "error" : ""}
-                        // value="Yes"
-                        // checked={formData.confirm}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            confirm: e.target.checked,
-                          })
-                        }
-                        id="form-field-checkbox-1-1-651becd154b31"
-                        aria-labelledby="form-field-checkbox-1-1-651becd154b31-label"
-                        data-calculation="0"
-                        aria-describedby="form-field-checkbox-1-651becd154b31-description"
-                      />
+    <div>
+      {formData.error && <Alert severity="error">{formData.error}</Alert>}
+      <form className="loan-form-container" id="Loan_Request">
+        <Box sx={{ width: "100%" }}>
+          <Stepper
+            activeStep={activeStep}
+            style={{ marginBottom: 25 }}
+            orientation={isNarrowScreen ? "vertical" : "horizontal"}
+          >
+            {steps.map((label, index) => (
+              <Step key={label} completed={completedSteps[index]}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          {activeStep === steps.length ? (
+            <React.Fragment>
+              <Typography sx={{ mt: 2, mb: 1 }}>
+                <div className="formComplete">
+                  <div className="container">
+                    <div className="top">
+                      <CheckCircle className="icon" />
+                      <h2>All steps completed</h2>
+                    </div>
+                    <div className="bottom">
                       <p>
-                        Yes, I agree with the{" "}
-                        <a
-                          href="https://diaspora.coopbankoromia.com.et/agreement/"
-                          target="_blank"
-                        >
-                          privacy policy
-                        </a>{" "}
-                        and{" "}
-                        <a
-                          href="https://diaspora.coopbankoromia.com.et/agreement/"
-                          target="_blank"
-                        >
-                          terms and conditions
-                        </a>
-                        . And I confirm that I don't have a diaspora account
-                        with any other bank.
+                        Thank you for completing the bank account opening form!
+                        Your information has been successfully submitted. Our
+                        team will now review your application.
+                      </p>
+                      <p>
+                        You will receive an email confirmation shortly with
+                        details about the next steps in the process. If
+                        additional information is required, a representative
+                        from our bank will reach out to you.
                       </p>
                     </div>
                   </div>
-                </Grid>
-              </Grid>
-            )}
-            {activeStep === 1 && (
-              <Grid container xs={12} rowSpacing={4}>
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          Street Address{" "}
-                          <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="text"
-                          name="name-4"
-                          placeholder="Eg. 123 MD New Way"
-                          id="form-field-name-4_651becd154b31"
-                          className="form-input form-name--field"
-                          aria-required="true"
-                          fullWidth
-                          error={errors.streetAddress}
-                          value={formData.streetAddress}
-                          onChange={(e) =>
-                            handleInputChange("streetAddress", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          Country
-                        </label>
-                        {/* <div className="select"> */}
-                        <div className="">
-                          <Autocomplete
-                            // disablePortal
-                            value={formData.country}
-                            onChange={(e, newValue) =>
-                              handleInputChange("country", newValue || "")
-                            }
-                            // id="combo-box-demo"
-                            options={countries}
-                            getOptionLabel={(option) => option} // Specify how options are displayed
-                            sx={{ width: "100%" }}
-                            data-select2-id=""
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                fullWidth
-                                error={errors.country}
-                              />
-                            )}
-                          />
-                          {/* <span>
-                            <i className="fas fa-chevron-down"></i>
-                          </span> */}
-                        </div>
-                      </div>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          State/Province
-                        </label>
-                        <TextField
-                          type="text"
-                          name="name-4"
-                          placeholder="Eg. New South Wales"
-                          id="form-field-name-4_651becd154b31"
-                          className="form-input form-name--field"
-                          aria-required="true"
-                          fullWidth
-                          error={errors.state}
-                          value={formData.state}
-                          onChange={(e) =>
-                            handleInputChange("state", e.target.value)
-                          }
-                        />
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="text-1"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-text-1_651becd154b31-label"
-                        >
-                          City
-                        </label>
-                        <TextField
-                          type="text"
-                          name="text-1"
-                          placeholder="Eg. New York"
-                          id="form-field-text-1_651becd154b31"
-                          className="form-input form-name--field"
-                          data-required="1"
-                          fullWidth
-                          error={errors.city}
-                          value={formData.city}
-                          onChange={(e) =>
-                            handleInputChange("city", e.target.value)
-                          }
-                        />
-                      </div>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="text-1"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-text-1_651becd154b31-label"
-                        >
-                          ZIP / Postal Code
-                        </label>
-                        <TextField
-                          type="text"
-                          name="text-1"
-                          placeholder="Eg. 2000"
-                          id="form-field-text-1_651becd154b31"
-                          className="form-input form-name--field"
-                          data-required="1"
-                          fullWidth
-                          error={errors.zipCode}
-                          value={formData.zipCode}
-                          onChange={(e) =>
-                            handleInputChange("zipCode", e.target.value)
-                          }
-                        />
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            )}
-            {activeStep === 2 && (
-              <Grid container xs={12} rowSpacing={4}>
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          Occupation <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="text"
-                          name="name-4"
-                          placeholder="Your Occupation"
-                          id="form-field-name-4_651becd154b31"
-                          className="form-input form-name--field"
-                          aria-required="true"
-                          fullWidth
-                          error={errors.occupation}
-                          value={formData.occupation}
-                          onChange={(e) =>
-                            handleInputChange("occupation", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      columnSpacing={3}
-                      className="form-row"
-                    >
+                </div>
+              </Typography>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Box sx={{ flex: "1 1 auto" }} />
+              </Box>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
+              {activeStep === 0 && (
+                <Grid container xs={12} rowSpacing={4}>
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
                       <Grid
-                        container
+                        item
                         xs={12}
-                        columnSpacing={3}
-                        className="row1"
+                        sm={6}
+                        id="text-1"
+                        className="form-col form-col-6 "
                       >
-                        <Grid
-                          item
-                          xs={12}
-                          sm={3}
-                          id="text-1"
-                          // className="form-col form-col-6 "
-                        >
-                          <div className="form-field">
-                            <label
-                              className="form-label"
-                              id="form-field-text-1_651becd154b31-label"
-                            >
-                              Currency <span className="form-required">*</span>
-                            </label>
-                            <FormControl fullWidth>
-                              <div className="select">
-                                <select
-                                  required
-                                  id="forminator-form-2333__field--select-1_6523b367d1783"
-                                  className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
-                                  data-required="1"
-                                  name="select-1"
-                                  data-default-value=""
-                                  data-placeholder="Choose Your Branch"
-                                  data-search="false"
-                                  value={formData.currency ?? ""}
-                                  onChange={(e) =>
-                                    handleInputChange(
-                                      "currency",
-                                      e.target.value
-                                    )
-                                  }
-                                  aria-labelledby="forminator-form-2333__field--select-1_6523b367d1783-label"
-                                  aria-describedby="forminator-form-2333__field--select-1_6523b367d1783-description forminator-form-2333__field--select-1_6523b367d1783-error"
-                                  data-select2-id="select2-data-forminator-form-2333__field--select-1_6523b367d1783"
-                                  aria-hidden="true"
-                                  aria-invalid="true"
-                                >
-                                  {currency.map((currency) => {
-                                    return (
-                                      <option
-                                        value={currency.id}
-                                        key={currency.id}
-                                      >
-                                        {currency.avr}
-                                      </option>
-                                    );
-                                  })}
-                                </select>
-                                <span>
-                                  <i className="fas fa-chevron-down"></i>
-                                </span>
-                              </div>
-                            </FormControl>
-                          </div>
-                        </Grid>
-                        <Grid
-                          item
-                          xs={12}
-                          sm={9}
-                          id="text-1"
-                          className="form-col form-col-6 "
-                        >
-                          <div className="form-field">
-                            <label
-                              className="form-label"
-                              id="form-field-text-1_651becd154b31-label"
-                            >
-                              Initial Deposit{" "}
-                              <span className="form-required">*</span>
-                            </label>
-                            <FormControl fullWidth>
-                              <OutlinedInput
-                                type="number"
-                                name="text-1"
-                                placeholder="100"
-                                id="form-field-text-1_651becd154b31"
-                                className="form-input form-name--field"
-                                data-required="1"
-                                required
-                                startAdornment={
-                                  <InputAdornment position="start">
-                                    {/* ${" "} */}
-                                    {formData.currency &&
-                                      currency[formData.currency - 1].sign}
-                                  </InputAdornment>
-                                }
-                                fullWidth
-                                error={errors.initialDeposit}
-                                value={formData.initialDeposit}
-                                onChange={(e) =>
-                                  handleInputChange(
-                                    "initialDeposit",
-                                    e.target.value
-                                  )
-                                }
-                              />
-                            </FormControl>
-                            <div className="deposit-notice">
-                              <span>
-                                Minimum of 100 dollars should be on your
-                                Diaspora Account in less than one month,
-                                otherwise your account automatically be inactive
-                              </span>
-                            </div>
-                          </div>
-                        </Grid>
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-text-1_651becd154b31-label"
+                          >
+                            Full Name <span className="form-required">*</span>
+                          </label>
+                          <TextField
+                            type="text"
+                            name="text-1"
+                            placeholder="Your Full Name"
+                            id="form-field-text-1_651becd154b31"
+                            className="form-input form-name--field"
+                            value={formData.fullName}
+                            fullWidth
+                            error={errors.fullName}
+                            onChange={(e) =>
+                              handleInputChange("fullName", e.target.value)
+                            }
+                            data-required="1"
+                            required
+                          />
+                        </div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="name-4"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-name-4_651becd154b31-label"
+                          >
+                            Surname <span className="form-required">*</span>
+                          </label>
+                          <TextField
+                            type="text"
+                            name="name-4"
+                            placeholder="Your Surname"
+                            id="form-field-name-4_651becd154b31"
+                            className="form-input form-name--field"
+                            aria-required="true"
+                            fullWidth
+                            error={errors.surname}
+                            value={formData.surname}
+                            onChange={(e) =>
+                              handleInputChange("surname", e.target.value)
+                            }
+                            required
+                          />
+                        </div>
                       </Grid>
                     </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field">
-                        <label
-                          className="form-label"
-                          id="form-field-name-4_651becd154b31-label"
-                        >
-                          Monthly Income{" "}
-                          <span className="form-required">*</span>
-                        </label>
-                        <TextField
-                          type="number"
-                          name="name-4"
-                          placeholder="Your Monthly Income"
-                          id="form-field-name-4_651becd154b31"
-                          className="form-input form-name--field"
-                          aria-required="true"
-                          fullWidth
-                          error={errors.monthlyIncome}
-                          value={formData.monthlyIncome}
-                          onChange={(e) =>
-                            handleInputChange("monthlyIncome", e.target.value)
-                          }
-                          required
-                        />
-                      </div>
+                  </Grid>
+
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="text-1"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-text-1_651becd154b31-label"
+                          >
+                            Mother's Name{" "}
+                            <span className="form-required">*</span>
+                          </label>
+                          <TextField
+                            type="text"
+                            name="text-1"
+                            placeholder="Your Mother's Full Name"
+                            id="form-field-text-1_651becd154b31"
+                            className="form-input form-name--field"
+                            data-required="1"
+                            fullWidth
+                            error={errors.motherName}
+                            value={formData.motherName}
+                            onChange={(e) =>
+                              handleInputChange("motherName", e.target.value)
+                            }
+                            required
+                          />
+                        </div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="name-4"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className={
+                              errors.sex ? "error form-label" : "form-label"
+                            }
+                            id="form-field-name-4_651becd154b31-label"
+                          >
+                            Sex <span className="form-required">*</span>
+                          </label>
+                          <div className="sex">
+                            <div>
+                              <input
+                                type="radio"
+                                name="name-4"
+                                value="Male"
+                                checked={formData.sex === "Male"}
+                                onChange={(e) =>
+                                  handleInputChange("sex", e.target.value)
+                                }
+                                required
+                              />
+                              <label>Male</label>
+                            </div>
+                            <div>
+                              <input
+                                type="radio"
+                                name="name-4"
+                                value="Female"
+                                checked={formData.sex === "Female"}
+                                onChange={(e) =>
+                                  handleInputChange("sex", e.target.value)
+                                }
+                                required
+                              />
+                              <label>Female</label>
+                            </div>
+                          </div>
+                        </div>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
 
-                <Grid item xs={12} className="form-row">
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3}>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="email-1"
+                        className="form-col form-col-4 "
+                      >
+                        <div className="form-field">
+                          <label
+                            lang="form-field-email-1_651becd154b31"
+                            className="form-label"
+                            id="form-field-email-1_651becd154b31-label"
+                          >
+                            Email Address{" "}
+                            <span className="form-required">*</span>
+                          </label>
+                          <TextField
+                            type="email"
+                            name="email-1"
+                            placeholder="E.g. abdi@yahoo.com"
+                            id="form-field-email-1_651becd154b31"
+                            className="form-input form-email--field"
+                            data-required="1"
+                            aria-required="true"
+                            fullWidth
+                            error={errors.email}
+                            value={formData.email}
+                            onChange={(e) =>
+                              handleInputChange("email", e.target.value)
+                            }
+                            required
+                          />
+                        </div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="phone-1"
+                        className="form-col form-col-4 "
+                      >
+                        <div className="form-field">
+                          <label
+                            lang="form-field-phone-1_651becd154b31"
+                            className="form-label"
+                            id="form-field-phone-1_651becd154b31-label"
+                          >
+                            Phone <span className="form-required">*</span>
+                          </label>
+                          <TextField
+                            type="text"
+                            name="phone-1"
+                            placeholder="E.g. +1 300 400 5000"
+                            id="form-field-phone-1_651becd154b31"
+                            className="form-input form-field--phone"
+                            data-required="1"
+                            aria-required="true"
+                            fullWidth
+                            error={errors.phone}
+                            value={formData.phone}
+                            onChange={(e) =>
+                              handleInputChange("phone", e.target.value)
+                            }
+                            required
+                          />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12} className="form-row">
+                    <div className="form-field">
+                      <label
+                        lang="form-field-date-1-picker_651becd154b31"
+                        // className="form-label"
+                        className={
+                          errors.confirm ? "error form-label" : "form-label"
+                        }
+                        id="form-field-date-1-picker_651becd154b31-label"
+                      >
+                        Agreement <span className="form-required">*</span>
+                      </label>
+                      <div className="confirmation">
+                        <input
+                          type="checkbox"
+                          name="checkbox-1[]"
+                          className={errors.confirm ? "error" : ""}
+                          // value="Yes"
+                          // checked={formData.confirm}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              confirm: e.target.checked,
+                            })
+                          }
+                          id="form-field-checkbox-1-1-651becd154b31"
+                          aria-labelledby="form-field-checkbox-1-1-651becd154b31-label"
+                          data-calculation="0"
+                          aria-describedby="form-field-checkbox-1-651becd154b31-description"
+                        />
+                        <p>
+                          Yes, I agree with the{" "}
+                          <a
+                            href="https://diaspora.coopbankoromia.com.et/agreement/"
+                            target="_blank"
+                          >
+                            privacy policy
+                          </a>{" "}
+                          and{" "}
+                          <a
+                            href="https://diaspora.coopbankoromia.com.et/agreement/"
+                            target="_blank"
+                          >
+                            terms and conditions
+                          </a>
+                          . And I confirm that I don't have a diaspora account
+                          with any other bank.
+                        </p>
+                      </div>
+                    </div>
+                  </Grid>
+                </Grid>
+              )}
+              {activeStep === 1 && (
+                <Grid container xs={12} rowSpacing={4}>
                   <Grid item xs={12} className="form-row">
                     <Grid container xs={12} columnSpacing={3} className="row1">
                       <Grid
@@ -969,35 +668,417 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                       >
                         <div className="form-field">
                           <label
-                            id="forminator-form-2333__field--select-2_6523b367d1783-label"
                             className="form-label"
+                            id="form-field-name-4_651becd154b31-label"
                           >
-                            Choose Your Nearest Branch{" "}
-                            <span className="forminator-required">*</span>
+                            Street Address{" "}
+                            <span className="form-required">*</span>
                           </label>
-                          <div className="select">
+                          <TextField
+                            type="text"
+                            name="name-4"
+                            placeholder="Eg. 123 MD New Way"
+                            id="form-field-name-4_651becd154b31"
+                            className="form-input form-name--field"
+                            aria-required="true"
+                            fullWidth
+                            error={errors.streetAddress}
+                            value={formData.streetAddress}
+                            onChange={(e) =>
+                              handleInputChange("streetAddress", e.target.value)
+                            }
+                            required
+                          />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="name-4"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-name-4_651becd154b31-label"
+                          >
+                            Country
+                          </label>
+                          {/* <div className="select"> */}
+                          <div className="">
                             <Autocomplete
-                              disablePortal
-                              value={formData.branch}
+                              // disablePortal
+                              value={formData.country}
                               onChange={(e, newValue) =>
-                                handleInputChange("branch", newValue || "")
+                                handleInputChange("country", newValue || "")
                               }
-                              options={branches}
+                              // id="combo-box-demo"
+                              options={countries}
                               getOptionLabel={(option) => option} // Specify how options are displayed
-                              sx={{ width: "100%", mt: 1 }}
-                              placeholder="Choose Your Branch"
-                              id="forminator-form-2333__field--select-1_6523b367d1783"
-                              className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
+                              sx={{ width: "100%" }}
                               data-select2-id=""
                               renderInput={(params) => (
                                 <TextField
                                   {...params}
                                   fullWidth
-                                  error={errors.branch}
+                                  error={errors.country}
                                 />
                               )}
                             />
-                            {/* <select
+                            {/* <span>
+                            <i className="fas fa-chevron-down"></i>
+                          </span> */}
+                          </div>
+                        </div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="name-4"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-name-4_651becd154b31-label"
+                          >
+                            State/Province
+                          </label>
+                          <TextField
+                            type="text"
+                            name="name-4"
+                            placeholder="Eg. New South Wales"
+                            id="form-field-name-4_651becd154b31"
+                            className="form-input form-name--field"
+                            aria-required="true"
+                            fullWidth
+                            error={errors.state}
+                            value={formData.state}
+                            onChange={(e) =>
+                              handleInputChange("state", e.target.value)
+                            }
+                          />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="text-1"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-text-1_651becd154b31-label"
+                          >
+                            City
+                          </label>
+                          <TextField
+                            type="text"
+                            name="text-1"
+                            placeholder="Eg. New York"
+                            id="form-field-text-1_651becd154b31"
+                            className="form-input form-name--field"
+                            data-required="1"
+                            fullWidth
+                            error={errors.city}
+                            value={formData.city}
+                            onChange={(e) =>
+                              handleInputChange("city", e.target.value)
+                            }
+                          />
+                        </div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="text-1"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-text-1_651becd154b31-label"
+                          >
+                            ZIP / Postal Code
+                          </label>
+                          <TextField
+                            type="text"
+                            name="text-1"
+                            placeholder="Eg. 2000"
+                            id="form-field-text-1_651becd154b31"
+                            className="form-input form-name--field"
+                            data-required="1"
+                            fullWidth
+                            error={errors.zipCode}
+                            value={formData.zipCode}
+                            onChange={(e) =>
+                              handleInputChange("zipCode", e.target.value)
+                            }
+                          />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              )}
+              {activeStep === 2 && (
+                <Grid container xs={12} rowSpacing={4}>
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        id="name-4"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-name-4_651becd154b31-label"
+                          >
+                            Occupation <span className="form-required">*</span>
+                          </label>
+                          <TextField
+                            type="text"
+                            name="name-4"
+                            placeholder="Your Occupation"
+                            id="form-field-name-4_651becd154b31"
+                            className="form-input form-name--field"
+                            aria-required="true"
+                            fullWidth
+                            error={errors.occupation}
+                            value={formData.occupation}
+                            onChange={(e) =>
+                              handleInputChange("occupation", e.target.value)
+                            }
+                            required
+                          />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        columnSpacing={3}
+                        className="form-row"
+                      >
+                        <Grid
+                          container
+                          xs={12}
+                          columnSpacing={3}
+                          className="row1"
+                        >
+                          <Grid
+                            item
+                            xs={12}
+                            sm={3}
+                            id="text-1"
+                            // className="form-col form-col-6 "
+                          >
+                            <div className="form-field">
+                              <label
+                                className="form-label"
+                                id="form-field-text-1_651becd154b31-label"
+                              >
+                                Currency{" "}
+                                <span className="form-required">*</span>
+                              </label>
+                              <FormControl fullWidth>
+                                <div className="select">
+                                  <select
+                                    required
+                                    id="forminator-form-2333__field--select-1_6523b367d1783"
+                                    className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
+                                    data-required="1"
+                                    name="select-1"
+                                    data-default-value=""
+                                    data-placeholder="Choose Your Branch"
+                                    data-search="false"
+                                    value={formData.currency ?? ""}
+                                    onChange={(e) =>
+                                      handleInputChange(
+                                        "currency",
+                                        e.target.value
+                                      )
+                                    }
+                                    aria-labelledby="forminator-form-2333__field--select-1_6523b367d1783-label"
+                                    aria-describedby="forminator-form-2333__field--select-1_6523b367d1783-description forminator-form-2333__field--select-1_6523b367d1783-error"
+                                    data-select2-id="select2-data-forminator-form-2333__field--select-1_6523b367d1783"
+                                    aria-hidden="true"
+                                    aria-invalid="true"
+                                  >
+                                    {currency.map((currency) => {
+                                      return (
+                                        <option
+                                          value={currency.id}
+                                          key={currency.id}
+                                        >
+                                          {currency.avr}
+                                        </option>
+                                      );
+                                    })}
+                                  </select>
+                                  <span>
+                                    <i className="fas fa-chevron-down"></i>
+                                  </span>
+                                </div>
+                              </FormControl>
+                            </div>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={12}
+                            sm={9}
+                            id="text-1"
+                            className="form-col form-col-6 "
+                          >
+                            <div className="form-field">
+                              <label
+                                className="form-label"
+                                id="form-field-text-1_651becd154b31-label"
+                              >
+                                Initial Deposit{" "}
+                                <span className="form-required">*</span>
+                              </label>
+                              <FormControl fullWidth>
+                                <OutlinedInput
+                                  type="number"
+                                  name="text-1"
+                                  placeholder="100"
+                                  id="form-field-text-1_651becd154b31"
+                                  className="form-input form-name--field"
+                                  data-required="1"
+                                  required
+                                  startAdornment={
+                                    <InputAdornment position="start">
+                                      {/* ${" "} */}
+                                      {formData.currency &&
+                                        currency[formData.currency - 1].sign}
+                                    </InputAdornment>
+                                  }
+                                  fullWidth
+                                  error={errors.initialDeposit}
+                                  value={formData.initialDeposit}
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      "initialDeposit",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                              <div className="deposit-notice">
+                                <span>
+                                  Minimum of 100 dollars should be on your
+                                  Diaspora Account in less than one month,
+                                  otherwise your account automatically be
+                                  inactive
+                                </span>
+                              </div>
+                            </div>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="name-4"
+                        className="form-col form-col-6 "
+                      >
+                        <div className="form-field">
+                          <label
+                            className="form-label"
+                            id="form-field-name-4_651becd154b31-label"
+                          >
+                            Monthly Income{" "}
+                            <span className="form-required">*</span>
+                          </label>
+                          <TextField
+                            type="number"
+                            name="name-4"
+                            placeholder="Your Monthly Income"
+                            id="form-field-name-4_651becd154b31"
+                            className="form-input form-name--field"
+                            aria-required="true"
+                            fullWidth
+                            error={errors.monthlyIncome}
+                            value={formData.monthlyIncome}
+                            onChange={(e) =>
+                              handleInputChange("monthlyIncome", e.target.value)
+                            }
+                            required
+                          />
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12} className="form-row">
+                    <Grid item xs={12} className="form-row">
+                      <Grid
+                        container
+                        xs={12}
+                        columnSpacing={3}
+                        className="row1"
+                      >
+                        <Grid
+                          item
+                          xs={12}
+                          id="name-4"
+                          className="form-col form-col-6 "
+                        >
+                          <div className="form-field">
+                            <label
+                              id="forminator-form-2333__field--select-2_6523b367d1783-label"
+                              className="form-label"
+                            >
+                              Choose Your Nearest Branch{" "}
+                              <span className="forminator-required">*</span>
+                            </label>
+                            <div className="select">
+                              <Autocomplete
+                                disablePortal
+                                value={formData.branch}
+                                onChange={(e, newValue) =>
+                                  handleInputChange("branch", newValue || "")
+                                }
+                                options={branches}
+                                getOptionLabel={(option) => option} // Specify how options are displayed
+                                sx={{ width: "100%", mt: 1 }}
+                                placeholder="Choose Your Branch"
+                                id="forminator-form-2333__field--select-1_6523b367d1783"
+                                className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
+                                data-select2-id=""
+                                renderInput={(params) => (
+                                  <TextField
+                                    {...params}
+                                    fullWidth
+                                    error={errors.branch}
+                                  />
+                                )}
+                              />
+                              {/* <select
                               required
                               id="forminator-form-2333__field--select-1_6523b367d1783"
                               className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
@@ -1016,345 +1097,257 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                                 return <option value={branch}>{branch}</option>;
                               })}
                             </select> */}
-                            {/* <span>
+                              {/* <span>
                               <i className="fas fa-chevron-down"></i>
                             </span> */}
+                            </div>
                           </div>
-                        </div>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            )}
-            {activeStep === 3 && (
-              <Grid container xs={12} rowSpacing={4}>
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="upload-2"
-                      className="form-col form-col-4 "
-                    >
-                      <div className="form-field">
-                        <label
-                          lang="form-field-upload-2_651becd154b31"
-                          className="form-label"
-                        >
-                          Upload Photo <span className="form-required">*</span>
-                        </label>
-                        <div
-                          className="file-upload-container"
-                          data-element="upload-2_651becd154b31"
-                          aria-describedby="form-field-upload-2_651becd154b31-description"
-                        >
-                          <FileUpload
-                            error={errors.photo ? true : false}
-                            name="upload-2[]"
-                            stateFunction={photo}
-                            setStateFunction={setPhoto}
-                          />
-                        </div>
-                        <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
-                      </div>
-                    </Grid>
-
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="upload-2"
-                      className="form-col form-col-4 "
-                    >
-                      <div className="form-field">
-                        <label
-                          lang="form-field-upload-2_651becd154b31"
-                          className="form-label"
-                        >
-                          Upload Passport{" "}
-                          <span className="form-required">*</span>
-                        </label>
-                        <div
-                          className="file-upload-container"
-                          data-element="upload-2_651becd154b31"
-                          aria-describedby="form-field-upload-2_651becd154b31-description"
-                        >
-                          <FileUpload
-                            error={errors.passport ? true : false}
-                            name="upload-2[]"
-                            stateFunction={passport}
-                            setStateFunction={setPassport}
-                          />
-                        </div>
-                        <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="upload-2"
-                      className="form-col form-col-4 "
-                    >
-                      <div className="form-field">
-                        <label
-                          lang="form-field-upload-2_651becd154b31"
-                          className="form-label"
-                        >
-                          Residence card or yellow card{" "}
-                          <span className="form-required">*</span>
-                        </label>
-                        <div
-                          className="file-upload-container"
-                          data-element="upload-2_651becd154b31"
-                          aria-describedby="form-field-upload-2_651becd154b31-description"
-                        >
-                          <FileUpload
-                            name="upload-2[]"
-                            error={errors.residentCard ? true : false}
-                            stateFunction={residentCard}
-                            setStateFunction={setResidentCard}
-                          />
-                        </div>
-                        <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
-                      </div>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      id="upload-2"
-                      className="form-col form-col-4 "
-                    >
-                      <div className="form-field">
-                        <label
-                          lang="form-field-upload-2_651becd154b31"
-                          className="form-label"
-                        >
-                          Upload Signature{" "}
-                          <span className="form-required">*</span>
-                        </label>
-                        <div
-                          className="file-upload-container"
-                          data-element="upload-2_651becd154b31"
-                          aria-describedby="form-field-upload-2_651becd154b31-description"
-                        >
-                          <FileUpload
-                            error={errors.signature ? true : false}
-                            name="upload-2[]"
-                            stateFunction={signature}
-                            setStateFunction={setSignature}
-                          />
-                        </div>
-                        <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
-                      </div>
-                    </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} className="form-row">
-                  <Grid item xs={12} sm={12} className="form-col form-col-4 ">
-                    <div className="form-field">
-                      <label
-                        lang="form-field-upload-2_651becd154b31"
-                        className="form-label"
+              )}
+              {activeStep === 3 && (
+                <Grid container xs={12} rowSpacing={4}>
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="upload-2"
+                        className="form-col form-col-4 "
                       >
-                        Upload Confirmation file{" "}
-                        <span className="form-required">*</span>
-                      </label>
-                      <div className="deposit-notice">
-                        <span>
-                          Please download the confirmation form, sign it, and
-                          upload the signed document. Ensure a clear signature.
-                        </span>
-                      </div>
-                      <div className="download-doc">
-                        <div className="image">
-                          <img src="/images/document.svg"></img>
-                        </div>
-                        <div className="middle">
-                          <div>
-                            <h3>
-                              <a>Confirmation Form</a>
-                            </h3>
-                          </div>
-                          <div className="small-icons">
-                            <div>
-                              <i className="fas fa-copy"></i>
-                              <span> 1 file(s) </span>
-                            </div>
-                            <div>
-                              <i className="far fa-hdd"></i>
-                              <span> 20 KB</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={`btn ${props.productType}`}>
-                          <a
-                            href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fdiaspora.coopbankoromia.com.et%2Fwp-content%2Fuploads%2F2023%2F06%2FDiaspora-Banking.docx&wdOrigin=BROWSELINK"
-                            target="_blank"
+                        <div className="form-field">
+                          <label
+                            lang="form-field-upload-2_651becd154b31"
+                            className="form-label"
                           >
-                            DOWNLOAD
-                          </a>
+                            Upload Photo{" "}
+                            <span className="form-required">*</span>
+                          </label>
+                          <div
+                            className="file-upload-container"
+                            data-element="upload-2_651becd154b31"
+                            aria-describedby="form-field-upload-2_651becd154b31-description"
+                          >
+                            <FileUpload
+                              error={errors.photo ? true : false}
+                              name="upload-2[]"
+                              stateFunction={photo}
+                              setStateFunction={setPhoto}
+                            />
+                          </div>
+                          <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
                         </div>
-                      </div>
-                    </div>
+                      </Grid>
+
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="upload-2"
+                        className="form-col form-col-4 "
+                      >
+                        <div className="form-field">
+                          <label
+                            lang="form-field-upload-2_651becd154b31"
+                            className="form-label"
+                          >
+                            Upload Passport{" "}
+                            <span className="form-required">*</span>
+                          </label>
+                          <div
+                            className="file-upload-container"
+                            data-element="upload-2_651becd154b31"
+                            aria-describedby="form-field-upload-2_651becd154b31-description"
+                          >
+                            <FileUpload
+                              error={errors.passport ? true : false}
+                              name="upload-2[]"
+                              stateFunction={passport}
+                              setStateFunction={setPassport}
+                            />
+                          </div>
+                          <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
+                        </div>
+                      </Grid>
+                    </Grid>
                   </Grid>
 
-                  <Grid item xs={12} sm={12} className="form-col form-col-4 ">
-                    <div className="form-field">
-                      <div
-                        className="file-upload-container"
-                        data-element="upload-2_651becd154b31"
-                        aria-describedby="form-field-upload-2_651becd154b31-description"
+                  <Grid item xs={12} className="form-row">
+                    <Grid container xs={12} columnSpacing={3} className="row1">
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="upload-2"
+                        className="form-col form-col-4 "
                       >
-                        <FileUpload
-                          error={errors.confirm ? true : false}
-                          name="upload-2[]"
-                          stateFunction={confirm}
-                          setStateFunction={setConfirm}
-                        />
-                      </div>
-                      <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-            )}
-            {activeStep === 4 && (
-              <Grid container xs={12} rowSpacing={4}>
-                {/* <Grid item xs={12} className="form-row">
-                  <Grid container xs={12} columnSpacing={3} className="row1">
-                    <Grid
-                      item
-                      xs={12}
-                      id="name-4"
-                      className="form-col form-col-6 "
-                    >
-                      <div className="form-field form-is_filled">
-                        <label
-                          lang="form-field-date-1-picker_651becd154b31"
-                          className="form-label"
-                          id="form-field-date-1-picker_651becd154b31-label"
-                        >
-                          Date <span className="form-required">*</span>
-                        </label>
-                        <div className="form-input-with-icon">
-                          <label lang="form-field-date-1-picker_651becd154b31">
-                            <span
-                              className="form-icon-calendar"
-                              aria-hidden="true"
-                            ></span>
+                        <div className="form-field">
+                          <label
+                            lang="form-field-upload-2_651becd154b31"
+                            className="form-label"
+                          >
+                            Residence card or yellow card{" "}
+                            <span className="form-required">*</span>
                           </label>
-                          <input
-                            type="date"
-                            name="date-1"
-                            className="date"
-                            required
-                          />
+                          <div
+                            className="file-upload-container"
+                            data-element="upload-2_651becd154b31"
+                            aria-describedby="form-field-upload-2_651becd154b31-description"
+                          >
+                            <FileUpload
+                              name="upload-2[]"
+                              error={errors.residentCard ? true : false}
+                              stateFunction={residentCard}
+                              setStateFunction={setResidentCard}
+                            />
+                          </div>
+                          <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
+                        </div>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        id="upload-2"
+                        className="form-col form-col-4 "
+                      >
+                        <div className="form-field">
+                          <label
+                            lang="form-field-upload-2_651becd154b31"
+                            className="form-label"
+                          >
+                            Upload Signature{" "}
+                            <span className="form-required">*</span>
+                          </label>
+                          <div
+                            className="file-upload-container"
+                            data-element="upload-2_651becd154b31"
+                            aria-describedby="form-field-upload-2_651becd154b31-description"
+                          >
+                            <FileUpload
+                              error={errors.signature ? true : false}
+                              name="upload-2[]"
+                              stateFunction={signature}
+                              setStateFunction={setSignature}
+                            />
+                          </div>
+                          <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
+                        </div>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12} className="form-row">
+                    <Grid item xs={12} sm={12} className="form-col form-col-4 ">
+                      <div className="form-field">
+                        <label
+                          lang="form-field-upload-2_651becd154b31"
+                          className="form-label"
+                        >
+                          Upload Confirmation file{" "}
+                          <span className="form-required">*</span>
+                        </label>
+                        <div className="deposit-notice">
+                          <span>
+                            Please download the confirmation form, sign it, and
+                            upload the signed document. Ensure a clear
+                            signature.
+                          </span>
+                        </div>
+                        <div className="download-doc">
+                          <div className="image">
+                            <img src="/images/document.svg"></img>
+                          </div>
+                          <div className="middle">
+                            <div>
+                              <h3>
+                                <a>Confirmation Form</a>
+                              </h3>
+                            </div>
+                            <div className="small-icons">
+                              <div>
+                                <i className="fas fa-copy"></i>
+                                <span> 1 file(s) </span>
+                              </div>
+                              <div>
+                                <i className="far fa-hdd"></i>
+                                <span> 20 KB</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className={`btn ${props.productType}`}>
+                            <a
+                              href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fdiaspora.coopbankoromia.com.et%2Fwp-content%2Fuploads%2F2023%2F06%2FDiaspora-Banking.docx&wdOrigin=BROWSELINK"
+                              target="_blank"
+                            >
+                              DOWNLOAD
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </Grid>
+
+                    <Grid item xs={12} sm={12} className="form-col form-col-4 ">
+                      <div className="form-field">
+                        <div
+                          className="file-upload-container"
+                          data-element="upload-2_651becd154b31"
+                          aria-describedby="form-field-upload-2_651becd154b31-description"
+                        >
+                          <FileUpload
+                            error={errors.confirm ? true : false}
+                            name="upload-2[]"
+                            stateFunction={confirm}
+                            setStateFunction={setConfirm}
+                          />
+                        </div>
+                        <ul className="form-uploaded-files upload-container-upload-2_651becd154b31"></ul>
+                      </div>
+                    </Grid>
                   </Grid>
-                </Grid> */}
-
-                {/* <Grid item xs={12} className="form-row">
-                  <div className="form-field">
-                    <label
-                      lang="form-field-date-1-picker_651becd154b31"
-                      className="form-label"
-                      id="form-field-date-1-picker_651becd154b31-label"
-                    >
-                      Confirmation <span className="form-required">*</span>
-                    </label>
-                    <div className="confirmation">
-                      <input
-                        type="checkbox"
-                        name="checkbox-1[]"
-                        value="Yes"
-                        id="form-field-checkbox-1-1-651becd154b31"
-                        aria-labelledby="form-field-checkbox-1-1-651becd154b31-label"
-                        data-calculation="0"
-                        aria-describedby="form-field-checkbox-1-651becd154b31-description"
-                      />
-                      <p>
-                        I confirm that I do not have a diaspora account with any
-                        other bank
-                      </p>
-                    </div>
-                  </div>
-                </Grid> */}
-
-                {/* <Grid item xs={12} className="form-row">
-                  <div className="form-field">
-                    <label
-                      lang="form-field-textarea-1_651becd154b31"
-                      id="form-field-textarea-1_651becd154b31-label"
-                      className="form-label"
-                    >
-                      Comment or message (optional)
-                    </label>
-                    <textarea
-                      name="textarea-1"
-                      placeholder=""
-                      id="form-field-textarea-1_651becd154b31"
-                      className="form-textarea"
-                      style={{ minHeight: "70px" }}
-                    ></textarea>
-                  </div>
-                </Grid> */}
-
-                {/* <Grid item xs={12} className="form-row form-row-last">
-                  <div className="form-field">
-                    <button
-                      className={`form-button form-button-submit ${props.productType}`}
-                      type="submit"
-                    >
-                      Send Enquiry
-                    </button>
-                  </div>
-                </Grid> */}
-              </Grid>
-            )}
-            {/* {activeStep === 5 && <Grid container xs={12} rowSpacing={4}></Grid>} */}
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              {/* {isStepOptional(activeStep) && (
+                </Grid>
+              )}
+              {activeStep === 4 && (
+                <Grid container xs={12} rowSpacing={4}>
+                  <ChooseAccount />
+                </Grid>
+              )}
+              {/* {activeStep === 5 && <Grid container xs={12} rowSpacing={4}></Grid>} */}
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Button
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  Back
+                </Button>
+                <Box sx={{ flex: "1 1 auto" }} />
+                {/* {isStepOptional(activeStep) && (
                 <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                   Skip
                 </Button>
               )} */}
-              <Button
-                onClick={() => {
-                  if (activeStep === steps.length - 1) {
-                    handleNext();
-                    handleSubmit();
-                  } else {
-                    handleNext();
-                  }
-                }}
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-            </Box>
-          </React.Fragment>
-        )}
-      </Box>
-    </form>
+                <Button
+                  onClick={() => {
+                    if (activeStep === steps.length - 1) {
+                      handleSubmit();
+                    } else {
+                      handleNext();
+                    }
+                  }}
+                >
+                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                </Button>
+              </Box>
+            </React.Fragment>
+          )}
+        </Box>
+      </form>
+    </div>
   );
 }
