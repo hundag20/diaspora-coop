@@ -665,7 +665,7 @@ const HowItWorks: React.FC = () => {
       <div className="container">
         <div className="header">
           <h3>
-            How It <span className="colouredspan">Work?</span>{" "}
+            How It <span className="colouredspan">Works ?</span>{" "}
           </h3>
           <p>
             Follow our step-by-step guide to creating an account and requesting

@@ -23,6 +23,7 @@ interface AlhudaAccount {
   type: string;
   description: string;
   features: Array<String>;
+  benefits: Array<String>;
 }
 const AlhudAccountProps: React.FC = () => {
   const alhudaAccounts: AlhudaAccount[] = [
@@ -30,39 +31,56 @@ const AlhudAccountProps: React.FC = () => {
       name: "WADIA",
       type: "SAVING ACCOUNT",
       description:
-        "Wadia is a trust agreement whereby the bank keeps funds of depositors who want to place their funds under safe custody without any benefit. It is a non-pro‑t sharing deposit account that the bank provides for the persons who fulfill the bank’s policies and requirements. Customers who fulfill the eligibility criteria can open this Diaspora Wadia Safe Keeping Accounts in line with the requirement in USD dollar, Pound Sterling and Euro currency.",
+        "Wadia is a trust agreement by CoopBank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
       features: [
-        "The source of the fund is from abroad in FCY",
-        "Customers living abroad can open the account",
-        "FCY shall be credited to the account through FCY cash deposit, SWIFT transfer or cheque deposit",
-        "The minimum amount required for an initial deposit to open the account shall be 100 USD or its equivalent in any of other acceptable currencies",
-        "No benefit is attached to this account",
-        "Withdrawal can be done thorough cash, account to account transfer and mobile banking",
-        "Limitless deposit and withdrawal,",
-        "Operated by passbook",
+        "Fund source: Abroad in FCY",
+        "Account accessible for overseas residents",
+        "  FCY credited via cash, SWIFT, or cheque",
+        "  Minimum initial deposit: 100 USD or equivalent",
+        "  No associated benefits",
+        "  Withdrawal options: Cash, transfers, mobile banking",
+        "  Unlimited deposits and withdrawals",
+        "  Operated using a passbook",
       ],
+      benefits:[
+        "Free foreign currency withdrawal fees",
+    "Free transactions at all CoopBank branches",
+    "Access to all E-channels",
+    "Access to credit facilities",
+    "Designated Personal Banker support"]
     },
     {
       name: "Mudarabah",
       type: "Saving Account",
       description:
-        "Mudarabah FCY Savings Account opened and mentioned by eligible personality mainly for the purpose of sharing pro‑t from the returns of investment made by the bank by using such deposit based on Sharia compliant.",
+        "The Mudarabah FCY Savings Account shares profits from the bank's Sharia-compliant investments based on eligible individuals' deposits.", // "Mudarabah FCY Savings Account opened and mentioned by eligible personality mainly for the purpose of sharing pro‑t from the returns of investment made by the bank by using such deposit based on Sharia compliant.",
       features: [
         "Operated by passbook or certificate of deposit",
         "Initial deposit to open the account shall be 100 USD or its equivalent in any of other acceptable currencies",
-        "Foreign currency is the only source of fund for the account",
+        "Only foreign currency as source of fund",
       ],
+      benefits:[
+        "Free withdrawals for foreign currency transactions",
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker support"]
     },
     {
       name: "Mudarabah",
       type: "Fixed Time Deposit Account",
       description:
-        "It is an account that depositors place their fund for pro‑t sharing within specified period of time. The bank accepts investment amount from customers who are looking for short, medium and long term investment opportunity for their funds.",
+        "Allows depositors to share profits within a specified period by investing funds. The bank accepts investments for short, medium, and long-term opportunities.",
       features: [
-        "The minimum maturity period is three months",
-        "The bank shall issue certificate of deposit",
-        "The minimum deposit to open the account shall be 5,000 (USD, GBP or Euro) or equivalent in any of other acceptable currency",
-      ],
+        "Minimum maturity period: 3 months",
+        "Certificate of deposit issued by the bank",
+        "Minimum deposit to open: 5,000 (USD, GBP, or Euro) or equivalent" ],
+        benefits: [
+          "Free foreign currency withdrawal fees",
+    "Free transactions at all CoopBank branches",
+    "Access to all E-channels",
+    "Access to credit facilities",
+    "Designated Personal Banker support"]
     },
   ];
 
@@ -141,8 +159,8 @@ const AlhudAccountProps: React.FC = () => {
             {alhudaAccounts.map((items) => (
               <div className="accountHolder">
                 <div className="header">
-                  <h3>{items.name}</h3>
-                  <h3 className="type">{items.type}</h3>
+                  <h3>{(items.name).toUpperCase()}</h3>
+                  <h3 className="type">{items.type.toUpperCase()}</h3>
                 </div>
                 <div className="box">
                   <h2>
@@ -150,13 +168,20 @@ const AlhudAccountProps: React.FC = () => {
                   </h2>
                   <p>{items.description}</p>
                   <div className="features">
-                    <h3>Features of the Account:</h3>
-                    <ul>
+                    <h3>Features:</h3>
+                    <ul style={{listStyleType:'disc'}}>
                       {items.features.map((feature) => (
-                        <li>{feature}</li>
+                        <li >{feature}</li>
+                      ))}
+                    </ul>
+                    <h3>Benefits: </h3>
+                    <ul style={{listStyleType:'disc'}}>
+                      {items.benefits.map((benefit) => (
+                        <li>{benefit}</li>
                       ))}
                     </ul>
                   </div>
+               
                 </div>
               </div>
             ))}
@@ -396,22 +421,15 @@ export function AboutCoopbankAlhuda(props: IAboutCoopbankAlhudaProps) {
             {/* <img src={coopLogo} alt="coop" /> */}
             <img src={alhudaLogo} alt="alhuda" />
             <p>
-              Cooperative Bank of Oromia is one of the fastest growing private
-              banks in Ethiopia. The bank has a separate segment and value
-              propositions for Sharia compliant customers through which several
-              services and products are provided. Diaspora banking service is
-              one of the highly offered products by the bank. Diaspora Banking
-              service is a platform that allows Ethiopians living and working
-              outside the country to maintain transactional accounts and perform
-              domestic and foreign transfers through their accounts with
-              Cooperative Bank of Oromia. In addition to this, Diasporas can get
-              Sharia complaint mortgage, Investment, Vehicles and automobile
-              ‑financing. Coopbank provides top of the range investment
-              opportunities for Diasporas.
+              <span title="desc of coopBank"> Cooperative Bank of Oromia</span>{" "}
+              offers a dedicated segment for Sharia-compliant customers. Our
+              Diaspora Banking service allows Ethiopians abroad to manage
+              accounts, conduct domestic and foreign transfers, and access
+              Sharia-compliant mortgage, investment, and vehicle financing.
             </p>
           </div>
           <AlhudAccountProps />
-          <IFBfinancing />
+          {/* <IFBfinancing /> */}
         </div>
       </div>
     </div>
