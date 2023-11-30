@@ -57,36 +57,37 @@ const AccountTypeCard: React.FC<CardProps> = ({
       sx={{ maxWidth: 345 }}
       className={`${active ? "active" : ""} mui-card`}
     >
-      <div>
-        <CardHeader title={title} className="header" />
-        {/* <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      /> */}
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-        </CardContent>
-      </div>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          {/* <div className="action">
+      <div className="front">
+        <div>
+          <CardHeader title={title} className="header" />
+          <CardContent className="description">
+            <Typography variant="body2" color="text.secondary">
+              {description}
+            </Typography>
+          </CardContent>
+        </div>
+        <div className="rest">
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              {/* <div className="action">
             <button>Get started</button>
           </div> */}
-          {/* Read more */}
-        </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </CardActions>
+              {/* Read more */}
+            </IconButton>
+            <span className="read" onClick={handleExpandClick}>
+              Read more
+            </span>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+        </div>
+      </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Feature:</Typography>
@@ -96,7 +97,11 @@ const AccountTypeCard: React.FC<CardProps> = ({
                 <li
                   key={index}
                   className="feature"
-                  style={{ display: "flex", alignItems: "start", gap: "10px" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "start",
+                    gap: "10px",
+                  }}
                 >
                   <span style={{ color: "#00adef" }}>
                     {typeof feature === "string" && (
@@ -115,7 +120,11 @@ const AccountTypeCard: React.FC<CardProps> = ({
                 <li
                   key={index}
                   className="benefits"
-                  style={{ display: "flex", alignItems: "start", gap: "10px" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "start",
+                    gap: "10px",
+                  }}
                 >
                   <span style={{ color: "#00adef" }}>
                     <i className="fas fa-check"> </i>

@@ -30,7 +30,17 @@
     }
   }
 }
-
+.accountselect {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  padding-bottom: 0;
+  width: 100%;
+  color: #000000;
+}
+.accountselect.error {
+  color: red;
+}
 .form-row {
   .form-title {
     p {

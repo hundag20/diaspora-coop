@@ -30,6 +30,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { CheckCircle } from "@mui/icons-material";
 import { ChooseAccount } from "../pages/ChooseAccount";
+import ChooseAccountType from "./ChooseAccountType";
 
 const steps = [
   "Personal Information",
@@ -44,6 +45,8 @@ export interface IAccountOpeningFormProps {
 }
 
 interface FormItem {
+  id: number | null;
+  accountType: number | null;
   fullName: string;
   surname: string;
   motherName: string;
@@ -66,12 +69,68 @@ interface FormItem {
   // add other properties as needed
 }
 
+const initialAccountState: FormItem = {
+  id: null,
+  accountType: null,
+  fullName: "",
+  surname: "",
+  motherName: "",
+  email: "",
+  phone: "",
+  streetAddress: "",
+  city: "",
+  state: "",
+  zipCode: "",
+  country: "",
+  occupation: "",
+  initialDeposit: null,
+  monthlyIncome: null,
+  confirm: false,
+  sex: "",
+  branch: "",
+  currency: 1,
+  stage: "",
+  error: false,
+};
+
 export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   // State to track the current step
   const [activeStep, setActiveStep] = useState(0);
   const [isNarrowScreen, setIsNarrowScreen] = useState(
     window.innerWidth <= 600
   );
+
+  useEffect(() => {
+    if (localStorage.getItem("coopaccountopeninginfo")) {
+      const previousData =
+        JSON.parse(localStorage.getItem("coopaccountopeninginfo") || "") ||
+        initialAccountState;
+      let newData: FormItem = {
+        id: previousData.id,
+        accountType: previousData.accountType,
+        fullName: previousData.fullName,
+        surname: previousData.surname,
+        motherName: previousData.motherName,
+        email: previousData.email,
+        phone: previousData.phone,
+        streetAddress: previousData.streetAddress,
+        city: previousData.city,
+        state: previousData.state,
+        zipCode: previousData.zipCode,
+        country: previousData.country,
+        occupation: previousData.occupation,
+        initialDeposit: previousData.initialDeposit,
+        monthlyIncome: previousData.monthlyIncome,
+        confirm: false,
+        sex: previousData.sex,
+        branch: previousData.branch,
+        currency: previousData.currency,
+        stage: previousData.stage,
+        error: previousData.error,
+      };
+      setFormData(newData);
+    }
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -86,28 +145,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   }, []);
 
   // State to store form data
-  const [formData, setFormData] = useState<FormItem>({
-    fullName: "",
-    surname: "",
-    motherName: "",
-    email: "",
-    phone: "",
-    streetAddress: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    country: "",
-    occupation: "",
-    initialDeposit: null,
-    monthlyIncome: null,
-    confirm: false,
-    sex: "",
-    branch: "",
-    currency: 1,
-    stage: "",
-    error: false,
-    // ... add other form fields here
-  });
+  const [formData, setFormData] = useState<FormItem>(initialAccountState);
 
   // State to track form field errors
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
@@ -149,6 +187,10 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           return newCompletedSteps;
         });
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        localStorage.setItem(
+          "coopaccountopeninginfo",
+          JSON.stringify(formData)
+        );
       }
     }
   };
@@ -165,7 +207,25 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
       })
       .then((res) => {
         console.log(res);
-        setFormData({ ...formData, stage: "INITIAL", error: false });
+        setFormData((prevFormData) => {
+          const updatedFormData = {
+            ...prevFormData,
+            id: res.data.id,
+            stage: res.data.status,
+            error: false,
+          };
+          localStorage.setItem(
+            "coopaccountopeninginfo",
+            JSON.stringify(updatedFormData)
+          );
+          return updatedFormData;
+        });
+        setFormData({
+          ...formData,
+          id: res.data.id,
+          stage: res.data.status,
+          error: false,
+        });
         setCompletedSteps((prevCompletedSteps) => {
           const newCompletedSteps = [...prevCompletedSteps];
           newCompletedSteps[activeStep] = true;
@@ -191,6 +251,10 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   // Function to handle form submission (you can implement your submission logic here)
   const handleSubmit = () => {
     handleErrorChange();
+    setErrors({});
+    console.log(formData.accountType);
+    console.log("re", validateStep(activeStep));
+
     // Validate the last step before submission
     if (validateStep(activeStep)) {
       // Add your form submission logic here
@@ -212,15 +276,20 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           monthlyIncome: formData.monthlyIncome,
           branch: formData.branch,
           currency: formData.currency,
-          accountType: 0,
+          accountType: formData.accountType,
         })
         .then((res) => {
           console.log(res);
           setFormData({ ...formData, stage: "COMPLETE" });
+          localStorage.removeItem("coopaccountopeninginfo");
           handleNext();
         })
         .catch((err) => {
           console.log(err);
+          setFormData({
+            ...formData,
+            error: err.response.data.message || "Newtwork Error",
+          });
         });
     }
   };
@@ -318,6 +387,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         }
         if (confirm === null) {
           stepErrors.confirm = true;
+          stepIsValid = false;
+        }
+        break;
+      case 4:
+        if (formData.accountType === null || formData.accountType === 0) {
+          stepErrors.accountType = true;
           stepIsValid = false;
         }
         break;
@@ -621,7 +696,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           name="checkbox-1[]"
                           className={errors.confirm ? "error" : ""}
                           // value="Yes"
-                          // checked={formData.confirm}
+                          checked={formData.confirm}
                           onChange={(e) =>
                             setFormData({
                               ...formData,
@@ -1313,7 +1388,17 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
               )}
               {activeStep === 4 && (
                 <Grid container xs={12} rowSpacing={4}>
-                  <ChooseAccount />
+                  {errors.accountType && (
+                    <div
+                      className={`accountselect ${
+                        errors.accountType && "error"
+                      }`}
+                    >
+                      <p>select and account</p>
+                    </div>
+                  )}
+
+                  <ChooseAccountType state={formData} setState={setFormData} />
                 </Grid>
               )}
               {/* {activeStep === 5 && <Grid container xs={12} rowSpacing={4}></Grid>} */}

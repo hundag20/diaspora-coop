@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import AnimatedCounter from "../components/AnimatedCounter";
 import { useNavigate } from "react-router-dom";
 import { Divider } from "../components/Divider";
+// import { Icon } from "@mui/material";
 
 // import { FaCheckCircle } from "react-icons/fa";
 import { BsCheck2Circle } from "react-icons/bs";
@@ -31,6 +32,25 @@ import Gallery from "../components/slideShow/grid";
 import KeenSlider from "../components/slideShow/keenSlider";
 import AnimatedShake from "../components/AnimatedShake";
 import HeroSlides from "../components/HeroSlides";
+import {
+  fetchApply,
+  fetchHowToWork,
+  fetchStats,
+  fetchWhatWeOffer,
+} from "../hooks/fetchStrapi";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconName, icon, library } from "@fortawesome/fontawesome-svg-core";
+// Import all icons from solid package
+import * as solidIcons from "@fortawesome/free-solid-svg-icons";
+
+import { Icon } from "@mdi/react";
+import * as mdiIcons from "@mdi/js";
+import * as Icons from "@material-ui/icons";
+
+import * as icons from "@material-ui/icons";
+import stringSimilarity from "string-similarity";
+import useIcons from "../components/icon";
 
 export interface IHomeProps {}
 
@@ -174,10 +194,15 @@ const Diasport: React.FC = () => {
 interface WhatWeOfferItem {
   title: string;
   description: string;
-  icons: React.ReactNode;
+  icons: IconName;
 }
+interface OfferComponentProps {
+  offer: WhatWeOfferItem;
+}
+
+// icons: React.ReactNode;
 const WhatWeOffer: React.FC = () => {
-  const offers: WhatWeOfferItem[] = [
+  const offers = [
     {
       icons: <OtherHouses className="muicon" />,
       title: "Mortgage Loan",
@@ -197,6 +222,12 @@ const WhatWeOffer: React.FC = () => {
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
     },
   ];
+
+  const [offer, setOffer] = useState<WhatWeOfferItem[]>([]);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    fetchWhatWeOffer(setOffer, setLoader);
+  }, []);
 
   // Use the useInView hook to detect when the "offers" section is in view
   const [ref, inView] = useInView({
@@ -223,6 +254,21 @@ const WhatWeOffer: React.FC = () => {
   }
   const navigate = useNavigate();
 
+  const OfferComponent: React.FC<OfferComponentProps> = ({ offer }) => {
+    // Assuming IconName is the type for your icon names
+    const Icon = useIcons(offer.icons.toLowerCase());
+
+    return (
+      <div className="offer" onClick={() => navigate("/get-a-loan")}>
+        <div className="icon">
+          <Icon className="muicon" />
+        </div>
+        <h4>{offer.title}</h4>
+        <p>{offer.description}</p>
+      </div>
+    );
+  };
+
   return (
     <div className="whatweofferComp">
       <div className="container">
@@ -239,17 +285,8 @@ const WhatWeOffer: React.FC = () => {
           animate={inView ? "visible" : "hidden"} // Animate when in view
           variants={offersAnimationVariants} // Apply animation variants
         >
-          {offers.map((offer) => (
-            <div className="offer" onClick={() => navigate("/get-a-loan")}>
-              <div className="icon">{offer.icons}</div>
-              <h4>{offer.title}</h4>
-              <p>{offer.description}</p>
-              {/* <ReadMoreButton
-                link="/get-a-loan"
-                text="Get Started"
-                target="_self"
-              /> */}
-            </div>
+          {offer.map((offer, index) => (
+            <OfferComponent key={index} offer={offer} />
           ))}
         </motion.div>
       </div>
@@ -436,6 +473,9 @@ interface StatItems {
   title: string;
   value: number;
 }
+interface StatComponentProps {
+  offer: StatItems;
+}
 const Stats: React.FC = () => {
   const stats: StatItems[] = [
     {
@@ -459,6 +499,13 @@ const Stats: React.FC = () => {
       value: 13,
     },
   ];
+
+  const [stat, setStat] = useState<StatItems[]>([]);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    fetchStats(setStat, setLoader);
+  }, []);
+  console.log("stat", stat);
 
   // Use the useInView hook to detect when the "offers" section is in view
   const [ref, inView] = useInView({
@@ -488,6 +535,42 @@ const Stats: React.FC = () => {
     },
   };
 
+  const navigate = useNavigate();
+  const StatComponent: React.FC<StatComponentProps> = ({ offer }) => {
+    // Assuming IconName is the type for your icon names
+    const Icon = useIcons(offer.icon.toLowerCase());
+
+    return (
+      <div className="stat">
+        <div className="icon">
+          {/* <i aria-hidden="true" className={offer.icon}></i> */}
+          <Icon className="muicon" />
+        </div>
+        {/* <h3>{stat.value} +</h3> */}
+        {/* <AnimatedValue value={stat.value} /> */}
+        <h3>
+          <AnimatedCounter
+            from={0} // You can set the initial value to 0 or any other value as needed
+            to={
+              offer.value >= 1000000
+                ? Math.round(offer.value / 1000000)
+                : offer.value >= 1000
+                ? Math.round(offer.value / 1000)
+                : offer.value
+            } // Set the target value to animate to
+            duration={2.5} // Set the animation duration
+            fontFamily="Arial" // Set the font family
+            fontSize={60} // Set the font size
+            color="#ffffff" // Set the color
+          />
+          {offer.value >= 1000000 ? "M" : offer.value >= 1000 ? "K" : ""} +
+        </h3>
+
+        <p className="title">{offer.title}</p>
+      </div>
+    );
+  };
+
   return (
     <motion.div
       className="statsComp"
@@ -499,33 +582,8 @@ const Stats: React.FC = () => {
     >
       <div className="container">
         <div className="stats">
-          {stats.map((stat, index) => (
-            <div className="stat">
-              <div className="icon">
-                <i aria-hidden="true" className={stat.icon}></i>
-              </div>
-              {/* <h3>{stat.value} +</h3> */}
-              {/* <AnimatedValue value={stat.value} /> */}
-              <h3>
-                <AnimatedCounter
-                  from={0} // You can set the initial value to 0 or any other value as needed
-                  to={
-                    stat.value >= 1000000
-                      ? Math.round(stat.value / 1000000)
-                      : stat.value >= 1000
-                      ? Math.round(stat.value / 1000)
-                      : stat.value
-                  } // Set the target value to animate to
-                  duration={2.5} // Set the animation duration
-                  fontFamily="Arial" // Set the font family
-                  fontSize={60} // Set the font size
-                  color="#ffffff" // Set the color
-                />
-                {stat.value >= 1000000 ? "M" : stat.value >= 1000 ? "K" : ""} +
-              </h3>
-
-              <p className="title">{stat.title}</p>
-            </div>
+          {stat.map((statof, index) => (
+            <StatComponent key={index} offer={statof} />
           ))}
         </div>
       </div>
@@ -578,21 +636,34 @@ const Hero: React.FC = () => {
   );
 };
 
+interface ApplyItems {
+  title: string;
+  description: string;
+  button: string;
+  background: string;
+}
+
 const ApplyNow: React.FC = () => {
+  const [content, setContent] = useState<ApplyItems | null>(null);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    fetchApply(setContent, setLoader);
+  }, []);
   // Use the useInView hook to detect when the "offers" section is in view
   return (
     <div className="applyComp">
       <div className="container">
-        <h3>Open Account In 3 Minutes</h3>
+        <h3>{content ? content.title : "Open Account In 3 Minutes"}</h3>
         <p>
-          Don't have Coopbank Diaspora account yet? Apply now and open your new
-          account in under 3 minutes!
+          {content
+            ? content.description
+            : "Don't have Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!"}
         </p>
         <AnimatedShake>
           <ApplyNowButton
             target="_self"
             link="/diaspora-current-account"
-            text="apply now"
+            text={content ? content.button : "apply now"}
           />
         </AnimatedShake>
       </div>
@@ -622,12 +693,11 @@ const Remittance: React.FC = () => {
 };
 
 interface HowItWorksItems {
-  icon: React.ReactNode;
   title: string;
   description: string;
 }
 const HowItWorks: React.FC = () => {
-  const howItWorksObejct: HowItWorksItems[] = [
+  const howItWorksObejct = [
     {
       icon: <Description className="muicon" />,
       title: "Create Your Account",
@@ -659,6 +729,12 @@ const HowItWorks: React.FC = () => {
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
     },
   ];
+
+  const [howItWorks, setHowItWorks] = useState<HowItWorksItems[]>([]);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    fetchHowToWork(setHowItWorks, setLoader);
+  }, []);
   // Use the useInView hook to detect when the "offers" section is in view
   return (
     <div className="worksComp">
@@ -674,7 +750,7 @@ const HowItWorks: React.FC = () => {
         </div>
         <div className="content">
           <div className="left">
-            {howItWorksObejct.map((work, index) => (
+            {howItWorks.map((work, index) => (
               <div className="works">
                 {/* <div className="icon">{work.icon}</div> */}
                 <div className="iconNum">

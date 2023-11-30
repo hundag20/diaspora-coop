@@ -5,7 +5,7 @@
   justify-content: space-around;
   margin: 40px 60px;
   font-family: $Poppins;
-  gap: 10px;
+  gap: 2rem;
 }
 
 .mui-card.active {
@@ -16,13 +16,27 @@
 .mui-card {
   width: 100%;
   // height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
+  .front {
+    // height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .rest {
+      // height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+  }
   cursor: pointer;
   .header {
     // height: 85px;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
     // justify-content: start;
@@ -42,6 +56,12 @@
       font-size: 16px;
       border-radius: 6px;
     }
+  }
+  .read {
+    font-size: 14px;
+  }
+  .description {
+    padding: 0 16px;
   }
 }
 .mui-card:hover {
