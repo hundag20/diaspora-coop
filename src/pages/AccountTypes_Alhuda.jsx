@@ -10,153 +10,69 @@ import alhudaLogo from "../assets/img/AlhudaLogo-removebg.png";
 import { useState, useEffect } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-export const AccountTypes = () => {
-  const AccountTypes= [
-    {
-      icon: <i aria-hidden='true' className='fas fa-home'></i>,
-      title: "Diaspora Current Account",
-      desc: " Takes the form of current deposits where withdrawals may be made at any time upon demand. Interest shall not be paid to a non-resident foreign currency current account.",
-      docLink:
-        "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-MORTGAGE-LOAN-1.pdf",
+export const AccountTypes_Alhuda = () => {
 
+  const AccountTypes_Alhunda =  [{
+    name: "WADIA",
+      type: "SAVING ACCOUNT",
+      description:
+        "Wadia is a trust agreement by CoopBank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
       features: [
-        "Local and foreign currency (GBP, USD, and EURO) options",
-        "Personalized Cheque Books",
-        "Debit Card on request",
-        "E-mail alerts and statements",
-        "Joint Signatory Option",
-        // "Financial advisory services",
-        "Third-party payments",
+        "Fund source: Abroad in FCY",
+        "Account accessible for overseas residents",
+        "  FCY credited via cash, SWIFT, or cheque",
+        "  Minimum initial deposit: 100 USD or equivalent",
+        "  No associated benefits",
+        "  Withdrawal options: Cash, transfers, mobile banking",
+        "  Unlimited deposits and withdrawals",
+        "  Operated using a passbook",
       ],
-      benefits: [
-        "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
-        "Access to all our E-channels",
-        "Credit facilities",
-        "Designated Personal Banker for support",
-      ],
+      benefits:[
+        "Free foreign currency withdrawal fees",
+    "Free transactions at all CoopBank branches",
+    "Access to all E-channels",
+    "Access to credit facilities",
+    "Designated Personal Banker support"]
     },
     {
-      icon: <i aria-hidden='true' className='fas fa-car'></i>,
-      title: "Diaspora Fixed-Time Account",
-      desc: "Offers deposit certificates with variable maturity periods and negotiated interest rates. Interest income for non-resident foreign currency deposits is tax-exempt.",
-      docLink:
-        "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
+      name: "Mudarabah",
+      type: "Saving Account",
+      description:
+        "The Mudarabah FCY Savings Account shares profits from the bank's Sharia-compliant investments based on eligible individuals' deposits.", // "Mudarabah FCY Savings Account opened and mentioned by eligible personality mainly for the purpose of sharing pro‑t from the returns of investment made by the bank by using such deposit based on Sharia compliant.",
       features: [
-        "Interest-bearing account with a fixed maturity date.",
-        "A minimum opening amount of USD 100 or equivalent currency.",
-        "Minimum maturity period is three months with an initial deposit of USD 5,000.",
-        "Interest payment applies only if the account is maintained for the minimum period.",
+        "Operated by passbook or certificate of deposit",
+        "Initial deposit to open the account shall be 100 USD or its equivalent in any of other acceptable currencies",
+        "Only foreign currency as source of fund",
       ],
-
-      benefits: ["Interest income is tax-free."],
-    },
-    {
-      icon: <i aria-hidden='true' className='fas fa-truck-moving'></i>,
-      title: "Diaspora Non-repatriable Account",
-      desc: "A savings deposit, is exclusively meant for local transactions. Transferred balances are converted into local currency and deposited into the account.",
-      docLink:
-        "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
-      features: [
-        "Available in local and foreign currencies: GBP, USD, and EURO.",
-        "Personalized cheque books.",
-        "Debit Card issuance upon request.",
-        "Email alerts and statements.",
-        "Joint Signatory (e.g., with spouse, sibling, or parent in Ethiopia).",
-        "Financial advisory services.",
-        "Facilitates third-party payments.",
-      ],
-      benefits: [
-        "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
-        "Access to all our E-channels",
+      benefits:[
+        "Free withdrawals for foreign currency transactions",
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
         "Access to credit facilities",
-        "Designated Personal Banker",
-      ],
+        "Designated Personal Banker support"]
     },
-    // {
-    //   icon: <i aria-hidden="true" className="fas fa-user-tie"></i>,
-    //   title: "Diaspora Personal Loan",
-    //   desc: "Diaspora Personal loan is term loans granted to diaspora for the purpose of covering applicant’s urgent financial requirements, such as expenses for domestic or foreign travel, medical treatment of self or family member, education fee, or any kind of personal expenses.",
-    //   docLink:
-    //     "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-PERSONAL-LOAN.pdf",
-    // },
-
     {
-      icon: <i aria-hidden='true' className='fas fa-city'></i>,
-      title:
-        "Ethiopian Citizen or Origin Living in Foreign Land (ECOLFL) Savings Account",
-      desc: "",
-      docLink:
-        "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-WORKING-CAPITAL-LOAN-1.pdf",
+      name: "Mudarabah",
+      type: "Fixed Time Deposit Account",
+      description:
+        "Allows depositors to share profits within a specified period by investing funds. The bank accepts investments for short, medium, and long-term opportunities.",
       features: [
-        "Age of the applicant(s) should be 18 years and above.",
-        "Submission of the following documents before account opening:",
-        // [
-        //   'Renewed passport for non-resident Ethiopians or renewed passport and yellow card for foreigners of Ethiopian Origin',
-        //   'Residence and/or work permit',
-        //   'One latest passport size photograph',
-        //   'Power of attorney, copy of lD and one passport size photograph of the agent (if any)',
-        //   'Bank Account statement from foreign sources (optional)',
-        //   'For businesses, authenticated certificate of ownership entitlement of the business and/or article and memorandum of association.',
-        // ],
-        // 'All deposits to the account shall be made in foreign currency (Dollar, Euro or Pound Sterling). The applicant can credit the account without limitation in accordance with the following:',
-        // [
-        //   'Foreign currency cash (evidenced by customs declaration for amounts equivalent to or greater than USD 3,000 and/or per NBE Directive No. FxD/55/2018, but this figure may change based on amendments to the Directive)',
-        //   'Direct credit to the account using SWIFT code of the Bank (CBORETAA) or via money transfer agents:',
-        //   'Transfer from Diaspora Fixed Time Deposit and/or Diaspora Current Account but not from Non-Repatriable Accounts.',
-        //   'Deposit of cheques originated by foreign',
-        // ],
-        " ECOLFL Savings Account is available in all bank branches.",
-        "Withdrawals allowed only in local currency.",
-        "Closure upon request; new account allowed.",
-         "Foreign currency credited converted using bank's rate.",
-        "Legal heirs eligible for loans post owner's death.",
-        "Applicants with foreign currency salaries from international organizations need only submit an employment contract and Ethiopian passport, exempt from resident/work permit requirements",
-      ],
-      benefits: [
-        "Enables an applicant(s) to open in person or through his/her/their agent at a nearby branch of Cooperative Bank of Oromia.",
-        "Annual Interest Rate",
-        "Joint ECOLFL Savings Account for couples.",
-      ],
-    },
-    // {
-    //   icon: <i aria-hidden="true" className="fas fa-chart-line"></i>,
-    //   title: "Diaspora Investment Financing Loan",
-    //   desc: "Diaspora Investment Loan is a loan facility provided to eligible Ethiopian Diasporas that come with new business idea which creates jobs and economic growth back home.",
-    //   docLink:
-    //     "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-INVESTMENT-LOAN-1.pdf",
-    // },
-  ];
-
-  const AccountTypes_Alhunda = [
-    {
-      icon: <i aria-hidden='true' className='fas fa-chart-line'></i>,
-      title: "DIASPORA WADIA SAVING ACCOUNT",
-      desc: "Diaspora Investment Loan is a loan facility provided to eligible Ethiopian Diasporas that come with new business idea which creates jobs and economic growth back home.",
-      docLink:
-        "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-INVESTMENT-LOAN-1.pdf",
-    },
-    {
-      icon: <i aria-hidden='true' className='fas fa-chart-line'></i>,
-      title: "DIASPORA Mudarabah Saving Account",
-      desc: "Diaspora Investment Loan is a loan facility provided to eligible Ethiopian Diasporas that come with new business idea which creates jobs and economic growth back home.",
-      docLink:
-        "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-INVESTMENT-LOAN-1.pdf",
-    },
-    {
-      icon: <i aria-hidden='true' className='fas fa-chart-line'></i>,
-      title: "DIASPORA Mudarabah Fixed Time Deposit Account",
-      desc: "Diaspora Investment Loan is a loan facility provided to eligible Ethiopian Diasporas that come with new business idea which creates jobs and economic growth back home.",
-      docLink:
-        "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-INVESTMENT-LOAN-1.pdf",
-    },
-  ];
+        "Minimum maturity period: 3 months",
+        "Certificate of deposit issued by the bank",
+        "Minimum deposit to open: 5,000 (USD, GBP, or Euro) or equivalent" ],
+        benefits: [
+          "Free foreign currency withdrawal fees",
+    "Free transactions at all CoopBank branches",
+    "Access to all E-channels",
+    "Access to credit facilities",
+    "Designated Personal Banker support"]
+    }
+  ]
  const [state, setState] = useState(false);
   // const [collapsed, setCollapsed] = useState(null);
 
  const [collapsedStates, setCollapsedStates] = useState(
-   Array(AccountTypes.length).fill(true)
+   Array(AccountTypes_Alhunda.length).fill(true)
  );
 
  const handleCollapse = (index) => {
@@ -175,7 +91,7 @@ export const AccountTypes = () => {
       <Grid item xs={12}>
         <div className='container-title'>
           <h2>
-            We offer a variety of <span>Conventional Accounts </span>
+            We offer a variety of <span style={{color:"#e38524"}}>IFB - ALHUDA </span>Accounts 
           </h2>
         </div>
       </Grid>
@@ -207,18 +123,18 @@ export const AccountTypes = () => {
       // lg={4}
       // sm={4}
       className='account-items'>
-      {AccountTypes.map((AccountItem, index) => (
+      {AccountTypes_Alhunda.map((AccountItem, index) => (
         <Grid item className='account-item' xs={10} sm={5} key={index} md={6}>
           <div className='account-item-header' key={index}>
             {/* <div className="icon">{AccountItem.icon}</div> */}
             <div className='account-item-title'>
-              <h3>{AccountItem.title}</h3>
+              <h3>{AccountItem.name} {AccountItem.type}</h3>
             </div>
           </div>
           <div className='account-item-body'>
             <div className='desc'>
               <p>
-                {AccountItem.desc}
+                {AccountItem.description}
                 {/* <span className="req-doc">
                   <a href={AccountItem.docLink}> Required Document</a>
                 </span> */}

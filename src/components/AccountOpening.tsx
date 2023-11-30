@@ -33,7 +33,7 @@ export function AccountOpening(props: IAccountOpeningProps) {
     <Grid container xs={11}>
       <Grid item xs={12}>
         <div className={`container-title ${props.productType}`}>
-          <h2 className={props.productType}>Online Account Opening Form</h2>
+          <h2 className={props.productType}>Online Account Opening Form </h2>
         </div>
       </Grid>
     </Grid>

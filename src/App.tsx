@@ -18,6 +18,7 @@ import { MudarabahSavingsAccount } from "./pages/alhudaAccount/MudarabahSavingsA
 import { MudarabahFixedTermDepositAccount } from "./pages/alhudaAccount/MudarabahFixedTermDepositAccount";
 import { AboutCoopbankAlhuda } from "./pages/AboutCoopbankAlhuda";
 import { AccountTypes } from "./pages/AccountTypes";
+import { AccountTypes_Alhuda } from "./pages/AccountTypes_Alhuda";
 import ScrollToTop from "./components/scrollToTop";
 import { ChooseAccount } from "./pages/ChooseAccount";
 
@@ -92,14 +93,21 @@ const App = () => {
           }
         />
         <Route
-          path="/account-types"
+          path="/diaspora-conventional-accounts"
           element={
             <BodyRoute>
               <AccountTypes />
             </BodyRoute>
           }
         />
-
+ <Route
+          path="/diaspora-IFB-accounts"
+          element={
+            <BodyRoute>
+              <AccountTypes_Alhuda/>
+            </BodyRoute>
+          }
+        />
         <Route
           path="/diaspora-current-account"
           element={
