@@ -42,13 +42,10 @@ const HeroSlides = () => {
   useEffect(() => {
     fetchSlides(setSlides, setLoader);
   }, []);
-  console.log("slide:", slides);
+  // console.log("slide:", slides);
   const nums = [2, 1];
-  console.log(nums.includes(2));
-  console.log(nums.includes(1));
-  console.log(nums.includes(1) && nums.includes(2));
   const autoplayOptions = {
-    delay: 4000,
+    delay: 8000,
     // stopOnMouseEnter: true,
     rootNode: (emblaRoot) => emblaRoot.parentElement,
   };
@@ -78,14 +75,14 @@ const HeroSlides = () => {
       resetTimeout();
     } else {
       // Tab is visible, resume autoplay
-      timeoutRef.current = setTimeout(handleNext, 4000);
+      timeoutRef.current = setTimeout(handleNext, 8000);
     }
   };
 
   useEffect(() => {
     resetTimeout();
     // timeoutRef.current = setTimeout(() => handleNext(), duration[index]);
-    timeoutRef.current = setTimeout(() => handleNext(), 4000);
+    timeoutRef.current = setTimeout(() => handleNext(), 8000);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
@@ -96,7 +93,7 @@ const HeroSlides = () => {
 
   useEffect(() => {
     if (embla) {
-      timeoutRef.current = setTimeout(handleNext, 4000);
+      timeoutRef.current = setTimeout(handleNext, 8000);
     }
 
     return () => {
@@ -129,7 +126,7 @@ const HeroSlides = () => {
         clearTimeout(timeoutRef.current);
       }
 
-      timeoutRef.current = setTimeout(handleNext, 4000);
+      timeoutRef.current = setTimeout(handleNext, 8000);
 
       const newIndex = nextIndex === -1 ? (index + 1) % data.length : nextIndex;
 
@@ -155,7 +152,7 @@ const HeroSlides = () => {
         clearTimeout(timeoutRef.current);
       }
 
-      timeoutRef.current = setTimeout(handleNext, 4000);
+      timeoutRef.current = setTimeout(handleNext, 8000);
 
       setIndex(previousIndex < 0 ? lastIndex : previousIndex);
     }
@@ -180,7 +177,7 @@ const HeroSlides = () => {
                       className={`open_account ${
                         !slide.buttons.includes(2) && `hide`
                       }`}
-                      onClick={() => navigate("/diaspora-current-account")}
+                      onClick={() => navigate("/open-account")}
                     >
                       <i aria-hidden="true" className="far fa-address-card"></i>{" "}
                       <span>Open An Account</span>
@@ -200,10 +197,7 @@ const HeroSlides = () => {
                       }`}
                       onClick={() => navigate("/get-a-loan")}
                     >
-                      <i
-                        aria-hidden="true"
-                        className="icon icon-save-money"
-                      ></i>
+                      <i aria-hidden="true" className="far fa-share-square"></i>
                       <span>Request A Loan</span>
                     </button>
                   </div>

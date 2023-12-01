@@ -662,7 +662,7 @@ const ApplyNow: React.FC = () => {
         <AnimatedShake>
           <ApplyNowButton
             target="_self"
-            link="/diaspora-current-account"
+            link="/open-account"
             text={content ? content.button : "apply now"}
           />
         </AnimatedShake>

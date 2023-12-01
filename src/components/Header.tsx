@@ -38,28 +38,29 @@ const menuItems = [
   // },
   {
     label: "Open Account",
-    subMenu: [
-      {
-        name: "Current Account",
-        icon: <Paid className="muicon" />,
-        route: "/diaspora-current-account",
-      },
-      {
-        name: "Fixed-Time Deposit",
-        icon: <QueryBuilder className="muicon" />,
-        route: "/diaspora-fixed-time-deposit",
-      },
-      {
-        name: "Non-Repatriable Account",
-        icon: <RequestQuote className="muicon" />,
-        route: "/diaspora-non-depreciable-account",
-      },
-      {
-        name: "ECOLFL Savings Account",
-        icon: <Badge className="muicon" />,
-        route: "/diaspora-ecolf-saving-account",
-      },
-    ],
+    route: "/open-account",
+    // subMenu: [
+    //   {
+    //     name: "Current Account",
+    //     icon: <Paid className="muicon" />,
+    //     route: "/diaspora-current-account",
+    //   },
+    //   {
+    //     name: "Fixed-Time Deposit",
+    //     icon: <QueryBuilder className="muicon" />,
+    //     route: "/diaspora-fixed-time-deposit",
+    //   },
+    //   {
+    //     name: "Non-Repatriable Account",
+    //     icon: <RequestQuote className="muicon" />,
+    //     route: "/diaspora-non-depreciable-account",
+    //   },
+    //   {
+    //     name: "ECOLFL Savings Account",
+    //     icon: <Badge className="muicon" />,
+    //     route: "/diaspora-ecolf-saving-account",
+    //   },
+    // ],
   },
   {
     label: "Get A Loan",

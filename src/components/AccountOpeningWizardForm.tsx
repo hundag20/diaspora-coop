@@ -10,7 +10,7 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import "../styles/form.scss";
 import {
   FileUpload,
@@ -22,6 +22,7 @@ import {
 } from "./LoanRequestForm";
 import { TProductType } from "./AccountOpening";
 
+import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -31,6 +32,8 @@ import Typography from "@mui/material/Typography";
 import { CheckCircle } from "@mui/icons-material";
 import { ChooseAccount } from "../pages/ChooseAccount";
 import ChooseAccountType from "./ChooseAccountType";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const steps = [
   "Personal Information",
@@ -136,9 +139,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     const handleResize = () => {
       setIsNarrowScreen(window.innerWidth <= 600);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -146,15 +147,14 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
   // State to store form data
   const [formData, setFormData] = useState<FormItem>(initialAccountState);
-
   // State to track form field errors
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
-
   const [photo, setPhoto] = useState<File | null>(null);
   const [passport, setPassport] = useState<File | null>(null);
   const [residentCard, setResidentCard] = useState<File | null>(null);
   const [signature, setSignature] = useState<File | null>(null);
   const [confirm, setConfirm] = useState<File | null>(null);
+  const [loader, setLoader] = useState<boolean>(false);
 
   // State to track form completion status for each step
   const [completedSteps, setCompletedSteps] = useState<Array<boolean>>(
@@ -176,6 +176,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     // Validate the current step's form fields before moving to the next step
     setErrors({});
     handleErrorChange();
+    // console.log(passport);
+    // console.log(photo);
+    // console.log(residentCard);
+    // console.log(signature);
+    // console.log(confirm);
+
     const stepIsValid = validateStep(activeStep);
     if (stepIsValid) {
       if (activeStep === 0 && formData.stage === "") {
@@ -196,8 +202,9 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   };
 
   const handleInitialSave = () => {
+    setLoader(true);
     axios
-      .post("http://10.1.177.121:8881/api/v1/accounts", {
+      .post(`${apiUrl}api/v1/accounts`, {
         fullName: formData.fullName,
         surname: formData.surname,
         motherName: formData.motherName,
@@ -240,6 +247,9 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           ...formData,
           error: err.response.data.message || "Newtwork Error",
         });
+      })
+      .finally(() => {
+        setLoader(false);
       });
   };
 
@@ -247,49 +257,80 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  interface ApiResponse {
+    // Define the structure of your API response
+    data: string; // Change this based on your actual API response structure
+  }
 
   // Function to handle form submission (you can implement your submission logic here)
   const handleSubmit = () => {
     handleErrorChange();
     setErrors({});
-    console.log(formData.accountType);
+    // console.log(formData.accountType);
+    // console.log(passport);
+    // console.log(photo);
+    // console.log(residentCard);
+    // console.log(signature);
+    // console.log(confirm);
     console.log("re", validateStep(activeStep));
 
     // Validate the last step before submission
     if (validateStep(activeStep)) {
       // Add your form submission logic here
       console.log("Form submitted!", formData);
-      axios
-        .put(`http://10.1.177.121:8881/api/v1/accounts/${formData.phone}`, {
-          fullName: formData.fullName,
-          surname: formData.surname,
-          motherName: formData.motherName,
-          email: formData.email,
-          sex: formData.sex,
-          streetAddress: formData.streetAddress,
-          city: formData.city,
-          state: formData.state,
-          zipCode: formData.zipCode,
-          country: formData.country,
-          occupation: formData.occupation,
-          initialDeposit: formData.initialDeposit,
-          monthlyIncome: formData.monthlyIncome,
-          branch: formData.branch,
-          currency: formData.currency,
-          accountType: formData.accountType,
-        })
-        .then((res) => {
-          console.log(res);
-          setFormData({ ...formData, stage: "COMPLETE" });
-          localStorage.removeItem("coopaccountopeninginfo");
-          handleNext();
-        })
+      const formdata = new FormData();
+      photo && formdata.append("photo", photo);
+      residentCard && formdata.append("residenceCard", residentCard);
+      passport && formdata.append("passport", passport);
+      signature && formdata.append("signature", signature);
+      confirm && formdata.append("confirmationForm", confirm);
+
+      setLoader(true);
+      const requestInfo = axios.put(`${apiUrl}api/v1/accounts/${formData.id}`, {
+        fullName: formData.fullName,
+        surname: formData.surname,
+        motherName: formData.motherName,
+        email: formData.email,
+        sex: formData.sex,
+        streetAddress: formData.streetAddress,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        country: formData.country,
+        occupation: formData.occupation,
+        initialDeposit: formData.initialDeposit,
+        monthlyIncome: formData.monthlyIncome,
+        branch: formData.branch,
+        currency: formData.currency,
+        accountType: formData.accountType,
+      });
+      const requestFile = axios.put(
+        `${apiUrl}api/v1/accounts/${formData.id}/upload-files`,
+        formdata
+      );
+      Promise.all([requestInfo, requestFile])
+        .then(
+          ([res1, res2]: [
+            AxiosResponse<ApiResponse>,
+            AxiosResponse<ApiResponse>
+          ]) => {
+            console.log(res1);
+            console.log(res2);
+            setFormData({ ...formData, stage: "COMPLETE" });
+
+            handleNext();
+            localStorage.removeItem("coopaccountopeninginfo");
+          }
+        )
         .catch((err) => {
           console.log(err);
           setFormData({
             ...formData,
             error: err.response.data.message || "Newtwork Error",
           });
+        })
+        .finally(() => {
+          setLoader(false);
         });
     }
   };
@@ -578,8 +619,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               <input
                                 type="radio"
                                 name="name-4"
-                                value="Male"
-                                checked={formData.sex === "Male"}
+                                value="MALE"
+                                checked={formData.sex === "MALE"}
                                 onChange={(e) =>
                                   handleInputChange("sex", e.target.value)
                                 }
@@ -591,8 +632,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               <input
                                 type="radio"
                                 name="name-4"
-                                value="Female"
-                                checked={formData.sex === "Female"}
+                                value="FEMAL"
+                                checked={formData.sex === "FEMALE"}
                                 onChange={(e) =>
                                   handleInputChange("sex", e.target.value)
                                 }
@@ -1303,7 +1344,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             data-element="upload-2_651becd154b31"
                             aria-describedby="form-field-upload-2_651becd154b31-description"
                           >
-                            <FileUpload
+                            <SignatureUpload
                               error={errors.signature ? true : false}
                               name="upload-2[]"
                               stateFunction={signature}
@@ -1417,17 +1458,21 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   Skip
                 </Button>
               )} */}
-                <Button
-                  onClick={() => {
-                    if (activeStep === steps.length - 1) {
-                      handleSubmit();
-                    } else {
-                      handleNext();
-                    }
-                  }}
-                >
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
+                {loader ? (
+                  <CircularProgress />
+                ) : (
+                  <Button
+                    onClick={() => {
+                      if (activeStep === steps.length - 1) {
+                        handleSubmit();
+                      } else {
+                        handleNext();
+                      }
+                    }}
+                  >
+                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                  </Button>
+                )}
               </Box>
             </React.Fragment>
           )}

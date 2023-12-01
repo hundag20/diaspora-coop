@@ -21,6 +21,7 @@ import { AccountTypes } from "./pages/AccountTypes";
 import { AccountTypes_Alhuda } from "./pages/AccountTypes_Alhuda";
 import ScrollToTop from "./components/scrollToTop";
 import { ChooseAccount } from "./pages/ChooseAccount";
+import { AccountOpen } from "./pages/conventionalAccount/AccountOpen";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -100,11 +101,11 @@ const App = () => {
             </BodyRoute>
           }
         />
- <Route
+        <Route
           path="/diaspora-IFB-accounts"
           element={
             <BodyRoute>
-              <AccountTypes_Alhuda/>
+              <AccountTypes_Alhuda />
             </BodyRoute>
           }
         />
@@ -113,6 +114,14 @@ const App = () => {
           element={
             <BodyRoute>
               <CurrentAccount />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path="/open-account"
+          element={
+            <BodyRoute>
+              <AccountOpen />
             </BodyRoute>
           }
         />

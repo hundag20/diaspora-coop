@@ -20,6 +20,7 @@ export interface IAccountOpeningProps {
     | "ECOLFL Savings Account"
     | "Disapora Non-Repatriable Account"
     | "Disapora Current Account"
+    | "Open Account"
     | "Disapora Fixed-Time Deposit";
   headerSubTitle: string;
   DescTitle: string;
