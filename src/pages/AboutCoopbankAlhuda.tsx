@@ -33,9 +33,9 @@ const AlhudAccountProps: React.FC = () => {
       description:
         "Wadia is a trust agreement by CoopBank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
       features: [
-        "Fund source: Abroad in FCY",
+        "Fund source: Abroad in Foreign currency",
         "Account accessible for overseas residents",
-        "  FCY credited via cash, SWIFT, or cheque",
+        "  Foreign currency credited via cash, SWIFT, or cheque",
         "  Minimum initial deposit: 100 USD or equivalent",
         "  No associated benefits",
         "  Withdrawal options: Cash, transfers, mobile banking",
@@ -53,7 +53,7 @@ const AlhudAccountProps: React.FC = () => {
       name: "Mudarabah",
       type: "Saving Account",
       description:
-        "The Mudarabah FCY Savings Account shares profits from the bank's Sharia-compliant investments based on eligible individuals' deposits.", // "Mudarabah FCY Savings Account opened and mentioned by eligible personality mainly for the purpose of sharing pro‑t from the returns of investment made by the bank by using such deposit based on Sharia compliant.",
+        "The Mudarabah Foreign currency Savings Account shares profits from the bank's Sharia-compliant investments based on eligible individuals' deposits.", // "Mudarabah Foreign currency Savings Account opened and mentioned by eligible personality mainly for the purpose of sharing pro‑t from the returns of investment made by the bank by using such deposit based on Sharia compliant.",
       features: [
         "Operated by passbook or certificate of deposit",
         "Initial deposit to open the account shall be 100 USD or its equivalent in any of other acceptable currencies",
