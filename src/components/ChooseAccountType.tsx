@@ -25,12 +25,16 @@ interface FormItem {
   currency: number | null;
   stage: string;
   error: string | boolean;
+  percentageCompleted: number;
   // add other properties as needed
 }
+
+export type TProductType = "conventional" | "alhuda";
 
 interface ChooseAccountTypeProps {
   state: FormItem; // Replace YourStateType with the actual type of your state
   setState: React.Dispatch<React.SetStateAction<FormItem>>; // Replace YourStateType accordingly
+  accountType: TProductType;
 }
 
 interface CardProps {
@@ -39,6 +43,7 @@ interface CardProps {
   benefits: string[];
   features: string[];
   id: number;
+  type: TProductType;
 }
 
 const PricingCard: React.FC<CardProps> = ({
@@ -78,6 +83,7 @@ const PricingCard: React.FC<CardProps> = ({
 const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
   state,
   setState,
+  accountType,
 }) => {
   const [selected, setSelected] = React.useState<number | null>(null);
   const cardsData: CardProps[] = [
@@ -102,6 +108,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
         "Third-party payments",
       ],
       id: 1,
+      type: "conventional",
     },
     {
       title: "Fixed-Time Deposit",
@@ -115,6 +122,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
         "Interest payment applies only if the account is maintained for the minimum period.",
       ],
       id: 2,
+      type: "conventional",
     },
     {
       title: "Non-Repatriable Account",
@@ -137,6 +145,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
         "Facilitates third-party payments.",
       ],
       id: 3,
+      type: "conventional",
     },
     {
       title: "ECOLFL Savings Account",
@@ -158,6 +167,69 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
         "Applicants with foreign currency salaries from international organizations need only submit an employment contract and Ethiopian passport, exempt from resident/work permit requirements",
       ],
       id: 4,
+      type: "conventional",
+    },
+    {
+      title: "WADIA SAVING ACCOUNT",
+      description:
+        "Wadia is a trust agreement by CoopBank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
+      features: [
+        "Fund source: Abroad in FCY",
+        "Account accessible for overseas residents",
+        "  FCY credited via cash, SWIFT, or cheque",
+        "  Minimum initial deposit: 100 USD or equivalent",
+        "  No associated benefits",
+        "  Withdrawal options: Cash, transfers, mobile banking",
+        "  Unlimited deposits and withdrawals",
+        "  Operated using a passbook",
+      ],
+      benefits: [
+        "Free foreign currency withdrawal fees",
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker support",
+      ],
+      id: 5,
+      type: "alhuda",
+    },
+    {
+      title: "Mudarabah Saving Account",
+      description:
+        "The Mudarabah FCY Savings Account shares profits from the bank's Sharia-compliant investments based on eligible individuals' deposits.", // "Mudarabah FCY Savings Account opened and mentioned by eligible personality mainly for the purpose of sharing pro‑t from the returns of investment made by the bank by using such deposit based on Sharia compliant.",
+      features: [
+        "Operated by passbook or certificate of deposit",
+        "Initial deposit to open the account shall be 100 USD or its equivalent in any of other acceptable currencies",
+        "Only foreign currency as source of fund",
+      ],
+      benefits: [
+        "Free withdrawals for foreign currency transactions",
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker support",
+      ],
+      id: 6,
+      type: "alhuda",
+    },
+    {
+      title: "Mudarabah Fixed Time Deposit Account",
+      description:
+        "Allows depositors to share profits within a specified period by investing funds. The bank accepts investments for short, medium, and long-term opportunities.",
+      features: [
+        "Minimum maturity period: 3 months",
+        "Certificate of deposit issued by the bank",
+        "Minimum deposit to open: 5,000 (USD, GBP, or Euro) or equivalent",
+      ],
+      benefits: [
+        "Free foreign currency withdrawal fees",
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker support",
+      ],
+      id: 7,
+      type: "alhuda",
     },
   ];
 
@@ -168,24 +240,26 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
   return (
     <div>
       <div className="pricing-table">
-        {cardsData.map((card, index) => (
-          // <PricingCard key={index} {...card} />
-          <div
-            onClick={() => {
-              setState({ ...state, accountType: card.id });
-              handleSelect(index);
-            }}
-          >
-            <AccountTypeCard
-              key={index}
-              title={card.title}
-              description={card.description}
-              benefits={card.benefits}
-              features={card.features}
-              active={index === selected ? true : false}
-            />
-          </div>
-        ))}
+        {cardsData
+          .filter((item) => item.type === accountType)
+          .map((card, index) => (
+            // <PricingCard key={index} {...card} />
+            <div
+              onClick={() => {
+                setState({ ...state, accountType: card.id });
+                handleSelect(index);
+              }}
+            >
+              <AccountTypeCard
+                key={index}
+                title={card.title}
+                description={card.description}
+                benefits={card.benefits}
+                features={card.features}
+                active={index === selected ? true : false}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );

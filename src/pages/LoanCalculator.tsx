@@ -29,27 +29,6 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalanceOutlined";
 import ReadMoreButton from "../components/Buttons/readMoreButton";
 export interface IMoneyTransferProps {}
 
-const resources = [
-  {
-    icons: <AccountBalanceWallet className="muicon" />,
-    title: "Foreign Exchange Rate",
-    description:
-      "Foreign Exchange Rate is defined as the price of the domestic currency with respect to another currency. The purpose of foreign exchange is to compare one currency with another for showing their relative values.",
-  },
-  {
-    icons: <WorkspacePremium className="muicon" />,
-    title: "Trade Registration and Licensing",
-    description:
-      "Obtaining a business license in Ethiopia. The Ministry of Trade and Industry is the main institution responsible for registering a business in Ethiopia.",
-  },
-  {
-    icons: <OtherHouses className="muicon" />,
-    title: "National Bank Directives",
-    description:
-      "The National Bank of Ethiopia was established in 1963 by proclamation 206 of 1963 and began operation in January 1964. Prior to this proclamation, the Bank used to carry out dual activities, i.e. commercial banking and central banking.",
-  },
-];
-
 const howItWorks = [
   {
     icon: <Description className="muicon" />,
@@ -76,29 +55,6 @@ const howItWorks = [
       "In less than 24 hours, Coopbank will review your document and provide you with a response",
   },
 ];
-
-const DiasporaResources = () => (
-  <div className="whatweofferComp">
-    <div className="container">
-      <div className="header">
-        <h3>
-          Some Useful <span className="colouredspan">Diaspora</span> Resources
-        </h3>
-      </div>
-      <div className="offers">
-        {resources.map((offer) => (
-          <div className="offer">
-            <div className="icon">{offer.icons}</div>
-            <h4>{offer.title}</h4>
-            <p>{offer.description}</p>
-            <ReadMoreButton link="#" text="Read More" target="_blank" />
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-);
-
 export function LoanCalculator(props: IMoneyTransferProps) {
   return (
     <div className="loanCalcComp">
@@ -164,7 +120,7 @@ export function LoanCalculator(props: IMoneyTransferProps) {
             </div>
           </div>
         </div>
-        <DiasporaResources />
+        {/* <DiasporaResources /> */}
       </div>
     </div>
   );

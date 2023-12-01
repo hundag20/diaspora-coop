@@ -903,6 +903,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     }
   };
 
+  console.log("file emp:", stateFunction === null);
+
   return (
     <div>
       <input
@@ -920,7 +922,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         required
       />
       <div
-        className={`${error && "error"} file-upload-label`}
+        className={`${
+          stateFunction !== null ? "success" : error ? "error" : ""
+        } file-upload-label`}
         aria-hidden="true"
       >
         <i className="fas fa-cloud-upload-alt"></i>

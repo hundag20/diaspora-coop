@@ -674,7 +674,7 @@ const ApplyNow: React.FC = () => {
 const Remittance: React.FC = () => {
   // Use the useInView hook to detect when the "offers" section is in view
   return (
-    <div className="slideShowComp">
+    <div className="slideShowComp" id="#money">
       <div className="container">
         <h3>
           International <span className="colouredspan">Remittance</span>{" "}
@@ -794,8 +794,9 @@ export function Home(props: IHomeProps) {
       <Stats />
 
       {/* <UsefullDiasporaResourses /> */}
-
-      <Remittance />
+      <div id="money">
+        <Remittance />
+      </div>
     </div>
   );
 }

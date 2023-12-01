@@ -14,7 +14,10 @@ import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchangeOutlined";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUserOutlined";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalanceOutlined";
 import { SwiftCode } from "../components/SwiftCode";
+import { useState } from "react";
 export interface IMoneyTransferProps {}
+
+export type TProductType = "conventional" | "alhuda";
 
 const transferAgents = [
   {
@@ -200,6 +203,7 @@ const Resources = () => (
 );
 
 export function MoneyTransfer(props: IMoneyTransferProps) {
+  const [accountType, setAccountType] = useState<TProductType>("conventional");
   return (
     <div>
       <TopBanner
@@ -209,6 +213,8 @@ export function MoneyTransfer(props: IMoneyTransferProps) {
         footerClass="mt hd-footer"
         contentHeader="Money Transfer"
         contentParagraph="We Partner With Over 13 World Best Money Transfer Agents"
+        accountType={accountType}
+        setAccountType={setAccountType}
       />
       <div className="title">
         <h2>

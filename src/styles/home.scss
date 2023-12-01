@@ -2,7 +2,12 @@
 
 .halfpage {
   display: flex;
+  flex-direction: column;
   width: 100%;
+
+  @include breakpoint(mdP) {
+    flex-direction: row;
+  }
 }
 
 .heroComp {
