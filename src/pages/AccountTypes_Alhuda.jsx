@@ -12,7 +12,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 export const AccountTypes_Alhuda = () => {
 
-  const AccountTypes_Alhunda =  [{
+  const AccountTypes_Alhunda =  [
+    {
     name: "WADIA",
       type: "SAVING ACCOUNT",
       description:

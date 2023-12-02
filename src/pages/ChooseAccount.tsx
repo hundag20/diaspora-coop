@@ -52,7 +52,8 @@ export function ChooseAccount(props: IChooseAccountProps) {
     {
       title: "Diaspora Current Account",
       description:
-        "This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.",
+      " Takes the form of current deposits where withdrawals may be made at any time upon demand. Interest shall not be paid to a non-resident foreign currency current account.",
+      //"This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.",
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
         "Free transactions across all CoopBank branches",
@@ -73,7 +74,8 @@ export function ChooseAccount(props: IChooseAccountProps) {
     {
       title: "Fixed-Time Deposit",
       description:
-        "Diaspora Fixed Time Account It is an account which takes the form of a deposit certificate, issued in the name of the depositor. The maturity period may vary based on the agreement made between the depositor and the bank. The bank and the depositor will also reach an agreement on the rate of interest on this account.",
+      "Offers deposit certificates with variable maturity periods and negotiated interest rates. Interest income for non-resident foreign currency deposits is tax-exempt.",
+       // "Diaspora Fixed Time Account It is an account which takes the form of a deposit certificate, issued in the name of the depositor. The maturity period may vary based on the agreement made between the depositor and the bank. The bank and the depositor will also reach an agreement on the rate of interest on this account.",
       benefits: ["Interest income is tax-free."],
       features: [
         "Interest-bearing account with a fixed maturity date.",
@@ -85,7 +87,8 @@ export function ChooseAccount(props: IChooseAccountProps) {
     {
       title: "Non-Repatriable Account",
       description:
-        "Diaspora Non-repatriable Account is an account that may take the form of saving deposit that can be used only for local payments. The transferred balance will be exchanged to local currency and deposited to the account.",
+      "A savings deposit, is exclusively meant for local transactions. Transferred balances are converted into local currency and deposited into the account.",
+     //   "Diaspora Non-repatriable Account is an account that may take the form of saving deposit that can be used only for local payments. The transferred balance will be exchanged to local currency and deposited to the account.",
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
         "Free transactions across all CoopBank branches",
@@ -106,22 +109,20 @@ export function ChooseAccount(props: IChooseAccountProps) {
     {
       title: "ECOLFL Savings Account",
       description:
-        "Ethiopian Citizen or Origin Living in Foreign Land (ECOLFL) Savings Account Is a Local Currency savings account opened by non-resident Ethiopians or non-resident foreign nationals of Ethiopian origin for the purpose of personal emergency expenses, purchase or construction of residential/ commercial houses, for business and investment in Ethiopia.",
+   "The Ethiopian Citizen or Origin Living in Foreign Land (ECOLFL) is for non-resident Ethiopians or foreign nationals of Ethiopian origin. It's designed for personal emergencies, housing, business, and investments in Ethiopia",
       benefits: [
         "Enables an applicant(s) to open in person or through his/her/their agent at a nearby branch of Cooperative Bank of Oromia.",
         "Annual Interest Rate",
         "Joint ECOLFL Savings Account for couples.",
-      ],
+    ],
       features: [
         " ECOLFL Savings Account is available in all bank branches.",
-        "Couples can open a Joint ECOLFL Savings Account.",
-        "Withdrawals are allowed only in local currency.",
+        "Withdrawals allowed only in local currency.",
         "Closure upon request; new account allowed.",
-        "Earns prevailing annual interest rate.",
-        "Foreign currency credited converted using bank's rate.",
+         "Foreign currency credited converted using bank's rate.",
         "Legal heirs eligible for loans post owner's death.",
         "Applicants with foreign currency salaries from international organizations need only submit an employment contract and Ethiopian passport, exempt from resident/work permit requirements",
-      ],
+     ],
     },
   ];
 

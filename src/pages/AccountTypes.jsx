@@ -15,7 +15,8 @@ export const AccountTypes = () => {
     {
       icon: <i aria-hidden='true' className='fas fa-home'></i>,
       title: "Diaspora Current Account",
-      desc: " Takes the form of current deposits where withdrawals may be made at any time upon demand. Interest shall not be paid to a non-resident foreign currency current account.",
+      desc: 
+      " Takes the form of current deposits where withdrawals may be made at any time upon demand. Interest shall not be paid to a non-resident foreign currency current account.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-MORTGAGE-LOAN-1.pdf",
 
@@ -39,7 +40,8 @@ export const AccountTypes = () => {
     {
       icon: <i aria-hidden='true' className='fas fa-car'></i>,
       title: "Diaspora Fixed-Time Account",
-      desc: "Offers deposit certificates with variable maturity periods and negotiated interest rates. Interest income for non-resident foreign currency deposits is tax-exempt.",
+      desc: 
+      "Offers deposit certificates with variable maturity periods and negotiated interest rates. Interest income for non-resident foreign currency deposits is tax-exempt.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
       features: [
@@ -54,7 +56,8 @@ export const AccountTypes = () => {
     {
       icon: <i aria-hidden='true' className='fas fa-truck-moving'></i>,
       title: "Diaspora Non-repatriable Account",
-      desc: "A savings deposit, is exclusively meant for local transactions. Transferred balances are converted into local currency and deposited into the account.",
+      desc: 
+      "A savings deposit, is exclusively meant for local transactions. Transferred balances are converted into local currency and deposited into the account.",
       docLink:
         "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/DOCUMENTS-REQUIRED-FOR-DIASPORA-AUTOMOBILE-LOAN-1.pdf",
       features: [
