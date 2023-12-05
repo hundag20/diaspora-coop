@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/EmblaDots.css'
 
 const EmblaDots = ({ embla, slides }) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    if (!embla) return;
+
+    const onSelect = () => {
+      setSelectedIndex(embla.selectedScrollSnap());
+    };
+
+    embla.on('select', onSelect);
+
+    return () => {
+      embla.off('select', onSelect);
+    };
+  }, [embla]);
+
   if (!embla || !slides) return null;
 
   const dots = slides.map((_, index) => (
     <button
       key={index}
       onClick={() => embla.scrollTo(index)}
-      className={index === embla.selectedScrollSnap() ? 'is-selected dot' : 'dot'}
+      className={index === selectedIndex ? 'is-selected dot' : 'dot'}
     />
   ));
 

@@ -1,3 +1,77 @@
+@import "../styles/variable.scss";
+
+.accountButtons {
+  display: flex;
+  // font-family: $Poppins;
+  transition: all 1s;
+}
+
+.accountButtons button {
+  // border: 1px solid white;
+  padding: 15px 40px;
+  // background-color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  // color: white;
+  // margin-right: 10px;
+}
+
+.accountButtons button:hover {
+  background-color: #e0e0e0; /* Change this color to your desired hover effect color */
+}
+
+.accountButtons button.right {
+  background-color: white;
+  // background-color: rgba(229, 133, 36, 0.5);
+  border-radius: 0 8px 8px 0;
+  // border-left: none;
+
+  border: 1px solid $primary;
+}
+.accountButtons button.right.active {
+  background-color: $third;
+  // border: none;
+  color: white;
+  border: 1px solid $third;
+}
+
+.accountButtons button.left {
+  border-right: none;
+  border: 1px solid $third;
+  background-color: white;
+  color: $third;
+  // background-color: rgba(0, 172, 240, 0.5);
+  border-radius: 8px 0 0 8px;
+}
+.accountButtons button.left.active {
+  // border: none;
+  border: 1px solid $primary;
+  background-color: $primary; /* Change this color to your desired active button color */
+  color: white;
+}
+
+.accountType {
+  margin-top: 1rem;
+  h4 {
+    word-wrap: break-word;
+    border: 0;
+    font-style: inherit;
+    outline: 0;
+    vertical-align: baseline;
+    clear: both;
+    box-sizing: border-box;
+    padding: 0;
+    line-height: 1.3;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    color: #ffffff;
+    // font-size: 17px;
+    font-size: 14px;
+  }
+}
+
 .hd-container {
   background-image: url("../assets/img/famous-monuments-world_117023-91-1.jpg");
   // Other background properties can be set here

@@ -38,6 +38,12 @@ const menuItems = [
     label: "Home",
     route: "/",
   },
+  {
+    label: "Money Transfer",
+    hash: "#money",
+    route: "/#money-transfer",
+    // route: "/money-transfer-service",
+  },
   // {
   //   label: "About",
   //   route: "/about",
@@ -99,12 +105,6 @@ const menuItems = [
     //     route: "/diaspora-mudarabah-fixed-term-deposit",
     //   },
     // ],
-  },
-  {
-    label: "Money Transfer",
-    hash: "#money",
-    route: "/#money",
-    // route: "/money-transfer-service",
   },
 ];
 

@@ -139,7 +139,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsNarrowScreen(window.innerWidth <= 600);
+      setIsNarrowScreen(window.innerWidth <= 700);
     };
     window.addEventListener("resize", handleResize);
     return () => {
@@ -1582,7 +1582,17 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                 </Grid>
               )}
               {activeStep === 4 && (
-                <Grid container xs={12} rowSpacing={4}>
+                <Grid
+                  container
+                  xs={12}
+                  rowSpacing={4}
+                  sx={{
+                    width: "100%",
+                    alignItems: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   {errors.accountType && (
                     <div
                       className={`accountselect ${
@@ -1640,7 +1650,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   );
 }
 
-http://10.1.151.64:1337/api/home-page?
+// http://10.1.151.64:1337/api/home-page?
 // populate[hero][populate][header][populate]=*&
 // populate[hero][populate][slide][populate]=*&
 // populate[home][populate][background][*]=true&

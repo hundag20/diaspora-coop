@@ -1,53 +1,70 @@
-function buildUrl(data) {
-  const buildQueryString = (params, parentKey = null) => {
-    return Object.keys(params).map(key => {
-      const value = params[key];
-      const newKey = parentKey ? `${parentKey}[${key}]` : key;
+import axios from "axios";
+const apiUrl = process.env.REACT_APP_STRAPI_URL;
 
-      if (value && typeof value === 'object') {
-        return buildQueryString(value, newKey);
+const baseUrl = `${apiUrl}api/home-page?`;
+function buildDynamicURL(params, parentKey = '') {
+
+  return Object.entries(params)
+    .map(([key, value]) => {
+      const nestedKey = parentKey ? `${parentKey}[${key}]` : key;
+
+      if (typeof value === 'object') {
+        return buildDynamicURL(value, nestedKey);
       } else {
-        return `${encodeURIComponent(newKey)}=${encodeURIComponent(value)}`;
+        return `populate${nestedKey}=${value}`;
       }
-    }).join('&');
-  };
-
-  return `http://10.1.151.64:1337/api/home-page?${buildQueryString(data)}`;
+    })
+    .join('&');
 }
 
-const urlObject = {
-  populate: {
-    hero: {
-      populate: {
-        header: {
-          populate: "*"
-        },
-        slide: {
-          populate: "*"
-        }
-      }
+// Example object
+const params = {
+  hero: {
+    header: {
+      populate: '*',
     },
-    home: {
-      populate: {
-        background: {
-          populate: true
-        },
-        stat: {
-          populate: "*"
-        },
-        content: {
-          populate: "*"
-        },
-        header: {
-          populate: "*"
-        },
-        offers: {
-          populate: "*"
-        }
-      }
-    }
-  }
+    slide: {
+      populate: '*',
+    },
+  },
+  apply: {
+    background: {
+      populate: '*',
+    },
+  },
+  stat: {
+    populate: '*',
+  },
+  HowItWork: {
+    populate: '*',
+  },
+  offer: {
+    populate: '*',
+  },
 };
 
-const finalUrl = buildUrl(urlObject);
-console.log(finalUrl);
+export const fetchHomePage = (setState, setLoader) => {
+  setLoader(true);
+  const dynamicURL = baseUrl + buildDynamicURL(params);
+  console.log(dynamicURL);
+  axios
+    .get(`${apiUrl}api/home-page?populate[hero][populate][header][populate]=*&populate[hero][populate][slide][populate]=*&populate[apply][populate][background][populate]=*&populate[stat][populate]=*&populate[HowItWork][populate]=*&populate[offer][populate]=*`)
+    .then((res) => {
+      console.log("res:", res);
+      // Convert data to the desired format
+      // const convertedData = about.data.data.map(item => ({
+      //   title: item.attributes.title,
+      //   description: item.attributes.description,
+      //   icons: item.attributes.icon, // Assuming this is the icon property
+      // }));
+      setState(res.data.data.attributes);
+    })
+    .catch((err) => {
+      console.log("sta");
+      console.log(err);
+    })
+    .finally(() => {
+      setLoader(false);
+    });
+};
+

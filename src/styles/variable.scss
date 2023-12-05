@@ -76,6 +76,12 @@ $mobilePadding: 1.5rem;
     }
   }
 
+  @if $point ==mdPP {
+    @media (min-width: 1000px) {
+      @content;
+    }
+  }
+
   @if $point ==lg {
     // 1080px
     @media (min-width: 1280px) {

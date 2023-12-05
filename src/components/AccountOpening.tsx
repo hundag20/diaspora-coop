@@ -57,6 +57,27 @@ export function AccountOpening(props: IAccountOpeningProps) {
       />
       <div className="container">
         <Title />
+        {accountType && (
+          <div className="accountType">
+            {/* <h4 className="head">Choose account type</h4> */}
+            <div className="accountButtons">
+              <button
+                className={
+                  accountType === "conventional" ? "active left" : "left"
+                }
+                onClick={() => setAccountType!("conventional")}
+              >
+                conventional
+              </button>
+              <button
+                className={accountType === "alhuda" ? "active right" : "right"}
+                onClick={() => setAccountType!("alhuda")}
+              >
+                alhuda
+              </button>
+            </div>
+          </div>
+        )}
         <Grid
           container
           xs={11}

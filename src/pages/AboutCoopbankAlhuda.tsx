@@ -42,12 +42,13 @@ const AlhudAccountProps: React.FC = () => {
         "  Unlimited deposits and withdrawals",
         "  Operated using a passbook",
       ],
-      benefits:[
+      benefits: [
         "Free foreign currency withdrawal fees",
-    "Free transactions at all CoopBank branches",
-    "Access to all E-channels",
-    "Access to credit facilities",
-    "Designated Personal Banker support"]
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker support",
+      ],
     },
     {
       name: "Mudarabah",
@@ -59,12 +60,13 @@ const AlhudAccountProps: React.FC = () => {
         "Initial deposit to open the account shall be 100 USD or its equivalent in any of other acceptable currencies",
         "Only foreign currency as source of fund",
       ],
-      benefits:[
+      benefits: [
         "Free withdrawals for foreign currency transactions",
         "Free transactions at all CoopBank branches",
         "Access to all E-channels",
         "Access to credit facilities",
-        "Designated Personal Banker support"]
+        "Designated Personal Banker support",
+      ],
     },
     {
       name: "Mudarabah",
@@ -74,13 +76,15 @@ const AlhudAccountProps: React.FC = () => {
       features: [
         "Minimum maturity period: 3 months",
         "Certificate of deposit issued by the bank",
-        "Minimum deposit to open: 5,000 (USD, GBP, or Euro) or equivalent" ],
-        benefits: [
-          "Free foreign currency withdrawal fees",
-    "Free transactions at all CoopBank branches",
-    "Access to all E-channels",
-    "Access to credit facilities",
-    "Designated Personal Banker support"]
+        "Minimum deposit to open: 5,000 (USD, GBP, or Euro) or equivalent",
+      ],
+      benefits: [
+        "Free foreign currency withdrawal fees",
+        "Free transactions at all CoopBank branches",
+        "Access to all E-channels",
+        "Access to credit facilities",
+        "Designated Personal Banker support",
+      ],
     },
   ];
 
@@ -159,7 +163,7 @@ const AlhudAccountProps: React.FC = () => {
             {alhudaAccounts.map((items) => (
               <div className="accountHolder">
                 <div className="header">
-                  <h3>{(items.name).toUpperCase()}</h3>
+                  <h3>{items.name.toUpperCase()}</h3>
                   <h3 className="type">{items.type.toUpperCase()}</h3>
                 </div>
                 <div className="box">
@@ -169,19 +173,18 @@ const AlhudAccountProps: React.FC = () => {
                   <p>{items.description}</p>
                   <div className="features">
                     <h3>Features:</h3>
-                    <ul style={{listStyleType:'disc'}}>
+                    <ul style={{ listStyleType: "disc" }}>
                       {items.features.map((feature) => (
-                        <li >{feature}</li>
+                        <li>{feature}</li>
                       ))}
                     </ul>
                     <h3>Benefits: </h3>
-                    <ul style={{listStyleType:'disc'}}>
+                    <ul style={{ listStyleType: "disc" }}>
                       {items.benefits.map((benefit) => (
                         <li>{benefit}</li>
                       ))}
                     </ul>
                   </div>
-               
                 </div>
               </div>
             ))}
@@ -428,8 +431,8 @@ export function AboutCoopbankAlhuda(props: IAboutCoopbankAlhudaProps) {
               Sharia-compliant mortgage, investment, and vehicle financing.
             </p>
           </div>
-          <AlhudAccountProps />
-          {/* <IFBfinancing /> */}
+          {/* <AlhudAccountProps /> */}
+          <IFBfinancing />
         </div>
       </div>
     </div>
