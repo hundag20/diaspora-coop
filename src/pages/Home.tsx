@@ -52,9 +52,13 @@ import * as icons from "@material-ui/icons";
 import stringSimilarity from "string-similarity";
 import useIcons from "../components/icon";
 import { fetchHomePage } from "../hooks/fetchFullStrapi";
+import CoopLoader from "../components/coopLoader/coopLoader";
 
 export interface IHomeProps {}
-
+interface Header {
+  title: string;
+  description: string;
+}
 interface DiasporaItem {
   title: string;
   description: string;
@@ -195,46 +199,49 @@ const Diasport: React.FC = () => {
 interface WhatWeOfferItem {
   title: string;
   description: string;
-  icons: IconName;
+  icon: IconName;
 }
 interface OfferComponentProps {
   offer: WhatWeOfferItem;
 }
-
-// icons: React.ReactNode;
-const WhatWeOffer: React.FC = () => {
-  const offers = [
+interface WhatWeOfferItemProp {
+  header: Header;
+  offers: WhatWeOfferItem[];
+}
+const offers: WhatWeOfferItemProp = {
+  header: {
+    title: "What We offer",
+    description: "We are always there for your Diaspora Banking Needs!",
+  },
+  offers: [
     {
-      icons: <OtherHouses className="muicon" />,
+      icon: "MdOtherHouses" as IconName,
       title: "Mortgage Loan",
       description:
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
     },
     {
-      icons: <Business className="muicon" />,
+      icon: "MdBusiness" as IconName,
       title: "Investment Loan",
       description:
         "Coopbank offers Investment credit facility to enhance the potential of Diasporas to develop larger, more productive businesses investment in meaningful programs in their home country that can create jobs and economic growth back home.",
     },
     {
-      icons: <Handyman className="muicon" />,
+      icon: "MdHandyman" as IconName,
       title: "Working Capital Loan",
       description:
         "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
     },
-  ];
-
-  const [offer, setOffer] = useState<WhatWeOfferItem[]>([]);
-  const [loader, setLoader] = useState(false);
-  useEffect(() => {
-    fetchWhatWeOffer(setOffer, setLoader);
-  }, []);
-
+  ],
+};
+const WhatWeOffer: React.FC<WhatWeOfferItemProp> = ({ header, offers }) => {
   // Use the useInView hook to detect when the "offers" section is in view
+  const navigate = useNavigate();
   const [ref, inView] = useInView({
     triggerOnce: true, // Only trigger the animation once
     threshold: 0.2, // Adjust as needed
   });
+  console.log("offer", offers);
 
   // Define animation variants for the "offers" section
   const offersAnimationVariants = {
@@ -253,11 +260,9 @@ const WhatWeOffer: React.FC = () => {
   function redirectToAnotherPage() {
     window.location.href = "/get-a-loan"; // Replace with the URL of the destination page
   }
-  const navigate = useNavigate();
-
   const OfferComponent: React.FC<OfferComponentProps> = ({ offer }) => {
     // Assuming IconName is the type for your icon names
-    const Icon = useIcons(offer.icons.toLowerCase());
+    const Icon = useIcons(offer.icon ? offer.icon.toLowerCase() : "");
 
     return (
       <div className="offer" onClick={() => navigate("/get-a-loan")}>
@@ -275,9 +280,10 @@ const WhatWeOffer: React.FC = () => {
       <div className="container">
         <div className="header">
           <h3>
-            What We <span className="colouredspan">offer</span>
+            {/* What We <span className="colouredspan">offer</span> */}
+            {header.title}
           </h3>
-          <p>We are always there for your Diaspora Banking Needs!</p>
+          <p>{header.description}</p>
         </div>
         <motion.div
           className="offers"
@@ -286,7 +292,7 @@ const WhatWeOffer: React.FC = () => {
           animate={inView ? "visible" : "hidden"} // Animate when in view
           variants={offersAnimationVariants} // Apply animation variants
         >
-          {offer.map((offer, index) => (
+          {offers.map((offer, index) => (
             <OfferComponent key={index} offer={offer} />
           ))}
         </motion.div>
@@ -480,37 +486,29 @@ interface StatComponentProps {
 interface StatHomeProps {
   stat: StatItems[] | null;
 }
+const staticStats: StatItems[] = [
+  {
+    icon: "elementskit-funfact-icon fas fa-users",
+    title: "Total Membership",
+    value: 5000,
+  },
+  {
+    icon: "elementskit-funfact-icon fas fa-money-bill-alt",
+    title: "Deposit Amount",
+    value: 10000000,
+  },
+  {
+    icon: "elementskit-funfact-icon fas fa-globe-americas",
+    title: "Countries",
+    value: 120,
+  },
+  {
+    icon: "elementskit-funfact-icon fas fa-share-square",
+    title: "Remmitance Agency",
+    value: 13,
+  },
+];
 const Stats: React.FC<StatHomeProps> = ({ stat }) => {
-  const stats: StatItems[] = [
-    {
-      icon: "elementskit-funfact-icon fas fa-users",
-      title: "Total Membership",
-      value: 5000,
-    },
-    {
-      icon: "elementskit-funfact-icon fas fa-money-bill-alt",
-      title: "Deposit Amount",
-      value: 10000000,
-    },
-    {
-      icon: "elementskit-funfact-icon fas fa-globe-americas",
-      title: "Countries",
-      value: 120,
-    },
-    {
-      icon: "elementskit-funfact-icon fas fa-share-square",
-      title: "Remmitance Agency",
-      value: 13,
-    },
-  ];
-
-  // const [stat, setStat] = useState<StatItems[]>(props.stat);
-  // const [loader, setLoader] = useState(false);
-  // useEffect(() => {
-  //   fetchStats(setStat, setLoader);
-  // }, []);
-  console.log("stat", stat);
-
   // Use the useInView hook to detect when the "offers" section is in view
   const [ref, inView] = useInView({
     triggerOnce: true, // Only trigger the animation once
@@ -542,7 +540,7 @@ const Stats: React.FC<StatHomeProps> = ({ stat }) => {
   const navigate = useNavigate();
   const StatComponent: React.FC<StatComponentProps> = ({ offer }) => {
     // Assuming IconName is the type for your icon names
-    const Icon = useIcons(offer.icon.toLowerCase());
+    const Icon = useIcons(offer.icon ? offer.icon.toLowerCase() : "");
 
     return (
       <div className="stat">
@@ -596,6 +594,93 @@ const Stats: React.FC<StatHomeProps> = ({ stat }) => {
   );
 };
 
+interface HeroItems {
+  topTitle: string;
+  bottomTitle: string;
+  description: string;
+  buttons: {
+    data: {
+      id: number;
+    }[];
+  };
+  url: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    };
+  };
+}
+interface HeroItemsComp {
+  id: number;
+  slide: HeroItems;
+}
+
+const data: HeroItems[] = [
+  {
+    topTitle: "Diaspora",
+    bottomTitle: "Banking",
+    description:
+      "CoopBank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis.",
+    url: {
+      data: {
+        attributes: {
+          url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
+        },
+      },
+    },
+    buttons: {
+      data: [
+        {
+          id: 2,
+        },
+        {
+          id: 1,
+        },
+      ],
+    },
+  },
+  {
+    topTitle: "Diaspora",
+    bottomTitle: "Accounts",
+    description:
+      "Diaspora Banking Accounts allow Diasporas who resides and works outside the country to maintain and perform domestic and international transfers through their CoopBank Diaspora Accounts.",
+    url: {
+      data: {
+        attributes: {
+          url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png",
+        },
+      },
+    },
+    buttons: {
+      data: [
+        {
+          id: 2,
+        },
+      ],
+    },
+  },
+  {
+    topTitle: "Diaspora",
+    bottomTitle: "Loan",
+    description:
+      "The bank provides business and investment loan along with expertise free consultancy services on different opportunities.",
+    url: {
+      data: {
+        attributes: {
+          url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2023/05/099A9988-2-1.png",
+        },
+      },
+    },
+    buttons: {
+      data: [
+        {
+          id: 1,
+        },
+      ],
+    },
+  },
+];
 const Hero: React.FC = () => {
   // Use the useInView hook to detect when the "offers" section is in view
   const navigate = useNavigate();
@@ -641,35 +726,44 @@ const Hero: React.FC = () => {
   );
 };
 
+const staticApply: ApplyItems = {
+  title: "Open Account In 3 Minutes",
+  description:
+    "Don't have Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!",
+  button: "apply now",
+  background: {
+    data: {
+      attributes: {
+        url: "string",
+      },
+    },
+  },
+};
 interface ApplyItems {
   title: string;
   description: string;
   button: string;
-  background: string;
+  background: {
+    data: {
+      attributes: {
+        url: string;
+      };
+    };
+  };
 }
-
-const ApplyNow: React.FC = () => {
-  const [content, setContent] = useState<ApplyItems | null>(null);
-  const [loader, setLoader] = useState(false);
-  useEffect(() => {
-    fetchApply(setContent, setLoader);
-  }, []);
-  // Use the useInView hook to detect when the "offers" section is in view
+const ApplyNow: React.FC<ApplyItems> = ({
+  title,
+  description,
+  button,
+  background,
+}) => {
   return (
     <div className="applyComp">
       <div className="container">
-        <h3>{content ? content.title : "Open Account In 3 Minutes"}</h3>
-        <p>
-          {content
-            ? content.description
-            : "Don't have Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!"}
-        </p>
+        <h3>{title}</h3>
+        <p>{description}</p>
         <AnimatedShake>
-          <ApplyNowButton
-            target="_self"
-            link="/open-account"
-            text={content ? content.button : "apply now"}
-          />
+          <ApplyNowButton target="_self" link="/open-account" text={button} />
         </AnimatedShake>
       </div>
     </div>
@@ -701,61 +795,61 @@ interface HowItWorksItems {
   title: string;
   description: string;
 }
-const HowItWorks: React.FC = () => {
-  const howItWorksObejct = [
+interface HowItWorksItemsPro {
+  header: {
+    title: string;
+    description: string;
+  };
+  content: HowItWorksItems[];
+}
+const howItWorksObejct: HowItWorksItemsPro = {
+  header: {
+    title: "",
+    description: "",
+  },
+  content: [
     {
-      icon: <Description className="muicon" />,
-      title: "Create Your Account",
+      title: "Create Your Account!!!!!!!",
       description:
         "Don’t have a Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!",
     },
     {
-      icon: <PlayLesson className="muicon" />,
       title: "Your account Approved & Ready",
       description:
         "You will receive an e-mail with your account details, and you can begin depositing into it",
     },
     {
-      icon: <LocalAtm className="muicon" />,
       title: "Request For Loan",
       description:
         "You can use a different diaspora loan once you have a diaspora account",
     },
     {
-      icon: <PersonSearch className="muicon" />,
       title: "CoopBank Review Your Request",
       description:
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
     },
     {
-      icon: <PersonSearch className="muicon" />,
       title: "You will get the loan",
       description:
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
     },
-  ];
-
-  const [howItWorks, setHowItWorks] = useState<HowItWorksItems[]>([]);
-  const [loader, setLoader] = useState(false);
-  useEffect(() => {
-    fetchHowToWork(setHowItWorks, setLoader);
-  }, []);
+  ],
+};
+const HowItWorks: React.FC<HowItWorksItemsPro> = ({ header, content }) => {
   // Use the useInView hook to detect when the "offers" section is in view
   return (
     <div className="worksComp">
       <div className="container">
         <div className="header">
           <h3>
-            How It <span className="colouredspan">Works ?</span>{" "}
+            {/* How It <span className="colouredspan">Works ?</span>{" "} */}
+            {header.title}
           </h3>
-          <p>
-            Follow our step-by-step guide to creating an account and requesting
-            a loan
-          </p>
+          <p>{header.description}</p>
         </div>
         <div className="content">
           <div className="left">
-            {howItWorks.map((work, index) => (
+            {content.map((work, index) => (
               <div className="works">
                 {/* <div className="icon">{work.icon}</div> */}
                 <div className="iconNum">
@@ -786,30 +880,60 @@ interface HomeDataItems {
     stat: StatItems[];
   };
   apply: ApplyItems;
+  hero: HeroItemsComp;
+  HowItWork: {
+    header: {
+      id: number;
+      title: string;
+      description: string;
+    };
+    content: HowItWorksItems[];
+  };
+  offer: {
+    header: Header;
+    offers: WhatWeOfferItem[];
+  };
 }
 
 export function Home(props: IHomeProps) {
   const [datas, setData] = useState<HomeDataItems | null>(null);
+
   const [loader, setLoader] = useState(false);
   useEffect(() => {
     fetchHomePage(setData, setLoader);
   }, []);
+
+  if (loader) return <CoopLoader loader={loader} />;
+
   return (
     <div>
       {/* <Hero /> */}
-      <HeroSlides />
+      <HeroSlides slides={datas && datas.hero.slide} />
 
       <div className="halfpage">
-        <HowItWorks />
-        <ApplyNow />
+        <HowItWorks
+          header={datas ? datas.HowItWork.header : howItWorksObejct.header}
+          content={datas ? datas?.HowItWork.content : howItWorksObejct.content}
+        />
+        <ApplyNow
+          title={datas ? datas.apply.title : staticApply.title}
+          description={
+            datas ? datas.apply.description : staticApply.description
+          }
+          button={datas ? datas.apply.button : staticApply.button}
+          background={datas ? datas.apply.background : staticApply.background}
+        />
       </div>
 
-      <WhatWeOffer />
+      <WhatWeOffer
+        header={datas ? datas.offer.header : offers.header}
+        offers={datas ? datas?.offer.offers : offers.offers}
+      />
       {/* <Diasport /> */}
 
       <OfflineForm />
 
-      <Stats stat={datas && datas.stat.stat} />
+      <Stats stat={datas ? datas.stat.stat : staticStats} />
 
       {/* <UsefullDiasporaResourses /> */}
       <div id="money-transfer">

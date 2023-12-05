@@ -7,42 +7,11 @@ import { fetchSlides } from "../hooks/fetchStrapi";
 // import  from "embla-carousel-autoplay/components/Options";
 
 const strapiUrl = process.env.REACT_APP_STRAPI_URL;
-const data = [
-  {
-    topTitle: "Diaspora",
-    bottomTitle: "Banking",
-    description:
-      "CoopBank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis.",
-    url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
-    button: 2,
-  },
-  {
-    topTitle: "Diaspora",
-    bottomTitle: "Accounts",
-    description:
-      "Diaspora Banking Accounts allow Diasporas who resides and works outside the country to maintain and perform domestic and international transfers through their CoopBank Diaspora Accounts.",
-    url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png",
-    button: 0,
-  },
-  {
-    topTitle: "Diaspora",
-    bottomTitle: "Loan",
-    description:
-      "The bank provides business and investment loan along with expertise free consultancy services on different opportunities.",
-    url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2023/05/099A9988-2-1.png",
-    button: 1,
-  },
-];
 
-const HeroSlides = () => {
+const HeroSlides = ({ slides }) => {
   // Use the useInView hook to detect when the "offers" section is in view
   const navigate = useNavigate();
-  const [slides, setSlides] = useState([]);
-  const [loader, setLoader] = useState(false);
-  useEffect(() => {
-    fetchSlides(setSlides, setLoader);
-  }, []);
-  // console.log("slide:", slides);
+
   const nums = [2, 1];
   const autoplayOptions = {
     delay: 8000,
@@ -52,9 +21,15 @@ const HeroSlides = () => {
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef(null);
 
+  // function resetTimeout() {
+  //   if (timeoutRef.current) {
+  //     clearTimeout(timeoutRef.current);
+  //   }
+  // }
   function resetTimeout() {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(handleNext, 8000);
     }
   }
 
@@ -128,7 +103,8 @@ const HeroSlides = () => {
 
       timeoutRef.current = setTimeout(handleNext, 8000);
 
-      const newIndex = nextIndex === -1 ? (index + 1) % data.length : nextIndex;
+      const newIndex =
+        nextIndex === -1 ? (index + 1) % slides.length : nextIndex;
 
       setIndex(newIndex);
     }
@@ -145,7 +121,6 @@ const HeroSlides = () => {
         (slide) => slide === currentIndex
       );
       const lastIndex = slideElements.length - 1;
-
       embla.scrollPrev();
 
       if (timeoutRef.current) {
@@ -153,8 +128,14 @@ const HeroSlides = () => {
       }
 
       timeoutRef.current = setTimeout(handleNext, 8000);
-
       setIndex(previousIndex < 0 ? lastIndex : previousIndex);
+    }
+  };
+
+  const updateAutoplayTiming = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(handleNext, 8000);
     }
   };
 
@@ -163,63 +144,87 @@ const HeroSlides = () => {
     <div className="embla heroSlideComp" id="home">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((slide, index) => {
-            return (
-              <div className="container embla__slide" key={index}>
-                <div className="content">
-                  <div className="top">
-                    <h3>{slide.topTitle}</h3>
-                    <h2>{slide.bottomTitle}</h2>
-                  </div>
-                  <p className="discription">{slide.description}</p>
-                  <div className="hero_button_joins">
-                    <button
-                      className={`open_account ${
-                        !slide.buttons.includes(2) && `hide`
-                      }`}
-                      onClick={() => navigate("/open-account")}
-                    >
-                      <i aria-hidden="true" className="far fa-address-card"></i>{" "}
-                      <span>Open An Account</span>
-                    </button>
-                    <div
-                      className={`or-container ${
-                        !(
-                          slide.buttons.includes(2) && slide.buttons.includes(1)
-                        ) && `hide`
-                      }`}
-                    >
-                      <span className="or-sign">or</span>
+          {slides &&
+            slides.map((slide, index) => {
+              // console.log(slide);
+              return (
+                <div className="container embla__slide" key={index}>
+                  <div className="content">
+                    <div className="top">
+                      <h3>{slide.topTitle}</h3>
+                      <h2>{slide.bottomTitle}</h2>
                     </div>
-                    <button
-                      className={`loans ${
-                        !slide.buttons.includes(1) && `hide`
+                    <p className="discription">{slide.description}</p>
+                    <div className="hero_button_joins">
+                      <button
+                        className={`open_account ${
+                          !slide?.buttons?.data?.some(
+                            (button) => button.id === 2
+                          ) && "hide"
+                        }`}
+                        onClick={() => navigate("/open-account")}
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="far fa-address-card"
+                        ></i>{" "}
+                        <span>Open An Account</span>
+                      </button>
+                      <div
+                        className={`or-container ${
+                          !(
+                            slide?.buttons?.data?.some(
+                              (button) => button.id == 1
+                            ) &&
+                            slide?.buttons?.data?.some(
+                              (button) => button.id == 2
+                            )
+                          ) && `hide`
+                        }`}
+                      >
+                        <span className="or-sign">or</span>
+                      </div>
+                      <button
+                        className={` ${
+                          !slide?.buttons?.data?.some(
+                            (button) => button.id == 1
+                          ) && "hide"
+                        }`}
+                        onClick={() => navigate("/get-a-loan")}
+                      >
+                        <i
+                          aria-hidden="true"
+                          className="far fa-share-square"
+                        ></i>
+                        <span>Request A Loan</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="image">
+                    <img
+                      // src={`${strapiUrl.slice(0, -1)}${slide.url}`}
+                      src={`${strapiUrl.slice(0, -1)}${
+                        slide.url.data.attributes.url
                       }`}
-                      onClick={() => navigate("/get-a-loan")}
-                    >
-                      <i aria-hidden="true" className="far fa-share-square"></i>
-                      <span>Request A Loan</span>
-                    </button>
+                      // src={slide.url}
+                      // src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"
+                      alt="Coop bank"
+                    />
                   </div>
                 </div>
-                <div className="image">
-                  <img
-                    src={`${strapiUrl.slice(0, -1)}${slide.url}`}
-                    // src={slide.url}
-                    // src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"
-                    alt="Coop bank"
-                  />
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
 
       <div
         style={{ position: "absolute", left: 0, right: 0, marginTop: "-15px" }}
       >
-        <EmblaDots embla={embla} slides={data} />
+        <EmblaDots
+          embla={embla}
+          slides={slides}
+          updateAutoplayTiming={updateAutoplayTiming}
+        />
       </div>
     </div>
     // </div>

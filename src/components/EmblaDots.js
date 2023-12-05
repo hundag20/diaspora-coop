@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/EmblaDots.css'
 
-const EmblaDots = ({ embla, slides }) => {
+const EmblaDots = ({ embla, slides, updateAutoplayTiming }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
@@ -9,6 +9,7 @@ const EmblaDots = ({ embla, slides }) => {
 
     const onSelect = () => {
       setSelectedIndex(embla.selectedScrollSnap());
+      updateAutoplayTiming(); // Call the callback function to update autoplay timing
     };
 
     embla.on('select', onSelect);
@@ -16,7 +17,7 @@ const EmblaDots = ({ embla, slides }) => {
     return () => {
       embla.off('select', onSelect);
     };
-  }, [embla]);
+  }, [embla, updateAutoplayTiming]);
 
   if (!embla || !slides) return null;
 
