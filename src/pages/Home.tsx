@@ -25,7 +25,7 @@ import { Divider } from "../components/Divider";
 // import { Icon } from "@mui/material";
 
 // import { FaCheckCircle } from "react-icons/fa";
-import { BsCheck2Circle } from "react-icons/bs";
+// import { BsCheck2Circle } from "react-icons/bs";
 
 import Carousel from "../components/slideShow/carousel";
 import Gallery from "../components/slideShow/grid";
@@ -42,9 +42,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconName, icon, library } from "@fortawesome/fontawesome-svg-core";
 // Import all icons from solid package
-import * as solidIcons from "@fortawesome/free-solid-svg-icons";
+// import * as solidIcons from "@fortawesome/free-solid-svg-icons";
 
-import { Icon } from "@mdi/react";
+// import { Icon } from "@mdi/react";
 import * as mdiIcons from "@mdi/js";
 import * as Icons from "@material-ui/icons";
 
@@ -172,7 +172,8 @@ const Diasport: React.FC = () => {
           <ul>
             {item.bullets.map((bullet, bulletIndex) => (
               <li key={bulletIndex}>
-                <BsCheck2Circle className="icon" /> {bullet}
+                {/* <BsCheck2Circle className="icon" />  */}
+                {bullet}
               </li>
             ))}
           </ul>

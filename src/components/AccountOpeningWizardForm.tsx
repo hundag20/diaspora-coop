@@ -1402,7 +1402,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             data-element="upload-2_651becd154b31"
                             aria-describedby="form-field-upload-2_651becd154b31-description"
                           >
-                            <FileUpload
+                            <ImageUpload
                               error={errors.photo ? true : false}
                               name="upload-2[]"
                               stateFunction={photo}

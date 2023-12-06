@@ -1,4 +1,6 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import "../styles/variable.scss";
+
 .loan-form-container {
   display: flex;
   justify-content: center;
@@ -355,12 +357,38 @@
       }
 
       .image-upload-container {
+        display: flex;
+        justify-content: left;
+        gap: 1rem;
         .imageHolder {
         }
         img {
           height: 160px;
           width: auto;
           max-width: 100%;
+        }
+        .action {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+
+          button {
+            padding: 8px 14px;
+            width: 100%;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            line-height: 25px;
+            background-color: $primary;
+            color: white;
+          }
+          .selfie {
+            background-color: $third;
+            color: white;
+          }
         }
       }
     }

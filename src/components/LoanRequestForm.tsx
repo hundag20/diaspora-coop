@@ -1,8 +1,9 @@
 import { Button, Grid } from "@mui/material";
 import "../styles/form.scss";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import personPlaceholder from "../assets/img/person.jpg";
 import SignatureDialog from "./SignatureDialog";
+import PhotoCaptureButton from "./TakePicture";
 export interface ILoanRequestlangmProps {}
 
 export const currency = [
@@ -1013,6 +1014,13 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
   const [fileUploadLabel, setFileUploadLabel] = useState("No file chosen");
   const [imgPre, setImgPre] = useState<string | null>("");
 
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [photoURL, setPhotoURL] = useState<string | null>(null);
+
+  const handleCapture = useCallback((photoSrc: string | null) => {
+    setImgPre(photoSrc);
+  }, []);
+
   const fileUploadHandler = (e: any) => {
     if (e.target.files.length > 0) {
       const fileNames = Array.from(e.target.files).map(
@@ -1049,34 +1057,6 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
         onChange={fileUploadHandler}
         required
       />
-      {imgPre ? (
-        ""
-      ) : (
-        // <div className="image-upload-container">
-        //   <div className="imageHolder">
-        //     {/* <img src={imgPre || ""} alt="img" /> */}
-        //   </div>
-        //   {/* <div>
-        //     <button>upload</button>
-        //     <button>take a picture</button>
-        //   </div> */}
-        // </div>
-        <div className="file-upload-label" aria-hidden="true">
-          <i className="fas fa-cloud-upload-alt"></i>
-          <p>
-            Drag and Drop (or) <span>Choose Files</span> or{" "}
-            <span
-              onClick={() => {
-                console.log("hi");
-              }}
-            >
-              Take a photo
-            </span>
-            <br />
-            {stateFunction?.name || "No file chosen"}
-          </p>
-        </div>
-      )}
       {/* <div className="file-upload-label" aria-hidden="true">
         <i className="fas fa-cloud-upload-alt"></i>
         <p>
@@ -1085,6 +1065,25 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
           {stateFunction?.name || "No file chosen"}
         </p>
       </div> */}
+      <div className="image-upload-container">
+        <div className="imageHolder">
+          <img src={imgPre || personPlaceholder} alt="img" />
+        </div>
+        <div className="action">
+          <button className="upload">upload</button>
+          <Button onClick={() => setDialogOpen(true)} className="selfie">
+            Take a Selfie
+          </Button>
+        </div>
+        {/* <Grid xs={12} sm={6}> */}
+        <PhotoCaptureButton
+          open={isDialogOpen}
+          onClose={() => setDialogOpen(false)}
+          onOpen={() => setDialogOpen(true)}
+          onSave={setStateFunction}
+          onCapture={handleCapture}
+        />
+      </div>
     </div>
   );
 };
