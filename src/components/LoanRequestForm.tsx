@@ -904,7 +904,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     }
   };
 
-  console.log("file emp:", stateFunction === null);
+  console.log("file emp:", stateFunction);
+  console.log("file emp:", stateFunction !== null);
 
   return (
     <div>
@@ -943,10 +944,12 @@ export const SignatureUpload: React.FC<FileUploadProps> = ({
   name,
   stateFunction,
   setStateFunction,
+  error,
 }) => {
   const [fileUploadLabel, setFileUploadLabel] = useState("No file chosen");
   const [openSignatureDialog, setOpenSignatureDialog] = useState(false);
   const [signature, setSignature] = useState<string | null>(null);
+  // console.log("sign:", signature);
 
   const handleOpenSignatureDialog = () => {
     setOpenSignatureDialog(true);
@@ -956,8 +959,10 @@ export const SignatureUpload: React.FC<FileUploadProps> = ({
     setOpenSignatureDialog(false);
   };
 
-  const handleSaveSignature = (signature: string) => {
-    setSignature(signature);
+  const handleSaveSignature = (sign: File) => {
+    console.log("han", sign);
+
+    setStateFunction(sign);
   };
 
   const fileUploadHandler = (e: any) => {
@@ -988,7 +993,12 @@ export const SignatureUpload: React.FC<FileUploadProps> = ({
         onChange={fileUploadHandler}
         required
       />
-      <div className="file-upload-label" aria-hidden="true">
+      <div
+        className={`${
+          stateFunction !== null ? "success" : error ? "error" : ""
+        } file-upload-label`}
+        aria-hidden="true"
+      >
         <i className="fas fa-cloud-upload-alt"></i>
         <p>
           Drag and Drop (or) <span>Choose Files</span>
@@ -996,12 +1006,16 @@ export const SignatureUpload: React.FC<FileUploadProps> = ({
           {stateFunction?.name || "No file chosen"}
         </p>
       </div>
-      <Button onClick={handleOpenSignatureDialog}>Open Signature Dialog</Button>
+      <div className="signatureContainer">
+        <p>or</p>
+        <Button onClick={handleOpenSignatureDialog}>Sign Here</Button>
+      </div>
       <SignatureDialog
         open={openSignatureDialog}
         onClose={handleCloseSignatureDialog}
         onSave={handleSaveSignature}
       />
+      {/* {signature && <img src={signature} alt="signature" />} */}
     </div>
   );
 };

@@ -21,8 +21,18 @@ const SignatureDialog = ({ open, onClose, onSave }) => {
 
   const handleSave = () => {
     if (signatureRef.current) {
-      const signature = signatureRef.current.toDataURL();
-      onSave(signature);
+      const canvas = signatureRef.current.getCanvas();
+
+      // Convert the canvas content to a Blob
+      canvas.toBlob((blob) => {
+        // Create a file from the Blob
+        const file = new File([blob], "signature.png", { type: "image/png" });
+
+        // Pass the file to the onSave function
+        onSave(file);
+      });
+
+      // Close the signature dialog or perform any other necessary actions
       onClose();
     }
   };

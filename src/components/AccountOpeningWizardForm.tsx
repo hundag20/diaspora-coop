@@ -1498,9 +1498,9 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             data-element="upload-2_651becd154b31"
                             aria-describedby="form-field-upload-2_651becd154b31-description"
                           >
-                            <FileUpload
-                              error={errors.signature ? true : false}
+                            <SignatureUpload
                               name="upload-2[]"
+                              error={errors.signature ? true : false}
                               stateFunction={signature}
                               setStateFunction={setSignature}
                             />
