@@ -41,6 +41,9 @@
 .accountselect.error {
   color: red;
 }
+.accountselect.success {
+  color: rgb(0, 255, 42);
+}
 .form-row {
   .form-title {
     p {
@@ -99,6 +102,9 @@
       // display: none;
       color: red;
       // border: 1px solid red;
+    }
+    .success {
+      color: rgb(0, 255, 42);
     }
     //input fields
     input {
@@ -268,6 +274,9 @@
       }
       .file-upload-label.error {
         background-color: #ffe0da;
+      }
+      .file-upload-label.success {
+        background-color: #b7ffc6;
       }
       .file-upload-label {
         svg {

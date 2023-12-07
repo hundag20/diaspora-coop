@@ -2,7 +2,12 @@
 
 .halfpage {
   display: flex;
+  flex-direction: column;
   width: 100%;
+
+  @include breakpoint(mdP) {
+    flex-direction: row;
+  }
 }
 
 .heroComp {
@@ -405,13 +410,13 @@
 .statsComp {
   background-color: $primary;
   width: 100%;
-
+  font-family: "Source Sans Pro", sans-serif;
   z-index: 2;
   .container {
     padding: 2rem $resPadding;
 
     @include breakpoint(md) {
-      padding: 4rem $resPadding;
+      padding: 5rem $resPadding;
     }
 
     .stats {
@@ -422,7 +427,20 @@
       align-items: center;
 
       @include breakpoint(md) {
+        // flex-direction: row;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: calc(1rem + 6vw);
+        justify-content: center;
+        align-items: center;
+      }
+      @include breakpoint(mdPP) {
         flex-direction: row;
+        display: flex;
+        // flex-direction: column;
+        justify-content: center;
+        gap: calc(1rem + 6vw);
+        align-items: center;
       }
 
       .stat {
@@ -441,13 +459,14 @@
           flex-direction: column;
           align-items: center;
           justify-content: center;
+          margin-bottom: 10px;
 
           .muicon {
             color: white;
             margin: 10px;
             padding: 5px;
-            width: 90px; /* Set the width and height to create a perfect circle */
-            height: 90px;
+            width: 70px; /* Set the width and height to create a perfect circle */
+            height: 70px;
             text-align: center;
             font-size: 25px;
           }
@@ -462,6 +481,7 @@
 
         .title {
           margin: 0;
+          margin-top: 5px;
           font-size: 21px;
           line-height: 28px;
           text-align: center;
@@ -535,14 +555,17 @@
         background-color: white;
         border-radius: 20px;
         // box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.2);
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-          rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        // box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        //   rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+          rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        transition: all 0.3s;
         @include breakpoint(md) {
-          padding: 40px 15px;
-          width: 400px;
+          padding: 40px 10px;
+          width: 380px;
         }
         @include breakpoint(mdP) {
-          padding: 50px 30px;
+          padding: 50px 20px;
         }
 
         .icon {
@@ -590,8 +613,10 @@
       }
       .offer:hover {
         cursor: pointer;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-          rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        // box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+        // rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+          rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
         transition: 0.3s ease;
       }
     }

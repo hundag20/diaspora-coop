@@ -3,74 +3,110 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import "../../styles/keen.css";
 
+import amalLogo from '../../assets/img/remit/amal.jpg';
+import bakaalLogo from '../../assets/img/remit/bakaal.jpg';
+import paysiiLogo from '../../assets/img/remit/unnamed-e1662769303214.png';
+import thunesLogo from '../../assets/img/remit/thunes-logo.jpg';
+import cashexpressLogo from '../../assets/img/remit/cash-express-logo.jpg';
+import westernunionLogo from '../../assets/img/remit/westernunion.jpg';
+import worldremitLogo from '../../assets/img/remit/worldremit.jpg';
+import swiftLogo from '../../assets/img/remit/swift.jpg';
+import tran4Logo from '../../assets/img/remit/transfast.jpg';
+import riaLogo from '../../assets/img/remit/ria.jpg';
+import smallworldLogo from '../../assets/img/remit/smallworld.jpg';
+import ethioremitLogo from '../../assets/img/remit/E-remit.jpg';
+import kaahexpressLogo from '../../assets/img/remit/kaah.jpg';
+import moneygramLogo from '../../assets/img/remit/moneygram.jpg';
+import bananapaysLogo from '../../assets/img/remit/Banana-Pay.jpg';
+import dahabashiilLogo from '../../assets/img/remit/dahabashiil.jpg';
+import xpressLogo from '../../assets/img/remit/xpress-money.jpg';
+import { Link } from "react-router-dom";
+
 const photos = [
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/amal.jpg",
+    src: amalLogo,
     alt: "",
+    link: "https://www.amalexpress.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/bakaal.jpg",
+    src: bakaalLogo,
     alt: "",
+    link: "https://www.bakaal.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/unnamed-e1662769303214.png",
+    src: paysiiLogo,
     alt: "",
+    link: "https://www.paysii.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/thunes-logo-1-e1662769344227.jpg",
+    src: thunesLogo,
     alt: "",
+    link: "https://www.thunes.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/wcemt.jpg",
+    src: cashexpressLogo,
     alt: "",
+    link: "https://cashexpress.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/westernunion.jpg",
+    src: westernunionLogo,
     alt: "",
+    link: "https://www.westernunion.com/us/en/home.html"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/worldremit.jpg",
+    src: worldremitLogo,
     alt: "",
+    link: "https://www.worldremit.com/en?irclickid=ySWVNv35SxyPRVKUCQUItSrfUkFX6HQr1RZQxg0&utm_medium=Affiliate&utm_source=Impact&utm_campaign=17563&utm_content=Online+Tracking+Link&utm_term=40052&irgwc=1&amountfrom=100.00&selectfrom=gb&currencyfrom=gbp&selectto=ph&currencyto=php&transfer=bnk"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/swift.jpg",
+    src: swiftLogo,
     alt: "",
+    link: "https://www.swift.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/transfast.jpg",
+    src: tran4Logo,
     alt: "",
+    link: "https://www.transfast.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/ria.jpg",
+    src: riaLogo,
     alt: "",
+    link: "https://www.riamoneytransfer.com/en-us/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/smallworld.jpg",
+    src: smallworldLogo,
     alt: "",
+    link: "https://www.smallworldfs.com/en"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/E-remit.jpg",
+    src: ethioremitLogo,
     alt: "",
+    link: "https://www.ethioremit.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/kaah.jpg",
+    src: kaahexpressLogo,
     alt: "",
+    link: "https://www.kaahexpress.eu/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/moneygram.jpg",
+    src: moneygramLogo,
     alt: "",
+    link: "https://www.moneygram.com/mgo/us/en/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/Banana-Pay.jpg",
+    src: bananapaysLogo,
     alt: "",
+    link: "https://www.bananapays.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/dahabashiil.jpg",
+    src: dahabashiilLogo,
     alt: "",
+    link: "https://www.dahabshiil.com/"
   },
   {
-    src: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/06/xpress-money.jpg",
+    src: xpressLogo,
     alt: "",
+    link: "https://www.federalbank.co.in/xpress-money"
   },
 ];
 
@@ -117,8 +153,6 @@ export default () => {
     ]
   );
 
-  // State to track the number of slides to show based on window width
-
   // Update the number of slides to show based on the window width
   useEffect(() => {
     const handleResize = () => {
@@ -147,9 +181,11 @@ export default () => {
   return (
     <div ref={sliderRef} className="keen-slider">
       {photos.map((item) => (
-        <div className="keen-slider__slide number-slide1">
-          <img src={item.src} alt="" height={"100%"} />
-        </div>
+        <Link to={item.link} target="_blank">
+          <div className="keen-slider__slide number-slide1">
+            <img src={item.src} alt="" height={"100%"} />
+          </div>
+        </Link>
       ))}
       {/* <div className="keen-slider__slide number-slide2">2</div>
       <div className="keen-slider__slide number-slide3">3</div>

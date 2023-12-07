@@ -4,6 +4,7 @@ import { AccountOpeningForm } from "./AccountOpeningForm";
 import "../styles/accountOpening.scss";
 import { SwiftCode } from "./SwiftCode";
 import { AccountOpeningWizardForm } from "./AccountOpeningWizardForm";
+import { useState } from "react";
 
 const DiasporaAccountInfo = {
   title: "DIASPORA ACCOUNT",
@@ -30,10 +31,11 @@ export interface IAccountOpeningProps {
 }
 
 export function AccountOpening(props: IAccountOpeningProps) {
+  const [accountType, setAccountType] = useState<TProductType>("conventional");
   const Title = () => (
     <Grid container xs={11}>
       <Grid item xs={12}>
-        <div className={`container-title ${props.productType}`}>
+        <div className={`container-title ${accountType}`}>
           <h2 className={props.productType}>Online Account Opening Form </h2>
         </div>
       </Grid>
@@ -44,14 +46,38 @@ export function AccountOpening(props: IAccountOpeningProps) {
     <div className="open-account">
       <TopBanner
         containerClass="gl hd-container"
-        overlayClass={`gl hd-background-overlay ${props.productType}`}
+        overlayClass={`gl hd-background-overlay ${accountType}`}
+        // overlayClass={`gl hd-background-overlay ${props.productType}`}
         contentClass="gl hd-content"
         footerClass="gl hd-footer"
         contentHeader={props.accountType}
         contentParagraph={props.headerSubTitle}
+        accountType={accountType}
+        setAccountType={setAccountType}
       />
       <div className="container">
         <Title />
+        {accountType && (
+          <div className="accountType">
+            {/* <h4 className="head">Choose account type</h4> */}
+            <div className="accountButtons">
+              <button
+                className={
+                  accountType === "conventional" ? "active left" : "left"
+                }
+                onClick={() => setAccountType!("conventional")}
+              >
+                conventional
+              </button>
+              <button
+                className={accountType === "alhuda" ? "active right" : "right"}
+                onClick={() => setAccountType!("alhuda")}
+              >
+                alhuda
+              </button>
+            </div>
+          </div>
+        )}
         <Grid
           container
           xs={11}
@@ -62,7 +88,7 @@ export function AccountOpening(props: IAccountOpeningProps) {
           <Grid item xs={12} md={12}>
             {/* <AccountOpeningForm productType={props.productType} /> */}
 
-            <AccountOpeningWizardForm productType={props.productType} />
+            <AccountOpeningWizardForm productType={accountType} />
           </Grid>
           {/* <Grid item xs={12} md={2.8}>
             <div className="product-info-side">

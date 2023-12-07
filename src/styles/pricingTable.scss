@@ -2,10 +2,30 @@
 @import "../styles/variable.scss";
 .pricing-table {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   margin: 40px 60px;
   font-family: $Poppins;
   gap: 2rem;
+
+  @include breakpoint(md) {
+    // flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: calc(1rem + 6vw);
+    justify-content: center;
+    align-items: center;
+  }
+
+  @include breakpoint(mdPP) {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: start;
+    margin: 40px 60px;
+    font-family: $Poppins;
+    gap: 2rem;
+  }
 }
 
 .mui-card.active {
@@ -20,6 +40,9 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
+
+  @include breakpoint(md) {
+  }
   .front {
     // height: 500px;
     display: flex;

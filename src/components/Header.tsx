@@ -3,6 +3,7 @@ import cooplogo from "../assets/img/cooplogo.png";
 import "../styles/headers.scss";
 import MainButton from "./Buttons/mainButton";
 import { useEffect, useState } from "react";
+import { HashLink } from "react-router-hash-link";
 import {
   Facebook,
   Instagram,
@@ -19,7 +20,12 @@ import {
   Close,
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useLocation, useNavigate, useNavigation } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -32,10 +38,17 @@ const menuItems = [
     label: "Home",
     route: "/",
   },
+  {
+    label: "Money Transfer",
+    hash: "#money",
+    route: "/#money-transfer",
+    // route: "/money-transfer-service",
+  },
   // {
   //   label: "About",
   //   route: "/about",
   // },
+
   {
     label: "Open Account",
     route: "/open-account",
@@ -55,6 +68,7 @@ const menuItems = [
     //     icon: <RequestQuote className="muicon" />,
     //     route: "/diaspora-non-depreciable-account",
     //   },
+
     //   {
     //     name: "ECOLFL Savings Account",
     //     icon: <Badge className="muicon" />,
@@ -67,33 +81,30 @@ const menuItems = [
     route: "/get-a-loan",
   },
   {
-    label: "Money Transfer",
-    route: "/money-transfer-service",
-  },
-  {
     label: "Coopbank Alhuda Diaspora",
-    subMenu: [
-      {
-        name: "About CoopBank Alhuda",
-        icon: <Mosque className="muicon" />,
-        route: "/about-coopbank-alhuda",
-      },
-      {
-        name: "Diaspora Wadia Saving Account",
-        icon: <Badge className="muicon" />,
-        route: "/diaspora-wadia-savings-account",
-      },
-      {
-        name: "Diaspora Mudarabah Savings Account",
-        icon: <PriceChange className="muicon" />,
-        route: "/diaspora-mudarabah-savings-account",
-      },
-      {
-        name: "Diaspora Mudarabah Fixed Term Deposit",
-        icon: <Person className="muicon" />,
-        route: "/diaspora-mudarabah-fixed-term-deposit",
-      },
-    ],
+    route: "/about-coopbank-alhuda",
+    // subMenu: [
+    //   {
+    //     name: "About CoopBank Alhuda",
+    //     icon: <Mosque className="muicon" />,
+    //     route: "/about-coopbank-alhuda",
+    //   },
+    //   {
+    //     name: "Diaspora Wadia Saving Account",
+    //     icon: <Badge className="muicon" />,
+    //     route: "/diaspora-wadia-savings-account",
+    //   },
+    //   {
+    //     name: "Diaspora Mudarabah Savings Account",
+    //     icon: <PriceChange className="muicon" />,
+    //     route: "/diaspora-mudarabah-savings-account",
+    //   },
+    //   {
+    //     name: "Diaspora Mudarabah Fixed Term Deposit",
+    //     icon: <Person className="muicon" />,
+    //     route: "/diaspora-mudarabah-fixed-term-deposit",
+    //   },
+    // ],
   },
 ];
 
@@ -263,11 +274,11 @@ export function Header(props: IHeaderProps) {
       return true; // The current menu item has a route matching the current location
     }
 
-    if (menuItem.subMenu) {
-      return menuItem.subMenu.some(
-        (subItem) => location.pathname === subItem.route
-      );
-    }
+    // if (menuItem.subMenu) {
+    //   return menuItem.subMenu.some(
+    //     (subItem) => location.pathname === subItem.route
+    //   );
+    // }
 
     return false; // No match found for this menu item
   };
@@ -307,15 +318,17 @@ export function Header(props: IHeaderProps) {
                 // className={`menu-item ${
                 //   menuItem.subMenu ? "has-submenu" : ""
                 // } ${currentRoute === (menuItem.route || "") ? "active" : ""}`}
-                className={`menu-item ${
-                  menuItem.subMenu ? "has-submenu" : ""
-                } ${hasActiveSubmenu(index) ? "active" : ""} ${
+                // ${
+                //   menuItem.subMenu ? "has-submenu" : ""
+                // }
+                className={`menu-item 
+                ${hasActiveSubmenu(index) ? "active" : ""} ${
                   isSubMenuOpen(index) ? "open" : ""
                 }`}
                 onMouseEnter={() => handleSubMenuToggle(index)}
                 onMouseLeave={() => handleSubMenuToggle(null)}
               >
-                {menuItem.subMenu ? (
+                {/* {menuItem.subMenu ? (
                   <>
                     <span className="main">
                       {menuItem.label}
@@ -342,7 +355,6 @@ export function Header(props: IHeaderProps) {
                             >
                               <div className="icon">{subItem.icon}</div>
                               <span className="submenu-label">
-                                {/* label */}
                                 {subItem.name}
                               </span>
                             </div>
@@ -351,16 +363,19 @@ export function Header(props: IHeaderProps) {
                       </motion.div>
                     )}
                   </>
-                ) : (
-                  <span
-                    className="main"
-                    {...(menuItem.route && {
-                      onClick: () => navigate(menuItem.route),
-                    })}
-                  >
-                    {menuItem.label}
-                  </span>
-                )}
+                ) :  */}
+                {/* ( */}
+                {/* {...(menuItem.route && {
+                    onClick: () => navigate(menuItem.route),
+                  })} */}
+                <HashLink
+                  smooth
+                  style={{ color: "inherit" }}
+                  to={menuItem.route || "/"}
+                >
+                  <span className="main">{menuItem.label}</span>
+                </HashLink>
+                {/* )} */}
               </li>
             ))}
           </ul>
@@ -409,9 +424,10 @@ export function Header(props: IHeaderProps) {
                 {menuItems.map((menuItem, index) => (
                   <li
                     key={index}
-                    className={`menu-item ${
-                      menuItem.subMenu ? "has-submenu" : ""
-                    }
+                    // ${
+                    //   menuItem.subMenu ? "has-submenu" : ""
+                    // }
+                    className={`menu-item 
                     ${hasActiveSubmenu(index) ? "active" : ""} ${
                       isSubMenuOpen(index) ? "open" : ""
                     }`}
@@ -419,12 +435,12 @@ export function Header(props: IHeaderProps) {
                     onMouseLeave={() => handleSubMenuToggle(null)}
                     {...(menuItem.route && {
                       onClick: () => {
-                        navigate(menuItem.route);
+                        // navigate(menuItem.route);
                         setShowMobileMenu(false);
                       },
                     })}
                   >
-                    {menuItem.subMenu ? (
+                    {/* {menuItem.subMenu ? (
                       <>
                         <span
                           className="main"
@@ -464,9 +480,11 @@ export function Header(props: IHeaderProps) {
                           </div>
                         )}
                       </>
-                    ) : (
+                    ) :  */}
+                    <HashLink smooth to={menuItem.route}>
                       <span className="main">{menuItem.label}</span>
-                    )}
+                    </HashLink>
+                    {/* } */}
                   </li>
                 ))}
               </ul>

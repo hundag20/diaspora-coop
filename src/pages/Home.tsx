@@ -51,6 +51,7 @@ import * as Icons from "@material-ui/icons";
 import * as icons from "@material-ui/icons";
 import stringSimilarity from "string-similarity";
 import useIcons from "../components/icon";
+import { fetchHomePage } from "../hooks/fetchFullStrapi";
 
 export interface IHomeProps {}
 
@@ -477,7 +478,10 @@ interface StatItems {
 interface StatComponentProps {
   offer: StatItems;
 }
-const Stats: React.FC = () => {
+interface StatHomeProps {
+  stat: StatItems[] | null;
+}
+const Stats: React.FC<StatHomeProps> = ({ stat }) => {
   const stats: StatItems[] = [
     {
       icon: "elementskit-funfact-icon fas fa-users",
@@ -501,11 +505,11 @@ const Stats: React.FC = () => {
     },
   ];
 
-  const [stat, setStat] = useState<StatItems[]>([]);
-  const [loader, setLoader] = useState(false);
-  useEffect(() => {
-    fetchStats(setStat, setLoader);
-  }, []);
+  // const [stat, setStat] = useState<StatItems[]>(props.stat);
+  // const [loader, setLoader] = useState(false);
+  // useEffect(() => {
+  //   fetchStats(setStat, setLoader);
+  // }, []);
   console.log("stat", stat);
 
   // Use the useInView hook to detect when the "offers" section is in view
@@ -557,14 +561,14 @@ const Stats: React.FC = () => {
                 ? Math.round(offer.value / 1000000)
                 : offer.value >= 1000
                 ? Math.round(offer.value / 1000)
-                : offer.value
+                : Math.round(offer.value)
             } // Set the target value to animate to
             duration={2.5} // Set the animation duration
             fontFamily="Arial" // Set the font family
             fontSize={60} // Set the font size
             color="#ffffff" // Set the color
           />
-          {offer.value >= 1000000 ? "M" : offer.value >= 1000 ? "K" : ""} +
+          {offer.value >= 1000000 ? " M" : offer.value >= 1000 ? " K" : ""} +
         </h3>
 
         <p className="title">{offer.title}</p>
@@ -583,9 +587,10 @@ const Stats: React.FC = () => {
     >
       <div className="container">
         <div className="stats">
-          {stat.map((statof, index) => (
-            <StatComponent key={index} offer={statof} />
-          ))}
+          {stat &&
+            stat.map((statof, index) => (
+              <StatComponent key={index} offer={statof} />
+            ))}
         </div>
       </div>
     </motion.div>
@@ -675,7 +680,7 @@ const ApplyNow: React.FC = () => {
 const Remittance: React.FC = () => {
   // Use the useInView hook to detect when the "offers" section is in view
   return (
-    <div className="slideShowComp">
+    <div className="slideShowComp" id="#money">
       <div className="container">
         <h3>
           International <span className="colouredspan">Remittance</span>{" "}
@@ -776,7 +781,20 @@ const HowItWorks: React.FC = () => {
   );
 };
 
+interface HomeDataItems {
+  stat: {
+    id: number;
+    stat: StatItems[];
+  };
+  apply: ApplyItems;
+}
+
 export function Home(props: IHomeProps) {
+  const [datas, setData] = useState<HomeDataItems | null>(null);
+  const [loader, setLoader] = useState(false);
+  useEffect(() => {
+    fetchHomePage(setData, setLoader);
+  }, []);
   return (
     <div>
       {/* <Hero /> */}
@@ -792,11 +810,12 @@ export function Home(props: IHomeProps) {
 
       <OfflineForm />
 
-      <Stats />
+      <Stats stat={datas && datas.stat.stat} />
 
       {/* <UsefullDiasporaResourses /> */}
-
-      <Remittance />
+      <div id="money-transfer">
+        <Remittance />
+      </div>
     </div>
   );
 }

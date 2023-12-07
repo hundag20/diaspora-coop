@@ -3,9 +3,12 @@ import { TopBanner } from "../components/TopBanner";
 import "../styles/getaloan.scss";
 import { LoanRequestForm } from "../components/LoanRequestForm";
 import { useNavigate } from "react-router-dom";
+import DiasporaResources from "../components/DiasporaResources";
+import { useState } from "react";
 
 export interface IGetALoanProps {}
 
+export type TProductType = "conventional" | "alhuda";
 const loanTypes = [
   {
     icon: <i aria-hidden="true" className="fas fa-home"></i>,
@@ -90,10 +93,10 @@ const LoanItems = () => (
             </p>
           </div>
         </div>
-        <div className="loan-item-footer">
+        {/* <div className="loan-item-footer">
           <i className="fas fa-arrow-circle-right"></i>
           <a href="#Loan_Request">Are You Interested?</a>
-        </div>
+        </div> */}
       </Grid>
     ))}
   </Grid>
@@ -109,6 +112,7 @@ const LoanCalculatorButton = () => {
 };
 
 export function GetALoan(props: IGetALoanProps) {
+  const [accountType, setAccountType] = useState<TProductType>("conventional");
   return (
     <div className="get-a-loan">
       <TopBanner
@@ -116,15 +120,18 @@ export function GetALoan(props: IGetALoanProps) {
         overlayClass="gl hd-background-overlay"
         contentClass="gl hd-content"
         footerClass="gl hd-footer"
-        contentHeader="Disapora Accounts"
+        contentHeader="Disapora Loans"
         contentParagraph="Always there for your Diaspora Banking Needs!"
+        // accountType={accountType}
+        // setAccountType={setAccountType}
       />
 
       <div className="container">
         <Title />
         <LoanItems />
         <LoanCalculatorButton />
-        <LoanRequestForm />
+        {/* <LoanRequestForm /> */}
+        {/* <DiasporaResources /> */}
       </div>
     </div>
   );
