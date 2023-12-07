@@ -219,7 +219,8 @@ const WhatWeOffer: React.FC = () => {
       icons: <Handyman className="muicon" />,
       title: "Working Capital Loan",
       description:
-        "Mortgage/ Home loan is a secured Long-Term Loans provided to Ethiopian diaspora communities to purchase or construct real estate and homes in Ethiopia. The loan product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
+    "Diaspora Working Capital Loan is a loan provided to eligible Ethiopian Diasporas to finance their business’s everyday operations. These loans are used to provide the working capital that covers a Diaspora’s business short-term operational needs.",
+
     },
   ];
 
