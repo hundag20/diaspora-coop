@@ -175,8 +175,9 @@
           align-self: flex-start;
          width: inherit;
             .account-collapse{
-         display: block;
-         position: static;
+         display: flex;
+         position: relative;
+         column-gap: 2em;
             }:hover{
               // font-size: 5rem;
               cursor: pointer;
