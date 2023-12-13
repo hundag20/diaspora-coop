@@ -228,7 +228,7 @@ export const AccountTypes_Alhuda = () => {
                         </li>
                       ))}
                   </ul>
-                  <hr />
+                  {/* <hr /> */}
                 </div>
               )}
             </div>
