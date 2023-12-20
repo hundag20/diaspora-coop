@@ -45,6 +45,7 @@ const steps = [
 
 export interface IAccountOpeningFormProps {
   productType: TProductType;
+  prevData: FormItem | null;
 }
 
 interface FormItem {
@@ -105,7 +106,11 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   );
 
   useEffect(() => {
-    if (localStorage.getItem("coopaccountopeninginfo")) {
+    if (props.prevData !== null) {
+      console.log("oassed data:", props.prevData);
+
+      setFormData(props.prevData);
+    } else if (localStorage.getItem("coopaccountopeninginfo")) {
       const previousData =
         JSON.parse(localStorage.getItem("coopaccountopeninginfo") || "") ||
         initialAccountState;
@@ -135,7 +140,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
       };
       setFormData(newData);
     }
-  }, []);
+  }, [props.prevData]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -550,10 +555,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           stepErrors.branch = true;
           stepIsValid = false;
         }
-        if (
-          formData.initialDeposit === null ||
-          formData.initialDeposit <= 100
-        ) {
+        if (formData.initialDeposit === null || formData.initialDeposit < 100) {
           stepErrors.initialDeposit = true;
           stepIsValid = false;
         }
@@ -1259,10 +1261,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               </FormControl>
                               <div className="deposit-notice">
                                 <span>
-                                  Minimum of 100 dollars should be on your
-                                  Diaspora Account in less than one month,
-                                  otherwise your account automatically be
-                                  inactive
+                                  Minimum of 100{" "}
+                                  {formData.currency &&
+                                    currency[formData.currency - 1].name}{" "}
+                                  should be on your Diaspora Account in less
+                                  than one month, otherwise your account
+                                  automatically be inactive
                                 </span>
                               </div>
                             </div>

@@ -48,7 +48,7 @@ export const fetchHomePage = (setState, setLoader) => {
   const dynamicURL = baseUrl + buildDynamicURL(params);
   console.log(dynamicURL);
   axios
-    .get(`${apiUrl}api/home-page?populate[hero][populate][header][populate]=*&populate[hero][populate][slide][populate]=*&populate[apply][populate][background][populate]=*&populate[stat][populate]=*&populate[HowItWork][populate]=*&populate[offer][populate]=*`)
+    .get(`${apiUrl}api/home-page?populate[hero][populate][header][populate]=*&populate[hero][populate][slide][populate]=*&populate[apply][populate]=*&populate[stat][populate]=*&populate[HowItWork][populate]=*&populate[offer][populate]=*`)
     .then((res) => {
       console.log("res:", res);
       // Convert data to the desired format

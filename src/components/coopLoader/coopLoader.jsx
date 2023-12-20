@@ -1,4 +1,4 @@
-import loader from "../../assets/cooplmsloader.gif";
+import img from "../../assets/cooplmsloader.gif";
 import "./coopLoader.scss";
 // import { UserContext } from "../../../App";
 
@@ -10,7 +10,7 @@ export default function CoopLoader({ loader }) {
         <div className="coopLoad">
           <div className="wrapper">
             <div>
-              <img src={loader} alt="loading..." />
+              <img src={img} alt="loading..." />
             </div>
           </div>
         </div>

@@ -4,7 +4,11 @@ import { AccountOpeningForm } from "./AccountOpeningForm";
 import "../styles/accountOpening.scss";
 import { SwiftCode } from "./SwiftCode";
 import { AccountOpeningWizardForm } from "./AccountOpeningWizardForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const DiasporaAccountInfo = {
   title: "DIASPORA ACCOUNT",
@@ -30,8 +34,58 @@ export interface IAccountOpeningProps {
   benefits: string[];
 }
 
+interface FormItem {
+  id: number | null;
+  accountType: number | null;
+  fullName: string;
+  surname: string;
+  motherName: string;
+  email: string;
+  phone: string;
+  streetAddress: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+  occupation: string;
+  initialDeposit: number | null;
+  monthlyIncome: number | null;
+  sex: string;
+  confirm: boolean;
+  branch: string;
+  currency: number | null;
+  stage: string;
+  error: string | boolean;
+  percentageCompleted: number;
+  // add other properties as needed
+}
+
 export function AccountOpening(props: IAccountOpeningProps) {
   const [accountType, setAccountType] = useState<TProductType>("conventional");
+  const [initialAccountState, setInitialAccountState] = useState<FormItem>({
+    id: null,
+    accountType: null,
+    fullName: "",
+    surname: "",
+    motherName: "",
+    email: "",
+    phone: "",
+    streetAddress: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    occupation: "",
+    initialDeposit: null,
+    monthlyIncome: null,
+    confirm: false,
+    sex: "",
+    branch: "",
+    currency: 1,
+    stage: "",
+    error: false,
+    percentageCompleted: 0,
+  });
   const Title = () => (
     <Grid container xs={11}>
       <Grid item xs={12}>
@@ -41,6 +95,52 @@ export function AccountOpening(props: IAccountOpeningProps) {
       </Grid>
     </Grid>
   );
+
+  const { id } = useParams();
+  console.log("id: ", id);
+
+  useEffect(() => {
+    const performLogicOnId = async (inputId: string) => {
+      try {
+        const enc = atob(inputId);
+        const response = await axios.get(`${apiUrl}api/v1/accounts/${enc}`);
+        const data = response.data;
+        console.log("data:", data);
+
+        setInitialAccountState({
+          id: data.id,
+          accountType: data.accountType,
+          fullName: data.fullName,
+          surname: data.surname,
+          motherName: data.motherName,
+          email: data.email,
+          phone: data.phone,
+          streetAddress: data.streetAddress,
+          city: data.city,
+          state: data.state,
+          zipCode: data.zipCode,
+          country: data.country,
+          occupation: data.occupation ? data.occupation : "",
+          initialDeposit: data.initialDeposit,
+          monthlyIncome: data.monthlyIncome,
+          confirm: false,
+          sex: data.sex,
+          branch: data.branch,
+          currency: data.currency | 1,
+          stage: data.stage ? data.stage : "",
+          error: data.error,
+          percentageCompleted: data.percentageCompleted,
+        });
+      } catch (error) {
+        console.error(error);
+        // Handle error if needed
+      }
+    };
+
+    if (id !== undefined) {
+      performLogicOnId(id);
+    }
+  }, [id]);
 
   return (
     <div className="open-account">
@@ -88,58 +188,11 @@ export function AccountOpening(props: IAccountOpeningProps) {
           <Grid item xs={12} md={12}>
             {/* <AccountOpeningForm productType={props.productType} /> */}
 
-            <AccountOpeningWizardForm productType={accountType} />
+            <AccountOpeningWizardForm
+              productType={accountType}
+              prevData={id === undefined ? null : initialAccountState}
+            />
           </Grid>
-          {/* <Grid item xs={12} md={2.8}>
-            <div className="product-info-side">
-              <div className="info-item">
-                <h2 className={props.productType}>
-                  {DiasporaAccountInfo.title}
-                </h2>
-                <p>{DiasporaAccountInfo.desc}</p>
-              </div>
-              <div className="info-item">
-                <h2 className={props.productType}>{props.DescTitle}</h2>
-                <p>{props.DescText}</p>
-              </div>
-              <div className="info-item">
-                <h2 className={props.productType}>Features</h2>
-                <ul className="ul">
-                  {props.features.map((feature: string | string[]) => (
-                    <li className={`li ${props.productType}`}>
-                      <span>
-                        {typeof feature === "string" && (
-                          <i className="fas fa-check"></i>
-                        )}
-                      </span>
-                      {typeof feature === "string" ? (
-                        feature
-                      ) : (
-                        <ul className="ul-inner">
-                          {feature.map((el: string) => (
-                            <li>{el}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="info-item">
-                <h2 className={props.productType}>Benefits</h2>
-                <ul className="ul">
-                  {props.benefits.map((benefit: string) => (
-                    <li className={`li ${props.productType}`}>
-                      <span>
-                        <i className="fas fa-check-circle"></i>
-                      </span>
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Grid> */}
         </Grid>
       </div>
       <SwiftCode productType={props.productType} />

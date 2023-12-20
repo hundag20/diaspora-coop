@@ -224,7 +224,15 @@ export function Footer(props: IFooterProps) {
                       ></i>{" "}
                     </span>
                     <span className="elementor-icon-list-text">
-                      Get House Building, Africa Ave, Addis Ababa
+                      Addis Ababa, Bole Sub-city, Woreda 02, House No New
+                    </span>
+                  </li>
+                  <li className="elementor-icon-list-item">
+                    <span className="elementor-icon-list-icon">
+                      <i aria-hidden="true" className="fas fa-phone"></i>{" "}
+                    </span>
+                    <span className="elementor-icon-list-text">
+                      +251 90 404 9949
                     </span>
                   </li>
                   <li className="elementor-icon-list-item">

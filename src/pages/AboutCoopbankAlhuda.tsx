@@ -15,6 +15,7 @@ import alhudaLogo from "../assets/img/AlhudaLogo-removebg.png";
 import { motion, useAnimation } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { TopBanner } from "../components/TopBanner";
 
 export interface IAboutCoopbankAlhudaProps {}
 
@@ -305,7 +306,7 @@ const IFBfinancing: React.FC = () => {
   ];
   return (
     <div className="IFBfinacingContainer">
-      <h3 className="topHead">IFB Diaspora Financing</h3>
+      {/* <h3 className="topHead">IFB Diaspora Financing</h3> */}
       <div className="financess">
         {IFBfinancingServices.map((item, index) => {
           // Determine if the image should be on the left or right
@@ -418,11 +419,21 @@ const IFBfinancing: React.FC = () => {
 export function AboutCoopbankAlhuda(props: IAboutCoopbankAlhudaProps) {
   return (
     <div className="aboutCoopAlhuda">
+      <TopBanner
+        containerClass="gl hd-container"
+        overlayClass={`gl hd-background-overlay alhuda`}
+        // overlayClass={`gl hd-background-overlay ${props.productType}`}
+        contentClass="gl hd-content"
+        footerClass="gl hd-footer"
+        contentHeader="IFB Diaspora Financing"
+        contentParagraph="Cooperative Bank of Oromia
+        offers a dedicated segment for Sharia-compliant customers."
+      />
       <div className="container">
         <div className="alhudaAccounts">
           <div className="header">
             {/* <img src={coopLogo} alt="coop" /> */}
-            <img src={alhudaLogo} alt="alhuda" />
+            {/* <img src={alhudaLogo} alt="alhuda" /> */}
             <p>
               <span title="desc of coopBank"> Cooperative Bank of Oromia</span>{" "}
               offers a dedicated segment for Sharia-compliant customers. Our

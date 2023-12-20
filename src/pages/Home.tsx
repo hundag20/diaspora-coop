@@ -1,5 +1,6 @@
 import * as React from "react";
 import "../styles/home.scss";
+import "../styles/form.scss";
 import ReadMoreButton from "../components/Buttons/readMoreButton";
 import ApplyNowButton from "../components/Buttons/applyNowButton";
 import Slideshow from "../components/slideShow/slideShow";
@@ -53,6 +54,9 @@ import stringSimilarity from "string-similarity";
 import useIcons from "../components/icon";
 import { fetchHomePage } from "../hooks/fetchFullStrapi";
 import CoopLoader from "../components/coopLoader/coopLoader";
+import { FileUpload } from "../components/LoanRequestForm";
+import axios from "axios";
+import { CircularProgress, TextField } from "@mui/material";
 
 export interface IHomeProps {}
 interface Header {
@@ -307,6 +311,12 @@ const OfflineForm: React.FC = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView();
 
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<{ [key: string]: boolean }>({});
+  const [file, setFile] = useState<null | File>(null);
+
   useEffect(() => {
     if (inView) {
       const sequence = async () => {
@@ -336,6 +346,37 @@ const OfflineForm: React.FC = () => {
       repeatType: "mirror",
       repeat: 2,
     },
+  };
+
+  const handleSubmit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    setError({});
+    if (email === "" || name === "" || file === null) {
+      let err: { [key: string]: boolean } = {};
+      if (email === "") err.email = true;
+      if (name === "") err.name = true;
+      if (file === null) err.file = true;
+      setError(err);
+      return;
+    }
+    const formdata = new FormData();
+    formdata.append("name", name);
+    formdata.append("email", email);
+    formdata.append("file", file);
+
+    setLoader(true);
+    axios
+      .post(`url`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err?.response?.data?.message || "Network error");
+      })
+      .finally(() => {
+        setLoader(false);
+      });
   };
 
   return (
@@ -369,18 +410,70 @@ const OfflineForm: React.FC = () => {
                 <p>
                   Name <span className="requiredcolor">*</span>
                 </p>
-                <input type="text" placeholder="Name" />
+                <TextField
+                  type="text"
+                  placeholder="Name"
+                  value={name}
+                  fullWidth
+                  error={error.name}
+                  onChange={(e) => {
+                    error.name = false;
+                    setName(e.target.value);
+                  }}
+                />
               </div>
               <div className="formcontrol">
                 <p>
                   Email Address <span className="requiredcolor">*</span>
                 </p>
-                <input type="text" placeholder="E.g. abdi@gmail.com" />
+                <TextField
+                  type="email"
+                  placeholder="E.g. abdi@gmail.com"
+                  value={email}
+                  error={error.email}
+                  onChange={(e) => {
+                    error.email = false;
+                    setEmail(e.target.value);
+                  }}
+                  fullWidth
+                />
+              </div>
+              <div className="formcontrol form-row">
+                <p>
+                  Upload Form <span className="requiredcolor">*</span>
+                </p>
+                {/* <input type="file" placeholder="E.g. abdi@gmail.com" /> */}
+
+                <div className="row1">
+                  <div className="form-col form-col-4 ">
+                    <div className="form-field">
+                      <div
+                        className="file-upload-container"
+                        data-element="upload-2_651becd154b31"
+                        aria-describedby="form-field-upload-2_651becd154b31-description"
+                      >
+                        <FileUpload
+                          name="upload-2[]"
+                          error={error.file ? true : false}
+                          stateFunction={file}
+                          setStateFunction={setFile}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="action">
-                <p>Upload Form</p>
-                <BasicButton text="Choose file" link="" />
-                <BasicButton text="Upload file" link="" />
+                {/* <p></p> */}
+                {/* <BasicButton text="Choose file" link="" /> */}
+                {/* {error && <p>{error}</p>} */}
+                {loader ? (
+                  <CircularProgress />
+                ) : (
+                  <div onClick={(e) => handleSubmit(e)}>
+                    <BasicButton text="Upload Button" link="" />
+                  </div>
+                )}
               </div>
               {/* <button type="submit">Upload file</button> */}
             </form>
@@ -617,7 +710,7 @@ interface HeroItemsComp {
   slide: HeroItems;
 }
 
-const data: HeroItems[] = [
+const slideData: HeroItems[] = [
   {
     topTitle: "Diaspora",
     bottomTitle: "Banking",
@@ -795,6 +888,7 @@ const Remittance: React.FC = () => {
 interface HowItWorksItems {
   title: string;
   description: string;
+  type: string;
 }
 interface HowItWorksItemsPro {
   header: {
@@ -813,26 +907,31 @@ const howItWorksObejct: HowItWorksItemsPro = {
       title: "Create Your Account!!!!!!!",
       description:
         "Don’t have a Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!",
+      type: "loan",
     },
     {
       title: "Your account Approved & Ready",
       description:
         "You will receive an e-mail with your account details, and you can begin depositing into it",
+      type: "account",
     },
     {
       title: "Request For Loan",
       description:
         "You can use a different diaspora loan once you have a diaspora account",
+      type: "account",
     },
     {
       title: "CoopBank Review Your Request",
       description:
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
+      type: "loan",
     },
     {
       title: "You will get the loan",
       description:
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
+      type: "loan",
     },
   ],
 };
@@ -853,7 +952,11 @@ const HowItWorks: React.FC<HowItWorksItemsPro> = ({ header, content }) => {
             {content.map((work, index) => (
               <div className="works">
                 {/* <div className="icon">{work.icon}</div> */}
-                <div className="iconNum">
+                <div
+                  className={`iconNum ${
+                    work.type === "loan" ? "loan" : "account"
+                  }`}
+                >
                   <div className="muicon">{index + 1} </div>{" "}
                 </div>
                 <div className="texts">
@@ -909,7 +1012,7 @@ export function Home(props: IHomeProps) {
   return (
     <div>
       {/* <Hero /> */}
-      <HeroSlides slides={datas && datas.hero.slide} />
+      <HeroSlides slides={datas ? datas.hero.slide : slideData} />
 
       <div className="halfpage">
         <HowItWorks

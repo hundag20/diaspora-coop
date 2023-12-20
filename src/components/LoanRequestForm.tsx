@@ -893,12 +893,38 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const [fileUploadLabel, setFileUploadLabel] = useState("No file chosen");
 
   const fileUploadHandler = (e: any) => {
+    const allowedFileTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/bmp",
+      "image/tiff",
+      "image/webp",
+      "application/pdf",
+    ];
+    const maxFileSize = 10000000; // 50 MB
+
     if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      // Check file type
+      if (!allowedFileTypes.includes(file.type)) {
+        alert("File type not allowed: " + file.name);
+        return;
+      }
+
+      // Check file size
+      if (file.size > maxFileSize) {
+        alert("File size exceeds the maximum limit: " + file.name);
+        return;
+      }
+
+      // Proceed with setting state and processing the file
       const fileNames = Array.from(e.target.files).map(
         (file: any) => file.name
       );
       setFileUploadLabel(fileNames.join(", "));
-      setStateFunction(e.target.files[0]);
+      setStateFunction(file);
     } else {
       setFileUploadLabel("Choose a file");
     }
@@ -912,13 +938,13 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       <input
         type="file"
         name={name}
-        multiple={true}
+        multiple={false}
         className="file-upload"
         data-method="ajax"
-        accept=".jpg,.jpeg,.jpe,.gif,.png,.bmp,.tiff,.tif,.webp,.ico,.heic,.asf,.asx,.wmv,.wmx,.wm,.avi,.divx,.flv,.mov,.qt,.mpeg,.mpg,.mpe,.mp4,.m4v,.ogv,.webm,.mkv,.3gp,.3gpp,.3g2,.3gp2,.txt,.asc,.c,.cc,.h,.srt,.csv,.tsv,.ics,.rtx,.css,.htm,.html,.vtt,.dfxp,.mp3,.m4a,.m4b,.aac,.ra,.ram,.wav,.ogg,.oga,.flac,.mid,.midi,.wma,.wax,.mka,.rtf,.js,.pdf,.class,.tar,.zip,.gz,.gzip,.rar,.7z,.psd,.xcf,.doc,.pot,.pps,.ppt,.wri,.xla,.xls,.xlt,.xlw,.mdb,.mpp,.docx,.docm,.dotx,.dotm,.xlsx,.xlsm,.xlsb,.xltx,.xltm,.xlam,.pptx,.pptm,.ppsx,.ppsm,.potx,.potm,.ppam,.sldx,.sldm,.onetoc,.onetoc2,.onetmp,.onepkg,.oxps,.xps,.odt,.odp,.ods,.odg,.odc,.odb,.odf,.wp,.wpd,.key,.numbers,.pages,.json,.svg,.svgz,.xml"
+        accept=".jpg, .jpeg, .png, .gif, .bmp, .tiff, .tif, .webp, .pdf"
         data-size="50000000"
         data-size-message="Maximum file size allowed is 50 MB. "
-        data-filetype="jpg|jpeg|jpe|gif|png|bmp|tiff|tif|webp|ico|heic|asf|asx|wmv|wmx|wm|avi|divx|flv|mov|qt|mpeg|mpg|mpe|mp4|m4v|ogv|webm|mkv|3gp|3gpp|3g2|3gp2|txt|asc|c|cc|h|srt|csv|tsv|ics|rtx|css|htm|html|vtt|dfxp|mp3|m4a|m4b|aac|ra|ram|wav|ogg|oga|flac|mid|midi|wma|wax|mka|rtf|js|pdf|class|tar|zip|gz|gzip|rar|7z|psd|xcf|doc|pot|pps|ppt|wri|xla|xls|xlt|xlw|mdb|mpp|docx|docm|dotx|dotm|xlsx|xlsm|xlsb|xltx|xltm|xlam|pptx|pptm|ppsx|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|oxps|xps|odt|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages|json|svg|svgz|xml"
+        data-filetype="jpg|jpeg|png|gif|bmp|tiff|tif|webp|pdf"
         data-filetype-message="file extension is not allowed."
         onChange={fileUploadHandler}
         required
@@ -966,12 +992,37 @@ export const SignatureUpload: React.FC<FileUploadProps> = ({
   };
 
   const fileUploadHandler = (e: any) => {
+    const allowedFileTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/bmp",
+      "image/tiff",
+      "image/webp",
+    ];
+    const maxFileSize = 10000000; // 50 MB
+
     if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      // Check file type
+      if (!allowedFileTypes.includes(file.type)) {
+        alert("File type not allowed: " + file.name);
+        return;
+      }
+
+      // Check file size
+      if (file.size > maxFileSize) {
+        alert("File size exceeds the maximum limit: " + file.name);
+        return;
+      }
+
+      // Proceed with setting state and processing the file
       const fileNames = Array.from(e.target.files).map(
         (file: any) => file.name
       );
       setFileUploadLabel(fileNames.join(", "));
-      setStateFunction(e.target.files[0]);
+      setStateFunction(file);
     } else {
       setFileUploadLabel("Choose a file");
     }
@@ -985,10 +1036,10 @@ export const SignatureUpload: React.FC<FileUploadProps> = ({
         multiple={true}
         className="file-upload"
         data-method="ajax"
-        accept=".jpg,.jpeg,.jpe,.gif,.png,.bmp,.tiff,.tif,.webp,.ico,.heic,.asf,.asx,.wmv,.wmx,.wm,.avi,.divx,.flv,.mov,.qt,.mpeg,.mpg,.mpe,.mp4,.m4v,.ogv,.webm,.mkv,.3gp,.3gpp,.3g2,.3gp2,.txt,.asc,.c,.cc,.h,.srt,.csv,.tsv,.ics,.rtx,.css,.htm,.html,.vtt,.dfxp,.mp3,.m4a,.m4b,.aac,.ra,.ram,.wav,.ogg,.oga,.flac,.mid,.midi,.wma,.wax,.mka,.rtf,.js,.pdf,.class,.tar,.zip,.gz,.gzip,.rar,.7z,.psd,.xcf,.doc,.pot,.pps,.ppt,.wri,.xla,.xls,.xlt,.xlw,.mdb,.mpp,.docx,.docm,.dotx,.dotm,.xlsx,.xlsm,.xlsb,.xltx,.xltm,.xlam,.pptx,.pptm,.ppsx,.ppsm,.potx,.potm,.ppam,.sldx,.sldm,.onetoc,.onetoc2,.onetmp,.onepkg,.oxps,.xps,.odt,.odp,.ods,.odg,.odc,.odb,.odf,.wp,.wpd,.key,.numbers,.pages,.json,.svg,.svgz,.xml"
+        accept=".jpg, .jpeg, .png, .gif, .bmp, .tiff, .tif, .webp"
         data-size="50000000"
         data-size-message="Maximum file size allowed is 50 MB. "
-        data-filetype="jpg|jpeg|jpe|gif|png|bmp|tiff|tif|webp|ico|heic|asf|asx|wmv|wmx|wm|avi|divx|flv|mov|qt|mpeg|mpg|mpe|mp4|m4v|ogv|webm|mkv|3gp|3gpp|3g2|3gp2|txt|asc|c|cc|h|srt|csv|tsv|ics|rtx|css|htm|html|vtt|dfxp|mp3|m4a|m4b|aac|ra|ram|wav|ogg|oga|flac|mid|midi|wma|wax|mka|rtf|js|pdf|class|tar|zip|gz|gzip|rar|7z|psd|xcf|doc|pot|pps|ppt|wri|xla|xls|xlt|xlw|mdb|mpp|docx|docm|dotx|dotm|xlsx|xlsm|xlsb|xltx|xltm|xlam|pptx|pptm|ppsx|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|oxps|xps|odt|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages|json|svg|svgz|xml"
+        data-filetype="jpg|jpeg|png|gif|bmp|tiff|tif|webp"
         data-filetype-message="file extension is not allowed."
         onChange={fileUploadHandler}
         required
@@ -1036,19 +1087,45 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
   }, []);
 
   const fileUploadHandler = (e: any) => {
+    const allowedFileTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/bmp",
+      "image/tiff",
+      "image/webp",
+      "image/x-icon",
+    ];
+    const maxFileSize = 10000000; // 50 MB
+
     if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      // Check file type
+      if (!allowedFileTypes.includes(file.type)) {
+        alert("File type not allowed: " + file.name);
+        return;
+      }
+
+      // Check file size
+      if (file.size > maxFileSize) {
+        alert("File size exceeds the maximum limit: " + file.name);
+        return;
+      }
+
+      // Proceed with setting state and processing the file
       const fileNames = Array.from(e.target.files).map(
         (file: any) => file.name
       );
       setFileUploadLabel(fileNames.join(", "));
-      setStateFunction(e.target.files[0]);
+      setStateFunction(file);
 
       let reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
       reader.onload = function (ev) {
         const url = (ev?.target?.result as string) || "";
         setImgPre(url);
-        console.log("finall");
+        console.log("File uploaded successfully");
       };
     } else {
       setFileUploadLabel("Choose a file");
@@ -1060,13 +1137,13 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
       <input
         type="file"
         name={name}
-        multiple={true}
+        multiple={false}
         className="file-upload"
         data-method="ajax"
-        accept=".jpg,.jpeg,.jpe,.gif,.png,.bmp,.tiff,.tif,.webp,.ico,.heic,.asf,.asx,.wmv,.wmx,.wm,.avi,.divx,.flv,.mov,.qt,.mpeg,.mpg,.mpe,.mp4,.m4v,.ogv,.webm,.mkv,.3gp,.3gpp,.3g2,.3gp2,.txt,.asc,.c,.cc,.h,.srt,.csv,.tsv,.ics,.rtx,.css,.htm,.html,.vtt,.dfxp,.mp3,.m4a,.m4b,.aac,.ra,.ram,.wav,.ogg,.oga,.flac,.mid,.midi,.wma,.wax,.mka,.rtf,.js,.pdf,.class,.tar,.zip,.gz,.gzip,.rar,.7z,.psd,.xcf,.doc,.pot,.pps,.ppt,.wri,.xla,.xls,.xlt,.xlw,.mdb,.mpp,.docx,.docm,.dotx,.dotm,.xlsx,.xlsm,.xlsb,.xltx,.xltm,.xlam,.pptx,.pptm,.ppsx,.ppsm,.potx,.potm,.ppam,.sldx,.sldm,.onetoc,.onetoc2,.onetmp,.onepkg,.oxps,.xps,.odt,.odp,.ods,.odg,.odc,.odb,.odf,.wp,.wpd,.key,.numbers,.pages,.json,.svg,.svgz,.xml"
+        accept=".jpg, .jpeg, .jpe, .gif, .png, .bmp, .tiff, .tif, .webp"
         data-size="50000000"
         data-size-message="Maximum file size allowed is 50 MB. "
-        data-filetype="jpg|jpeg|jpe|gif|png|bmp|tiff|tif|webp|ico|heic|asf|asx|wmv|wmx|wm|avi|divx|flv|mov|qt|mpeg|mpg|mpe|mp4|m4v|ogv|webm|mkv|3gp|3gpp|3g2|3gp2|txt|asc|c|cc|h|srt|csv|tsv|ics|rtx|css|htm|html|vtt|dfxp|mp3|m4a|m4b|aac|ra|ram|wav|ogg|oga|flac|mid|midi|wma|wax|mka|rtf|js|pdf|class|tar|zip|gz|gzip|rar|7z|psd|xcf|doc|pot|pps|ppt|wri|xla|xls|xlt|xlw|mdb|mpp|docx|docm|dotx|dotm|xlsx|xlsm|xlsb|xltx|xltm|xlam|pptx|pptm|ppsx|ppsm|potx|potm|ppam|sldx|sldm|onetoc|onetoc2|onetmp|onepkg|oxps|xps|odt|odp|ods|odg|odc|odb|odf|wp|wpd|key|numbers|pages|json|svg|svgz|xml"
+        data-filetype="jpg|jpeg|jpe|gif|png|bmp|tiff|tif"
         data-filetype-message="file extension is not allowed."
         onChange={fileUploadHandler}
         required

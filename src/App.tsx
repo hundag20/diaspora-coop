@@ -118,7 +118,7 @@ const App = () => {
           }
         />
         <Route
-          path="/open-account"
+          path="/open-account/:id?"
           element={
             <BodyRoute>
               <AccountOpen />
