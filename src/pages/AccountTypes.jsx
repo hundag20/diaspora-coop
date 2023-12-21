@@ -254,6 +254,15 @@ export const AccountTypes = () => {
                     style={{ color: "#00adef", fontSize: "5rem" }}
                   />
                 )}
+                    <div
+              className='account-item-footer'
+              onClick={() => {
+                navigate("/diaspora-current-account");
+                // resetCollapsed();
+              }}>
+              <i className='fas fa-arrow-circle-right'></i>
+              <a href=' '>Open Account</a>
+            </div>
               </div>
               {
               collapsedStates[index] === false && (
@@ -305,11 +314,11 @@ export const AccountTypes = () => {
                         </li>
                       ))}
                   </ul>
-                  <hr />
+                  {/* <hr /> */}
                 </div>
               )}
             </div>
-            <div
+            {/* <div
               className='account-item-footer'
               onClick={() => {
                 navigate("/diaspora-current-account");
@@ -317,7 +326,7 @@ export const AccountTypes = () => {
               }}>
               <i className='fas fa-arrow-circle-right'></i>
               <a href=' '>Open Account</a>
-            </div>
+            </div> */}
             {/* <div className='account-features'>
               <h3 className='account-features-title'> Benefits:</h3>
               <ul className='outer-ul'>
