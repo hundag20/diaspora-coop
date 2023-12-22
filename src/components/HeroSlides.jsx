@@ -203,9 +203,13 @@ const HeroSlides = ({ slides }) => {
                   <div className="image">
                     <img
                       // src={`${strapiUrl.slice(0, -1)}${slide.url}`}
-                      src={`${strapiUrl.slice(0, -1)}${
-                        slide.url.data.attributes.url
-                      }`}
+                      src={
+                        slide?.url?.data.attributes.url.includes("://")
+                          ? slide.url.data.attributes.url
+                          : `${strapiUrl.slice(0, -1)}${
+                              slide.url.data.attributes.url
+                            }`
+                      }
                       // src={slide.url}
                       // src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"
                       alt="Coop bank"

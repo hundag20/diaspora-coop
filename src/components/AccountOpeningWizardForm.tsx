@@ -33,6 +33,7 @@ import { CheckCircle } from "@mui/icons-material";
 import { ChooseAccount } from "../pages/ChooseAccount";
 import ChooseAccountType from "./ChooseAccountType";
 
+import ReCAPTCHA from "react-google-recaptcha";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 
@@ -165,7 +166,14 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   const [signature, setSignature] = useState<File | null>(null);
   const [confirm, setConfirm] = useState<File | null>(null);
   const [loader, setLoader] = useState<boolean>(false);
+  const [isVerified, setVerified] = useState<boolean>(false);
 
+  const handleVerification = (response: any) => {
+    // This function will be called when reCAPTCHA is successfully verified.
+    if (response) {
+      setVerified(true);
+    }
+  };
   // State to track form completion status for each step
   const [completedSteps, setCompletedSteps] = useState<Array<boolean>>(
     Array(steps.length).fill(false)
@@ -584,6 +592,9 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           stepErrors.confirm = true;
           stepIsValid = false;
         }
+        if (isVerified === false) {
+          stepIsValid = false;
+        }
         if (formData.motherName === "") {
           stepErrors.motherName = true;
           stepIsValid = false;
@@ -986,6 +997,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           with any other bank.
                         </p>
                       </div>
+                    </div>
+                    <div className="form-field" style={{ margin: "1rem 0" }}>
+                      <ReCAPTCHA
+                        sitekey="6Ld2dDkpAAAAAI33KugpnYCnoQwXdW9kgi54PAO5"
+                        onChange={handleVerification}
+                      />
                     </div>
                   </Grid>
                 </Grid>
@@ -1696,6 +1713,11 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   <CircularProgress />
                 ) : (
                   <Button
+                    disabled={
+                      !isVerified && activeStep === steps.length - 1
+                        ? true
+                        : false
+                    }
                     onClick={() => {
                       if (activeStep === steps.length - 1) {
                         handleSubmit();
