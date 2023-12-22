@@ -33,6 +33,9 @@ import { CheckCircle } from "@mui/icons-material";
 import { ChooseAccount } from "../pages/ChooseAccount";
 import ChooseAccountType from "./ChooseAccountType";
 
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const steps = [
@@ -191,8 +194,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
     const stepIsValid = validateStep(activeStep);
     if (stepIsValid) {
-      if (activeStep === 0 && formData.stage === "") {
-        handleInitialSave();
+      if (activeStep === 0) {
+        if (formData.stage === "") {
+          handleInitialSave();
+        } else {
+          handleStep1Save();
+        }
       } else if (formData.id && activeStep === 1) {
         handleStep2Save();
       } else if (formData.id && activeStep === 2) {
@@ -246,6 +253,54 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           id: res.data.id,
           stage: res.data.status,
           percentageCompleted: 1,
+          error: false,
+        });
+        setCompletedSteps((prevCompletedSteps) => {
+          const newCompletedSteps = [...prevCompletedSteps];
+          newCompletedSteps[activeStep] = true;
+          return newCompletedSteps;
+        });
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        setFormData({
+          ...formData,
+          error: err.response.data.message || "Newtwork Error",
+        });
+      })
+      .finally(() => {
+        setLoader(false);
+      });
+  };
+
+  const handleStep1Save = () => {
+    setLoader(true);
+    axios
+      .put(`${apiUrl}api/v1/accounts/${formData.id}`, {
+        fullName: formData.fullName,
+        surname: formData.surname,
+        motherName: formData.motherName,
+        sex: formData.sex,
+        email: formData.email,
+        phone: formData.phone,
+      })
+      .then((res) => {
+        console.log(res);
+        setFormData((prevFormData) => {
+          const updatedFormData = {
+            ...prevFormData,
+            error: false,
+          };
+          localStorage.setItem(
+            "coopaccountopeninginfo",
+            JSON.stringify(updatedFormData)
+          );
+          return updatedFormData;
+        });
+        setFormData({
+          ...formData,
           error: false,
         });
         setCompletedSteps((prevCompletedSteps) => {
@@ -854,7 +909,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           >
                             Phone <span className="form-required">*</span>
                           </label>
-                          <TextField
+                          {/* <TextField
                             type="text"
                             name="phone-1"
                             placeholder="E.g. +1 300 400 5000"
@@ -869,6 +924,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               handleInputChange("phone", e.target.value)
                             }
                             required
+                          /> */}
+                          <PhoneInput
+                            placeholder="Enter phone number"
+                            value={formData.phone}
+                            onChange={(value) =>
+                              handleInputChange("phone", value as string)
+                            }
                           />
                         </div>
                       </Grid>
