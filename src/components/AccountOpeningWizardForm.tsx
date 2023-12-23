@@ -33,6 +33,10 @@ import { CheckCircle } from "@mui/icons-material";
 import { ChooseAccount } from "../pages/ChooseAccount";
 import ChooseAccountType from "./ChooseAccountType";
 
+import ReCAPTCHA from "react-google-recaptcha";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const steps = [
@@ -162,7 +166,14 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   const [signature, setSignature] = useState<File | null>(null);
   const [confirm, setConfirm] = useState<File | null>(null);
   const [loader, setLoader] = useState<boolean>(false);
+  const [isVerified, setVerified] = useState<boolean>(false);
 
+  const handleVerification = (response: any) => {
+    // This function will be called when reCAPTCHA is successfully verified.
+    if (response) {
+      setVerified(true);
+    }
+  };
   // State to track form completion status for each step
   const [completedSteps, setCompletedSteps] = useState<Array<boolean>>(
     Array(steps.length).fill(false)
@@ -191,8 +202,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
     const stepIsValid = validateStep(activeStep);
     if (stepIsValid) {
-      if (activeStep === 0 && formData.stage === "") {
-        handleInitialSave();
+      if (activeStep === 0) {
+        if (formData.stage === "") {
+          handleInitialSave();
+        } else {
+          handleStep1Save();
+        }
       } else if (formData.id && activeStep === 1) {
         handleStep2Save();
       } else if (formData.id && activeStep === 2) {
@@ -246,6 +261,54 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           id: res.data.id,
           stage: res.data.status,
           percentageCompleted: 1,
+          error: false,
+        });
+        setCompletedSteps((prevCompletedSteps) => {
+          const newCompletedSteps = [...prevCompletedSteps];
+          newCompletedSteps[activeStep] = true;
+          return newCompletedSteps;
+        });
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        setFormData({
+          ...formData,
+          error: err.response.data.message || "Newtwork Error",
+        });
+      })
+      .finally(() => {
+        setLoader(false);
+      });
+  };
+
+  const handleStep1Save = () => {
+    setLoader(true);
+    axios
+      .put(`${apiUrl}api/v1/accounts/${formData.id}`, {
+        fullName: formData.fullName,
+        surname: formData.surname,
+        motherName: formData.motherName,
+        sex: formData.sex,
+        email: formData.email,
+        phone: formData.phone,
+      })
+      .then((res) => {
+        console.log(res);
+        setFormData((prevFormData) => {
+          const updatedFormData = {
+            ...prevFormData,
+            error: false,
+          };
+          localStorage.setItem(
+            "coopaccountopeninginfo",
+            JSON.stringify(updatedFormData)
+          );
+          return updatedFormData;
+        });
+        setFormData({
+          ...formData,
           error: false,
         });
         setCompletedSteps((prevCompletedSteps) => {
@@ -527,6 +590,9 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         }
         if (formData.confirm === false) {
           stepErrors.confirm = true;
+          stepIsValid = false;
+        }
+        if (isVerified === false) {
           stepIsValid = false;
         }
         if (formData.motherName === "") {
@@ -854,7 +920,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           >
                             Phone <span className="form-required">*</span>
                           </label>
-                          <TextField
+                          {/* <TextField
                             type="text"
                             name="phone-1"
                             placeholder="E.g. +1 300 400 5000"
@@ -869,6 +935,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               handleInputChange("phone", e.target.value)
                             }
                             required
+                          /> */}
+                          <PhoneInput
+                            placeholder="Enter phone number"
+                            value={formData.phone}
+                            onChange={(value) =>
+                              handleInputChange("phone", value as string)
+                            }
                           />
                         </div>
                       </Grid>
@@ -924,6 +997,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           with any other bank.
                         </p>
                       </div>
+                    </div>
+                    <div className="form-field" style={{ margin: "1rem 0" }}>
+                      <ReCAPTCHA
+                        sitekey="6Ld2dDkpAAAAAI33KugpnYCnoQwXdW9kgi54PAO5"
+                        onChange={handleVerification}
+                      />
                     </div>
                   </Grid>
                 </Grid>
@@ -1634,6 +1713,11 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   <CircularProgress />
                 ) : (
                   <Button
+                    disabled={
+                      !isVerified && activeStep === steps.length - 1
+                        ? true
+                        : false
+                    }
                     onClick={() => {
                       if (activeStep === steps.length - 1) {
                         handleSubmit();

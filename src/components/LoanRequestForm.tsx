@@ -1075,6 +1075,7 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
   name,
   stateFunction,
   setStateFunction,
+  error,
 }) => {
   const [fileUploadLabel, setFileUploadLabel] = useState("No file chosen");
   const [imgPre, setImgPre] = useState<string | null>("");
@@ -1157,7 +1158,11 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
         </p>
       </div> */}
       <div className="image-upload-container">
-        <div className="imageHolder">
+        <div
+          className={`${
+            stateFunction !== null ? "success" : error ? "error" : ""
+          } imageHolder`}
+        >
           <img src={imgPre || personPlaceholder} alt="img" />
         </div>
         <div className="action">
