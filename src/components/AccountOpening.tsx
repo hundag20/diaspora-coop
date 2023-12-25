@@ -178,15 +178,22 @@ export function AccountOpening(props: IAccountOpeningProps) {
             </div>
           </div>
         )}
-          <div style={{alignContent:"flex-start", display:"flex",  font:'inherit'}}>
-          {
-  accountType === "conventional" ? (
-    <p>A conventional account earns or charges interest.</p>
-  ) : (
-    <p>An interest-free banking account not involving  earning or paying interest.</p>
-  )
-}            
-          </div>
+        <div
+          style={{
+            alignContent: "flex-start",
+            display: "flex",
+            font: "inherit",
+          }}
+        >
+          {accountType === "conventional" ? (
+            <p>A conventional account earns or charges interest.</p>
+          ) : (
+            <p>
+              An interest-free banking account not involving earning or paying
+              interest.
+            </p>
+          )}
+        </div>
         <Grid
           container
           xs={11}

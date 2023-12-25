@@ -35,7 +35,8 @@ import ChooseAccountType from "./ChooseAccountType";
 
 import ReCAPTCHA from "react-google-recaptcha";
 import "react-phone-number-input/style.css";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { ConfirmFileUpload } from "./ConfirmForm";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -184,6 +185,19 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     setFormData({ ...formData, [fieldName]: value });
   };
 
+  const filterLetters = (input: string) => {
+    // Allow only letters (uppercase and lowercase) using a regular expression
+    return input.replace(/[^a-zA-Z]/g, "");
+  };
+
+  const handleLetterChange = (
+    fieldName: string,
+    event: { target: { value: string } }
+  ) => {
+    const filteredValue = filterLetters(event.target.value);
+    handleInputChange(fieldName, filteredValue);
+  };
+
   // Function to handle form data change
   const handleErrorChange = () => {
     setFormData({ ...formData, error: false });
@@ -194,6 +208,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     // Validate the current step's form fields before moving to the next step
     setErrors({});
     handleErrorChange();
+    console.log("phone valid:", isValidPhoneNumber(formData.phone));
+
     // console.log(passport);
     // console.log(photo);
     // console.log(residentCard);
@@ -557,6 +573,10 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     }
   };
 
+  const isValidEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
+
   // Function to validate the form fields for the current step
   const validateStep = (step: number): boolean => {
     // console.log("data:", formData);
@@ -580,11 +600,11 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           stepErrors.surname = true;
           stepIsValid = false;
         }
-        if (formData.phone === "") {
+        if (formData.phone === "" || !isValidPhoneNumber(formData.phone)) {
           stepErrors.phone = true;
           stepIsValid = false;
         }
-        if (formData.email === "") {
+        if (formData.email === "" || !isValidEmail(formData.email)) {
           stepErrors.email = true;
           stepIsValid = false;
         }
@@ -593,6 +613,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           stepIsValid = false;
         }
         if (isVerified === false) {
+          stepErrors.verified = true;
           stepIsValid = false;
         }
         if (formData.motherName === "") {
@@ -672,6 +693,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   return (
     <div>
       {formData.error && <Alert severity="error">{formData.error}</Alert>}
+
       <form className="loan-form-container" id="Loan_Request">
         <Box sx={{ width: "100%" }}>
           <Stepper
@@ -744,9 +766,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             value={formData.fullName}
                             fullWidth
                             error={errors.fullName}
-                            onChange={(e) =>
-                              handleInputChange("fullName", e.target.value)
-                            }
+                            onChange={(e) => handleLetterChange("fullName", e)}
                             data-required="1"
                             required
                           />
@@ -776,9 +796,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             fullWidth
                             error={errors.surname}
                             value={formData.surname}
-                            onChange={(e) =>
-                              handleInputChange("surname", e.target.value)
-                            }
+                            onChange={(e) => handleLetterChange("surname", e)}
                             required
                           />
                         </div>
@@ -814,7 +832,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             error={errors.motherName}
                             value={formData.motherName}
                             onChange={(e) =>
-                              handleInputChange("motherName", e.target.value)
+                              handleLetterChange("motherName", e)
                             }
                             required
                           />
@@ -915,7 +933,9 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         <div className="form-field">
                           <label
                             lang="form-field-phone-1_651becd154b31"
-                            className="form-label"
+                            className={
+                              errors.phone ? "error form-label" : "form-label"
+                            }
                             id="form-field-phone-1_651becd154b31-label"
                           >
                             Phone <span className="form-required">*</span>
@@ -998,12 +1018,24 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                         </p>
                       </div>
                     </div>
-                    <div className="form-field" style={{ margin: "1rem 0" }}>
-                      <ReCAPTCHA
-                        sitekey="6Ld2dDkpAAAAAI33KugpnYCnoQwXdW9kgi54PAO5"
-                        onChange={handleVerification}
-                      />
-                    </div>
+                    {!isVerified && (
+                      <div className="form-field" style={{ margin: "1rem 0" }}>
+                        <label
+                          lang="form-field-date-1-picker_651becd154b31"
+                          // className="form-label"
+                          className={
+                            errors.verified ? "error form-label" : "form-label"
+                          }
+                          id="form-field-date-1-picker_651becd154b31-label"
+                        >
+                          verify
+                        </label>
+                        <ReCAPTCHA
+                          sitekey="6Ld2dDkpAAAAAI33KugpnYCnoQwXdW9kgi54PAO5"
+                          onChange={handleVerification}
+                        />
+                      </div>
+                    )}
                   </Grid>
                 </Grid>
               )}
@@ -1036,7 +1068,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             error={errors.streetAddress}
                             value={formData.streetAddress}
                             onChange={(e) =>
-                              handleInputChange("streetAddress", e.target.value)
+                              handleLetterChange("streetAddress", e)
                             }
                             required
                           />
@@ -1112,9 +1144,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             fullWidth
                             error={errors.state}
                             value={formData.state}
-                            onChange={(e) =>
-                              handleInputChange("state", e.target.value)
-                            }
+                            onChange={(e) => handleLetterChange("state", e)}
                           />
                         </div>
                       </Grid>
@@ -1147,9 +1177,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             fullWidth
                             error={errors.city}
                             value={formData.city}
-                            onChange={(e) =>
-                              handleInputChange("city", e.target.value)
-                            }
+                            onChange={(e) => handleLetterChange("city", e)}
                           />
                         </div>
                       </Grid>
@@ -1215,7 +1243,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             error={errors.occupation}
                             value={formData.occupation}
                             onChange={(e) =>
-                              handleInputChange("occupation", e.target.value)
+                              handleLetterChange("occupation", e)
                             }
                             required
                           />

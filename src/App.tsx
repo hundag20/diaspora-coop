@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import { Routes, Route } from "react-router-dom";
+import * as pdfjs from "pdfjs-dist";
+
 import { Home } from "./pages/Home";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
