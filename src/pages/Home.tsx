@@ -1011,7 +1011,7 @@ export function Home(props: IHomeProps) {
     fetchHomePage(setData, setLoader);
   }, []);
 
-  if (loader) return <CoopLoader loader={loader} />;
+  // if (loader) return <CoopLoader loader={loader} />;
 
   return (
     <div>

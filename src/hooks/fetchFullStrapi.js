@@ -44,7 +44,8 @@ const params = {
 };
 
 export const fetchHomePage = (setState, setLoader) => {
-  setLoader(true);
+  // setLoader(true);
+  console.log('fetching');
   const dynamicURL = baseUrl + buildDynamicURL(params);
   console.log(dynamicURL);
   axios
@@ -64,7 +65,7 @@ export const fetchHomePage = (setState, setLoader) => {
       console.log(err);
     })
     .finally(() => {
-      setLoader(false);
+      // setLoader(false);
     });
 };
 
