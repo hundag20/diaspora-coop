@@ -58,6 +58,10 @@ import { FileUpload } from "../components/LoanRequestForm";
 import axios from "axios";
 import { CircularProgress, TextField } from "@mui/material";
 
+import model1 from "../assets/img/Model-0001.png";
+import model2 from "../assets/img/Model-002.png";
+import model3 from "../assets/img/Model-003.png";
+
 export interface IHomeProps {}
 interface Header {
   title: string;
@@ -235,8 +239,7 @@ const offers: WhatWeOfferItemProp = {
       icon: "MdHandyman" as IconName,
       title: "Working Capital Loan",
       description:
-    "Diaspora Working Capital Loan is a loan provided to eligible Ethiopian Diasporas to finance their business’s everyday operations. These loans are used to provide the working capital that covers a Diaspora’s business short-term operational needs.",
-
+        "Diaspora Working Capital Loan is a loan provided to eligible Ethiopian Diasporas to finance their business’s everyday operations. These loans are used to provide the working capital that covers a Diaspora’s business short-term operational needs.",
     },
   ],
 };
@@ -583,22 +586,22 @@ interface StatHomeProps {
 }
 const staticStats: StatItems[] = [
   {
-    icon: "elementskit-funfact-icon fas fa-users",
+    icon: "MdPeopleAlt",
     title: "Total Membership",
     value: 5000,
   },
   {
-    icon: "elementskit-funfact-icon fas fa-money-bill-alt",
+    icon: "MdAttachMoney",
     title: "Deposit Amount",
     value: 10000000,
   },
   {
-    icon: "elementskit-funfact-icon fas fa-globe-americas",
+    icon: "Countries",
     title: "Countries",
     value: 120,
   },
   {
-    icon: "elementskit-funfact-icon fas fa-share-square",
+    icon: "share",
     title: "Remmitance Agency",
     value: 13,
   },
@@ -720,7 +723,7 @@ const slideData: HeroItems[] = [
     url: {
       data: {
         attributes: {
-          url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png",
+          url: model1,
         },
       },
     },
@@ -743,7 +746,7 @@ const slideData: HeroItems[] = [
     url: {
       data: {
         attributes: {
-          url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png",
+          url: model2,
         },
       },
     },
@@ -763,7 +766,7 @@ const slideData: HeroItems[] = [
     url: {
       data: {
         attributes: {
-          url: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2023/05/099A9988-2-1.png",
+          url: model3,
         },
       },
     },
@@ -905,10 +908,10 @@ const howItWorksObejct: HowItWorksItemsPro = {
   },
   content: [
     {
-      title: "Create Your Account!!!!!!!",
+      title: "Create Your Account!",
       description:
         "Don’t have a Coopbank Diaspora account yet? Apply now and open your new account in under 3 minutes!",
-      type: "loan",
+      type: "account",
     },
     {
       title: "Your account Approved & Ready",
@@ -920,7 +923,7 @@ const howItWorksObejct: HowItWorksItemsPro = {
       title: "Request For Loan",
       description:
         "You can use a different diaspora loan once you have a diaspora account",
-      type: "account",
+      type: "loan",
     },
     {
       title: "CoopBank Review Your Request",

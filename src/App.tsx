@@ -24,6 +24,7 @@ import { AccountTypes_Alhuda } from "./pages/AccountTypes_Alhuda";
 import ScrollToTop from "./components/scrollToTop";
 import { ChooseAccount } from "./pages/ChooseAccount";
 import { AccountOpen } from "./pages/conventionalAccount/AccountOpen";
+import NotFound from "./pages/404/notfound";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -183,6 +184,9 @@ const App = () => {
             </BodyRoute>
           }
         />
+
+        {/* Catch-all route for 404 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

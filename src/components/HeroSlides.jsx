@@ -204,9 +204,9 @@ const HeroSlides = ({ slides }) => {
                     <img
                       // src={`${strapiUrl.slice(0, -1)}${slide.url}`}
                       src={
-                        slide?.url?.data.attributes.url.includes("://")
+                        !slide?.url?.data.attributes.url.includes("178.35")
                           ? slide.url.data.attributes.url
-                          : `${strapiUrl.slice(0, -1)}${
+                          : `${strapiUrl?.slice(0, -1)}${
                               slide.url.data.attributes.url
                             }`
                       }
