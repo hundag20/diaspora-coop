@@ -17,6 +17,11 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { TopBanner } from "../components/TopBanner";
 
+import alhuda1 from "../assets/img/alhuda1.png";
+import alhuda2 from "../assets/img/alhuda2.png";
+import alhuda3 from "../assets/img/alhuda3.png";
+import alhuda4 from "../assets/img/alhuda4.png";
+
 export interface IAboutCoopbankAlhudaProps {}
 
 interface AlhudaAccount {
@@ -228,7 +233,8 @@ const IFBfinancing: React.FC = () => {
         "Construction of additional house within an existing compound",
         "Purchase/acquisition of residential house etc.",
       ],
-      img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/pngwing.com-64.png",
+      img: alhuda1,
+      // img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/pngwing.com-64.png",
     },
     {
       name: "IFB DIASPORA INVESTMENT FINANCING",
@@ -252,7 +258,8 @@ const IFBfinancing: React.FC = () => {
         "Project proposal.",
       ],
       purpose: [],
-      img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/10/pngwing.com-2022-10-03T104842.320.png",
+      img: alhuda2,
+      // img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/10/pngwing.com-2022-10-03T104842.320.png",
     },
     {
       name: "IFB DIASPORA AUTOMOBILE FINANCING",
@@ -286,7 +293,8 @@ const IFBfinancing: React.FC = () => {
         "Others as required by the Bank.",
       ],
       purpose: [],
-      img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/10/pngwing.com-2022-10-03T110149.294.png",
+      img: alhuda3,
+      // img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/10/pngwing.com-2022-10-03T110149.294.png",
     },
     {
       name: "IFB DIASPORA VEHICLE FINANCING",
@@ -301,7 +309,8 @@ const IFBfinancing: React.FC = () => {
       eligible: [],
       requirements: [],
       purpose: [],
-      img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/10/pngwing.com-2022-10-03T110912.863.png",
+      img: alhuda4,
+      // img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/10/pngwing.com-2022-10-03T110912.863.png",
     },
   ];
   return (

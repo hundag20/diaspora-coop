@@ -301,8 +301,8 @@ export function Footer(props: IFooterProps) {
         <p>Copyright © 2023 Cooperative Bank of Oromia. All Rights Reserved</p>
         <p>
           Designed by{" "}
-          <a href="https://www.linkedin.com/in/aboma-getachew-83b788158/">
-            Web Admin
+          <a href="https://coopbankoromia.com.et/" target="_blank">
+            COOP DxValley
           </a>
         </p>
       </section>

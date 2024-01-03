@@ -291,7 +291,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         console.log(err);
         setFormData({
           ...formData,
-          error: err.response.data.message || "Newtwork Error",
+          error: err.response?.data.message || "Network Error",
         });
       })
       .finally(() => {
@@ -339,7 +339,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         console.log(err);
         setFormData({
           ...formData,
-          error: err.response.data.message || "Newtwork Error",
+          error: err.response?.data?.message || "Network Error",
         });
       })
       .finally(() => {
@@ -389,7 +389,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         console.log(err);
         setFormData({
           ...formData,
-          error: err.response.data.message || "Newtwork Error",
+          error: err.response?.data.message || "Network Error",
         });
       })
       .finally(() => {
@@ -439,7 +439,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         console.log(err);
         setFormData({
           ...formData,
-          error: err.response.data.message || "Newtwork Error",
+          error: err.response?.data.message || "Network Error",
         });
       })
       .finally(() => {
@@ -488,7 +488,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         console.log(err);
         setFormData({
           ...formData,
-          error: err.response.data.message || "Newtwork Error",
+          error: err.response?.data.message || "Network Error",
         });
       })
       .finally(() => {
@@ -564,7 +564,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           console.log(err);
           setFormData({
             ...formData,
-            error: err.response.data.message || "Newtwork Error",
+            error: err.response?.data.message || "Network Error",
           });
         })
         .finally(() => {
