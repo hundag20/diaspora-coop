@@ -19,93 +19,99 @@ import kaahexpressLogo from '../../assets/img/remit/kaah.jpg';
 import moneygramLogo from '../../assets/img/remit/moneygram.jpg';
 import bananapaysLogo from '../../assets/img/remit/Banana-Pay.jpg';
 import dahabashiilLogo from '../../assets/img/remit/dahabashiil.jpg';
+import fastpayLogo from '../../assets/img/remit/fastpay.png';
 import xpressLogo from '../../assets/img/remit/xpress-money.jpg';
 import { Link } from "react-router-dom";
 
 const photos = [
   {
     src: amalLogo,
-    alt: "",
+    alt: "amal",
     link: "https://www.amalexpress.com/"
   },
   {
     src: bakaalLogo,
-    alt: "",
+    alt: "bakaal",
     link: "https://www.bakaal.com/"
   },
   {
+    src: fastpayLogo,
+    alt: "fastpay",
+    link: "https://www.fast-pay.iq/"
+  },
+  {
     src: paysiiLogo,
-    alt: "",
+    alt: "paysii",
     link: "https://www.paysii.com/"
   },
   {
     src: thunesLogo,
-    alt: "",
+    alt: "thunes",
     link: "https://www.thunes.com/"
   },
   {
     src: cashexpressLogo,
-    alt: "",
+    alt: "cashexpress",
     link: "https://cashexpress.com/"
   },
   {
     src: westernunionLogo,
-    alt: "",
+    alt: "westernunion",
     link: "https://www.westernunion.com/us/en/home.html"
   },
   {
     src: worldremitLogo,
-    alt: "",
+    alt: "worldremit",
     link: "https://www.worldremit.com/en?irclickid=ySWVNv35SxyPRVKUCQUItSrfUkFX6HQr1RZQxg0&utm_medium=Affiliate&utm_source=Impact&utm_campaign=17563&utm_content=Online+Tracking+Link&utm_term=40052&irgwc=1&amountfrom=100.00&selectfrom=gb&currencyfrom=gbp&selectto=ph&currencyto=php&transfer=bnk"
   },
   {
     src: swiftLogo,
-    alt: "",
+    alt: "swift",
     link: "https://www.swift.com/"
   },
   {
     src: tran4Logo,
-    alt: "",
+    alt: "tran",
     link: "https://www.transfast.com/"
   },
   {
     src: riaLogo,
-    alt: "",
+    alt: "ria",
     link: "https://www.riamoneytransfer.com/en-us/"
   },
   {
     src: smallworldLogo,
-    alt: "",
+    alt: "smallworld",
     link: "https://www.smallworldfs.com/en"
   },
   {
     src: ethioremitLogo,
-    alt: "",
+    alt: "ethioremit",
     link: "https://www.ethioremit.com/"
   },
   {
     src: kaahexpressLogo,
-    alt: "",
+    alt: "kaahexpress",
     link: "https://www.kaahexpress.eu/"
   },
   {
     src: moneygramLogo,
-    alt: "",
+    alt: "moneygram",
     link: "https://www.moneygram.com/mgo/us/en/"
   },
   {
     src: bananapaysLogo,
-    alt: "",
+    alt: "bananapay",
     link: "https://www.bananapays.com/"
   },
   {
     src: dahabashiilLogo,
-    alt: "",
+    alt: "dahabashii",
     link: "https://www.dahabshiil.com/"
   },
   {
     src: xpressLogo,
-    alt: "",
+    alt: "xpress",
     link: "https://www.federalbank.co.in/xpress-money"
   },
 ];
@@ -183,7 +189,7 @@ export default () => {
       {photos.map((item) => (
         <Link to={item.link} target="_blank">
           <div className="keen-slider__slide number-slide1">
-            <img src={item.src} alt="" height={"100%"} />
+            <img src={item.src} alt={item.alt} height={"100%"} />
           </div>
         </Link>
       ))}
