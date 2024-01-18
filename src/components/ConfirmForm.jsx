@@ -4,6 +4,10 @@ import PdfViewer from "./PdfViewer";
 import html2pdf from "html2pdf.js";
 import { Button } from "@mui/material";
 
+import { Document, Page } from "react-pdf";
+import SignatureCanvas from "react-signature-canvas";
+
+const pdfURL = "./Copy.pdf";
 export const ConfirmFileUpload = ({
   name,
   stateFunction,
@@ -13,6 +17,9 @@ export const ConfirmFileUpload = ({
   const [dialogOpen, setDialogOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState("");
   console.log("pdf:", pdfContent);
+
+  const [signatureRef, setSignatureRef] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const handleSavePdf = (content) => {
     generatePdf(content).then((pdf) => {
@@ -83,6 +90,46 @@ export const ConfirmFileUpload = ({
   console.log("file emp:", stateFunction);
   console.log("file emp:", stateFunction !== null);
 
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    // Do something when the PDF is loaded, if needed
+    console.log(`Document loaded with ${numPages} pages.`);
+  };
+
+  const handleClearSignature = () => {
+    signatureRef.clear();
+  };
+
+  const handleSaveSignature = () => {
+    const signatureData = signatureRef.toDataURL();
+    // Now you can save the signatureData or use it as needed
+    console.log("Signature Data:", signatureData);
+  };
+
+  const handleSavePDF = async () => {
+    const pdfCanvas = document.createElement("canvas");
+    const pdfContext = pdfCanvas.getContext("2d");
+
+    const pdfPage = document.querySelector(".react-pdf__Page");
+    pdfCanvas.width = pdfPage.clientWidth;
+    pdfCanvas.height = pdfPage.clientHeight;
+
+    const pdfImage = new Image();
+    pdfImage.src = await signatureRef.toDataURL();
+    pdfImage.onload = () => {
+      pdfContext.drawImage(
+        pdfImage,
+        pdfCanvas.width - pdfImage.width,
+        pdfCanvas.height - pdfImage.height
+      );
+
+      const pdfBlob = pdfCanvas.toDataURL("image/png");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = pdfBlob;
+      downloadLink.download = "signed_document.pdf";
+      downloadLink.click();
+    };
+  };
+
   return (
     <>
       <div>
@@ -126,6 +173,25 @@ export const ConfirmFileUpload = ({
           onClose={() => setDialogOpen(false)}
           onSave={handleSavePdf}
         />
+
+        <Document file={pdfURL} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={pageNumber} />
+        </Document>
+
+        <SignatureCanvas
+          ref={(ref) => setSignatureRef(ref)}
+          canvasProps={{
+            width: 200,
+            height: 100,
+            className: "signature-canvas",
+          }}
+        />
+
+        <div>
+          <button onClick={handleClearSignature}>Clear Signature</button>
+          <button onClick={handleSaveSignature}>Save Signature</button>
+          <button onClick={handleSavePDF}>Save PDF</button>
+        </div>
       </div>
     </>
   );

@@ -12,6 +12,9 @@
     gap: 2rem;
     padding: 0.5rem $resPadding;
     padding-bottom: 5px;
+    a {
+      color: inherit;
+    }
     .socials {
       display: flex;
       justify-content: right;

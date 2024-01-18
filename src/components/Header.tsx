@@ -210,23 +210,23 @@ export function Header(props: IHeaderProps) {
   const socials = [
     {
       icon: <Facebook />,
-      link: "www.facebook.com",
+      link: "https://www.facebook.com/cooperativebankoforomia",
     },
     {
       icon: <Instagram />,
-      link: "www.instagram.com",
+      link: "https://www.instagram.com/coop_bank/",
     },
     {
       icon: <Twitter />,
-      link: "www.twitter.com",
+      link: "https://twitter.com/coopbankoromia",
     },
     {
       icon: <LinkedIn />,
-      link: "www.linkedin.com",
+      link: "https://www.linkedin.com/company/12593743/admin/",
     },
     {
       icon: <Telegram />,
-      link: "www.telegram.com",
+      link: "https://t.me/coopbankoromia",
     },
   ];
 
@@ -292,12 +292,9 @@ export function Header(props: IHeaderProps) {
       <div className="tophead">
         <div className="socials">
           {socials.map((social, index) => (
-            <div
-              onClick={() => window.open(`${social.link}`, "_blank")}
-              className="socail"
-            >
+            <a href={social.link} target="_blank" className="socail">
               {social.icon}
-            </div>
+            </a>
           ))}
         </div>
         {/* <button>Internet Banking</button> */}
