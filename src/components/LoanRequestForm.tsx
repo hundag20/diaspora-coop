@@ -11,6 +11,21 @@ export const currency = [
   { id: 2, name: "Pound", avr: "GBP", sign: "£" },
   { id: 3, name: "Euro", avr: "EUR", sign: "€" },
 ];
+export const incomeSource = [
+  "Employment Letter",
+  "Individual Income TAX return of three(3) years consecutives",
+  "Audited financial statement of at least recent One(1) year",
+];
+
+export const schedule = ["Monthly", "Two Months Basis", "Three Months Basis"];
+export const loanType = [
+  "Diaspora Mortgage Loan",
+  "Diaspora Non-Commercial Car Loan",
+  "Diaspora Commericail Car Loan",
+  "Diaspora Personal Loan",
+  "Diaspora Working Capital Loan",
+  "Diaspora Investment Financing Loan",
+];
 export const countries = [
   "Afghanistan",
   "Albania",

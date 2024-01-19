@@ -5,6 +5,7 @@ import { LoanRequestForm } from "../components/LoanRequestForm";
 import { useNavigate } from "react-router-dom";
 import DiasporaResources from "../components/DiasporaResources";
 import { useState } from "react";
+import { LoanRequestWizardForm } from "../components/LoanRequestWizardForm";
 
 export interface IGetALoanProps {}
 
@@ -66,41 +67,45 @@ const Title = () => (
   </Grid>
 );
 
-const LoanItems = () => (
-  <Grid
-    container
-    columnSpacing={4}
-    rowSpacing={4}
-    xs={11.5}
-    md={10}
-    className="loan-items"
-  >
-    {loanTypes.map((loanItem) => (
-      <Grid item className="loan-item" xs={12} sm={6}>
-        <div className="loan-item-header">
-          <div className="icon">{loanItem.icon}</div>
-          <div className="loan-item-title">
-            <h3>{loanItem.title}</h3>
+const LoanItems = () => {
+  const navigate = useNavigate();
+  return (
+    <Grid
+      container
+      columnSpacing={4}
+      rowSpacing={4}
+      xs={11.5}
+      md={10}
+      className="loan-items"
+    >
+      {loanTypes.map((loanItem) => (
+        <Grid item className="loan-item" xs={12} sm={6}>
+          <div className="loan-item-header">
+            <div className="icon">{loanItem.icon}</div>
+            <div className="loan-item-title">
+              <h3>{loanItem.title}</h3>
+            </div>
           </div>
-        </div>
-        <div className="loan-item-body">
-          <div className="desc">
-            <p>
-              {loanItem.desc}
-              <span className="req-doc">
-                <a href={loanItem.docLink}> Required Document</a>
-              </span>
-            </p>
+          <div className="loan-item-body">
+            <div className="desc">
+              <p>
+                {loanItem.desc}
+                <span className="req-doc">
+                  <a href={loanItem.docLink}> Required Document</a>
+                </span>
+              </p>
+            </div>
           </div>
-        </div>
-        {/* <div className="loan-item-footer">
-          <i className="fas fa-arrow-circle-right"></i>
-          <a href="#Loan_Request">Are You Interested?</a>
-        </div> */}
-      </Grid>
-    ))}
-  </Grid>
-);
+          <div className="loan-item-footer">
+            <i className="fas fa-arrow-circle-right"></i>
+            <a onClick={() => navigate("/loan-request")}>Are You Interested?</a>
+            {/* <a href="#Loan_Request">Are You Interested?</a> */}
+          </div>
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
 
 const LoanCalculatorButton = () => {
   const navigate = useNavigate();
@@ -132,6 +137,17 @@ export function GetALoan(props: IGetALoanProps) {
         <LoanCalculatorButton />
         {/* <LoanRequestForm /> */}
         {/* <DiasporaResources /> */}
+        {/* <Grid
+          container
+          xs={11}
+          md={10}
+          gap={2}
+          style={{ boxSizing: "border-box" }}
+        >
+          <Grid item xs={12} md={12}>
+            <LoanRequestWizardForm productType={accountType} prevData={null} />
+          </Grid>
+        </Grid> */}
       </div>
     </div>
   );

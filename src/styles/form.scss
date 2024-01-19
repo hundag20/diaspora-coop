@@ -68,7 +68,15 @@
   // .row1 {
   //   display: none;
   // }
+  .form-field.success {
+    input {
+      background-color: rgb(110, 255, 110);
+    }
+  }
   .form-field {
+    .verify {
+      display: none;
+    }
     position: relative;
     .form-label {
       font-style: normal;
@@ -141,6 +149,9 @@
       // border-color: #777771;
       background-color: #ededed;
       color: #888888;
+    }
+    input.success {
+      display: none;
     }
 
     input:focus-visible {

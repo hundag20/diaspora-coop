@@ -25,6 +25,7 @@ import ScrollToTop from "./components/scrollToTop";
 import { ChooseAccount } from "./pages/ChooseAccount";
 import { AccountOpen } from "./pages/conventionalAccount/AccountOpen";
 import NotFound from "./pages/404/notfound";
+import { LoanRequestPage } from "./pages/LoanRequest";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -68,6 +69,14 @@ const App = () => {
           element={
             <BodyRoute>
               <MoneyTransfer />
+            </BodyRoute>
+          }
+        />
+        <Route
+          path="/loan-request"
+          element={
+            <BodyRoute>
+              <LoanRequestPage />
             </BodyRoute>
           }
         />

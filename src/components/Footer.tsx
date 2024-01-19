@@ -95,6 +95,10 @@ const columnsData: ColumnData[] = [
           text: "Trade Registration And Licensing",
           url: "https://etrade.gov.et",
         },
+        {
+          text: "Partner Real Estates",
+          url: "https://www.brightontradingltd.com/residential-ventures",
+        },
       ],
     },
     bottom: {
@@ -267,7 +271,10 @@ export function Footer(props: IFooterProps) {
         </div>
       </section>
       <section className="footer-bottom">
-        <p>Copyright © 2023 Cooperative Bank of Oromia. All Rights Reserved</p>
+        <p>
+          Copyright © {new Date().getFullYear()} Cooperative Bank of Oromia. All
+          Rights Reserved
+        </p>
         <p>
           Designed by{" "}
           <a href="https://coopbankoromia.com.et/" target="_blank">
