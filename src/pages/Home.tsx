@@ -61,6 +61,7 @@ import { CircularProgress, TextField } from "@mui/material";
 import model1 from "../assets/img/Model-0001.png";
 import model2 from "../assets/img/Model-002.png";
 import model3 from "../assets/img/Model-003.png";
+import Chat from "../components/Chat";
 
 export interface IHomeProps {}
 interface Header {
@@ -1047,6 +1048,7 @@ export function Home(props: IHomeProps) {
       <div id="money-transfer">
         <Remittance />
       </div>
+      <Chat />
     </div>
   );
 }

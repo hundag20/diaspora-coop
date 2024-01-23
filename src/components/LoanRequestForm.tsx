@@ -945,8 +945,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     }
   };
 
-  console.log("file emp:", stateFunction);
-  console.log("file emp:", stateFunction !== null);
+  // console.log("file emp:", stateFunction);
+  // console.log("file emp:", stateFunction !== null);
 
   return (
     <div>

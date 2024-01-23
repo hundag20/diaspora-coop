@@ -18,6 +18,7 @@ import {
   PriceChange,
   Mosque,
   Close,
+  WhatsApp,
 } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -215,6 +216,10 @@ export function Header(props: IHeaderProps) {
     {
       icon: <Instagram />,
       link: "https://www.instagram.com/coop_bank/",
+    },
+    {
+      icon: <WhatsApp />,
+      link: "https://chat.whatsapp.com/DuBdpxjvcTPGaghdu48oRy",
     },
     {
       icon: <Twitter />,

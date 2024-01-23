@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../styles/footer.scss";
 export interface IFooterProps {}
 
@@ -216,7 +217,7 @@ export function Footer(props: IFooterProps) {
                     ))}
                   </ul>
                   {column.bottom && (
-                    <>
+                    <div style={{ margin: "1rem 0" }}>
                       <h4 className="title">{column.bottom.title}</h4>
                       {column.bottom.socialLinks && (
                         <div className="elementor-element elementor-element-1a5debc elementor-shape-circle e-grid-align-left elementor-grid-0 elementor-widget elementor-widget-social-icons">
@@ -224,24 +225,22 @@ export function Footer(props: IFooterProps) {
                             <div className="elementor-social-icons-wrapper elementor-grid">
                               {column.bottom.socialLinks.map(
                                 (socialLink, socialIndex) => (
-                                  <span
+                                  <a
+                                    href={socialLink.url}
+                                    target="_blank"
                                     key={socialIndex}
-                                    className="elementor-grid-item"
                                   >
-                                    <a
-                                      className={socialLink.icon}
-                                      href={socialLink.url}
-                                    >
+                                    <span className="elementor-grid-item">
                                       <i className={socialLink.icon}></i>
-                                    </a>
-                                  </span>
+                                    </span>
+                                  </a>
                                 )
                               )}
                             </div>
                           </div>
                         </div>
                       )}
-                    </>
+                    </div>
                   )}
                 </>
               )}
