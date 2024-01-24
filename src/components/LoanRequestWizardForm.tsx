@@ -150,7 +150,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
   // sex: "",
   // currency: 1,
   // State to track form field errors
-  const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
+  const [errors, setErrors] = useState<{ [key: string]: any }>({});
   const [photo, setPhoto] = useState<File | null>(null);
   const [passport, setPassport] = useState<File | null>(null);
   const [residentCard, setResidentCard] = useState<File | null>(null);
@@ -279,7 +279,8 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
   };
 
   const handleInitialSave = () => {
-    // setLoader(true);
+    setLoader(true);
+    setErrors({});
     axios
       .post(`${apiUrl}api/v1/loans`, {
         fullName: formData.fullName,
@@ -539,39 +540,55 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
   const handleVerifyAccount = () => {
     setVLoader(true);
     axios
-      .post(`http://10.1.245.150:7081/v1/cbo/`, {
-        CustomerInfoRequest: {
-          ESBHeader: {
-            serviceCode: "040000",
-            channel: "USSD",
-            Service_name: "customerInfo",
-            Message_Id: "Mmr2qyutr82729",
-          },
-          CusomerInfo: {
-            AccountId: formData.accountNumber,
-          },
-        },
-      })
+      .get(
+        `${apiUrl}api/v1/services/bank-account-info?accountNumber=${formData.accountNumber}`
+      )
+      // .post(`http://10.1.245.150:7081/v1/cbo/`, {
+      //   CustomerInfoRequest: {
+      //     ESBHeader: {
+      //       serviceCode: "040000",
+      //       channel: "USSD",
+      //       Service_name: "customerInfo",
+      //       Message_Id: "Mmr2qyutr82729",
+      //     },
+      //     CusomerInfo: {
+      //       AccountId: formData.accountNumber,
+      //     },
+      //   },
+      // })
       .then((res: any) => {
         console.log(res);
-        if (res?.data.CustomerInfoResponse?.CustomerInfo.length) {
-          const perinfo = res?.data.CustomerInfoResponse?.CustomerInfo[0];
-          setFormData({
-            ...formData,
-            accountVerified: true,
-            fullName: perinfo?.displayName,
-            accountType: perinfo?.categoryName,
-            phone: perinfo.customerDetails[0]?.phoneNumbers[0].phoneNumber,
-          });
-        } else {
-          // const stepErrors: { [key: string]: boolean } = {};
-          // stepErrors.accountNumber = true;
-          // setErrors((prevErrors) => ({ ...prevErrors, ...stepErrors }));
-          setErrors({ ...errors, accountNumber: true });
-        }
+        // if (res?.data.CustomerInfoResponse?.CustomerInfo.length) {
+        setFormData({
+          ...formData,
+          accountVerified: true,
+          fullName: res.data?.displayName,
+          accountType: res?.data?.categoryName,
+          phone: res.data?.phoneNumber,
+        });
+        setErrors({
+          ...errors,
+          accountNumber: false,
+        });
+        // } else {
+        //   // const stepErrors: { [key: string]: boolean } = {};
+        //   // stepErrors.accountNumber = true;
+        //   // setErrors((prevErrors) => ({ ...prevErrors, ...stepErrors }));
+        //   setErrors({
+        //     ...errors,
+        //     accountNumber: "The account you provided is invalid!",
+        //   });
+        // }
       })
       .catch((err) => {
         console.log("eer", err);
+        setErrors({
+          ...errors,
+          accountNumber:
+            err.response?.data?.message ||
+            err.response?.data?.error ||
+            "Network issues, please try again.",
+        });
       })
       .finally(() => {
         setVLoader(false);
@@ -711,6 +728,9 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                               aria-required="true"
                               fullWidth
                               error={errors.accountNumber}
+                              helperText={
+                                errors.accountNumber && errors.accountNumber
+                              }
                               value={formData.accountNumber}
                               onChange={(e) =>
                                 handleInputChange(
@@ -754,7 +774,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                               <Button
                                 fullWidth
                                 variant="contained"
-                                style={{ color: "white" }}
+                                style={{ color: "white", height: "40px" }}
                               >
                                 <CircularProgress />
                               </Button>
@@ -763,6 +783,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                                 fullWidth
                                 variant="contained"
                                 onClick={handleVerifyAccount}
+                                style={{ height: "40px" }}
                               >
                                 Verify
                               </Button>
