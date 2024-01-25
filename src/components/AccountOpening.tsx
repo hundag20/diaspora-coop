@@ -8,7 +8,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const rootUrl = window.location.protocol + '//' + window.location.host;
+const apiUrl = `${rootUrl}/${process.env.REACT_APP_API_URL}`;
 
 const DiasporaAccountInfo = {
   title: "DIASPORA ACCOUNT",
@@ -103,7 +104,9 @@ export function AccountOpening(props: IAccountOpeningProps) {
     const performLogicOnId = async (inputId: string) => {
       try {
         const enc = atob(inputId);
-        const response = await axios.get(`${apiUrl}api/v1/accounts/${enc}`);
+        const url = `${apiUrl}api/v1/accounts/${enc}`
+        console.log('url', url)
+        const response = await axios.get(url);
         const data = response.data;
         console.log("data:", data);
 
