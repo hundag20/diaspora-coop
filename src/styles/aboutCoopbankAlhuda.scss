@@ -147,9 +147,14 @@
           gap: 2rem;
           .finances {
             display: flex;
-            flex-direction: row-reverse;
+            flex-direction: column;
+
             gap: 2rem;
             margin-bottom: 20px;
+            @include breakpoint(mdP) {
+              flex-direction: row-reverse;
+            }
+
             .side {
               width: 100%;
               .photo {
@@ -219,7 +224,10 @@
               }
             }
             &.even {
-              flex-direction: row;
+              flex-direction: column;
+              @include breakpoint(mdP) {
+                flex-direction: row;
+              }
             }
           }
         }

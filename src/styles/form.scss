@@ -65,9 +65,10 @@
       font-weight: bold;
     }
   }
-  // .row1 {
-  //   display: none;
-  // }
+  .row1 {
+    max-width: none;
+    // display: none;
+  }
   .form-field.success {
     input {
       background-color: rgb(110, 255, 110);

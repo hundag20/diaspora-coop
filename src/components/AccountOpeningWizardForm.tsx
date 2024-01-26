@@ -38,7 +38,9 @@ import "react-phone-number-input/style.css";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { ConfirmFileUpload } from "./ConfirmForm";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const rootUrl = window.location.protocol + "//" + window.location.host;
+const apiUrl = `${rootUrl}/${process.env.REACT_APP_API_URL}`;
+// const apiUrl = process.env.REACT_APP_API_URL;
 
 const steps = [
   "Personal Information",
@@ -742,7 +744,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
               {activeStep === 0 && (
                 <Grid container xs={12} rowSpacing={4}>
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      columnSpacing={3}
+                      spacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -805,7 +813,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   </Grid>
 
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      columnSpacing={3}
+                      spacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -888,7 +902,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   </Grid>
 
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3}>
+                    <Grid container xs={12} spacing={3} columnSpacing={3}>
                       <Grid
                         item
                         xs={12}
@@ -1042,7 +1056,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
               {activeStep === 1 && (
                 <Grid container xs={12} rowSpacing={4}>
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      columnSpacing={3}
+                      spacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -1078,7 +1098,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   </Grid>
 
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      columnSpacing={3}
+                      spacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -1152,7 +1178,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   </Grid>
 
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      columnSpacing={3}
+                      spacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -1218,7 +1250,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
               {activeStep === 2 && (
                 <Grid container xs={12} rowSpacing={4}>
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      spacing={3}
+                      columnSpacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -1253,7 +1291,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   </Grid>
 
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      spacing={3}
+                      columnSpacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -1416,7 +1460,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   </Grid>
 
                   <Grid item xs={12} className="form-row">
-                    <Grid item xs={12} className="form-row">
+                    <Grid item xs={12} spacing={3} className="form-row">
                       <Grid
                         container
                         xs={12}
@@ -1492,7 +1536,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
               {activeStep === 3 && (
                 <Grid container xs={12} rowSpacing={4}>
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      columnSpacing={3}
+                      spacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -1558,7 +1608,13 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                   </Grid>
 
                   <Grid item xs={12} className="form-row">
-                    <Grid container xs={12} columnSpacing={3} className="row1">
+                    <Grid
+                      container
+                      xs={12}
+                      columnSpacing={3}
+                      spacing={3}
+                      className="row1"
+                    >
                       <Grid
                         item
                         xs={12}
@@ -1679,7 +1735,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           data-element="upload-2_651becd154b31"
                           aria-describedby="form-field-upload-2_651becd154b31-description"
                         >
-                          <ConfirmFileUpload
+                          <FileUpload
                             error={errors.confirm ? true : false}
                             name="upload-2[]"
                             stateFunction={confirm}
