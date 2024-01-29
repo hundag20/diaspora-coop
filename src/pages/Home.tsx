@@ -325,7 +325,7 @@ const OfflineForm: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [loader, setLoader] = useState<boolean>(false);
   const [error, setError] = useState<{ [key: string]: boolean }>({});
-  const [uploadNotif, setUploadNotif] = useState<string>('');
+  const [uploadNotif, setUploadNotif] = useState<any>({});
   const [file, setFile] = useState<null | File>(null);
 
   useEffect(() => {
@@ -365,7 +365,7 @@ const OfflineForm: React.FC = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     setError({});
-    setUploadNotif('');
+    setUploadNotif({});
     setError({});
     if (email === "" || name === "" || file === null || !isValidEmail(email)) {
       let err: { [key: string]: boolean } = {};
@@ -385,12 +385,12 @@ const OfflineForm: React.FC = () => {
     axios
       .post(`${apiUrl}api/v1/offline-accounts`, formdata)
       .then((res) => {
-        setUploadNotif('File uploaded successfully!')
+        setUploadNotif({msg: 'File uploaded successfully!', status: 'ok'})
         setLoader(false);
       })
       .catch(async (err) => {
         // setTimeout(() => {
-          setUploadNotif('File uploaded Failed!')
+          setUploadNotif({msg: 'File uploaded Failed!', status: 'error'})
           // setUploadNotif('File uploaded successfully!')
           setError(err?.response?.data?.message || "Network error");
           setLoader(false);
@@ -489,7 +489,7 @@ const OfflineForm: React.FC = () => {
                 <div className="row1">
                   <div className="form-col form-col-4 ">
                     <div className="form-field">
-                      {uploadNotif && <p style={{ marginTop: 10, fontSize:'16px', color: error ? 'red' : 'green' }}>{uploadNotif}</p>}
+                      {uploadNotif.msg && <p style={{ marginTop: 10, fontSize:'16px', color: uploadNotif.status === 'error' ? 'red' : 'green' }}>{uploadNotif.msg}</p>}
                     </div>
                   </div>
                 </div>
