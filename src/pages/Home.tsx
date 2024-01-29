@@ -383,7 +383,7 @@ const OfflineForm: React.FC = () => {
 
     setLoader(true);
     axios
-      .post(`${apiUrl}api/v1/offline-accounts`)
+      .post(`${apiUrl}api/v1/offline-accounts`, formData)
       .then((res) => {
         setUploadNotif('File uploaded successfully!')
         setLoader(false);
