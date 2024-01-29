@@ -40,7 +40,11 @@
     .left {
       cursor: pointer;
       img {
-        width: 100px;
+        width: 110px;
+        
+        @include breakpoint(mdP) {
+          width: 170px;
+        }
       }
     }
 

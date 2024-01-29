@@ -86,14 +86,14 @@ const About = () => {
   };
 
   const about_header = {
-    headertop: "CoopBank Diaspora",
+    headertop: "Coopbank Diaspora",
     headerTitle: " Diaspora Banking",
     headerSubTitile:
       " We provide you with a distinctive array of products and services tailored to your banking needs both at home and abroad!",
     headerDiscription1:
-      "  CoopBank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis. CoopBank Diaspora Account has been operational since August 2012.",
+      "  Coopbank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of Coopbank which has been given due emphasis. Coopbank Diaspora Account has been operational since August 2012.",
     headerDiscription2:
-      "  CoopBank Diaspora Banking is a platform designed for Ethiopians who do not reside in the country to have a safe, easy and convenient access to a wide range of products and services carefully curated to simplify cross-border banking.",
+      "  Coopbank Diaspora Banking is a platform designed for Ethiopians who do not reside in the country to have a safe, easy and convenient access to a wide range of products and services carefully curated to simplify cross-border banking.",
   };
 
   const about_headerImg = {

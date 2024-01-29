@@ -212,7 +212,7 @@ const HeroSlides = ({ slides }) => {
                       }
                       // src={slide.url}
                       // src="https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-0001.png"
-                      alt="Coop bank"
+                      alt="Coopbank"
                     />
                   </div>
                 </div>

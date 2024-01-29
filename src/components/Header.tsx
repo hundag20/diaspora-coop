@@ -1,5 +1,5 @@
 import * as React from "react";
-import cooplogo from "../assets/img/cooplogo.png";
+import cooplogo from "../assets/img/Coopbank.svg";
 import "../styles/headers.scss";
 import MainButton from "./Buttons/mainButton";
 import { useEffect, useState } from "react";
@@ -86,7 +86,7 @@ const menuItems = [
     route: "/about-coopbank-alhuda",
     // subMenu: [
     //   {
-    //     name: "About CoopBank Alhuda",
+    //     name: "About Coopbank Alhuda",
     //     icon: <Mosque className="muicon" />,
     //     route: "/about-coopbank-alhuda",
     //   },

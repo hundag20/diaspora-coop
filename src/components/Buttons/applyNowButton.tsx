@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   font-weight: 700;
   text-transform: uppercase;
   color: #ffffff;
-  background-color: #00adef;
+  background-color: #ee7b28;
   border-style: solid;
   border-width: 1px 1px 1px 1px;
   border-color: #ffcc03;

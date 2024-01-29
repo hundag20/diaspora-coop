@@ -40,7 +40,7 @@ const columnsData: ColumnData[] = [
   {
     title: "About Diaspora",
     content:
-      "CoopBank of Oromia is one of the leading private banks in Ethiopia with a very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis. CoopBank Diaspora Account has been operational since August 2012.",
+      "Coopbank of Oromia is one of the leading private banks in Ethiopia with a very distinctive banking history. Diaspora Banking is one of the banking segments of Coopbank which has been given due emphasis. Coopbank Diaspora Account has been operational since August 2012.",
   },
   {
     title: "Important Links",

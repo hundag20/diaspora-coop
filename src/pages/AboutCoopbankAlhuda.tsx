@@ -37,7 +37,7 @@ const AlhudAccountProps: React.FC = () => {
       name: "WADIA",
       type: "SAVING ACCOUNT",
       description:
-        "Wadia is a trust agreement by CoopBank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
+        "Wadia is a trust agreement by Coopbank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
       features: [
         "Fund source: Abroad in Foreign currency",
         "Account accessible for overseas residents",
@@ -50,7 +50,7 @@ const AlhudAccountProps: React.FC = () => {
       ],
       benefits: [
         "Free foreign currency withdrawal fees",
-        "Free transactions at all CoopBank branches",
+        "Free transactions at all Coopbank branches",
         "Access to all E-channels",
         "Access to credit facilities",
         "Designated Personal Banker support",
@@ -68,7 +68,7 @@ const AlhudAccountProps: React.FC = () => {
       ],
       benefits: [
         "Free withdrawals for foreign currency transactions",
-        "Free transactions at all CoopBank branches",
+        "Free transactions at all Coopbank branches",
         "Access to all E-channels",
         "Access to credit facilities",
         "Designated Personal Banker support",
@@ -86,7 +86,7 @@ const AlhudAccountProps: React.FC = () => {
       ],
       benefits: [
         "Free foreign currency withdrawal fees",
-        "Free transactions at all CoopBank branches",
+        "Free transactions at all Coopbank branches",
         "Access to all E-channels",
         "Access to credit facilities",
         "Designated Personal Banker support",
@@ -442,7 +442,7 @@ export function AboutCoopbankAlhuda(props: IAboutCoopbankAlhudaProps) {
         <div className="alhudaAccounts">
           <div className="header">
             {/* <img src={coopLogo} alt="coop" /> */}
-            {/* <img src={alhudaLogo} alt="alhuda" /> */}
+            <img src={alhudaLogo} alt="alhuda" />
             <p>
               <span title="desc of coopBank"> Cooperative Bank of Oromia</span>{" "}
               offers a dedicated segment for Sharia-compliant customers. Our

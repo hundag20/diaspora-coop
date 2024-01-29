@@ -30,17 +30,17 @@
   border: 1px solid $primary;
 }
 .accountButtons button.right.active {
-  background-color: $third;
+  background-color: $primary;
   // border: none;
   color: white;
-  border: 1px solid $third;
+  border: 1px solid $primary;
 }
 
 .accountButtons button.left {
   border-right: none;
-  border: 1px solid $third;
+  border: 1px solid $primary;
   background-color: white;
-  color: $third;
+  color: $primary;
   // background-color: rgba(0, 172, 240, 0.5);
   border-radius: 8px 0 0 8px;
 }
@@ -97,7 +97,8 @@
     opacity: 0.9;
     transition: all 0.5s;
   }
-  $main-color: rgba(229, 133, 36, 1);
+  $main-color: #00adef;
+  // $main-color: rgba(229, 133, 36, 1);
   $line-color: rgba(213, 216, 220, 0.3);
 
   .hd-background-overlay.alhuda {

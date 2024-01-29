@@ -56,7 +56,7 @@ export function ChooseAccount(props: IChooseAccountProps) {
       //"This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.",
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
+        "Free transactions across all Coopbank branches",
         "Access to all our E-channels",
         "Access to credit facilities",
         "Designated Personal Banker for support",
@@ -91,7 +91,7 @@ export function ChooseAccount(props: IChooseAccountProps) {
      //   "Diaspora Non-repatriable Account is an account that may take the form of saving deposit that can be used only for local payments. The transferred balance will be exchanged to local currency and deposited to the account.",
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
+        "Free transactions across all Coopbank branches",
         "Enables you to access all our E-channels",
         "Access to credit facilities",
         "Designated Personal Banker",
