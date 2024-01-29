@@ -152,7 +152,7 @@ export function LoanRequest(props: IAccountOpeningProps) {
         contentClass="gl hd-content"
         footerClass="gl hd-footer"
         contentHeader={"Request Loan"}
-        contentParagraph={"request loan"}
+        contentParagraph={"Submit your loan request from anywhere!"}
         accountType={accountType}
         setAccountType={setAccountType}
       />
