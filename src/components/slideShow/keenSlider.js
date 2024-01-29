@@ -19,7 +19,7 @@ import kaahexpressLogo from '../../assets/img/remit/kaah.jpg';
 import moneygramLogo from '../../assets/img/remit/moneygram.jpg';
 import bananapaysLogo from '../../assets/img/remit/Banana-Pay.jpg';
 import dahabashiilLogo from '../../assets/img/remit/dahabashiil.jpg';
-import fastpayLogo from '../../assets/img/remit/fastpay.png';
+import fastpayLogo from '../../assets/img/remit/fastPay.png';
 import xpressLogo from '../../assets/img/remit/xpress-money.jpg';
 import { Link } from "react-router-dom";
 
@@ -37,7 +37,7 @@ const photos = [
   {
     src: fastpayLogo,
     alt: "fastpay",
-    link: "https://www.fast-pay.iq/"
+    link: "https://qrco.de/FastPayEt/"
   },
   {
     src: paysiiLogo,
