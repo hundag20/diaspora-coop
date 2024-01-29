@@ -64,7 +64,8 @@ import model3 from "../assets/img/Model-003.png";
 import Chat from "../components/Chat";
 
 const rootUrl = window.location.protocol + "//" + window.location.host;
-const apiUrl = `${rootUrl}/${process.env.REACT_APP_API_URL}`;
+const apiUrl = `${!rootUrl.includes('localhost')? rootUrl:''}/${process.env.REACT_APP_API_URL}`;
+
 
 export interface IHomeProps { }
 interface Header {
