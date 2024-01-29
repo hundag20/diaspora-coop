@@ -63,6 +63,9 @@ import model2 from "../assets/img/Model-002.png";
 import model3 from "../assets/img/Model-003.png";
 import Chat from "../components/Chat";
 
+const rootUrl = window.location.protocol + "//" + window.location.host;
+const apiUrl = `${rootUrl}/${process.env.REACT_APP_API_URL}`;
+
 export interface IHomeProps { }
 interface Header {
   title: string;
@@ -374,27 +377,25 @@ const OfflineForm: React.FC = () => {
       return;
     }
     const formdata = new FormData();
-    formdata.append("name", name);
+    formdata.append("fullName", name);
     formdata.append("email", email);
     formdata.append("file", file);
 
     setLoader(true);
     axios
-      .post(`https.google.com`)
+      .post(`${apiUrl}api/v1/offline-accounts`)
       .then((res) => {
-        console.log(res);
         setUploadNotif('File uploaded successfully!')
         setLoader(false);
-
       })
       .catch(async (err) => {
-        setTimeout(() => {
-          // setUploadNotif('File uploaded Failed!')
-          setUploadNotif('File uploaded successfully!')
+        // setTimeout(() => {
+          setUploadNotif('File uploaded Failed!')
+          // setUploadNotif('File uploaded successfully!')
           setError(err?.response?.data?.message || "Network error");
           setLoader(false);
 
-        }, 2000)
+        // }, 2000)
 
       })
     // .finally(() => {
@@ -488,7 +489,7 @@ const OfflineForm: React.FC = () => {
                 <div className="row1">
                   <div className="form-col form-col-4 ">
                     <div className="form-field">
-                      {uploadNotif && <p style={{ marginTop: 10, fontSize:'16px', color: error ? 'green' : 'green' }}>{uploadNotif}</p>}
+                      {uploadNotif && <p style={{ marginTop: 10, fontSize:'16px', color: error ? 'red' : 'green' }}>{uploadNotif}</p>}
                     </div>
                   </div>
                 </div>
