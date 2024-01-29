@@ -215,7 +215,7 @@ interface IFBfinancingItem {
 const IFBfinancing: React.FC = () => {
   const IFBfinancingServices: IFBfinancingItem[] = [
     {
-      name: "Alhuda Mortgage Financing",
+      name: "Coopbank Alhuda Mortgage Financing",
       description:
         "Mortgage/Home financing is a secured long-term ‑financing Sharia based provided to Ethiopian Diaspora communities to purchase or construct real estate and homes in Ethiopia. The ‑financing product is available to eligible Ethiopian Diasporas with verifiable and steady incomes.",
       features: [
