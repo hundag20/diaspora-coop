@@ -188,8 +188,8 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   };
 
   const filterLetters = (input: string) => {
-    // Allow only letters (uppercase and lowercase) using a regular expression
-    return input.replace(/[^a-zA-Z]/g, "");
+    // Allow only letters (uppercase and lowercase) and space using a regular expression
+    return input.replace(/[^a-zA-Z\s]/g, "");
   };
 
   const handleLetterChange = (
