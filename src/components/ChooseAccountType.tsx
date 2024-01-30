@@ -93,7 +93,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
         "This account takes the form of current deposits where withdrawals may be made at any time upon demand by writing a check and/or a prearranged procedure adopted by the bank. Interest shall not be paid to a non-resident foreign currency current account.",
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
+        "Free transactions across all Coopbank branches",
         "Access to all our E-channels",
         "Access to credit facilities",
         "Designated Personal Banker for support",
@@ -130,7 +130,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
         "Diaspora Non-repatriable Account is an account that may take the form of saving deposit that can be used only for local payments. The transferred balance will be exchanged to local currency and deposited to the account.",
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
+        "Free transactions across all Coopbank branches",
         "Enables you to access all our E-channels",
         "Access to credit facilities",
         "Designated Personal Banker",
@@ -172,7 +172,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
     {
       title: "WADIA SAVING ACCOUNT",
       description:
-        "Wadia is a trust agreement by CoopBank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
+        "Wadia is a trust agreement by Coopbank for secure fund placement without interest. It's a non-profit deposit account in USD, Pound Sterling, and Euro for eligible customers.",
       features: [
         "Fund source: Abroad in FCY",
         "Account accessible for overseas residents",
@@ -185,7 +185,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
       ],
       benefits: [
         "Free foreign currency withdrawal fees",
-        "Free transactions at all CoopBank branches",
+        "Free transactions at all Coopbank branches",
         "Access to all E-channels",
         "Access to credit facilities",
         "Designated Personal Banker support",
@@ -204,7 +204,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
       ],
       benefits: [
         "Free withdrawals for foreign currency transactions",
-        "Free transactions at all CoopBank branches",
+        "Free transactions at all Coopbank branches",
         "Access to all E-channels",
         "Access to credit facilities",
         "Designated Personal Banker support",
@@ -223,7 +223,7 @@ const ChooseAccountType: React.FC<ChooseAccountTypeProps> = ({
       ],
       benefits: [
         "Free foreign currency withdrawal fees",
-        "Free transactions at all CoopBank branches",
+        "Free transactions at all Coopbank branches",
         "Access to all E-channels",
         "Access to credit facilities",
         "Designated Personal Banker support",

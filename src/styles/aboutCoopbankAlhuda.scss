@@ -9,7 +9,7 @@
       top: 0;
       left: 0; /* Position the scroll progress bar on the left side */
       width: 4px;
-      background-color: #007bff;
+      background-color: #00adef;
       z-index: 9999;
     }
 
@@ -85,7 +85,7 @@
               text-align: left;
               background-color: #ffffff00 !important;
               margin: 5px 0px 0px 0px !important;
-              color: $third;
+              color: $primary;
               font-size: 26px;
               line-height: 48px;
               font-family: "Open Sans", sans-serif;
@@ -136,7 +136,7 @@
           padding: 0;
           line-height: 1;
           margin: 0;
-          color: #e58625;
+          color: #00adef;
           margin: 2rem 0;
         }
         .financess {
@@ -180,7 +180,7 @@
                 padding: 0;
                 line-height: 1;
                 margin: 0;
-                color: #e58625;
+                color: #00adef;
                 margin: 1rem 0;
               }
               p {

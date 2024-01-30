@@ -296,6 +296,7 @@
         vertical-align: baseline;
         box-sizing: border-box;
         margin-bottom: 10px;
+        max-width: 600px;
         margin-top: 10px;
         color: $brownish;
         font-family: "Lato", Sans-serif;
@@ -399,7 +400,7 @@
           height: 100%;
           width: auto;
           max-width: 100%;
-          transform: scaleX(-1);
+          // transform: scaleX(-1);
           // object-fit: cover;
         }
       }
@@ -754,7 +755,7 @@
     // background-color: rgba(238, 123, 40, 0.99);
     // opacity: 0.3;
 
-    background: url("../assets/img/disporacrop.jpg") rgba(238, 123, 40, 0.8);
+    background: url("../assets/img/disporacrop.jpg") rgba(0, 173, 239, 0.8);
     background-size: cover;
     background-blend-mode: overlay;
     // background-blend-mode: multiply;
@@ -930,14 +931,15 @@
           }
 
           .texts {
+            font-family: Arial, Helvetica, sans-serif;
             h3 {
               font-size: calc(12px + 0.4vw);
-              line-height: 20px;
+              line-height: 26px;
               margin: 5px 0;
               font-weight: 550;
             }
             p {
-              font-size: 12px;
+              font-size: 14px;
               line-height: 20px;
               color: #565656;
             }
@@ -959,7 +961,7 @@
 
 .offlineForm {
   .container {
-    padding: 6rem $resPadding;
+    padding: 3rem $resPadding;
 
     .box {
       margin: 0;
@@ -998,6 +1000,17 @@
           // line-height: 46px;
           font-weight: 600;
           text-align: left;
+        }
+        .or-apply-online{
+          font-weight: 300;
+          font-size: calc(2px + 1.5vw);
+          line-height: calc(2px + 2vw);
+          p{
+            all: unset;
+            cursor: pointer;
+            text-decoration: underline;
+            color: $primary;
+          }
         }
       }
       .right {
@@ -1041,7 +1054,7 @@
 
 .slideShowComp {
   .container {
-    padding: 8rem $resPadding;
+    padding: 4rem $resPadding;
     text-align: center;
     h3 {
       font-family: Poppins, sans-serif;

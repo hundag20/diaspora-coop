@@ -56,14 +56,18 @@ import { fetchHomePage } from "../hooks/fetchFullStrapi";
 import CoopLoader from "../components/coopLoader/coopLoader";
 import { FileUpload } from "../components/LoanRequestForm";
 import axios from "axios";
-import { CircularProgress, TextField } from "@mui/material";
+import { CircularProgress, Snackbar, TextField } from "@mui/material";
 
 import model1 from "../assets/img/Model-0001.png";
 import model2 from "../assets/img/Model-002.png";
 import model3 from "../assets/img/Model-003.png";
 import Chat from "../components/Chat";
 
-export interface IHomeProps {}
+const rootUrl = window.location.protocol + "//" + window.location.host;
+const apiUrl = `${!rootUrl.includes('localhost')? rootUrl:''}/${process.env.REACT_APP_API_URL}`;
+
+
+export interface IHomeProps { }
 interface Header {
   title: string;
   description: string;
@@ -81,7 +85,7 @@ const Diasport: React.FC = () => {
     {
       title: "Diaspora Accounts",
       description:
-        "Diaspora Banking Accounts allow Diasporas who reside and work outside the country to maintain and perform domestic and international transfers through their CoopBank Diaspora Accounts.",
+        "Diaspora Banking Accounts allow Diasporas who reside and work outside the country to maintain and perform domestic and international transfers through their Coopbank Diaspora Accounts.",
       bullets: [
         "Diaspora Current Account",
         "Diaspora Fixed-Time Deposit Account",
@@ -220,8 +224,8 @@ interface WhatWeOfferItemProp {
 }
 const offers: WhatWeOfferItemProp = {
   header: {
-    title: "What We offer",
-    description: "We are always there for your Diaspora Banking Needs!",
+    title: "What We Offer",
+    description: "We are always there for your diaspora banking needs!",
   },
   offers: [
     {
@@ -315,11 +319,14 @@ const OfflineForm: React.FC = () => {
   // Use the useInView hook to detect when the "offers" section is in view
   const controls = useAnimation();
   const [ref, inView] = useInView();
+  const navigate = useNavigate()
+
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [loader, setLoader] = useState<boolean>(false);
   const [error, setError] = useState<{ [key: string]: boolean }>({});
+  const [uploadNotif, setUploadNotif] = useState<any>({});
   const [file, setFile] = useState<null | File>(null);
 
   useEffect(() => {
@@ -352,36 +359,49 @@ const OfflineForm: React.FC = () => {
       repeat: 2,
     },
   };
+  const isValidEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
 
   const handleSubmit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     setError({});
-    if (email === "" || name === "" || file === null) {
+    setUploadNotif({});
+    setError({});
+    if (email === "" || name === "" || file === null || !isValidEmail(email)) {
       let err: { [key: string]: boolean } = {};
       if (email === "") err.email = true;
+      if (!isValidEmail(email)) err.email = true;
       if (name === "") err.name = true;
       if (file === null) err.file = true;
       setError(err);
       return;
     }
     const formdata = new FormData();
-    formdata.append("name", name);
+    formdata.append("fullName", name);
     formdata.append("email", email);
     formdata.append("file", file);
 
     setLoader(true);
     axios
-      .post(`url`)
+      .post(`${apiUrl}api/v1/offline-accounts`, formdata)
       .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(err?.response?.data?.message || "Network error");
-      })
-      .finally(() => {
+        setUploadNotif({msg: 'File uploaded successfully!', status: 'ok'})
         setLoader(false);
-      });
+      })
+      .catch(async (err) => {
+        // setTimeout(() => {
+          setUploadNotif({msg: 'File uploaded Failed!', status: 'error'})
+          // setUploadNotif('File uploaded successfully!')
+          setError(err?.response?.data?.message || "Network error");
+          setLoader(false);
+
+        // }, 2000)
+
+      })
+    // .finally(() => {
+    //   setLoader(false);
+    // });
   };
 
   return (
@@ -394,7 +414,7 @@ const OfflineForm: React.FC = () => {
             <p>
               Please <span className="orangecolor">Download</span> Diaspora
               Account Opening Offline Form and{" "}
-              <span className="orangecolor">Upload</span>
+              <span className="orangecolor">Upload.</span> <span className='or-apply-online'>(Or apply online <p onClick={() => navigate('/open-account')}>here</p>)</span>
             </p>
 
             <motion.div
@@ -467,6 +487,13 @@ const OfflineForm: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                <div className="row1">
+                  <div className="form-col form-col-4 ">
+                    <div className="form-field">
+                      {uploadNotif.msg && <p style={{ marginTop: 10, fontSize:'16px', color: uploadNotif.status === 'error' ? 'red' : 'green' }}>{uploadNotif.msg}</p>}
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="action">
                 {/* <p></p> */}
@@ -476,7 +503,7 @@ const OfflineForm: React.FC = () => {
                   <CircularProgress />
                 ) : (
                   <div onClick={(e) => handleSubmit(e)}>
-                    <BasicButton text="Upload Button" link="" />
+                    <BasicButton text="Upload" link="" />
                   </div>
                 )}
               </div>
@@ -656,8 +683,8 @@ const Stats: React.FC<StatHomeProps> = ({ stat }) => {
               offer.value >= 1000000
                 ? Math.round(offer.value / 1000000)
                 : offer.value >= 1000
-                ? Math.round(offer.value / 1000)
-                : Math.round(offer.value)
+                  ? Math.round(offer.value / 1000)
+                  : Math.round(offer.value)
             } // Set the target value to animate to
             duration={2.5} // Set the animation duration
             fontFamily="Arial" // Set the font family
@@ -720,7 +747,7 @@ const slideData: HeroItems[] = [
     topTitle: "Diaspora",
     bottomTitle: "Banking",
     description:
-      "CoopBank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis.",
+      "Coopbank of Oromia is one of the leading private banks in Ethiopia with very distinctive banking history. Diaspora Banking is one of the banking segments of Coopbank which has been given due emphasis.",
     url: {
       data: {
         attributes: {
@@ -743,7 +770,7 @@ const slideData: HeroItems[] = [
     topTitle: "Diaspora",
     bottomTitle: "Accounts",
     description:
-      "Diaspora Banking Accounts allow Diasporas who resides and works outside the country to maintain and perform domestic and international transfers through their CoopBank Diaspora Accounts.",
+      "Diaspora Banking Accounts allow Diasporas who resides and works outside the country to maintain and perform domestic and international transfers through their Coopbank Diaspora Accounts.",
     url: {
       data: {
         attributes: {
@@ -792,10 +819,10 @@ const Hero: React.FC = () => {
             <h2>Banking</h2>
           </div>
           <p className="discription">
-            CoopBank of Oromia is one of the leading private banks in Ethiopia
+            Coopbank of Oromia is one of the leading private banks in Ethiopia
             with very distinctive banking history. Diaspora Banking is one of
-            the banking segments of CoopBank which has been given due emphasis.
-            CoopBank Diaspora Account has been operational since August 2012.
+            the banking segments of Coopbank which has been given due emphasis.
+            Coopbank Diaspora Account has been operational since August 2012.
           </p>
           <div className="hero_button_joins">
             <button
@@ -927,7 +954,7 @@ const howItWorksObejct: HowItWorksItemsPro = {
       type: "loan",
     },
     {
-      title: "CoopBank Review Your Request",
+      title: "Coopbank Review Your Request",
       description:
         "In less than 24 hours, Coopbank will review your document and provide you with a response",
       type: "loan",
@@ -958,9 +985,8 @@ const HowItWorks: React.FC<HowItWorksItemsPro> = ({ header, content }) => {
               <div className="works">
                 {/* <div className="icon">{work.icon}</div> */}
                 <div
-                  className={`iconNum ${
-                    work.type === "loan" ? "loan" : "account"
-                  }`}
+                  className={`iconNum ${work.type === "loan" ? "loan" : "account"
+                    }`}
                 >
                   <div className="muicon">{index + 1} </div>{" "}
                 </div>
@@ -1048,7 +1074,7 @@ export function Home(props: IHomeProps) {
       <div id="money-transfer">
         <Remittance />
       </div>
-      <Chat />
+      {/* <Chat /> */}
     </div>
   );
 }

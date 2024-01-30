@@ -31,7 +31,7 @@ export const AccountTypes = () => {
       ],
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
+        "Free transactions across all Coopbank branches",
         "Access to all our E-channels",
         "Credit facilities",
         "Designated Personal Banker for support",
@@ -71,7 +71,7 @@ export const AccountTypes = () => {
       ],
       benefits: [
         "Free withdrawals fee for foreign currency transactions",
-        "Free transactions across all CoopBank branches",
+        "Free transactions across all Coopbank branches",
         "Access to all our E-channels",
         "Access to credit facilities",
         "Designated Personal Banker",

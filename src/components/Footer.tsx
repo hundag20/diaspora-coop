@@ -40,9 +40,10 @@ const columnsData: ColumnData[] = [
   {
     title: "About Diaspora",
     content:
-      "CoopBank of Oromia is one of the leading private banks in Ethiopia with a very distinctive banking history. Diaspora Banking is one of the banking segments of CoopBank which has been given due emphasis. CoopBank Diaspora Account has been operational since August 2012.",
+      "Coopbank of Oromia is one of the leading private banks in Ethiopia with a very distinctive banking history. Diaspora Banking is one of the banking segments of Coopbank which has been given due emphasis. Coopbank Diaspora Account has been operational since August 2012.",
   },
   {
+    top:{
     title: "Important Links",
     links: [
       {
@@ -72,8 +73,28 @@ const columnsData: ColumnData[] = [
       },
     ],
   },
+    bottom: {
+      title: "Follow us",
+      socialLinks: [
+        {
+          icon: "fab fa-whatsapp whatsapp",
+          url: "https://chat.whatsapp.com/DuBdpxjvcTPGaghdu48oRy",
+          social: "whatsapp",
+        },
+        {
+          icon: "fab fa-telegram",
+          url: "https://t.me/coopbankoromia",
+          social: "telegram",
+        },
+        {
+          icon: "fas fa-envelope",
+          url: "mailto:coopdiaspora@coopbankoromia.com.et",
+          social: "email",
+        },
+      ],
+    },
+  },
   {
-    top: {
       title: "Quick Links",
       links: [
         {
@@ -101,27 +122,6 @@ const columnsData: ColumnData[] = [
           url: "https://www.brightontradingltd.com/residential-ventures",
         },
       ],
-    },
-    bottom: {
-      title: "Follow us",
-      socialLinks: [
-        {
-          icon: "fab fa-whatsapp whatsapp",
-          url: "https://chat.whatsapp.com/DuBdpxjvcTPGaghdu48oRy",
-          social: "whatsapp",
-        },
-        {
-          icon: "fab fa-telegram",
-          url: "https://t.me/coopbankoromia",
-          social: "telegram",
-        },
-        {
-          icon: "fas fa-envelope",
-          url: "mailto:coopdiaspora@coopbankoromia.com.et",
-          social: "email",
-        },
-      ],
-    },
   },
   // {
   // },
@@ -217,7 +217,7 @@ export function Footer(props: IFooterProps) {
                     ))}
                   </ul>
                   {column.bottom && (
-                    <div style={{ margin: "1rem 0" }}>
+                    <div className='social' style={{ margin: "1rem 0" }}>
                       <h4 className="title">{column.bottom.title}</h4>
                       {column.bottom.socialLinks && (
                         <div className="elementor-element elementor-element-1a5debc elementor-shape-circle e-grid-align-left elementor-grid-0 elementor-widget elementor-widget-social-icons">

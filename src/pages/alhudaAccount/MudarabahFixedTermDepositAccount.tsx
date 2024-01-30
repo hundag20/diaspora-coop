@@ -19,7 +19,7 @@ export function MudarabahFixedTermDepositAccount(
       ]}
       benefits={[
         'Free withdrawals fee for foreign currency transactions',
-        'Free transactions across all CoopBank branches',
+        'Free transactions across all Coopbank branches',
         'Enables you to access all our E-channels',
         'You can get access to credit facilities',
         'There will be designated Personal Banker who support you in your banking with Coopbank.',
