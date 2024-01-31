@@ -68,11 +68,11 @@ interface FormItem {
   accountType: null | string;
   accountNumber: string;
   country: string;
-  loanType: number;
-  branch: null | BranchItems;
+  loanType: string;
+  branch: string;
   incomeSource: string;
   loanAmount: null | number;
-  schedule: number;
+  schedule: string;
   confirm: boolean;
   accountVerified: boolean;
   stage: string;
@@ -132,9 +132,9 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     accountType: null,
 
     country: "",
-    loanType: 0,
-    branch: null,
-    schedule: 0,
+    loanType: "",
+    branch: "",
+    schedule: "",
 
     incomeSource: "",
     loanAmount: null,
@@ -264,11 +264,15 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
 
     if (stepIsValid) {
       if (activeStep === 0) {
-        handleInitialSave();
-      } else if (activeStep === 1) {
+        if (formData.stage === "") {
+          handleInitialSave();
+        } else {
+          handleStep0Save();
+        }
+      } else if (formData.id && activeStep === 1) {
         handleStep1Save();
         // setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      } else {
+      } else if (formData.id && activeStep === 2) {
         handleStep2Save();
         // setActiveStep((prevActiveStep) => prevActiveStep + 1);
       }
@@ -332,15 +336,64 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
       });
   };
 
-  const handleStep1Save = () => {
+  const handleStep0Save = () => {
     setLoader(true);
     axios
       .put(`${apiUrl}api/v1/loans/${formData.id}`, {
-        branch: formData.branch?.id,
-        country: formData.country,
-        loanSchedule: formData.schedule,
-        loanType: formData.loanType,
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        accountType: formData.accountType,
+        accountNumber: formData.accountNumber,
       })
+      .then((res) => {
+        console.log(res);
+        setFormData((prevFormData) => {
+          const updatedFormData = {
+            ...prevFormData,
+            percentageCompleted: 2,
+            error: false,
+          };
+          localStorage.setItem(
+            "cooploanopeninginfo",
+            JSON.stringify(updatedFormData)
+          );
+          return updatedFormData;
+        });
+        setFormData({
+          ...formData,
+          percentageCompleted: 2,
+          error: false,
+        });
+        setCompletedSteps((prevCompletedSteps) => {
+          const newCompletedSteps = [...prevCompletedSteps];
+          newCompletedSteps[activeStep] = true;
+          return newCompletedSteps;
+        });
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        return true;
+      })
+      .catch((err) => {
+        console.log(err);
+        setFormData({
+          ...formData,
+          error: err.response?.data.message || "Network Error",
+        });
+      })
+      .finally(() => {
+        setLoader(false);
+      });
+  };
+
+  const handleStep1Save = () => {
+    setLoader(true);
+    const formdata = new FormData();
+    formdata.append("branch", formData.branch || "");
+    formdata.append("country", formData.country || "");
+    formdata.append("loanSchedule", formData.schedule || "");
+    formdata.append("loanType", formData.loanType || "");
+    axios
+      .put(`${apiUrl}api/v1/loans/${formData.id}`, formdata)
       .then((res) => {
         console.log(res);
         setFormData((prevFormData) => {
@@ -496,11 +549,11 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
         break;
       case 1:
         // Validate contact information fields
-        if (formData.loanType == 0) {
+        if (formData.loanType === "") {
           stepErrors.loanType = true;
           stepIsValid = false;
         }
-        if (formData.schedule == 0) {
+        if (formData.schedule === "") {
           stepErrors.schedule = true;
           stepIsValid = false;
         }
@@ -508,7 +561,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
           stepErrors.country = true;
           stepIsValid = false;
         }
-        if (formData.branch === null) {
+        if (formData.branch === "") {
           stepErrors.branch = true;
           stepIsValid = false;
         }
@@ -776,7 +829,9 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                                 variant="contained"
                                 style={{ color: "white", height: "40px" }}
                               >
-                                <CircularProgress />
+                                <CircularProgress
+                                  sx={{ color: "white", background: "white" }}
+                                />
                               </Button>
                             ) : (
                               <Button
@@ -971,7 +1026,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                               data-default-value=""
                               data-select2-id="select2-data-forminator-form-2333__field--address-1-country_6523b367d1783"
                               aria-hidden="true"
-                              defaultValue={0}
+                              defaultValue={""}
                               value={formData.loanType}
                               onChange={(e) =>
                                 // handleInputChange(
@@ -980,16 +1035,16 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                                 // )
                                 setFormData({
                                   ...formData,
-                                  loanType: parseInt(e.target.value),
+                                  loanType: e.target.value,
                                 })
                               }
                             >
-                              <option value={0} disabled>
+                              <option value={""} disabled>
                                 {"Select loan type"}
                               </option>
                               {loanType.map((loanType: any) => {
                                 return (
-                                  <option value={loanType.id}>
+                                  <option value={loanType.loanType}>
                                     {loanType.loanType}
                                   </option>
                                 );
@@ -1030,12 +1085,13 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                               data-default-value=""
                               data-select2-id="select2-data-forminator-form-2333__field--address-1-country_6523b367d1783"
                               aria-hidden="true"
+                              defaultValue={""}
                               value={formData.schedule}
                               onChange={(e) => {
                                 console.log(e.target.value);
                                 setFormData({
                                   ...formData,
-                                  schedule: parseInt(e.target.value),
+                                  schedule: e.target.value,
                                 });
                                 // handleInputChange(
                                 //   "schedule",
@@ -1043,12 +1099,12 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                                 // );
                               }}
                             >
-                              <option value={0} disabled>
+                              <option value={""} disabled>
                                 {"Select schedule"}
                               </option>
                               {loanSchedules.map((schedule: any) => {
                                 return (
-                                  <option value={schedule.id}>
+                                  <option value={schedule.loanSchedule}>
                                     {schedule.loanSchedule}
                                   </option>
                                 );
@@ -1124,20 +1180,17 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                           </label>
                           <div className="">
                             <Autocomplete
-                              disablePortal
+                              // disablePortal
                               value={formData.branch}
-                              onChange={(e: any, newValue: any) => {
-                                console.log(newValue);
-                                handleInputChange("branch", newValue);
-                              }}
-                              options={bankBranches}
-                              getOptionLabel={(option: any) =>
-                                option.branchName
-                              } // Specify how options are displayed
+                              onChange={(e, newValue) =>
+                                handleInputChange("branch", newValue || "")
+                              }
                               sx={{ width: "100%" }}
                               placeholder="Choose Your Branch"
                               id="forminator-form-2333__field--select-1_6523b367d1783"
-                              // className="forminator-select--field forminator-select2 select2-hidden-accessible forminator-screen-reader-only"
+                              // id="combo-box-demo"
+                              options={branches}
+                              getOptionLabel={(option) => option} // Specify how options are displayed
                               data-select2-id=""
                               renderInput={(params) => (
                                 <TextField
