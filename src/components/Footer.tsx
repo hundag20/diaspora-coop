@@ -59,10 +59,6 @@ const columnsData: ColumnData[] = [
         text: "Get A Loan",
         url: "/get-a-loan",
       },
-      {
-        text: "Visit Oromia",
-        url: "https://visitoromia.org/",
-      },
       // {
       //   text: "Download Form",
       //   url: "/downloads/2022/09/Diaspora-Account-Opening-Form-FINFINE-1.pdf",
@@ -124,6 +120,10 @@ const columnsData: ColumnData[] = [
         {
           text: "Partner Real Estates",
           url: "https://www.brightontradingltd.com/residential-ventures",
+        },       
+        {
+        text: "Visit Oromia",
+        url: "https://visitoromia.org/",
         },
       ],
   },
