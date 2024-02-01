@@ -59,6 +59,10 @@ const columnsData: ColumnData[] = [
         text: "Get A Loan",
         url: "/get-a-loan",
       },
+      {
+        text: "Visit Oromia",
+        url: "https://visitoromia.org/",
+      },
       // {
       //   text: "Download Form",
       //   url: "/downloads/2022/09/Diaspora-Account-Opening-Form-FINFINE-1.pdf",
