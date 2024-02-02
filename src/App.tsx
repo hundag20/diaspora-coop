@@ -46,8 +46,17 @@ const BodyRoute = ({ children }: BodyeRouteProps) => {
     // addResponseMessage(response);
   };
   useEffect(() => {
-    addResponseMessage("Welcome to coop chat!");
+    // addResponseMessage("Welcome to coop chat!");
   }, []);
+  const DisabledInput = () => {
+    return (
+      <input
+        className="rcw-new-message"
+        placeholder="Chat is currently disabled"
+        disabled
+      />
+    );
+  };
   return (
     <div className="app">
       <body>
@@ -57,8 +66,10 @@ const BodyRoute = ({ children }: BodyeRouteProps) => {
         <ScrollToTopButton />
         <Widget
           handleNewUserMessage={handleNewUserMessage}
-          title="COOP Kapcha"
+          title="COOP Chat"
+          subtitle="Waiting for server..."
           handleToggle={toggleWidget}
+          customInputComponent={DisabledInput}
           isOpen={isWidgetOpen}
           // onClick={toggleWidget}
           // onClick={() => console.log("click")}
