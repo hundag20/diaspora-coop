@@ -58,16 +58,20 @@ import { FileUpload } from "../components/LoanRequestForm";
 import axios from "axios";
 import { CircularProgress, Snackbar, TextField } from "@mui/material";
 
+import { Widget, addResponseMessage } from "react-chat-widget";
+
 import model1 from "../assets/img/Model-0001.png";
 import model2 from "../assets/img/Model-002.png";
 import model3 from "../assets/img/Model-003.png";
 import Chat from "../components/Chat";
+import ContactUs from "../components/ContactUs/contactUs";
 
 const rootUrl = window.location.protocol + "//" + window.location.host;
-const apiUrl = `${!rootUrl.includes('localhost')? rootUrl:''}/${process.env.REACT_APP_API_URL}`;
+const apiUrl = `${!rootUrl.includes("localhost") ? rootUrl : ""}/${
+  process.env.REACT_APP_API_URL
+}`;
 
-
-export interface IHomeProps { }
+export interface IHomeProps {}
 interface Header {
   title: string;
   description: string;
@@ -319,8 +323,7 @@ const OfflineForm: React.FC = () => {
   // Use the useInView hook to detect when the "offers" section is in view
   const controls = useAnimation();
   const [ref, inView] = useInView();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -386,19 +389,18 @@ const OfflineForm: React.FC = () => {
     axios
       .post(`${apiUrl}api/v1/offline-accounts`, formdata)
       .then((res) => {
-        setUploadNotif({msg: 'File uploaded successfully!', status: 'ok'})
+        setUploadNotif({ msg: "File uploaded successfully!", status: "ok" });
         setLoader(false);
       })
       .catch(async (err) => {
         // setTimeout(() => {
-          setUploadNotif({msg: 'File uploaded Failed!', status: 'error'})
-          // setUploadNotif('File uploaded successfully!')
-          setError(err?.response?.data?.message || "Network error");
-          setLoader(false);
+        setUploadNotif({ msg: "File uploaded Failed!", status: "error" });
+        // setUploadNotif('File uploaded successfully!')
+        setError(err?.response?.data?.message || "Network error");
+        setLoader(false);
 
         // }, 2000)
-
-      })
+      });
     // .finally(() => {
     //   setLoader(false);
     // });
@@ -414,7 +416,11 @@ const OfflineForm: React.FC = () => {
             <p>
               Please <span className="orangecolor">Download</span> Diaspora
               Account Opening Offline Form and{" "}
-              <span className="orangecolor">Upload.</span> <span className='or-apply-online'>(Or apply online <p onClick={() => navigate('/open-account')}>here</p>)</span>
+              <span className="orangecolor">Upload.</span>{" "}
+              <span className="or-apply-online">
+                (Or apply online{" "}
+                <p onClick={() => navigate("/open-account")}>here</p>)
+              </span>
             </p>
 
             <motion.div
@@ -490,7 +496,18 @@ const OfflineForm: React.FC = () => {
                 <div className="row1">
                   <div className="form-col form-col-4 ">
                     <div className="form-field">
-                      {uploadNotif.msg && <p style={{ marginTop: 10, fontSize:'16px', color: uploadNotif.status === 'error' ? 'red' : 'green' }}>{uploadNotif.msg}</p>}
+                      {uploadNotif.msg && (
+                        <p
+                          style={{
+                            marginTop: 10,
+                            fontSize: "16px",
+                            color:
+                              uploadNotif.status === "error" ? "red" : "green",
+                          }}
+                        >
+                          {uploadNotif.msg}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -683,8 +700,8 @@ const Stats: React.FC<StatHomeProps> = ({ stat }) => {
               offer.value >= 1000000
                 ? Math.round(offer.value / 1000000)
                 : offer.value >= 1000
-                  ? Math.round(offer.value / 1000)
-                  : Math.round(offer.value)
+                ? Math.round(offer.value / 1000)
+                : Math.round(offer.value)
             } // Set the target value to animate to
             duration={2.5} // Set the animation duration
             fontFamily="Arial" // Set the font family
@@ -985,8 +1002,9 @@ const HowItWorks: React.FC<HowItWorksItemsPro> = ({ header, content }) => {
               <div className="works">
                 {/* <div className="icon">{work.icon}</div> */}
                 <div
-                  className={`iconNum ${work.type === "loan" ? "loan" : "account"
-                    }`}
+                  className={`iconNum ${
+                    work.type === "loan" ? "loan" : "account"
+                  }`}
                 >
                   <div className="muicon">{index + 1} </div>{" "}
                 </div>
@@ -1037,7 +1055,6 @@ export function Home(props: IHomeProps) {
   useEffect(() => {
     fetchHomePage(setData, setLoader);
   }, []);
-
   // if (loader) return <CoopLoader loader={loader} />;
 
   return (
@@ -1070,11 +1087,18 @@ export function Home(props: IHomeProps) {
 
       <Stats stat={datas ? datas.stat.stat : staticStats} />
 
-      {/* <UsefullDiasporaResourses /> */}
       <div id="money-transfer">
         <Remittance />
       </div>
+      <ContactUs />
+      {/* <UsefullDiasporaResourses /> */}
       {/* <Chat /> */}
+      {/* <Widget
+        handleNewUserMessage={handleNewUserMessage}
+        title="COOP Kapcha"
+        subtitle="welcome"
+        showCloseButton
+      /> */}
     </div>
   );
 }

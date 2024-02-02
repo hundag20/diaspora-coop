@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emailjs/browser": "^3.12.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -36,6 +37,7 @@
     "pdfjs": "^2.5.2",
     "process": "^0.11.10",
     "react": "^18.2.0",
+    "react-chat-widget": "^3.1.4",
     "react-chrono": "^2.3.1",
     "react-countup": "^6.4.2",
     "react-dom": "^18.2.0",

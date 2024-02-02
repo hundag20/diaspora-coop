@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import * as pdfjs from "pdfjs-dist";
 
@@ -26,22 +26,48 @@ import { ChooseAccount } from "./pages/ChooseAccount";
 import { AccountOpen } from "./pages/conventionalAccount/AccountOpen";
 import NotFound from "./pages/404/notfound";
 import { LoanRequestPage } from "./pages/LoanRequest";
+import { Widget, addResponseMessage, toggleWidget } from "react-chat-widget";
+import "react-chat-widget/lib/styles.css";
 
 interface BodyeRouteProps {
   // TODO: move to types
   children: ReactNode;
 }
 
-const BodyRoute = ({ children }: BodyeRouteProps) => (
-  <div className="app">
-    <body>
-      <Header />
-      {children}
-      <Footer />
-      <ScrollToTopButton />
-    </body>
-  </div>
-);
+const BodyRoute = ({ children }: BodyeRouteProps) => {
+  const [isWidgetOpen, setIsWidgetOpen] = useState(false);
+
+  const toggleWidget = () => {
+    setIsWidgetOpen((prevState) => !prevState);
+  };
+  const handleNewUserMessage = (newMessage: any) => {
+    console.log(`New message incoming! ${newMessage}`);
+    // Now send the message throught the backend API
+    // addResponseMessage(response);
+  };
+  useEffect(() => {
+    addResponseMessage("Welcome to coop chat!");
+  }, []);
+  return (
+    <div className="app">
+      <body>
+        <Header />
+        {children}
+        <Footer />
+        <ScrollToTopButton />
+        <Widget
+          handleNewUserMessage={handleNewUserMessage}
+          title="COOP Kapcha"
+          handleToggle={toggleWidget}
+          isOpen={isWidgetOpen}
+          // onClick={toggleWidget}
+          // onClick={() => console.log("click")}
+          showCloseButton
+        />
+      </body>
+    </div>
+  );
+};
 
 const App = () => {
   return (
