@@ -120,6 +120,10 @@ const columnsData: ColumnData[] = [
         {
           text: "Partner Real Estates",
           url: "https://www.brightontradingltd.com/residential-ventures",
+        },       
+        {
+        text: "Visit Oromia",
+        url: "https://visitoromia.org/",
         },
       ],
   },
