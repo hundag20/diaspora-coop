@@ -36,6 +36,7 @@
     "keen-slider": "^6.8.6",
     "pdfjs": "^2.5.2",
     "process": "^0.11.10",
+    "rasa-webchat": "^1.0.1",
     "react": "^18.2.0",
     "react-chat-widget": "^3.1.4",
     "react-chrono": "^2.3.1",
@@ -84,6 +85,7 @@
     ]
   },
   "devDependencies": {
+    "@types/rasa-webchat": "^1.0.5",
     "@types/react-google-recaptcha": "^2.1.8",
     "@types/react-router-hash-link": "^2.4.9",
     "@types/string-similarity": "^4.0.2"

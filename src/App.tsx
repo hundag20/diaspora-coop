@@ -28,6 +28,7 @@ import NotFound from "./pages/404/notfound";
 import { LoanRequestPage } from "./pages/LoanRequest";
 import { Widget, addResponseMessage, toggleWidget } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
+import Chat from "./components/Chat";
 
 interface BodyeRouteProps {
   // TODO: move to types
@@ -64,17 +65,6 @@ const BodyRoute = ({ children }: BodyeRouteProps) => {
         {children}
         <Footer />
         <ScrollToTopButton />
-        <Widget
-          handleNewUserMessage={handleNewUserMessage}
-          title="COOP Chat"
-          subtitle="Waiting for server..."
-          handleToggle={toggleWidget}
-          customInputComponent={DisabledInput}
-          isOpen={isWidgetOpen}
-          // onClick={toggleWidget}
-          // onClick={() => console.log("click")}
-          showCloseButton
-        />
       </body>
     </div>
   );
