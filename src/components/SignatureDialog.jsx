@@ -9,7 +9,6 @@ import {
   DialogActions,
 } from "@mui/material";
 import SignatureCanvas from "react-signature-canvas";
-
 // interface SignatureDialogProps {
 //   open: boolean;
 //   onClose: () => void;
@@ -47,10 +46,16 @@ const SignatureDialog = ({ open, onClose, onSave }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Sign Here</DialogTitle>
       <DialogContent sx={{ border: "1px solid grey", margin: "0 15px" }}>
+        <div
+        >
         <SignatureCanvas
           ref={signatureRef}
-          sx={{ border: "1px solid grey", margin: "0 15px" }}
-        />
+          canvasProps={{
+              width: 500, height: 200
+          }}
+          ca
+          />
+          </div>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleReset}>Reset</Button>

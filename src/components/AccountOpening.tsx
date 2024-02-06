@@ -8,9 +8,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+// const rootUrl = window.location.protocol + "//" + window.location.host;
+// // const apiUrl = `${process.env.REACT_APP_API_URL}`;
+// const apiUrl = `${rootUrl}/${process.env.REACT_APP_API_URL}`;
 const rootUrl = window.location.protocol + "//" + window.location.host;
-// const apiUrl = `${process.env.REACT_APP_API_URL}`;
-const apiUrl = `${rootUrl}/${process.env.REACT_APP_API_URL}`;
+const apiUrl = `${!rootUrl.includes('localhost')? `${rootUrl}/`:''}${process.env.REACT_APP_API_URL}`;
 
 const DiasporaAccountInfo = {
   title: "DIASPORA ACCOUNT",
