@@ -890,6 +890,7 @@ export const branches = [
   "Yebu Branch",
   "Yirgachafe Branch",
   "Yirgalem Branch",
+  "Head Office",
 ];
 
 interface FileUploadProps {

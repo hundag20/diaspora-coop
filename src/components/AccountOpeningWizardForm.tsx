@@ -641,8 +641,9 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           stepIsValid = false;
         }
         if (formData.branch === "") {
-          stepErrors.branch = true;
-          stepIsValid = false;
+          formData.branch === "Head Office"
+          // stepErrors.branch = true;
+          // stepIsValid = false;
         }
         if (formData.initialDeposit === null || formData.initialDeposit < 100) {
           stepErrors.initialDeposit = true;
