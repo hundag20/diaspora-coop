@@ -1481,7 +1481,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               className="form-label"
                             >
                               Choose Your Nearest Branch{" "}
-                              <span className="forminator-required">*</span>
+                              <span className="forminator-required"></span>
                             </label>
                             <div className="select">
                               <Autocomplete
