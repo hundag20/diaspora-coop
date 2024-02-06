@@ -51,7 +51,7 @@ const SignatureDialog = ({ open, onClose, onSave }) => {
         <SignatureCanvas
           ref={signatureRef}
           canvasProps={{
-              width: 500, height: 200
+              width: 'auto', height: 200
           }}
           ca
           />
