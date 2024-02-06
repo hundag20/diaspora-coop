@@ -53,7 +53,7 @@ const PhotoCaptureButton: React.FC<PhotoCaptureButtonProps> = ({
         type: "image/jpeg",
       });
 
-      console.log("file", file);
+      // console.log("file", file);
 
       onSave(file);
       onCapture(photoSrc);

@@ -16,7 +16,7 @@ export const ConfirmFileUpload = ({
 }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [pdfContent, setPdfContent] = useState("");
-  console.log("pdf:", pdfContent);
+  // console.log("pdf:", pdfContent);
 
   const [signatureRef, setSignatureRef] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -87,12 +87,12 @@ export const ConfirmFileUpload = ({
     }
   };
 
-  console.log("file emp:", stateFunction);
-  console.log("file emp:", stateFunction !== null);
+  // console.log("file emp:", stateFunction);
+  // console.log("file emp:", stateFunction !== null);
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     // Do something when the PDF is loaded, if needed
-    console.log(`Document loaded with ${numPages} pages.`);
+    // console.log(`Document loaded with ${numPages} pages.`);
   };
 
   const handleClearSignature = () => {
@@ -102,7 +102,7 @@ export const ConfirmFileUpload = ({
   const handleSaveSignature = () => {
     const signatureData = signatureRef.toDataURL();
     // Now you can save the signatureData or use it as needed
-    console.log("Signature Data:", signatureData);
+    // console.log("Signature Data:", signatureData);
   };
 
   const handleSavePDF = async () => {

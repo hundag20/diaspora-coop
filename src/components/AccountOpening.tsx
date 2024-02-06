@@ -99,17 +99,17 @@ export function AccountOpening(props: IAccountOpeningProps) {
   );
 
   const { id } = useParams();
-  console.log("id: ", id);
+  // console.log("id: ", id);
 
   useEffect(() => {
     const performLogicOnId = async (inputId: string) => {
       try {
         const enc = atob(inputId);
         const url = `${apiUrl}api/v1/accounts/${enc}`;
-        console.log("url", url);
+        // console.log("url", url);
         const response = await axios.get(url);
         const data = response.data;
-        console.log("data:", data);
+        // console.log("data:", data);
 
         setInitialAccountState({
           id: data.id,

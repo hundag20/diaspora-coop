@@ -18,7 +18,7 @@ export const fetchWhatWeOffer = (setState, setLoader) => {
       setState(convertedData);
     })
     .catch((err) => {
-      console.log("sta");
+      // console.log("sta");
       console.log(err);
     })
     .finally(() => {
@@ -44,7 +44,6 @@ export const fetchStats = (setState, setLoader) => {
       setState(convertedData);
     })
     .catch((err) => {
-      console.log("sta");
       console.log(err);
     })
     .finally(() => {
@@ -60,7 +59,6 @@ export const fetchSlides = (setState, setLoader) => {
 
       // Sort the data based on the 'id' field in ascending order
       const sortedData = about.data.data.sort((a, b) => a.id - b.id);
-      console.log("stapi", about);
       // Convert data to the desired format
       const convertedData = sortedData.map(item => ({
         topTitle: item.attributes.topTitle,
@@ -76,7 +74,6 @@ export const fetchSlides = (setState, setLoader) => {
       setState(convertedData);
     })
     .catch((err) => {
-      console.log("sta");
       console.log(err);
     })
     .finally(() => {
@@ -102,7 +99,6 @@ export const fetchHowToWork = (setState, setLoader) => {
       setState(convertedData);
     })
     .catch((err) => {
-      console.log("sta");
       console.log(err);
     })
     .finally(() => {
@@ -130,7 +126,6 @@ export const fetchApply = (setState, setLoader) => {
       setState(convertedData);
     })
     .catch((err) => {
-      console.log("sta");
       console.log(err);
     })
     .finally(() => {

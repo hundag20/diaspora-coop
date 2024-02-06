@@ -160,7 +160,10 @@ const AlhudAccountProps: React.FC = () => {
             focusActiveItemOnLoad
             enableDarkToggle
             // cardWidth={450}
-            onScrollEnd={() => console.log("end reached")}
+            onScrollEnd={() => {
+              // console.log("end reached")
+            }
+            }
             verticalBreakPoint={1920}
             enableBreakPoint
             hideControls={true} // Hide the controller at the bottom

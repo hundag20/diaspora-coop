@@ -188,7 +188,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     axios
       .get(`${apiUrl}api/v1/bank-branches`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setBankBranches(res.data);
       })
       .catch((err) => {
@@ -200,7 +200,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     axios
       .get(`${apiUrl}api/v1/loan-schedules`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setLoanSchedules(res.data);
       })
       .catch((err) => {
@@ -221,7 +221,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     axios
       .get(`${apiUrl}api/v1/loan-types`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setLoanType(res.data);
       })
       .catch((err) => {
@@ -259,8 +259,8 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     handleErrorChange();
 
     const stepIsValid = validateStep(activeStep);
-    console.log("isvali", stepIsValid);
-    console.log("isvali", formData);
+    // console.log("isvali", stepIsValid);
+    // console.log("isvali", formData);
 
     if (stepIsValid) {
       if (activeStep === 0) {
@@ -294,7 +294,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
         accountNumber: formData.accountNumber,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setFormData((prevFormData) => {
           const updatedFormData = {
             ...prevFormData,
@@ -347,7 +347,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
         accountNumber: formData.accountNumber,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setFormData((prevFormData) => {
           const updatedFormData = {
             ...prevFormData,
@@ -395,7 +395,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     axios
       .put(`${apiUrl}api/v1/loans/${formData.id}`, formdata)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setFormData((prevFormData) => {
           const updatedFormData = {
             ...prevFormData,
@@ -439,7 +439,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     if (incomeFile) filearay.push(incomeFile);
     if (bankStatement) filearay.push(bankStatement);
     const formdata = new FormData();
-    console.log("files", filearay);
+    // console.log("files", filearay);
 
     // formdata.append('files', filearay);
     filearay.forEach((file, index) => {
@@ -610,7 +610,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
       //   },
       // })
       .then((res: any) => {
-        console.log(res);
+        // console.log(res);
         // if (res?.data.CustomerInfoResponse?.CustomerInfo.length) {
         setFormData({
           ...formData,
@@ -1088,7 +1088,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
                               defaultValue={""}
                               value={formData.schedule}
                               onChange={(e) => {
-                                console.log(e.target.value);
+                                // console.log(e.target.value);
                                 setFormData({
                                   ...formData,
                                   schedule: e.target.value,

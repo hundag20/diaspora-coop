@@ -1001,7 +1001,7 @@ export const SignatureUpload: React.FC<FileUploadProps> = ({
   };
 
   const handleSaveSignature = (sign: File) => {
-    console.log("han", sign);
+    // console.log("han", sign);
 
     setStateFunction(sign);
   };
@@ -1141,7 +1141,7 @@ export const ImageUpload: React.FC<FileUploadProps> = ({
       reader.onload = function (ev) {
         const url = (ev?.target?.result as string) || "";
         setImgPre(url);
-        console.log("File uploaded successfully");
+        // console.log("File uploaded successfully");
       };
     } else {
       setFileUploadLabel("Choose a file");

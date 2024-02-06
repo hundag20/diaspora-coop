@@ -259,7 +259,6 @@ const WhatWeOffer: React.FC<WhatWeOfferItemProp> = ({ header, offers }) => {
     triggerOnce: true, // Only trigger the animation once
     threshold: 0.2, // Adjust as needed
   });
-  console.log("offer", offers);
 
   // Define animation variants for the "offers" section
   const offersAnimationVariants = {

@@ -27,7 +27,7 @@ export default function ContactUs(params) {
       form.email === "" ||
       !isValidEmail(form.email)
     ) {
-      console.log("error");
+      // console.log("error");
       let err = {};
       if (form.email === "") err.email = true;
       if (!isValidEmail(form.email)) err.email = true;

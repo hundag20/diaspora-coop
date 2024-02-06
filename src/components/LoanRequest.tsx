@@ -98,7 +98,7 @@ export function LoanRequest(props: IAccountOpeningProps) {
   );
 
   const { id } = useParams();
-  console.log("id: ", id);
+  // console.log("id: ", id);
 
   useEffect(() => {
     const performLogicOnId = async (inputId: string) => {
@@ -106,7 +106,7 @@ export function LoanRequest(props: IAccountOpeningProps) {
         const enc = atob(inputId);
         const response = await axios.get(`${apiUrl}api/v1/accounts/${enc}`);
         const data = response.data;
-        console.log("data:", data);
+        // console.log("data:", data);
 
         setInitialAccountState({
           id: data.id,

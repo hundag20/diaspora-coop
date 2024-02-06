@@ -42,7 +42,7 @@ const BodyRoute = ({ children }: BodyeRouteProps) => {
     setIsWidgetOpen((prevState) => !prevState);
   };
   const handleNewUserMessage = (newMessage: any) => {
-    console.log(`New message incoming! ${newMessage}`);
+    // console.log(`New message incoming! ${newMessage}`);
     // Now send the message throught the backend API
     // addResponseMessage(response);
   };

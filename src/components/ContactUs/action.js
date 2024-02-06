@@ -2,8 +2,8 @@ import emailjs from "@emailjs/browser";
 
 export const sendEmail = (e, refForm, setForm, setLoader) => {
   e.preventDefault();
-  console.log(refForm.current);
-  console.log(refForm);
+  // console.log(refForm.current);
+  // console.log(refForm);
   setLoader(true);
   emailjs
     .sendForm(

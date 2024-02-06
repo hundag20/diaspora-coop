@@ -114,7 +114,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
 
   useEffect(() => {
     if (props.prevData !== null) {
-      console.log("oassed data:", props.prevData);
+      // console.log("oassed data:", props.prevData);
 
       setFormData(props.prevData);
     } else if (localStorage.getItem("coopaccountopeninginfo")) {
@@ -210,7 +210,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     // Validate the current step's form fields before moving to the next step
     setErrors({});
     handleErrorChange();
-    console.log("phone valid:", isValidPhoneNumber(formData.phone));
+    // console.log("phone valid:", isValidPhoneNumber(formData.phone));
 
     // console.log(passport);
     // console.log(photo);
@@ -259,7 +259,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         sex: formData.sex,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setFormData((prevFormData) => {
           const updatedFormData = {
             ...prevFormData,
@@ -517,12 +517,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     // console.log(residentCard);
     // console.log(signature);
     // console.log(confirm);
-    console.log("re", validateStep(activeStep));
+    // console.log("re", validateStep(activeStep));
 
     // Validate the last step before submission
     if (validateStep(activeStep)) {
       // Add your form submission logic here
-      console.log("Form submitted!", formData);
+      // console.log("Form submitted!", formData);
       // const formdata = new FormData();
       // photo && formdata.append("photo", photo);
       // residentCard && formdata.append("residenceCard", residentCard);
@@ -556,7 +556,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
       // );
       Promise.all([requestInfo])
         .then(([res1]: [AxiosResponse<ApiResponse>]) => {
-          console.log(res1);
+          // console.log(res1);
           setFormData({ ...formData, stage: "COMPLETE" });
 
           handleNext();
@@ -1088,7 +1088,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                             error={errors.streetAddress}
                             value={formData.streetAddress}
                             onChange={(e) =>
-                              handleLetterChange("streetAddress", e)
+                              handleInputChange("streetAddress", e.target?.value || '')
                             }
                             required
                           />
