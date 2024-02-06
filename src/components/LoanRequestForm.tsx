@@ -1541,7 +1541,7 @@ export function LoanRequestForm(props: ILoanRequestlangmProps) {
                 </label>
                 <div className="call-to-action">
                   <p>
-                    <a href="https://diaspora.coopbankoromia.com.et/diaspora-current-account/">
+                    <a href="https://diaspora.coopbankoromia.com.et/open-account/">
                       Apply for Diaspora Account Now
                     </a>
                   </p>

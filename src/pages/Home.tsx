@@ -97,7 +97,7 @@ const Diasport: React.FC = () => {
         "Ethiopian Citizen Or Origin Living In Foreign Land (ECOLFL) Savings Account",
       ],
       img: "https://diaspora.coopbankoromia.com.et/wp-content/uploads/2022/09/Model-002.png",
-      link: "/diaspora-current-account",
+      link: "/open-account",
       action: "Open an Account",
     },
     {

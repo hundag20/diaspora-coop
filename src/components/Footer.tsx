@@ -48,11 +48,11 @@ const columnsData: ColumnData[] = [
     links: [
       {
         text: "Conventional Account",
-        url: "/diaspora-current-account",
+        url: "/open-account",
       },
       {
         text: "Coopbank Alhuda",
-        url: "/diaspora-current-account",
+        url: "/open-account",
         // url: "/diaspora-wadia-savings-account",
       },
       {

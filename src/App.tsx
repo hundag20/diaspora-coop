@@ -148,14 +148,14 @@ const App = () => {
             </BodyRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/diaspora-current-account"
           element={
             <BodyRoute>
               <CurrentAccount />
             </BodyRoute>
           }
-        />
+        /> */}
         <Route
           path="/open-account/:id?"
           element={

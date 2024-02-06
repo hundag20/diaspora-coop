@@ -171,7 +171,7 @@ export const AccountTypes_Alhuda = () => {
                   <div
               className='account-item-footer'
               onClick={() => {
-                navigate("/diaspora-current-account");
+                navigate("/open-account");
                 // resetCollapsed();
               }}>
               <i className='fas fa-arrow-circle-right'></i>
