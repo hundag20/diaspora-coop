@@ -641,7 +641,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
           stepIsValid = false;
         }
         if (formData.branch === "") {
-          formData.branch === "Head Office"
+          formData.branch = "Head Office"
           // stepErrors.branch = true;
           // stepIsValid = false;
         }
