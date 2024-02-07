@@ -1414,12 +1414,12 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               </FormControl>
                               <div className="deposit-notice">
                                 <span>
-                                  Minimum of 100{" "}
+                                  A minimum of a 100{" "}
                                   {formData.currency &&
-                                    currency[formData.currency - 1].name}{" "}
-                                  should be on your Diaspora Account in less
-                                  than one month, otherwise your account
-                                  automatically be inactive
+                                    currency[formData.currency - 1].name}s{" "}
+                                  should be in your Diaspora account in less
+                                  than a month, otherwise your account will
+                                  automatically be deactivated.
                                 </span>
                               </div>
                             </div>
