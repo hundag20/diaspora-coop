@@ -1414,7 +1414,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               </FormControl>
                               <div className="deposit-notice">
                                 <span>
-                                  A minimum of a 100{" "}
+                                  A minimum of 100{" "}
                                   {formData.currency &&
                                     currency[formData.currency - 1].name}s{" "}
                                   should be in your Diaspora account in less
