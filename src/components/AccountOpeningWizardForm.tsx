@@ -1480,7 +1480,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               id="forminator-form-2333__field--select-2_6523b367d1783-label"
                               className="form-label"
                             >
-                              Choose Your Nearest Branch (optional){" "}
+                              Choose Your preferred Branch (optional){" "}
                               <span className="forminator-required"></span>
                             </label>
                             <div className="select">
