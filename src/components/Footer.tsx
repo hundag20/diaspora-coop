@@ -137,7 +137,11 @@ const columnsData: ColumnData[] = [
         text: "Addis Ababa, Bole Sub-city, Woreda 02, House No New",
       },
       {
-        icon: "fas fa-phone",
+        icon: "fas fa-mobile",
+        text: "+251 92 917 2595",
+      },
+      {
+        icon: "fas fa-mobile",
         text: "+251 90 404 9949",
       },
       {
@@ -147,14 +151,6 @@ const columnsData: ColumnData[] = [
       {
         icon: "fas fa-mobile",
         text: "+251 90 404 9948",
-      },
-      {
-        icon: "fas fa-mobile",
-        text: "+251 90 083 5068",
-      },
-      {
-        icon: "fas fa-mobile",
-        text: "+251 92 134 2641",
       },
       {
         icon: "fas fa-mobile",
