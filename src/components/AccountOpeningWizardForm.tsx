@@ -1480,7 +1480,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                               id="forminator-form-2333__field--select-2_6523b367d1783-label"
                               className="form-label"
                             >
-                              Choose Your Nearest Branch{" "}
+                              Choose Your Nearest Branch (optional){" "}
                               <span className="forminator-required"></span>
                             </label>
                             <div className="select">
@@ -1720,7 +1720,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
                           </div>
                           <div className={`btn ${props.productType}`}>
                             <a
-                              href="https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fdiaspora.coopbankoromia.com.et%2Fwp-content%2Fuploads%2F2023%2F06%2FDiaspora-Banking.docx&wdOrigin=BROWSELINK"
+                              href="/uploads/2024/02/Coopbank_Diaspora_Undertaking_Letter.docx"
                               target="_blank"
                             >
                               DOWNLOAD
