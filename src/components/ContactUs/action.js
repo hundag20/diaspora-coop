@@ -7,10 +7,10 @@ export const sendEmail = (e, refForm, setForm, setLoader) => {
   setLoader(true);
   emailjs
     .sendForm(
-      "service_ti8z5s9", // service key
-      "template_wf8uowi", // template key new
+      process.env.REACT_APP_EMAILJS_SERVICE_KEY, // service key
+      process.env.REACT_APP_EMAILJS_TEMPLATE_KEY, // template key new
       refForm.current, // select the form to be sent
-      "1fiMNHDFHzYxPTCIj" // public key
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY // public key
     )
     .then(
       () => {
