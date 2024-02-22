@@ -305,7 +305,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   const handleStep1Save = () => {
     setLoader(true);
     axios
-      .put(`${apiUrl}api/v1/accounts/${formData.id}`, {
+      .post(`${apiUrl}api/v1/accounts/${formData.id}`, {
         fullName: formData.fullName,
         surname: formData.surname,
         motherName: formData.motherName,
@@ -353,7 +353,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   const handleStep2Save = () => {
     setLoader(true);
     axios
-      .put(`${apiUrl}api/v1/accounts/${formData.id}`, {
+      .post(`${apiUrl}api/v1/accounts/${formData.id}`, {
         streetAddress: formData.streetAddress,
         city: formData.city,
         state: formData.state,
@@ -403,7 +403,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
   const handleStep3Save = () => {
     setLoader(true);
     axios
-      .put(`${apiUrl}api/v1/accounts/${formData.id}`, {
+      .post(`${apiUrl}api/v1/accounts/${formData.id}`, {
         occupation: formData.occupation,
         initialDeposit: formData.initialDeposit,
         monthlyIncome: formData.monthlyIncome,
@@ -459,7 +459,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     signature && formdata.append("signature", signature);
     confirm && formdata.append("confirmationForm", confirm);
     axios
-      .put(`${apiUrl}api/v1/accounts/${formData.id}/upload-files`, formdata)
+      .post(`${apiUrl}api/v1/accounts/${formData.id}/upload-files`, formdata)
       .then((res) => {
         console.log(res);
         setFormData((prevFormData) => {
@@ -532,7 +532,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
       // confirm && formdata.append("confirmationForm", confirm);
 
       setLoader(true);
-      const requestInfo = axios.put(`${apiUrl}api/v1/accounts/${formData.id}`, {
+      const requestInfo = axios.post(`${apiUrl}api/v1/accounts/${formData.id}`, {
         fullName: formData.fullName,
         surname: formData.surname,
         motherName: formData.motherName,
@@ -551,7 +551,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
         accountType: formData.accountType,
         percentageCompleted: 5,
       });
-      // const requestFile = axios.put(
+      // const requestFile = axios.post(
       //   `${apiUrl}api/v1/accounts/${formData.id}/upload-files`,
       //   formdata
       // );

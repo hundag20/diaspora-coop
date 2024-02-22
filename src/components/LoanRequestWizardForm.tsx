@@ -339,7 +339,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
   const handleStep0Save = () => {
     setLoader(true);
     axios
-      .put(`${apiUrl}api/v1/loans/${formData.id}`, {
+      .post(`${apiUrl}api/v1/loans/${formData.id}`, {
         fullName: formData.fullName,
         email: formData.email,
         phone: formData.phone,
@@ -393,7 +393,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     formdata.append("loanSchedule", formData.schedule || "");
     formdata.append("loanType", formData.loanType || "");
     axios
-      .put(`${apiUrl}api/v1/loans/${formData.id}`, formdata)
+      .post(`${apiUrl}api/v1/loans/${formData.id}`, formdata)
       .then((res) => {
         // console.log(res);
         setFormData((prevFormData) => {
@@ -454,7 +454,7 @@ export function LoanRequestWizardForm(props: IAccountOpeningFormProps) {
     //   files: filearay,
     // }
     axios
-      .put(`${apiUrl}api/v1/loans/${formData.id}`, formdata)
+      .post(`${apiUrl}api/v1/loans/${formData.id}`, formdata)
       .then((res) => {
         console.log(res);
         setFormData((prevFormData) => {
