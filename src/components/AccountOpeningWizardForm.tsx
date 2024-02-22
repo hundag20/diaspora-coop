@@ -458,6 +458,7 @@ export function AccountOpeningWizardForm(props: IAccountOpeningFormProps) {
     passport && formdata.append("passport", passport);
     signature && formdata.append("signature", signature);
     confirm && formdata.append("confirmationForm", confirm);
+    formdata.append("percentageCompleted", "4");
     axios
       .post(`${apiUrl}api/v1/accounts/update/${formData.id}/upload-files`, formdata)
       .then((res) => {
