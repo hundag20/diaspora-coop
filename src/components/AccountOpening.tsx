@@ -133,7 +133,7 @@ export function AccountOpening(props: IAccountOpeningProps) {
           sex: data.sex,
           branch: data.branch,
           currency: data.currency | 1,
-          stage: data.stage ? data.stage : "",
+          stage: "Ini",
           error: data.error,
           percentageCompleted: data.percentageCompleted,
         });
